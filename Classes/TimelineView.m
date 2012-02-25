@@ -9,10 +9,13 @@
 #import "TimelineView.h"
 #import "PSCachedImageView.h"
 
+#define MARGIN 4.0
+
 @implementation TimelineView
 
 @synthesize
 object = _object,
+backgroundView = _backgroundView,
 imageView = _imageView,
 nameLabel = _nameLabel;
 
@@ -21,12 +24,15 @@ nameLabel = _nameLabel;
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         
-//        self.layer.shadowColor = [[UIColor blackColor] CGColor];
-//        self.layer.shadowOffset = CGSizeMake(0.0, 2.0);
-//        self.layer.shadowOpacity = 0.7;
-//        self.layer.shadowRadius = 4.0;
-//        self.layer.masksToBounds = NO;
-//        self.layer.shouldRasterize = YES;
+        self.backgroundView = [[[UIView alloc] initWithFrame:self.bounds] autorelease];
+        self.backgroundView.backgroundColor = [UIColor whiteColor];
+        self.backgroundView.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.backgroundView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+        self.backgroundView.layer.shadowOpacity = 0.7;
+        self.backgroundView.layer.shadowRadius = 3.0;
+        self.backgroundView.layer.masksToBounds = NO;
+        self.backgroundView.layer.shouldRasterize = YES;
+        [self addSubview:self.backgroundView];
         
         self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
         self.imageView.clipsToBounds = YES;
@@ -41,6 +47,7 @@ nameLabel = _nameLabel;
 - (void)dealloc {
     self.object = nil;
     self.imageView = nil;
+    self.backgroundView = nil;
     [super dealloc];
 }
 
@@ -51,16 +58,19 @@ nameLabel = _nameLabel;
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat width = self.width - 16;
+    self.backgroundView.frame = self.bounds;
+    self.backgroundView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.backgroundView.bounds] CGPath];
+    
+    CGFloat width = self.width - MARGIN * 2;
     
     CGFloat objectWidth = [[self.object objectForKey:@"width"] floatValue];
     CGFloat objectHeight = [[self.object objectForKey:@"height"] floatValue];
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
-    self.imageView.frame = CGRectMake(8, 8, width, scaledHeight);
+    self.imageView.frame = CGRectMake(MARGIN, MARGIN, width, scaledHeight);
     
     CGSize labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"timelineNameLabel"];
-    self.nameLabel.top = self.imageView.bottom + 4.0;
-    self.nameLabel.left = 8.0;
+    self.nameLabel.top = self.imageView.bottom + MARGIN;
+    self.nameLabel.left = MARGIN;
     self.nameLabel.width = labelSize.width;
     self.nameLabel.height = labelSize.height;
 }
@@ -77,20 +87,21 @@ nameLabel = _nameLabel;
 
 + (CGFloat)heightForViewWithObject:(id)object inColumnWidth:(CGFloat)columnWidth {
     CGFloat height = 0.0;
+    CGFloat width = columnWidth - MARGIN * 2;
     
-    height += 8.0;
+    height += MARGIN;
     
     CGFloat objectWidth = [[object objectForKey:@"width"] floatValue];
     CGFloat objectHeight = [[object objectForKey:@"height"] floatValue];
-    CGFloat scaledHeight = floorf(objectHeight / (objectWidth / (columnWidth - 16)));
+    CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     height += scaledHeight;
     
-    height += 4.0;
+    height += MARGIN;
     
-    CGSize labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"name"] width:(columnWidth - 16) style:@"timelineNameLabel"];
+    CGSize labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"name"] width:width style:@"timelineNameLabel"];
     height += labelSize.height;
     
-    height += 8.0;
+    height += MARGIN;
     
     return height;
 }

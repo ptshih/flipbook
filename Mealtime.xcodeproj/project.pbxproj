@@ -258,7 +258,7 @@
 		2812CFEB14B5C53D00F3B8CA /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
 		281A48861486291400F5E19E /* BackgroundWeave.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = BackgroundWeave.jpg; sourceTree = "<group>"; };
 		281A48871486291400F5E19E /* BackgroundWeave@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "BackgroundWeave@2x.jpg"; sourceTree = "<group>"; };
-		283818BE14723F1D007E4827 /* Phototime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Phototime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		283818BE14723F1D007E4827 /* Mealtime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mealtime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		283818C214723F1D007E4827 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		283818C414723F1D007E4827 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		283818C614723F1D007E4827 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -632,7 +632,7 @@
 		283818BF14723F1D007E4827 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				283818BE14723F1D007E4827 /* Phototime.app */,
+				283818BE14723F1D007E4827 /* Mealtime.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1387,9 +1387,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		283818BD14723F1D007E4827 /* Phototime */ = {
+		283818BD14723F1D007E4827 /* Mealtime */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 283818D614723F1D007E4827 /* Build configuration list for PBXNativeTarget "Phototime" */;
+			buildConfigurationList = 283818D614723F1D007E4827 /* Build configuration list for PBXNativeTarget "Mealtime" */;
 			buildPhases = (
 				D0B910AD14F5C4DB00587682 /* ShellScript */,
 				283818BA14723F1D007E4827 /* Sources */,
@@ -1400,9 +1400,9 @@
 			);
 			dependencies = (
 			);
-			name = Phototime;
+			name = Mealtime;
 			productName = PSKitDemo;
-			productReference = 283818BE14723F1D007E4827 /* Phototime.app */;
+			productReference = 283818BE14723F1D007E4827 /* Mealtime.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1413,7 +1413,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = 283818B814723F1C007E4827 /* Build configuration list for PBXProject "Phototime" */;
+			buildConfigurationList = 283818B814723F1C007E4827 /* Build configuration list for PBXProject "Mealtime" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1435,7 +1435,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				283818BD14723F1D007E4827 /* Phototime */,
+				283818BD14723F1D007E4827 /* Mealtime */,
 			);
 		};
 /* End PBXProject section */
@@ -1779,7 +1779,7 @@
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = Phototime;
+				PRODUCT_NAME = Mealtime;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1797,7 +1797,7 @@
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = Phototime;
+				PRODUCT_NAME = Mealtime;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1843,7 +1843,7 @@
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = Phototime;
+				PRODUCT_NAME = Mealtime;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -1853,7 +1853,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		283818B814723F1C007E4827 /* Build configuration list for PBXProject "Phototime" */ = {
+		283818B814723F1C007E4827 /* Build configuration list for PBXProject "Mealtime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				283818D414723F1D007E4827 /* Debug */,
@@ -1863,7 +1863,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		283818D614723F1D007E4827 /* Build configuration list for PBXNativeTarget "Phototime" */ = {
+		283818D614723F1D007E4827 /* Build configuration list for PBXNativeTarget "Mealtime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				283818D714723F1D007E4827 /* Debug */,

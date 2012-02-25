@@ -16,6 +16,9 @@
 @property (nonatomic, retain) UIView *backgroundView;
 @property (nonatomic, retain) PSCachedImageView *imageView;
 @property (nonatomic, retain) UILabel *nameLabel;
+@property (nonatomic, retain) UILabel *addressLabel;
+@property (nonatomic, retain) UILabel *categoryLabel;
+@property (nonatomic, retain) UILabel *distanceLabel;
 
 - (void)prepareForReuse;
 - (void)fillViewWithObject:(id)object;

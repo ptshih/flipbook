@@ -90,9 +90,7 @@ navigationController = _navigationController;
     [PSReachabilityCenter defaultCenter];
     
     // PSLocationCenter set default behavior
-//    [[PSLocationCenter defaultCenter] setShouldMonitorSignificantChange:YES];
-//    [[PSLocationCenter defaultCenter] setShouldDisableAfterLocationFix:NO];
-//    [[PSLocationCenter defaultCenter] getMyLocation]; // start it
+    [[PSLocationCenter defaultCenter] updateMyLocation]; // start it
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     [self.window makeKeyAndVisible];

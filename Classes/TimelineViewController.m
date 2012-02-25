@@ -35,9 +35,10 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
         
         self.items = [NSMutableArray array];
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidUpdate) name:kPSLocationCenterDidUpdate object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadDataSource) name:kLoginSucceeded object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshOnAppear) name:kTimelineShouldRefreshOnAppear object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDataSource) name:UIApplicationWillEnterForegroundNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDataSource) name:UIApplicationWillEnterForegroundNotification object:nil];
     }
     return self;
 }
@@ -51,10 +52,11 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 
 - (void)dealloc {
     self.items = nil;
-    
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSLocationCenterDidUpdate object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLoginSucceeded object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kTimelineShouldRefreshOnAppear object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     
     // Views
     self.pullRefreshView = nil;
@@ -83,7 +85,6 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     // Setup Views
     [self setupSubviews];
 //    [self setupPullRefresh];
-//    self.tableView.contentOffset = self.contentOffset;
     
     // Load
     [self loadDataSource];
@@ -152,6 +153,10 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 - (void)rightAction {
 }
 
+- (void)locationDidUpdate {
+    [self reloadDataSource];
+}
+
 #pragma mark - State Machine
 - (void)loadDataSource {
     [super loadDataSource];
@@ -171,6 +176,7 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 
 - (void)dataSourceDidLoad {
     [super dataSourceDidLoad];
+    
     [self.collectionView reloadViews];
     
     if ([self dataSourceIsEmpty]) {
@@ -190,10 +196,16 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     BLOCK_SELF;
     
+    if (![[PSLocationCenter defaultCenter] hasAcquiredAccurateLocation]) {
+        return;
+    }
+    
+    NSString *ll = [NSString stringWithFormat:@"%@", [[PSLocationCenter defaultCenter] locationString]];
+    
     NSString *URLPath = @"https://api.foursquare.com/v2/venues/explore";
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:@"40.7,-74" forKey:@"ll"];
+    [parameters setObject:ll forKey:@"ll"];
 //    [parameters setObject:[NSNumber numberWithInteger:800] forKey:@"radius"];
     [parameters setObject:@"20120222" forKey:@"v"];
     [parameters setObject:[NSNumber numberWithInteger:1] forKey:@"venuePhotos"];
@@ -206,58 +218,65 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
     
     [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
-        [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
-            id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-            if (!JSON) {
-                // invalid json
-                [blockSelf dataSourceDidError];
-            } else {
-                // Process 4sq response
-                NSDictionary *response = [JSON objectForKey:@"response"];
-                NSArray *groups = [response objectForKey:@"groups"];
-                if (groups && [groups count] > 0) {
-                    // Format the response for our consumption
-                    NSMutableArray *items = [NSMutableArray array];
-                    for (NSDictionary *dict in [[groups objectAtIndex:0] objectForKey:@"items"]) {
-                        NSDictionary *venue = [dict objectForKey:@"venue"];
-                        NSDictionary *location = [venue objectForKey:@"location"];
-                        NSDictionary *featuredPhoto = [[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] lastObject];
-                        
-                        if (!featuredPhoto) {
-                            // skip if there is no photo
-                            continue;
-                        }
-                        
-                        NSDictionary *featuredPhotoItem = [[[featuredPhoto objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0];
-                        
-                        NSMutableDictionary *item = [NSMutableDictionary dictionary];
-                        [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
-                        [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
-                        [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
-                        [item setObject:[featuredPhotoItem objectForKey:@"width"] forKey:@"width"];
-                        [item setObject:[featuredPhotoItem objectForKey:@"height"] forKey:@"height"];
-                        [item setObject:[featuredPhotoItem objectForKey:@"url"] forKey:@"source"];
-                        
-                        [items addObject:item];
-                    }
-                    
-                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        blockSelf.items = items;
-                        [blockSelf dataSourceDidLoad];
-                        
-                        // If this is the first load and we loaded cached data, we should refreh from remote now
-                        if (!blockSelf.hasLoadedOnce && isCached) {
-                            blockSelf.hasLoadedOnce = YES;
-                            [blockSelf reloadDataSource];
-                            NSLog(@"first load, stale cache");
-                        }
-                    }];
-                } else {
-                    // error
+        if (error) {
+            [blockSelf dataSourceDidError];
+        } else {
+            [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
+                id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+                if (!JSON) {
+                    // invalid json
                     [blockSelf dataSourceDidError];
+                } else {
+                    // Process 4sq response
+                    NSDictionary *response = [JSON objectForKey:@"response"];
+                    NSArray *groups = [response objectForKey:@"groups"];
+                    if (groups && [groups count] > 0) {
+                        // Format the response for our consumption
+                        NSMutableArray *items = [NSMutableArray array];
+                        for (NSDictionary *dict in [[groups objectAtIndex:0] objectForKey:@"items"]) {
+                            NSDictionary *venue = [dict objectForKey:@"venue"];
+                            NSDictionary *location = [venue objectForKey:@"location"];
+                            NSDictionary *category = [[venue objectForKey:@"categories"] lastObject];
+                            NSDictionary *featuredPhoto = [[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] lastObject];
+                            
+                            if (!featuredPhoto) {
+                                // skip if there is no photo
+                                continue;
+                            }
+                            
+                            NSDictionary *featuredPhotoItem = [[[featuredPhoto objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0];
+                            
+                            NSMutableDictionary *item = [NSMutableDictionary dictionary];
+                            [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
+                            [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
+                            [item setObject:[category objectForKey:@"name"] forKey:@"category"];
+                            [item setObject:[location objectForKey:@"address"] forKey:@"address"];
+                            [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
+                            [item setObject:[featuredPhotoItem objectForKey:@"width"] forKey:@"width"];
+                            [item setObject:[featuredPhotoItem objectForKey:@"height"] forKey:@"height"];
+                            [item setObject:[featuredPhotoItem objectForKey:@"url"] forKey:@"source"];
+                            
+                            [items addObject:item];
+                        }
+                        
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            blockSelf.items = items;
+                            [blockSelf dataSourceDidLoad];
+                            
+                            // If this is the first load and we loaded cached data, we should refreh from remote now
+                            if (!blockSelf.hasLoadedOnce && isCached) {
+                                blockSelf.hasLoadedOnce = YES;
+                                [blockSelf reloadDataSource];
+                                NSLog(@"first load, stale cache");
+                            }
+                        }];
+                    } else {
+                        // error
+                        [blockSelf dataSourceDidError];
+                    }
                 }
-            }
-        }];
+            }];
+        }
     }];
 }
 
@@ -289,7 +308,11 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [item objectForKey:@"id"]]]];
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [item objectForKey:@"id"]]]];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [item objectForKey:@"id"]]]];
+    }
     
     return;
     

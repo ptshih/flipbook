@@ -33,7 +33,7 @@
 		28603B3214A7B20B00541BB1 /* IconNextBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28603B2E14A7B20A00541BB1 /* IconNextBlack@2x.png */; };
 		28603B4414AA860700541BB1 /* PSZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B4314AA860700541BB1 /* PSZoomView.m */; };
 		28603B5B14AC4A1D00541BB1 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5A14AC4A1D00541BB1 /* TimelineViewController.m */; };
-		28603B5F14AC4D9300541BB1 /* TimelineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5E14AC4D9300541BB1 /* TimelineCell.m */; };
+		28603B5F14AC4D9300541BB1 /* TimelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5E14AC4D9300541BB1 /* TimelineView.m */; };
 		28603B6114AC9FFE00541BB1 /* albums.json in Resources */ = {isa = PBXBuildFile; fileRef = 28603B6014AC9FFE00541BB1 /* albums.json */; };
 		28603B6314AD3F4800541BB1 /* janet.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 28603B6214AD3F4800541BB1 /* janet.jpg */; };
 		28603B6514AD414F00541BB1 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28603B6414AD414E00541BB1 /* ImageIO.framework */; };
@@ -280,8 +280,8 @@
 		28603B4314AA860700541BB1 /* PSZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSZoomView.m; sourceTree = "<group>"; };
 		28603B5914AC4A1D00541BB1 /* TimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineViewController.h; sourceTree = "<group>"; };
 		28603B5A14AC4A1D00541BB1 /* TimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineViewController.m; sourceTree = "<group>"; };
-		28603B5D14AC4D9300541BB1 /* TimelineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineCell.h; sourceTree = "<group>"; };
-		28603B5E14AC4D9300541BB1 /* TimelineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineCell.m; sourceTree = "<group>"; };
+		28603B5D14AC4D9300541BB1 /* TimelineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineView.h; sourceTree = "<group>"; };
+		28603B5E14AC4D9300541BB1 /* TimelineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineView.m; sourceTree = "<group>"; };
 		28603B6014AC9FFE00541BB1 /* albums.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = albums.json; sourceTree = "<group>"; };
 		28603B6214AD3F4800541BB1 /* janet.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = janet.jpg; sourceTree = "<group>"; };
 		28603B6414AD414E00541BB1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -1129,8 +1129,8 @@
 		28E94A80147DA19C002E8343 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				28603B5D14AC4D9300541BB1 /* TimelineCell.h */,
-				28603B5E14AC4D9300541BB1 /* TimelineCell.m */,
+				28603B5D14AC4D9300541BB1 /* TimelineView.h */,
+				28603B5E14AC4D9300541BB1 /* TimelineView.m */,
 				D0269E4214E1B5E100B690A2 /* UserCell.h */,
 				D0269E4314E1B5E100B690A2 /* UserCell.m */,
 				D054E98E14F6F98D00B03306 /* DateRangeView.h */,
@@ -1649,7 +1649,7 @@
 				28A19CFF14A023520043F7BB /* PSNavigationController.m in Sources */,
 				28603B4414AA860700541BB1 /* PSZoomView.m in Sources */,
 				28603B5B14AC4A1D00541BB1 /* TimelineViewController.m in Sources */,
-				28603B5F14AC4D9300541BB1 /* TimelineCell.m in Sources */,
+				28603B5F14AC4D9300541BB1 /* TimelineView.m in Sources */,
 				28603B7F14AFB3AC00541BB1 /* CameraViewController.m in Sources */,
 				288CB07114B2D72800233B45 /* CoreGraphics-PSKit.m in Sources */,
 				2812CFEC14B5C53D00F3B8CA /* PreviewViewController.m in Sources */,

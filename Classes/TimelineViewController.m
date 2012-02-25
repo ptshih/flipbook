@@ -8,14 +8,10 @@
 
 #import "TimelineViewController.h"
 #import "PSZoomView.h"
-#import "DateRangeView.h"
-
-#import "TimelineConfigViewController.h"
-#import "PreviewViewController.h"
+#import "TimelineView.h"
 
 @interface TimelineViewController (Private)
 
-- (void)setDateRange;
 - (void)refreshOnAppear;
 
 @end
@@ -23,10 +19,6 @@
 @implementation TimelineViewController
 
 @synthesize
-pvc = _pvc,
-timelineId = _timelineId,
-startDate = _startDate,
-endDate = _endDate,
 items = _items,
 collectionView = _collectionView,
 pullRefreshView = _pullRefreshView,
@@ -36,14 +28,6 @@ rightButton = _rightButton,
 shouldRefreshOnAppear = _shouldRefreshOnAppear;
 
 #pragma mark - Init
-- (id)initWithTimelineId:(NSString *)timelineId {
-    self = [self initWithNibName:nil bundle:nil];
-    if (self) {
-        self.timelineId = timelineId;
-    }
-    return self;
-}
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -66,10 +50,6 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 }
 
 - (void)dealloc {
-    self.pvc = nil;
-    
-    self.startDate = nil;
-    self.endDate = nil;
     self.items = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLoginSucceeded object:nil];
@@ -128,7 +108,7 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     self.collectionView.delegate = self; // scrollViewDelegate
     self.collectionView.collectionViewDelegate = self;
     self.collectionView.collectionViewDataSource = self;
-    self.collectionView.numCols = 3;
+    self.collectionView.numCols = 2;
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
     
     [self.view addSubview:self.collectionView];
@@ -151,7 +131,6 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     
     self.centerButton = [UIButton buttonWithFrame:CGRectMake(44, 0, self.headerView.width - 88, 44) andStyle:@"timelineTitleLabel" target:self action:@selector(centerAction)];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockCenter" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self setDateRange];
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockRight" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
@@ -163,67 +142,14 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     [self.view addSubview:self.headerView];
 }
 
-- (void)setDateRange {
-    static NSArray *years = nil;
-    years = [[NSArray arrayWithObjects:@"2007", @"2008", @"2009", @"2010", @"2011", @"2012", nil] retain];
-    static NSDateComponents *components = nil;
-    components = [[NSDateComponents alloc] init];
-        
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    
-    NSInteger startMonthIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"startMonthIndex"];
-    NSInteger startYearIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"startYearIndex"];    
-    NSInteger endMonthIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"endMonthIndex"];
-    NSInteger endYearIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"endYearIndex"];
-    
-    // Parse
-    [components setMonth:startMonthIndex + 1];
-    [components setYear:[[years objectAtIndex:startYearIndex] integerValue]];
-    self.startDate = [calendar dateFromComponents:components];
-    [components setMonth:endMonthIndex + 1];
-    [components setYear:[[years objectAtIndex:endYearIndex] integerValue]];
-    self.endDate = [calendar dateFromComponents:components];
-    
-    // Display
-    components = [calendar components:(NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:self.startDate];
-    NSString *startString = [NSString stringWithFormat:@"%d/%d", components.month, components.year];
-    components = [calendar components:(NSMonthCalendarUnit | NSYearCalendarUnit) fromDate:self.endDate];
-    NSString *endString = [NSString stringWithFormat:@"%d/%d", components.month, components.year];
-    
-    [self.centerButton setTitle:[NSString stringWithFormat:@"%@ - %@", startString, endString] forState:UIControlStateNormal];
-}
-
 #pragma mark - Actions
 - (void)leftAction {
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#config"];
-    
-    TimelineConfigViewController *vc = [[[TimelineConfigViewController alloc] initWithTimelineId:self.timelineId] autorelease];
-    [(PSNavigationController *)self.parentViewController pushViewController:vc direction:PSNavigationControllerDirectionRight animated:YES];
 }
 
 - (void)centerAction {
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#dateRange"];
-    
-    DateRangeView *dateRangeView = [[[DateRangeView alloc] initWithFrame:CGRectMake(0, 0, 288, 352)] autorelease];
-    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Timeline Dates" contentView:dateRangeView] autorelease];
-    popoverView.delegate = self;
-    [popoverView show];
 }
 
 - (void)rightAction {
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#dateRange"];
-    
-    DateRangeView *dateRangeView = [[[DateRangeView alloc] initWithFrame:CGRectMake(0, 0, 288, 352)] autorelease];
-    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Timeline Dates" contentView:dateRangeView] autorelease];
-    popoverView.delegate = self;
-    [popoverView show];
-    
-//    if (!self.pvc) {
-//        self.pvc = [[[PreviewViewController alloc] initWithNibName:nil bundle:nil] autorelease];
-//    }
-//    UIImagePickerController *vc = [[[UIImagePickerController alloc] init] autorelease];
-//    vc.delegate = self.pvc;
-//    [(PSNavigationController *)self.parentViewController pushViewController:vc direction:PSNavigationControllerDirectionLeft animated:YES];
 }
 
 #pragma mark - State Machine
@@ -264,48 +190,74 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     BLOCK_SELF;
     
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    NSNumber *startTimestamp = [NSNumber numberWithDouble:[self.startDate timeIntervalSince1970]];
-    NSNumber *endTimestamp = [NSNumber numberWithDouble:[self.endDate timeIntervalSince1970]];
-    [parameters setObject:startTimestamp forKey:@"since"];
-    [parameters setObject:endTimestamp forKey:@"until"];
+    NSString *URLPath = @"https://api.foursquare.com/v2/venues/explore";
     
-    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/timelines/%@/photos", API_BASE_URL, self.timelineId]];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@"40.7,-74" forKey:@"ll"];
+//    [parameters setObject:[NSNumber numberWithInteger:800] forKey:@"radius"];
+    [parameters setObject:@"20120222" forKey:@"v"];
+    [parameters setObject:[NSNumber numberWithInteger:1] forKey:@"venuePhotos"];
+    [parameters setObject:@"food" forKey:@"section"];
+    [parameters setObject:[NSNumber numberWithInteger:50] forKey:@"limit"];
+    [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
+    [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
+    
+    NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
     
     [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
-        if (error) {
-            [blockSelf dataSourceDidError];
-        } else {
-            [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
-                // Parse JSON
-                id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-                if (!JSON) {
-                    // invalid json
-                    [self dataSourceDidError];
-                } else {
-                    // Check for our own success codes
-                    id metaCode = [JSON objectForKey:@"code"];
-                    if (!metaCode || [metaCode integerValue] != 200) {
-                        [self dataSourceDidError];
-                    } else {
-                        // Success
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            NSLog(@"# NSURLConnection finished on thread: %@", [NSThread currentThread]);
-                            self.items = [[JSON objectForKey:@"data"] objectForKey:@"photos"];
-                            [blockSelf dataSourceDidLoad];
-                            
-                            // If this is the first load and we loaded cached data, we should refreh from remote now
-                            if (!blockSelf.hasLoadedOnce && isCached) {
-                                blockSelf.hasLoadedOnce = YES;
-                                [blockSelf reloadDataSource];
-                                NSLog(@"first load, stale cache");
-                            }
-                        }];
+        [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
+            id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+            if (!JSON) {
+                // invalid json
+                [blockSelf dataSourceDidError];
+            } else {
+                // Process 4sq response
+                NSDictionary *response = [JSON objectForKey:@"response"];
+                NSArray *groups = [response objectForKey:@"groups"];
+                if (groups && [groups count] > 0) {
+                    // Format the response for our consumption
+                    NSMutableArray *items = [NSMutableArray array];
+                    for (NSDictionary *dict in [[groups objectAtIndex:0] objectForKey:@"items"]) {
+                        NSDictionary *venue = [dict objectForKey:@"venue"];
+                        NSDictionary *location = [venue objectForKey:@"location"];
+                        NSDictionary *featuredPhoto = [[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] lastObject];
+                        
+                        if (!featuredPhoto) {
+                            // skip if there is no photo
+                            continue;
+                        }
+                        
+                        NSDictionary *featuredPhotoItem = [[[featuredPhoto objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0];
+                        
+                        NSMutableDictionary *item = [NSMutableDictionary dictionary];
+                        [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
+                        [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
+                        [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
+                        [item setObject:[featuredPhotoItem objectForKey:@"width"] forKey:@"width"];
+                        [item setObject:[featuredPhotoItem objectForKey:@"height"] forKey:@"height"];
+                        [item setObject:[featuredPhotoItem objectForKey:@"url"] forKey:@"source"];
+                        
+                        [items addObject:item];
                     }
+                    
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        blockSelf.items = items;
+                        [blockSelf dataSourceDidLoad];
+                        
+                        // If this is the first load and we loaded cached data, we should refreh from remote now
+                        if (!blockSelf.hasLoadedOnce && isCached) {
+                            blockSelf.hasLoadedOnce = YES;
+                            [blockSelf reloadDataSource];
+                            NSLog(@"first load, stale cache");
+                        }
+                    }];
+                } else {
+                    // error
+                    [blockSelf dataSourceDidError];
                 }
-            }];
-        }
+            }
+        }];
     }];
 }
 
@@ -315,39 +267,39 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 }
 
 - (UIView *)collectionView:(PSCollectionView *)collectionView viewAtIndex:(NSInteger)index {
-    NSDictionary *photo = [self.items objectAtIndex:index];
-    UIView *v = [self.collectionView dequeueReusableView];
-    if (!v) {
-        v = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
-        v.contentMode = UIViewContentModeScaleAspectFill;
-        v.clipsToBounds = YES;
-        v.layer.borderWidth = 1.0;
-        v.layer.borderColor = [RGBACOLOR(230, 230, 230, 0.8) CGColor];
-    }
-    v.width = [[photo objectForKey:@"width"] floatValue];
-    v.height = [[photo objectForKey:@"height"] floatValue];
+    NSDictionary *item = [self.items objectAtIndex:index];
     
-    [(PSCachedImageView *)v setOriginalURL:[NSURL URLWithString:[photo objectForKey:@"source"]]];
-    [(PSCachedImageView *)v setThumbnailURL:[NSURL URLWithString:[photo objectForKey:@"picture"]]];
-    [(PSCachedImageView *)v loadImageWithURL:[NSURL URLWithString:[photo objectForKey:@"picture"]] cacheType:PSURLCacheTypePermanent];
+    TimelineView *v = (TimelineView *)[self.collectionView dequeueReusableView];
+    if (!v) {
+        v = [[[TimelineView alloc] initWithFrame:CGRectZero] autorelease];
+    }
+    
+    [v fillViewWithObject:item];
     
     return v;
 
 }
 
-- (CGSize)sizeForViewAtIndex:(NSInteger)index {
-    NSDictionary *photo = [self.items objectAtIndex:index];
-    CGFloat width = [[photo objectForKey:@"width"] floatValue];
-    CGFloat height = [[photo objectForKey:@"height"] floatValue];
-    
-    return CGSizeMake(width, height);
+- (CGFloat)heightForViewAtIndex:(NSInteger)index {
+    NSDictionary *item = [self.items objectAtIndex:index];
+
+    return [TimelineView heightForViewWithObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
+    NSDictionary *item = [self.items objectAtIndex:index];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [item objectForKey:@"id"]]]];
+    
+    return;
+    
+    // ZOOM
     static BOOL isZooming;
     
+    TimelineView *timelineView = (TimelineView *)view;
+    
     // If the image hasn't loaded, don't allow zoom
-    PSCachedImageView *imageView = (PSCachedImageView *)view;
+    PSCachedImageView *imageView = timelineView.imageView;
     if (!imageView.image) return;
     
     // If already zooming, don't rezoom
@@ -370,7 +322,7 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
             if (sourceImage) {
                 UIViewContentMode contentMode = imageView.contentMode;
                 PSZoomView *zoomView = [[[PSZoomView alloc] initWithImage:sourceImage contentMode:contentMode] autorelease];
-                CGRect imageRect = [collectionView convertRect:imageView.frame toView:collectionView];
+                CGRect imageRect = [timelineView convertRect:imageView.frame toView:collectionView];
                 [zoomView showInRect:[collectionView convertRect:imageRect toView:nil]];
             }
         }
@@ -405,11 +357,11 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 
 #pragma mark - PSPopoverViewDelegate
 - (void)popoverViewDidDismiss:(PSPopoverView *)popoverView {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dateRangeDidChange"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"dateRangeDidChange"];
-        [self setDateRange];
-        [self reloadDataSource];
-    }
+//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dateRangeDidChange"]) {
+//        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"dateRangeDidChange"];
+//        [self setDateRange];
+//        [self reloadDataSource];
+//    }
 }
 
 #pragma mark - PSErrorViewDelegate

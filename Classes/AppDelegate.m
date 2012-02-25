@@ -71,17 +71,17 @@ navigationController = _navigationController;
 //    NSLog(@"Fonts: %@", [UIFont familyNames]);
     
 #ifdef RELEASE
-    [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"4e1669c1ec68aae5f6c0adb8c3c48367"];
+    [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];
     [[BWHockeyManager sharedHockeyManager] setAlwaysShowUpdateReminder:YES];
 #endif
-    [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"4e1669c1ec68aae5f6c0adb8c3c48367"];
+    [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];
     
-    [[LocalyticsSession sharedLocalyticsSession] startSession:@"64d9fa4fc0bdc5781cea473-cbd5b426-5eb5-11e1-1b60-00a68a4c01fc"];
+    [[LocalyticsSession sharedLocalyticsSession] startSession:@"d700c1cd0a07dd9dbc70c51-dd6fed50-e57d-11e0-2071-00c25d050352"];
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     // PSFacebookCenter
-    [PSFacebookCenter defaultCenter];
+//    [PSFacebookCenter defaultCenter];
     
     // Set application stylesheet
     [PSStyleSheet setStyleSheet:@"PSStyleSheet"];
@@ -98,17 +98,9 @@ navigationController = _navigationController;
     [self.window makeKeyAndVisible];
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLeather.jpg"]];
     
-    // Setup initial view controller based on authentication
-    // @"4f2b65e2e4b024f14205b3ad"
-    
-    NSString *timelineId = [[NSUserDefaults standardUserDefaults] objectForKey:@"timelineId"];
-    
+    // Root view controller
     id controller = nil;
-    if ([[PSFacebookCenter defaultCenter] isLoggedIn] && timelineId) {
-        controller = [[[TimelineViewController alloc] initWithTimelineId:timelineId] autorelease];
-    } else {
-        controller = [[[WelcomeViewController alloc] initWithNibName:nil bundle:nil] autorelease];
-    }
+    controller = [[[TimelineViewController alloc] initWithNibName:nil bundle:nil] autorelease];
     
     self.navigationController = [[[PSNavigationController alloc] initWithRootViewController:controller] autorelease];
     self.window.rootViewController = self.navigationController;

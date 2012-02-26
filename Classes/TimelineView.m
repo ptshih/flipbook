@@ -38,6 +38,7 @@ distanceLabel = _distanceLabel;
         [self addSubview:self.backgroundView];
         
         self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
+        self.imageView.shouldAnimate = YES;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         

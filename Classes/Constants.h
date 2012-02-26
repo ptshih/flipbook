@@ -1,4 +1,4 @@
-#import <CoreData/CoreData.h>
+#import <MapKit/MapKit.h>
 
 #import "PSConstants.h"
 #import "PSNavigationController.h"

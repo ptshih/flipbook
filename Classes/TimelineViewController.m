@@ -206,8 +206,9 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
             [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
                 id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
                 if (!JSON) {
-                    // invalid json
-                    [self dataSourceDidError];
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        [self dataSourceDidError];
+                    }];
                 } else {
                     // Process 4sq response
                     NSDictionary *response = [JSON objectForKey:@"response"];
@@ -234,6 +235,8 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
                             [item setObject:[category objectForKey:@"name"] forKey:@"category"];
                             [item setObject:[location objectForKey:@"address"] forKey:@"address"];
                             [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
+                            [item setObject:[location objectForKey:@"lat"] forKey:@"lat"];
+                            [item setObject:[location objectForKey:@"lng"] forKey:@"lng"];
                             [item setObject:[featuredPhotoItem objectForKey:@"width"] forKey:@"width"];
                             [item setObject:[featuredPhotoItem objectForKey:@"height"] forKey:@"height"];
                             [item setObject:[featuredPhotoItem objectForKey:@"url"] forKey:@"source"];
@@ -253,8 +256,9 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
                             }
                         }];
                     } else {
-                        // error
-                        [self dataSourceDidError];
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            [self dataSourceDidError];
+                        }];
                     }
                 }
             }];
@@ -286,18 +290,11 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    GalleryViewController *vc = [[[GalleryViewController alloc] initWithVenueId:[item objectForKey:@"id"] venueName:[item objectForKey:@"name"]] autorelease];
+    GalleryViewController *vc = [[[GalleryViewController alloc] initWithDictionary:item] autorelease];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     
     return;
-    
-    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [item objectForKey:@"id"]]]];
-    } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [item objectForKey:@"id"]]]];
-    }
-    
-    return;
+
     
     // ZOOM
     static BOOL isZooming;

@@ -9,14 +9,14 @@
 #import "PSCollectionViewController.h"
 #import "PSGalleryView.h"
 
-@interface GalleryViewController : PSCollectionViewController
+@interface GalleryViewController : PSCollectionViewController <MKMapViewDelegate>
 
-@property (nonatomic, copy) NSString *venueId;
-@property (nonatomic, copy) NSString *venueName;
+@property (nonatomic, copy) NSDictionary *venueDict;
 @property (nonatomic, assign) UIButton *leftButton;
 @property (nonatomic, assign) UIButton *centerButton;
 @property (nonatomic, assign) UIButton *rightButton;
+@property (nonatomic, retain) MKMapView *mapView;
 
-- (id)initWithVenueId:(NSString *)venueId venueName:(NSString *)venueName;
+- (id)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

@@ -228,6 +228,15 @@
 		D0C5C01914F76FE60041A364 /* Default@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D0C5C01714F76FE60041A364 /* Default@2x.jpg */; };
 		D0DDA67B14E85DC1001FD463 /* PSPullRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DDA67A14E85DC1001FD463 /* PSPullRefreshView.m */; };
 		D0F4CB4814F996F70001FD7E /* PSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F4CB4714F996F70001FD7E /* PSCollectionViewController.m */; };
+		D0FE067A14F9C28600140D9E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0FE067914F9C28600140D9E /* MapKit.framework */; };
+		D0FE068214F9C64B00140D9E /* VenueAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FE068114F9C64B00140D9E /* VenueAnnotationView.m */; };
+		D0FE068514F9C6E400140D9E /* PinVenueBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068314F9C6E400140D9E /* PinVenueBlue.png */; };
+		D0FE068614F9C6E400140D9E /* PinVenueBlue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068414F9C6E400140D9E /* PinVenueBlue@2x.png */; };
+		D0FE068A14F9C75100140D9E /* VenueAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FE068914F9C75100140D9E /* VenueAnnotation.m */; };
+		D0FE068F14F9CE1F00140D9E /* IconPinBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068B14F9CE1F00140D9E /* IconPinBlack.png */; };
+		D0FE069014F9CE1F00140D9E /* IconPinBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068C14F9CE1F00140D9E /* IconPinBlack@2x.png */; };
+		D0FE069114F9CE1F00140D9E /* IconPinWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068D14F9CE1F00140D9E /* IconPinWhite.png */; };
+		D0FE069214F9CE1F00140D9E /* IconPinWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068E14F9CE1F00140D9E /* IconPinWhite@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -581,6 +590,17 @@
 		D0DDA67A14E85DC1001FD463 /* PSPullRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPullRefreshView.m; sourceTree = "<group>"; };
 		D0F4CB4614F996F70001FD7E /* PSCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCollectionViewController.h; sourceTree = "<group>"; };
 		D0F4CB4714F996F70001FD7E /* PSCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCollectionViewController.m; sourceTree = "<group>"; };
+		D0FE067914F9C28600140D9E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D0FE068014F9C64B00140D9E /* VenueAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueAnnotationView.h; sourceTree = "<group>"; };
+		D0FE068114F9C64B00140D9E /* VenueAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueAnnotationView.m; sourceTree = "<group>"; };
+		D0FE068314F9C6E400140D9E /* PinVenueBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinVenueBlue.png; sourceTree = "<group>"; };
+		D0FE068414F9C6E400140D9E /* PinVenueBlue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PinVenueBlue@2x.png"; sourceTree = "<group>"; };
+		D0FE068814F9C75100140D9E /* VenueAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueAnnotation.h; sourceTree = "<group>"; };
+		D0FE068914F9C75100140D9E /* VenueAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueAnnotation.m; sourceTree = "<group>"; };
+		D0FE068B14F9CE1F00140D9E /* IconPinBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconPinBlack.png; sourceTree = "<group>"; };
+		D0FE068C14F9CE1F00140D9E /* IconPinBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPinBlack@2x.png"; sourceTree = "<group>"; };
+		D0FE068D14F9CE1F00140D9E /* IconPinWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconPinWhite.png; sourceTree = "<group>"; };
+		D0FE068E14F9CE1F00140D9E /* IconPinWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPinWhite@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -588,6 +608,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0FE067A14F9C28600140D9E /* MapKit.framework in Frameworks */,
 				D0C5C01514F76F920041A364 /* libz.dylib in Frameworks */,
 				28603B8114AFBD4E00541BB1 /* AssetsLibrary.framework in Frameworks */,
 				28603B6714AD41ED00541BB1 /* CoreImage.framework in Frameworks */,
@@ -639,6 +660,7 @@
 			children = (
 				D0C5C01414F76F910041A364 /* libz.dylib */,
 				28381A911472F88A007E4827 /* libsqlite3.dylib */,
+				D0FE067914F9C28600140D9E /* MapKit.framework */,
 				28603B8014AFBD4D00541BB1 /* AssetsLibrary.framework */,
 				28603B6614AD41ED00541BB1 /* CoreImage.framework */,
 				28603B6414AD414E00541BB1 /* ImageIO.framework */,
@@ -661,6 +683,7 @@
 		283818C814723F1D007E4827 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D0FE068714F9C73E00140D9E /* Models */,
 				28E94A80147DA19C002E8343 /* Views */,
 				28B855DA147CDCC4004F84EA /* Controllers */,
 				283818D114723F1D007E4827 /* AppDelegate.h */,
@@ -705,6 +728,12 @@
 		28698713147312EC00B40860 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D0FE068B14F9CE1F00140D9E /* IconPinBlack.png */,
+				D0FE068C14F9CE1F00140D9E /* IconPinBlack@2x.png */,
+				D0FE068D14F9CE1F00140D9E /* IconPinWhite.png */,
+				D0FE068E14F9CE1F00140D9E /* IconPinWhite@2x.png */,
+				D0FE068314F9C6E400140D9E /* PinVenueBlue.png */,
+				D0FE068414F9C6E400140D9E /* PinVenueBlue@2x.png */,
 				D0C5BFF314F760820041A364 /* LogoLargeWhite@2x.png */,
 				D0C5BFEB14F75C4B0041A364 /* ButtonFacebook.png */,
 				D0C5BFEC14F75C4B0041A364 /* ButtonFacebook@2x.png */,
@@ -1130,6 +1159,8 @@
 				D0269E4314E1B5E100B690A2 /* UserCell.m */,
 				D054E98E14F6F98D00B03306 /* DateRangeView.h */,
 				D054E98F14F6F98D00B03306 /* DateRangeView.m */,
+				D0FE068014F9C64B00140D9E /* VenueAnnotationView.h */,
+				D0FE068114F9C64B00140D9E /* VenueAnnotationView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1379,6 +1410,15 @@
 			path = PSPullRefreshView;
 			sourceTree = "<group>";
 		};
+		D0FE068714F9C73E00140D9E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D0FE068814F9C75100140D9E /* VenueAnnotation.h */,
+				D0FE068914F9C75100140D9E /* VenueAnnotation.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1561,6 +1601,12 @@
 				D031D4DD14F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed.ttf in Resources */,
 				D031D4DE14F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */,
 				D031D4DF14F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed.ttf in Resources */,
+				D0FE068514F9C6E400140D9E /* PinVenueBlue.png in Resources */,
+				D0FE068614F9C6E400140D9E /* PinVenueBlue@2x.png in Resources */,
+				D0FE068F14F9CE1F00140D9E /* IconPinBlack.png in Resources */,
+				D0FE069014F9CE1F00140D9E /* IconPinBlack@2x.png in Resources */,
+				D0FE069114F9CE1F00140D9E /* IconPinWhite.png in Resources */,
+				D0FE069214F9CE1F00140D9E /* IconPinWhite@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1686,6 +1732,8 @@
 				D031D4C614F84CDA00DEB789 /* UIImage+HockeyAdditions.m in Sources */,
 				D0F4CB4814F996F70001FD7E /* PSCollectionViewController.m in Sources */,
 				D088EFD014F99912006F7675 /* GalleryView.m in Sources */,
+				D0FE068214F9C64B00140D9E /* VenueAnnotationView.m in Sources */,
+				D0FE068A14F9C75100140D9E /* VenueAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

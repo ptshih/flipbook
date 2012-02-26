@@ -10,21 +10,23 @@
 #import "GalleryView.h"
 #import "PSZoomView.h"
 
+#import "VenueAnnotation.h"
+#import "VenueAnnotationView.h"
+
 @implementation GalleryViewController
 
 @synthesize
-venueId = _venueId,
-venueName = _venueName,
+venueDict = _venueDict,
 leftButton = _leftButton,
 centerButton = _centerButton,
-rightButton = _rightButton;
+rightButton = _rightButton,
+mapView = _mapView;
 
 #pragma mark - Init
-- (id)initWithVenueId:(NSString *)venueId venueName:(NSString *)venueName {
+- (id)initWithDictionary:(NSDictionary *)dictionary {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
-        self.venueId = venueId;
-        self.venueName = venueName;
+        self.venueDict = dictionary; 
     }
     return self;
 }
@@ -37,11 +39,15 @@ rightButton = _rightButton;
 }
 
 - (void)viewDidUnload {
+    self.mapView.delegate = nil;
+    self.mapView = nil;
     [super viewDidUnload];
 }
 
 - (void)dealloc {
-    self.venueId = nil;
+    self.mapView.delegate = nil;
+    self.mapView = nil;
+    self.venueDict = nil;
     [super dealloc];
 }
 
@@ -78,6 +84,30 @@ rightButton = _rightButton;
     self.collectionView.numCols = 2;
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
     
+    // Setup collectionView header
+    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, 296, 152)] autorelease];
+    self.mapView.delegate = self;
+    self.mapView.zoomEnabled = NO;
+    self.mapView.scrollEnabled = NO;
+    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([[self.venueDict objectForKey:@"lat"] floatValue], [[self.venueDict objectForKey:@"lng"] floatValue]), 250, 250);
+    [self.mapView setRegion:mapRegion animated:NO];
+    [self.mapView removeAnnotations:[self.mapView annotations]];
+    VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:self.venueDict];
+    [self.mapView addAnnotation:annotation];
+    
+    
+    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8, self.collectionView.width - 16, 160)] autorelease];
+    headerView.backgroundColor = [UIColor whiteColor];
+    headerView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    headerView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+    headerView.layer.shadowOpacity = 0.7;
+    headerView.layer.shadowRadius = 3.0;
+    headerView.layer.masksToBounds = NO;
+    headerView.layer.shouldRasterize = YES;
+    [headerView addSubview:self.mapView];
+    
+    self.collectionView.headerView = headerView;
+    
     [self.view addSubview:self.collectionView];
 }
 
@@ -91,13 +121,13 @@ rightButton = _rightButton;
     
     self.centerButton = [UIButton buttonWithFrame:CGRectMake(44, 0, self.headerView.width - 88, 44) andStyle:@"timelineTitleLabel" target:self action:@selector(centerAction)];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockCenter" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.centerButton setTitle:self.venueName forState:UIControlStateNormal];
+    [self.centerButton setTitle:[self.venueDict objectForKey:@"name"] forState:UIControlStateNormal];
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockRight" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.rightButton setImage:[UIImage imageNamed:@"IconClockBlack"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconPinBlack"] forState:UIControlStateNormal];
     
     [self.headerView addSubview:self.leftButton];
     [self.headerView addSubview:self.centerButton];
@@ -115,7 +145,11 @@ rightButton = _rightButton;
 }
 
 - (void)rightAction {
-
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [self.venueDict objectForKey:@"id"]]]];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
+    }
 }
 
 #pragma mark - State Machine
@@ -147,6 +181,7 @@ rightButton = _rightButton;
 }
 
 - (void)dataSourceDidError {
+    DLog(@"remote data source did error");
     [super dataSourceDidError];
 }
 
@@ -155,7 +190,7 @@ rightButton = _rightButton;
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/photos", self.venueId];
+    NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/photos", [self.venueDict objectForKey:@"id"]];
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@"20120222" forKey:@"v"];
@@ -174,8 +209,9 @@ rightButton = _rightButton;
             [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
                 id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
                 if (!JSON) {
-                    // invalid json
-                    [self dataSourceDidError];
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        [self dataSourceDidError];
+                    }];
                 } else {
                     // Process 4sq response
                     NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
@@ -210,7 +246,10 @@ rightButton = _rightButton;
                             }
                         }];
                     } else {
-                        [self dataSourceDidError];
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            NSLog(@"# ERROR with JSON: %@", JSON);
+                            [self dataSourceDidError];
+                        }];
                     }
                 }
             }];
@@ -274,6 +313,23 @@ rightButton = _rightButton;
             }
         }
     }];
+}
+
+#pragma mark - MKMapViewDelegate
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    NSString *reuseIdentifier = NSStringFromClass([VenueAnnotationView class]);
+    VenueAnnotationView *v = (VenueAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:reuseIdentifier];
+    
+    if (!v) {
+        v = [[[VenueAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIdentifier] autorelease];
+        v.canShowCallout = NO;
+    }
+    
+    return v;
+}
+
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+    [mapView selectAnnotation:[[mapView annotations] lastObject] animated:NO];
 }
 
 @end

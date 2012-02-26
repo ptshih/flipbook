@@ -7,35 +7,41 @@
 //
 
 #import "GalleryViewController.h"
-
-#import <AssetsLibrary/AssetsLibrary.h>
-#import <ImageIO/ImageIO.h>
-#import <MobileCoreServices/UTCoreTypes.h>
-#import <CoreLocation/CoreLocation.h>
+#import "GalleryView.h"
+#import "PSZoomView.h"
 
 @implementation GalleryViewController
 
 @synthesize
-galleryView = _galleryView,
-assets = _assets;
-
+venueId = _venueId,
+venueName = _venueName,
+leftButton = _leftButton,
+centerButton = _centerButton,
+rightButton = _rightButton;
 
 #pragma mark - Init
+- (id)initWithVenueId:(NSString *)venueId venueName:(NSString *)venueName {
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        self.venueId = venueId;
+        self.venueName = venueName;
+    }
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.assets = [NSMutableArray array];
     }
     return self;
 }
 
 - (void)viewDidUnload {
-    self.galleryView = nil;
     [super viewDidUnload];
 }
 
 - (void)dealloc {
-    self.galleryView = nil;
+    self.venueId = nil;
     [super dealloc];
 }
 
@@ -48,75 +54,55 @@ assets = _assets;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupHeader];
     [self setupSubviews];
+    [self setupPullRefresh];
     
-    // Load from ALAssets
-    BLOCK_SELF;
-    ALAssetsLibrary *library = [[[ALAssetsLibrary alloc] init] autorelease];
-    
-    [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-        if (group) {
-            [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-            
-            [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                if (result) {
-//                    ALAssetRepresentation *rep = result.defaultRepresentation;
-                    NSMutableDictionary *assetDict = [NSMutableDictionary dictionary];
-                    UIImage *thumbnail = [UIImage imageWithCGImage:result.thumbnail];
-                    [assetDict setObject:thumbnail forKey:@"thumbnail"];
-                    
-                    [blockSelf.assets addObject:assetDict];
-                }
-            }];
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [blockSelf.galleryView reloadViews];
-            }];
-        }
-    } failureBlock:^(NSError *error) {
-        
-    }];
+    // Load
+    [self loadDataSource];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[[[UIAlertView alloc] initWithTitle:@"Doesn't Work Yet" message:@"Eventually this will let you choose multiple photos from your Camera Roll to directly upload to Facebook." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease] show];
 }
 
 #pragma mark - Config Subviews
-- (void)setupHeader {
-    UIImageView *headerView = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44.0)] autorelease];
-    headerView.backgroundColor = [UIColor whiteColor];
-    headerView.userInteractionEnabled = YES;
+- (void)setupSubviews {
+    [self.view addSubview:[[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BackgroundLeather.jpg"]] autorelease]];
     
-    NSString *title = @"Select Photos";
+    [self setupHeader];
     
-    UILabel *titleLabel = [UILabel labelWithText:title style:@"timelineTitleLabel"];
-    titleLabel.frame = CGRectMake(0, 0, headerView.width - 88.0, headerView.height);
-    titleLabel.center = headerView.center;
-    [headerView addSubview:titleLabel];
+    self.collectionView = [[[PSCollectionView alloc] initWithFrame:CGRectMake(0, self.headerView.bottom, self.view.width, self.view.height - self.headerView.height)] autorelease];
+    self.collectionView.delegate = self; // scrollViewDelegate
+    self.collectionView.collectionViewDelegate = self;
+    self.collectionView.collectionViewDataSource = self;
+    self.collectionView.numCols = 2;
+    self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
     
-    // Setup perma left/right buttons
-    static CGFloat margin = 10.0;
-    UIButton *leftButton = [UIButton buttonWithFrame:CGRectMake(margin, 8.0, 28.0, 28.0) andStyle:nil target:self action:@selector(leftAction)];
-    [leftButton setImage:[UIImage imageNamed:@"IconBackBlack"] forState:UIControlStateNormal];
-    [leftButton setImage:[UIImage imageNamed:@"IconBackBlack"] forState:UIControlStateHighlighted];
-    [headerView addSubview:leftButton];
-    
-    UIButton *rightButton = [UIButton buttonWithFrame:CGRectMake(headerView.width - 28.0 - margin, 8.0, 28.0, 28.0) andStyle:nil target:self action:@selector(rightAction)];
-    [rightButton setImage:[UIImage imageNamed:@"IconNextBlack"] forState:UIControlStateNormal];
-    [rightButton setImage:[UIImage imageNamed:@"IconNextBlack"] forState:UIControlStateHighlighted];
-    [headerView addSubview:rightButton];
-    
-    [self.view addSubview:headerView];
+    [self.view addSubview:self.collectionView];
 }
 
-- (void)setupSubviews {
-    self.galleryView = [[[PSGalleryView alloc] initWithFrame:CGRectMake(0, 44.0, self.view.width, self.view.height - 44.0)] autorelease];
-    self.galleryView.galleryViewDelegate = self;
-    self.galleryView.galleryViewDataSource = self;
-    self.galleryView.numCols = 3;
-    [self.view addSubview:self.galleryView];
+- (void)setupHeader {
+    // Setup perma header
+    self.headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)] autorelease];
+    
+    self.leftButton = [UIButton buttonWithFrame:CGRectMake(0, 0, 44, 44) andStyle:nil target:self action:@selector(leftAction)];
+    [self.leftButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockLeft" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    [self.leftButton setImage:[UIImage imageNamed:@"IconBackBlack"] forState:UIControlStateNormal];
+    
+    self.centerButton = [UIButton buttonWithFrame:CGRectMake(44, 0, self.headerView.width - 88, 44) andStyle:@"timelineTitleLabel" target:self action:@selector(centerAction)];
+    [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockCenter" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    [self.centerButton setTitle:self.venueName forState:UIControlStateNormal];
+    self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
+    
+    self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
+    [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockRight" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconClockBlack"] forState:UIControlStateNormal];
+    
+    [self.headerView addSubview:self.leftButton];
+    [self.headerView addSubview:self.centerButton];
+    [self.headerView addSubview:self.rightButton];
+    [self.view addSubview:self.headerView];
 }
 
 #pragma mark - Actions
@@ -124,26 +110,170 @@ assets = _assets;
     [(PSNavigationController *)self.parentViewController popViewControllerWithDirection:PSNavigationControllerDirectionRight animated:YES];
 }
 
+- (void)centerAction {
+    
+}
+
 - (void)rightAction {
 
 }
 
-#pragma mark - PSGalleryViewDelegate
-- (NSInteger)numberOfViewsInGalleryView:(PSGalleryView *)galleryView {
-    return [self.assets count];
+#pragma mark - State Machine
+- (void)loadDataSource {
+    [super loadDataSource];
+    
+    [self loadDataSourceFromRemoteUsingCache:YES];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#load"];
 }
 
-- (UIView *)galleryView:(PSGalleryView *)galleryView viewAtIndex:(NSInteger)index {
-    NSDictionary *assetDict = [self.assets objectAtIndex:index];
-    UIView *v = [self.galleryView dequeueReusableView];
-    if (!v) {
-        v = [[[UIImageView alloc] initWithFrame:CGRectZero] autorelease];
-        v.frame = CGRectMake(0, 0, 96, 96);
+- (void)reloadDataSource {
+    [super reloadDataSource];
+    
+    [self loadDataSourceFromRemoteUsingCache:NO];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#reload"];
+}
+
+- (void)dataSourceDidLoad {
+    [super dataSourceDidLoad];
+    
+    [self.collectionView reloadViews];
+    
+    if ([self dataSourceIsEmpty]) {
+        // Show empty view
+        
     }
-    [(UIImageView *)v setImage:[assetDict objectForKey:@"thumbnail"]];
+}
+
+- (void)dataSourceDidError {
+    [super dataSourceDidError];
+}
+
+- (BOOL)dataSourceIsEmpty {
+    return ([self.items count] == 0);
+}
+
+- (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
+    NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/photos", self.venueId];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@"20120222" forKey:@"v"];
+    [parameters setObject:@"venue" forKey:@"group"];
+    [parameters setObject:[NSNumber numberWithInteger:500] forKey:@"limit"];
+    [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
+    [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
+    
+    NSURL *URL = [NSURL URLWithString:URLPath];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
+    
+    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+        if (error) {
+            [self dataSourceDidError];
+        } else {
+            [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
+                id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+                if (!JSON) {
+                    // invalid json
+                    [self dataSourceDidError];
+                } else {
+                    // Process 4sq response
+                    NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
+                    NSDictionary *response = [JSON objectForKey:@"response"];
+                    NSArray *photos = [[response objectForKey:@"photos"] objectForKey:@"items"];
+                    if (photos && [photos count] > 0) {
+                        for (NSDictionary *photo in photos) {
+                            NSDictionary *user = [photo objectForKey:@"user"];
+                            NSString *firstName = [NSString stringWithFormat:@"%@", [user objectForKey:@"firstName"]];
+                            NSString *name = ([user objectForKey:@"lastName"]) ? [firstName stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : firstName;
+                            NSDictionary *sizes = [photo objectForKey:@"sizes"];
+                            NSDictionary *fullSize = [[sizes objectForKey:@"items"] objectAtIndex:0];
+                            
+                            NSMutableDictionary *item = [NSMutableDictionary dictionary];
+                            [item setObject:[fullSize objectForKey:@"url"] forKey:@"source"];
+                            [item setObject:[fullSize objectForKey:@"width"] forKey:@"width"];
+                            [item setObject:[fullSize objectForKey:@"height"] forKey:@"height"];
+                            [item setObject:name forKey:@"name"];
+                            [item setObject:[user objectForKey:@"homeCity"] forKey:@"homeCity"];
+                            [items addObject:item];
+                        }
+                        
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            self.items = items;
+                            [self dataSourceDidLoad];
+                            
+                            // If this is the first load and we loaded cached data, we should refreh from remote now
+                            if (!self.hasLoadedOnce && isCached) {
+                                self.hasLoadedOnce = YES;
+                                [self reloadDataSource];
+                                NSLog(@"first load, stale cache");
+                            }
+                        }];
+                    } else {
+                        [self dataSourceDidError];
+                    }
+                }
+            }];
+        }
+    }];
+}
+
+#pragma mark - PSCollectionViewDelegate
+- (UIView *)collectionView:(PSCollectionView *)collectionView viewAtIndex:(NSInteger)index {
+    NSDictionary *item = [self.items objectAtIndex:index];
+    
+    GalleryView *v = (GalleryView *)[self.collectionView dequeueReusableView];
+    if (!v) {
+        v = [[[GalleryView alloc] initWithFrame:CGRectZero] autorelease];
+    }
+    
+    [v fillViewWithObject:item];
     
     return v;
+    
+}
 
+- (CGFloat)heightForViewAtIndex:(NSInteger)index {
+    NSDictionary *item = [self.items objectAtIndex:index];
+    
+    return [GalleryView heightForViewWithObject:item inColumnWidth:self.collectionView.colWidth];
+}
+
+- (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {    
+    // ZOOM
+    static BOOL isZooming;
+    
+    GalleryView *v = (GalleryView *)view;
+    
+    // If the image hasn't loaded, don't allow zoom
+    PSCachedImageView *imageView = v.imageView;
+    if (!imageView.image) return;
+    
+    // If already zooming, don't rezoom
+    if (isZooming) return;
+    else isZooming = YES;
+    
+    // make sure to zoom the full res image here
+    NSURL *originalURL = imageView.originalURL;
+    UIActivityIndicatorViewStyle oldStyle = imageView.loadingIndicator.activityIndicatorViewStyle;
+    imageView.loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    [imageView.loadingIndicator startAnimating];
+    
+    [[PSURLCache sharedCache] loadURL:originalURL cacheType:PSURLCacheTypePermanent usingCache:YES completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+        [imageView.loadingIndicator stopAnimating];
+        imageView.loadingIndicator.activityIndicatorViewStyle = oldStyle;
+        isZooming = NO;
+        
+        if (!error) {
+            UIImage *sourceImage = [UIImage imageWithData:cachedData];
+            if (sourceImage) {
+                UIViewContentMode contentMode = imageView.contentMode;
+                PSZoomView *zoomView = [[[PSZoomView alloc] initWithImage:sourceImage contentMode:contentMode] autorelease];
+                CGRect imageRect = [v convertRect:imageView.frame toView:collectionView];
+                [zoomView showInRect:[collectionView convertRect:imageRect toView:nil]];
+            }
+        }
+    }];
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "TimelineViewController.h"
+#import "GalleryViewController.h"
 #import "PSZoomView.h"
 #import "TimelineView.h"
 
@@ -19,9 +20,6 @@
 @implementation TimelineViewController
 
 @synthesize
-items = _items,
-collectionView = _collectionView,
-pullRefreshView = _pullRefreshView,
 leftButton = _leftButton,
 centerButton = _centerButton,
 rightButton = _rightButton,
@@ -33,8 +31,6 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     if (self) {
         self.shouldRefreshOnAppear = NO;
         
-        self.items = [NSMutableArray array];
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidUpdate) name:kPSLocationCenterDidUpdate object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadDataSource) name:kLoginSucceeded object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshOnAppear) name:kTimelineShouldRefreshOnAppear object:nil];
@@ -44,23 +40,15 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 }
 
 - (void)viewDidUnload {
-    // Views
-    self.pullRefreshView = nil;
-    self.collectionView = nil;
     [super viewDidUnload];
 }
 
 - (void)dealloc {
-    self.items = nil;
-
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSLocationCenterDidUpdate object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLoginSucceeded object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kTimelineShouldRefreshOnAppear object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
-    
-    // Views
-    self.pullRefreshView = nil;
-    self.collectionView = nil;
+
     [super dealloc];
 }
 
@@ -84,7 +72,7 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     
     // Setup Views
     [self setupSubviews];
-//    [self setupPullRefresh];
+    [self setupPullRefresh];
     
     // Load
     [self loadDataSource];
@@ -113,13 +101,6 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
     
     [self.view addSubview:self.collectionView];
-    
-    if (self.pullRefreshView == nil) {
-        self.pullRefreshView = [[[PSPullRefreshView alloc] initWithFrame:CGRectMake(0.0, 0.0 - 48.0, self.view.frame.size.width, 48.0) style:PSPullRefreshStyleBlack] autorelease];
-        self.pullRefreshView.scrollView = self.collectionView;
-        self.pullRefreshView.delegate = self;
-        [self.collectionView addSubview:self.pullRefreshView];		
-    }
 }
 
 - (void)setupHeader {
@@ -132,6 +113,9 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     
     self.centerButton = [UIButton buttonWithFrame:CGRectMake(44, 0, self.headerView.width - 88, 44) andStyle:@"timelineTitleLabel" target:self action:@selector(centerAction)];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockCenter" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
+    [self.centerButton setTitle:@"Mealtime" forState:UIControlStateNormal];
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockRight" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
@@ -194,8 +178,6 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    BLOCK_SELF;
-    
     if (![[PSLocationCenter defaultCenter] hasAcquiredAccurateLocation]) {
         return;
     }
@@ -219,13 +201,13 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     
     [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
         if (error) {
-            [blockSelf dataSourceDidError];
+            [self dataSourceDidError];
         } else {
             [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
                 id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
                 if (!JSON) {
                     // invalid json
-                    [blockSelf dataSourceDidError];
+                    [self dataSourceDidError];
                 } else {
                     // Process 4sq response
                     NSDictionary *response = [JSON objectForKey:@"response"];
@@ -260,19 +242,19 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
                         }
                         
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            blockSelf.items = items;
-                            [blockSelf dataSourceDidLoad];
+                            self.items = items;
+                            [self dataSourceDidLoad];
                             
                             // If this is the first load and we loaded cached data, we should refreh from remote now
-                            if (!blockSelf.hasLoadedOnce && isCached) {
-                                blockSelf.hasLoadedOnce = YES;
-                                [blockSelf reloadDataSource];
+                            if (!self.hasLoadedOnce && isCached) {
+                                self.hasLoadedOnce = YES;
+                                [self reloadDataSource];
                                 NSLog(@"first load, stale cache");
                             }
                         }];
                     } else {
                         // error
-                        [blockSelf dataSourceDidError];
+                        [self dataSourceDidError];
                     }
                 }
             }];
@@ -281,10 +263,6 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 }
 
 #pragma mark - PSCollectionViewDelegate
-- (NSInteger)numberOfViewsInCollectionView:(PSCollectionView *)collectionView {
-    return [self.items count];
-}
-
 - (UIView *)collectionView:(PSCollectionView *)collectionView viewAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
@@ -307,6 +285,11 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
+    
+    GalleryViewController *vc = [[[GalleryViewController alloc] initWithVenueId:[item objectForKey:@"id"] venueName:[item objectForKey:@"name"]] autorelease];
+    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    
+    return;
     
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [item objectForKey:@"id"]]]];
@@ -352,32 +335,6 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     }];
 }
 
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (self.pullRefreshView) {
-        [self.pullRefreshView pullRefreshScrollViewDidEndDragging:scrollView
-                                                   willDecelerate:decelerate];
-    }
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-//    [[PSURLCache sharedCache] suspend];
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.pullRefreshView) {
-        [self.pullRefreshView pullRefreshScrollViewDidScroll:scrollView];
-    }
-}
-
-#pragma mark - PSPullRefreshViewDelegate
-- (void)pullRefreshViewDidBeginRefreshing:(PSPullRefreshView *)pullRefreshView {
-    [self reloadDataSource];
-}
-
 #pragma mark - PSPopoverViewDelegate
 - (void)popoverViewDidDismiss:(PSPopoverView *)popoverView {
 //    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dateRangeDidChange"]) {
@@ -395,13 +352,11 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 #pragma mark - Refresh
 - (void)beginRefresh {
     [super beginRefresh];
-    [self.pullRefreshView setState:PSPullRefreshStateRefreshing];
     [SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeNone];
 }
 
 - (void)endRefresh {
     [super endRefresh];
-    [self.pullRefreshView setState:PSPullRefreshStateIdle];
     [SVProgressHUD dismiss];
 }
 

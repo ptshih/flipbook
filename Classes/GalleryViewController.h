@@ -6,12 +6,17 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "PSViewController.h"
+#import "PSCollectionViewController.h"
 #import "PSGalleryView.h"
 
-@interface GalleryViewController : PSViewController <PSGalleryViewDelegate, PSGalleryViewDataSource>
+@interface GalleryViewController : PSCollectionViewController
 
-@property (nonatomic, retain) PSGalleryView *galleryView;
-@property (nonatomic, retain) NSMutableArray *assets;
+@property (nonatomic, copy) NSString *venueId;
+@property (nonatomic, copy) NSString *venueName;
+@property (nonatomic, assign) UIButton *leftButton;
+@property (nonatomic, assign) UIButton *centerButton;
+@property (nonatomic, assign) UIButton *rightButton;
+
+- (id)initWithVenueId:(NSString *)venueId venueName:(NSString *)venueName;
 
 @end

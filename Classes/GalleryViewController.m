@@ -85,6 +85,18 @@ mapView = _mapView;
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
     
     // Setup collectionView header
+    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8, self.collectionView.width - 16, 160)] autorelease];
+    
+    UIView *backgroundView = [[[UIView alloc] initWithFrame:headerView.bounds] autorelease];
+    backgroundView.backgroundColor = [UIColor whiteColor];
+    backgroundView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    backgroundView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+    backgroundView.layer.shadowOpacity = 0.7;
+    backgroundView.layer.shadowRadius = 3.0;
+    backgroundView.layer.masksToBounds = NO;
+    backgroundView.layer.shouldRasterize = YES;
+    [headerView addSubview:backgroundView];
+    
     self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, 296, 152)] autorelease];
     self.mapView.delegate = self;
     self.mapView.zoomEnabled = NO;
@@ -94,16 +106,8 @@ mapView = _mapView;
     [self.mapView removeAnnotations:[self.mapView annotations]];
     VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:self.venueDict];
     [self.mapView addAnnotation:annotation];
-    
-    
-    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8, self.collectionView.width - 16, 160)] autorelease];
-    headerView.backgroundColor = [UIColor whiteColor];
-    headerView.layer.shadowColor = [[UIColor blackColor] CGColor];
-    headerView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
-    headerView.layer.shadowOpacity = 0.7;
-    headerView.layer.shadowRadius = 3.0;
-    headerView.layer.masksToBounds = NO;
-    headerView.layer.shouldRasterize = YES;
+    UITapGestureRecognizer *gr = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(zoomMap:)] autorelease];
+    [self.mapView addGestureRecognizer:gr];
     [headerView addSubview:self.mapView];
     
     self.collectionView.headerView = headerView;
@@ -150,6 +154,18 @@ mapView = _mapView;
     } else {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
     }
+}
+
+- (void)zoomMap:(UITapGestureRecognizer *)gr {
+    MKMapView *v = (MKMapView *)gr.view;
+    
+    NSLog(@"frame: %@", NSStringFromCGRect(v.frame));
+    
+    CGRect convertedRect = [[[self collectionView] headerView] convertRect:(CGRect)[v frame] toView:[self collectionView]];
+    CGRect windowRect = [self.collectionView convertRect:convertedRect toView:nil];
+    PSZoomView *zoomView = [[[PSZoomView alloc] initWithMapView:v mapRegion:v.region superView:v.superview] autorelease];
+    [zoomView removeFromSuperview];
+    [zoomView showInRect:windowRect];
 }
 
 #pragma mark - State Machine
@@ -307,9 +323,9 @@ mapView = _mapView;
             UIImage *sourceImage = [UIImage imageWithData:cachedData];
             if (sourceImage) {
                 UIViewContentMode contentMode = imageView.contentMode;
+                CGRect convertedRect = [imageView.superview convertRect:imageView.frame toView:nil];
                 PSZoomView *zoomView = [[[PSZoomView alloc] initWithImage:sourceImage contentMode:contentMode] autorelease];
-                CGRect imageRect = [v convertRect:imageView.frame toView:collectionView];
-                [zoomView showInRect:[collectionView convertRect:imageRect toView:nil]];
+                [zoomView showInRect:convertedRect];
             }
         }
     }];

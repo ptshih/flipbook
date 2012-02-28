@@ -40,10 +40,10 @@ homeCityLabel = _homeCityLabel;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.nameLabel = [UILabel labelWithStyle:@"timelineNameLabel"];
+        self.nameLabel = [UILabel labelWithStyle:@"titleLabel"];
         [self addSubview:self.nameLabel];
         
-        self.homeCityLabel = [UILabel labelWithStyle:@"timelineHomeCityLabel"];
+        self.homeCityLabel = [UILabel labelWithStyle:@"subtitleLabel"];
         [self addSubview:self.homeCityLabel];
     }
     return self;
@@ -83,13 +83,13 @@ homeCityLabel = _homeCityLabel;
     
     CGSize labelSize = CGSizeZero;
     
-    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"timelineNameLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"titleLabel"];
     self.nameLabel.top = self.imageView.bottom + MARGIN;
     self.nameLabel.left = left;
     self.nameLabel.width = labelSize.width;
     self.nameLabel.height = labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:self.homeCityLabel.text width:width style:@"timelineHomeCityLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.homeCityLabel.text width:width style:@"subtitleLabel"];
     self.homeCityLabel.top = self.nameLabel.bottom;
     self.homeCityLabel.left = left;
     self.homeCityLabel.width = labelSize.width;
@@ -121,10 +121,10 @@ homeCityLabel = _homeCityLabel;
     height += MARGIN;
     
     CGSize labelSize = CGSizeZero;
-    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"name"] width:width style:@"timelineNameLabel"];
+    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"name"] width:width style:@"titleLabel"];
     height += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"homeCity"] width:width style:@"timelineHomeCityLabel"];
+    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"homeCity"] width:width style:@"subtitleLabel"];
     height += labelSize.height;
     
     height += MARGIN;

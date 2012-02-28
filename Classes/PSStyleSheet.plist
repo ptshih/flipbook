@@ -91,48 +91,10 @@
 		<key>numberOfLines</key>
 		<integer>1</integer>
 	</dict>
-	<key>welcomeDisclaimerLabel</key>
+	<key>titleLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeueLT-MediumCond</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0xcdcdcd</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>center</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>5</integer>
-	</dict>
-	<key>welcomeNoteLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-MediumCond</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0x000000</string>
-		<key>highlightedTextColor</key>
-		<string>0x333333</string>
-		<key>textAlignment</key>
-		<string>center</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>10</integer>
-	</dict>
-	<key>timelineNameLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-MediumCond</string>
+		<string>HelveticaNeueLT-BoldCond</string>
 		<key>fontSize</key>
 		<integer>14</integer>
 		<key>textColor</key>
@@ -146,18 +108,18 @@
 		<key>shadowOffset</key>
 		<string>{0, 0}</string>
 		<key>numberOfLines</key>
-		<integer>1</integer>
+		<integer>3</integer>
 	</dict>
-	<key>timelineHomeCityLabel</key>
+	<key>subtitleLabel</key>
 	<dict>
 		<key>fontName</key>
 		<string>HelveticaNeueLT-MediumCond</string>
 		<key>fontSize</key>
-		<integer>14</integer>
+		<integer>13</integer>
 		<key>textColor</key>
-		<string>0x333333</string>
+		<string>0x4c4c4c</string>
 		<key>highlightedTextColor</key>
-		<string>0x333333</string>
+		<string>0x4c4c4c</string>
 		<key>textAlignment</key>
 		<string>left</string>
 		<key>shadowColor</key>
@@ -165,18 +127,18 @@
 		<key>shadowOffset</key>
 		<string>{0, 0}</string>
 		<key>numberOfLines</key>
-		<integer>1</integer>
+		<integer>3</integer>
 	</dict>
-	<key>timelineAddressLabel</key>
+	<key>bodyLabel</key>
 	<dict>
 		<key>fontName</key>
 		<string>HelveticaNeueLT-MediumCond</string>
 		<key>fontSize</key>
 		<integer>12</integer>
 		<key>textColor</key>
-		<string>0x333333</string>
+		<string>0x4c4c4c</string>
 		<key>highlightedTextColor</key>
-		<string>0x333333</string>
+		<string>0x4c4c4c</string>
 		<key>textAlignment</key>
 		<string>left</string>
 		<key>shadowColor</key>
@@ -184,94 +146,18 @@
 		<key>shadowOffset</key>
 		<string>{0, 0}</string>
 		<key>numberOfLines</key>
-		<integer>1</integer>
+		<integer>0</integer>
 	</dict>
-	<key>timelineCategoryLabel</key>
+	<key>metaLabel</key>
 	<dict>
 		<key>fontName</key>
 		<string>HelveticaNeueLT-MediumCond</string>
 		<key>fontSize</key>
-		<integer>11</integer>
+		<integer>12</integer>
 		<key>textColor</key>
-		<string>0x444444</string>
+		<string>0x70695A</string>
 		<key>highlightedTextColor</key>
-		<string>0x444444</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>timelineDistanceLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-MediumCond</string>
-		<key>fontSize</key>
-		<integer>11</integer>
-		<key>textColor</key>
-		<string>0x444444</string>
-		<key>highlightedTextColor</key>
-		<string>0x444444</string>
-		<key>textAlignment</key>
-		<string>right</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>tipLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-MediumCond</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x333333</string>
-		<key>highlightedTextColor</key>
-		<string>0x333333</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>8</integer>
-	</dict>
-	<key>tipTitleLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>tipCountLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
+		<string>0x70695A</string>
 		<key>textAlignment</key>
 		<string>left</string>
 		<key>shadowColor</key>

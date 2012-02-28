@@ -134,34 +134,34 @@ mapView = _mapView;
     backgroundView.layer.shouldRasterize = YES;
     [tipView addSubview:backgroundView];
     
-    UIImageView *divider = nil;
+//    UIImageView *divider = nil;
     CGSize labelSize = CGSizeZero;
     CGFloat tipWidth = tipView.width - 16 - 20;
     
-    UILabel *titleLabel = [UILabel labelWithStyle:@"tipTitleLabel"];
+    UILabel *titleLabel = [UILabel labelWithStyle:@"titleLabel"];
     titleLabel.text = @"Most Popular Tip";
-    labelSize = [PSStyleSheet sizeForText:titleLabel.text width:(tipView.width - 16.0) style:@"tipTitleLabel"];
+    labelSize = [PSStyleSheet sizeForText:titleLabel.text width:(tipView.width - 16.0) style:@"titleLabel"];
     titleLabel.frame = CGRectMake(8, 4, tipWidth, labelSize.height);
     [tipView addSubview:titleLabel];
     
-    divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
-    divider.frame = CGRectMake(4, titleLabel.bottom + 4, tipWidth, 1.0);
-    [tipView addSubview:divider];
+//    divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
+//    divider.frame = CGRectMake(4, titleLabel.bottom + 4, tipWidth, 1.0);
+//    [tipView addSubview:divider];
     
-    UILabel *tipLabel = [UILabel labelWithStyle:@"tipLabel"];
-    tipLabel.text = [[self.venueDict objectForKey:@"tip"] objectForKey:@"text"];
-    labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"tipLabel"];
-    tipLabel.frame = CGRectMake(8, divider.bottom + 4, tipWidth, labelSize.height);
+    UILabel *tipLabel = [UILabel labelWithStyle:@"bodyLabel"];
+    tipLabel.text = [NSString stringWithFormat:@"\"%@\"", [[self.venueDict objectForKey:@"tip"] objectForKey:@"text"]];
+    labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"bodyLabel"];
+    tipLabel.frame = CGRectMake(8, titleLabel.bottom + 4, tipWidth, labelSize.height);
     [tipView addSubview:tipLabel];
     
-    divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
-    divider.frame = CGRectMake(4, tipLabel.bottom + 4, tipWidth, 1.0);
-    [tipView addSubview:divider];
+//    divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
+//    divider.frame = CGRectMake(4, tipLabel.bottom + 4, tipWidth, 1.0);
+//    [tipView addSubview:divider];
     
-    UILabel *countLabel = [UILabel labelWithStyle:@"tipCountLabel"];
+    UILabel *countLabel = [UILabel labelWithStyle:@"subtitleLabel"];
     countLabel.text = [NSString stringWithFormat:@"View All %@ Tips", [self.venueDict objectForKey:@"tipCount"]];
-    labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"tipCountLabel"];
-    countLabel.frame = CGRectMake(8, divider.bottom + 4, tipWidth, labelSize.height);
+    labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"subtitleLabel"];
+    countLabel.frame = CGRectMake(8, tipLabel.bottom + 4, tipWidth, labelSize.height);
     [tipView addSubview:countLabel];
     
     CGFloat heightDiff = tipView.height - countLabel.bottom  - 4;

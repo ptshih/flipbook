@@ -9,7 +9,13 @@
 #import "TimelineViewController.h"
 #import "GalleryViewController.h"
 #import "PSZoomView.h"
+#import "PSPopoverView.h"
 #import "TimelineView.h"
+#import "CategoryChooserView.h"
+#import "LocationChooserView.h"
+
+#define kPopoverLocation 7001
+#define kPopoverCategory 7002
 
 @interface TimelineViewController (Private)
 
@@ -23,13 +29,19 @@
 leftButton = _leftButton,
 centerButton = _centerButton,
 rightButton = _rightButton,
-shouldRefreshOnAppear = _shouldRefreshOnAppear;
+shouldRefreshOnAppear = _shouldRefreshOnAppear,
+categoryIndex = _categoryIndex,
+centerCoordinate = _centerCoordinate,
+radius = _radius;
 
 #pragma mark - Init
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.shouldRefreshOnAppear = NO;
+        self.categoryIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"categoryIndex"];
+        self.radius = 0;
+        self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidUpdate) name:kPSLocationCenterDidUpdate object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadDataSource) name:kLoginSucceeded object:nil];
@@ -109,7 +121,7 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     
     self.leftButton = [UIButton buttonWithFrame:CGRectMake(0, 0, 44, 44) andStyle:nil target:self action:@selector(leftAction)];
     [self.leftButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockLeft" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.leftButton setImage:[UIImage imageNamed:@"IconGearBlack"] forState:UIControlStateNormal];
+    [self.leftButton setImage:[UIImage imageNamed:@"IconHeartBlack"] forState:UIControlStateNormal];
     
     self.centerButton = [UIButton buttonWithFrame:CGRectMake(44, 0, self.headerView.width - 88, 44) andStyle:@"timelineTitleLabel" target:self action:@selector(centerAction)];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockCenter" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
@@ -119,7 +131,7 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockRight" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.rightButton setImage:[UIImage imageNamed:@"IconClockBlack"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconSliderBlack"] forState:UIControlStateNormal];
     
     [self.headerView addSubview:self.leftButton];
     [self.headerView addSubview:self.centerButton];
@@ -129,12 +141,25 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 
 #pragma mark - Actions
 - (void)leftAction {
+    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Send Love" message:@"Your love makes us work harder. Rate our app now?" delegate:self cancelButtonTitle:@"No, Thanks" otherButtonTitles:@"Okay", nil] autorelease];
+    [av show];
 }
 
 - (void)centerAction {
+        MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
+    LocationChooserView *cv = [[[LocationChooserView alloc] initWithFrame:CGRectMake(0, 0, 288, 352) mapRegion:mapRegion] autorelease];
+    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Choose a Location" contentView:cv] autorelease];
+    popoverView.tag = kPopoverLocation;
+    popoverView.delegate = self;
+    [popoverView show];
 }
 
 - (void)rightAction {
+    CategoryChooserView *cv = [[[CategoryChooserView alloc] initWithFrame:CGRectMake(0, 0, 288, 152)] autorelease];
+    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Choose a Category" contentView:cv] autorelease];
+    popoverView.tag = kPopoverCategory;
+    popoverView.delegate = self;
+    [popoverView show];
 }
 
 - (void)locationDidUpdate {
@@ -180,21 +205,44 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     if (![[PSLocationCenter defaultCenter] hasAcquiredAccurateLocation]) {
         return;
+    } else {
+        if (self.radius == 0 && self.centerCoordinate.latitude == 0 && self.centerCoordinate.longitude == 0) {
+            self.radius = 500;
+            self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
+        }
     }
     
-    NSString *ll = [NSString stringWithFormat:@"%@", [[PSLocationCenter defaultCenter] locationString]];
+    NSString *ll = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
+    NSNumber *radius = (self.radius > 0) ? [NSNumber numberWithFloat:self.radius] : nil;
     
     NSString *URLPath = @"https://api.foursquare.com/v2/venues/explore";
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:ll forKey:@"ll"];
-//    [parameters setObject:[NSNumber numberWithInteger:800] forKey:@"radius"];
+    if (radius) {
+        [parameters setObject:radius forKey:@"radius"];
+    }
     [parameters setObject:@"20120222" forKey:@"v"];
     [parameters setObject:[NSNumber numberWithInteger:1] forKey:@"venuePhotos"];
-    [parameters setObject:@"food" forKey:@"section"];
     [parameters setObject:[NSNumber numberWithInteger:50] forKey:@"limit"];
     [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
     [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
+    NSString *section = nil;
+    switch (self.categoryIndex) {
+        case 0:
+            section = @"food";
+            break;
+        case 1:
+            section = @"coffee";
+            break;
+        case 2:
+            section = @"drinks";
+            break;
+        default:
+            section = @"food";
+            break;
+    }
+    [parameters setObject:section forKey:@"section"];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
@@ -344,15 +392,6 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
     }];
 }
 
-#pragma mark - PSPopoverViewDelegate
-- (void)popoverViewDidDismiss:(PSPopoverView *)popoverView {
-//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dateRangeDidChange"]) {
-//        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"dateRangeDidChange"];
-//        [self setDateRange];
-//        [self reloadDataSource];
-//    }
-}
-
 #pragma mark - PSErrorViewDelegate
 - (void)errorViewDidDismiss:(PSErrorView *)errorView {
     [self reloadDataSource];
@@ -367,6 +406,38 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 - (void)endRefresh {
     [super endRefresh];
     [SVProgressHUD dismiss];
+}
+
+#pragma mark - PSPopoverViewDelegate
+- (void)popoverViewDidDismiss:(PSPopoverView *)popoverView {
+    if (popoverView.tag == kPopoverCategory) {
+        NSInteger newCategoryIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"categoryIndex"];
+        if (newCategoryIndex != self.categoryIndex) {
+            self.categoryIndex = newCategoryIndex;
+            [self reloadDataSource];
+        }
+    } else if (popoverView.tag = kPopoverLocation) {
+        MKMapView *mapView = [(LocationChooserView *)popoverView.contentView mapView];
+        MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mapView.visibleMapRect), MKMapRectGetMidY(mapView.visibleMapRect));
+        MKMapPoint westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mapView.visibleMapRect), MKMapRectGetMidY(mapView.visibleMapRect));
+        
+        CGFloat span = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint);
+        
+        if (self.radius != ceilf(span / 2.0) || (self.centerCoordinate.latitude != mapView.centerCoordinate.latitude && self.centerCoordinate.longitude != mapView.centerCoordinate.longitude)) {
+            self.radius = ceilf(span / 2.0);
+            self.centerCoordinate = mapView.centerCoordinate;
+            
+            [self reloadDataSource];
+        }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (alertView.cancelButtonIndex == buttonIndex) return;
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timelineConfig#loveSent"];
+    
+    [Appirater rateApp];
 }
 
 @end

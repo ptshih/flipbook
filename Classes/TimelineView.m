@@ -42,16 +42,16 @@ distanceLabel = _distanceLabel;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.nameLabel = [UILabel labelWithStyle:@"timelineNameLabel"];
+        self.nameLabel = [UILabel labelWithStyle:@"titleLabel"];
         [self addSubview:self.nameLabel];
         
-        self.addressLabel = [UILabel labelWithStyle:@"timelineAddressLabel"];
+        self.addressLabel = [UILabel labelWithStyle:@"subtitleLabel"];
         [self addSubview:self.addressLabel];
         
-        self.categoryLabel = [UILabel labelWithStyle:@"timelineCategoryLabel"];
+        self.categoryLabel = [UILabel labelWithStyle:@"metaLabel"];
         [self addSubview:self.categoryLabel];
         
-        self.distanceLabel = [UILabel labelWithStyle:@"timelineDistanceLabel"];
+        self.distanceLabel = [UILabel labelWithStyle:@"metaLabel"];
         [self addSubview:self.distanceLabel];
     }
     return self;
@@ -94,25 +94,25 @@ distanceLabel = _distanceLabel;
     
     CGSize labelSize = CGSizeZero;
     
-    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"timelineNameLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"titleLabel"];
     self.nameLabel.top = self.imageView.bottom + MARGIN;
     self.nameLabel.left = left;
     self.nameLabel.width = labelSize.width;
     self.nameLabel.height = labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:self.addressLabel.text width:width style:@"timelineAddressLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.addressLabel.text width:width style:@"subtitleLabel"];
     self.addressLabel.top = self.nameLabel.bottom;
     self.addressLabel.left = left;
     self.addressLabel.width = labelSize.width;
     self.addressLabel.height = labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:self.distanceLabel.text width:width style:@"timelineDistanceLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.distanceLabel.text width:width style:@"metaLabel"];
     self.distanceLabel.top = self.addressLabel.bottom;
     self.distanceLabel.left = right - labelSize.width;
     self.distanceLabel.width = labelSize.width;
     self.distanceLabel.height = labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:self.categoryLabel.text width:(width - self.distanceLabel.width - MARGIN) style:@"timelineCategoryLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.categoryLabel.text width:(width - self.distanceLabel.width - MARGIN) style:@"metaLabel"];
     self.categoryLabel.top = self.addressLabel.bottom;
     self.categoryLabel.left = left;
     self.categoryLabel.width = labelSize.width;
@@ -146,13 +146,13 @@ distanceLabel = _distanceLabel;
     height += MARGIN;
     
     CGSize labelSize = CGSizeZero;
-    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"name"] width:width style:@"timelineNameLabel"];
+    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"name"] width:width style:@"titleLabel"];
     height += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"address"] width:width style:@"timelineAddressLabel"];
+    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"address"] width:width style:@"subtitleLabel"];
     height += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"category"] width:width style:@"timelineCategoryLabel"];
+    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"category"] width:width style:@"metaLabel"];
     height += labelSize.height;
     
     height += MARGIN;

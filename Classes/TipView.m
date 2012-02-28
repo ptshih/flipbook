@@ -18,7 +18,8 @@ object = _object,
 backgroundView = _backgroundView,
 tipLabel = _tipLabel,
 nameLabel = _nameLabel,
-homeCityLabel = _homeCityLabel;
+homeCityLabel = _homeCityLabel,
+divider = _divider;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -35,14 +36,17 @@ homeCityLabel = _homeCityLabel;
         self.backgroundView.layer.shouldRasterize = YES;
         [self addSubview:self.backgroundView];
 
-        self.tipLabel = [UILabel labelWithStyle:@"tipLabel"];
+        self.tipLabel = [UILabel labelWithStyle:@"bodyLabel"];
         [self addSubview:self.tipLabel];
         
-        self.nameLabel = [UILabel labelWithStyle:@"timelineNameLabel"];
+        self.nameLabel = [UILabel labelWithStyle:@"titleLabel"];
         [self addSubview:self.nameLabel];
         
-        self.homeCityLabel = [UILabel labelWithStyle:@"timelineHomeCityLabel"];
+        self.homeCityLabel = [UILabel labelWithStyle:@"subtitleLabel"];
         [self addSubview:self.homeCityLabel];
+        
+        self.divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
+        [self addSubview:self.divider];
     }
     return self;
 }
@@ -54,6 +58,7 @@ homeCityLabel = _homeCityLabel;
     self.tipLabel = nil;
     self.nameLabel = nil;
     self.homeCityLabel = nil;
+    self.divider = nil;
     [super dealloc];
 }
 
@@ -75,20 +80,26 @@ homeCityLabel = _homeCityLabel;
     
     CGSize labelSize = CGSizeZero;
     
-    labelSize = [PSStyleSheet sizeForText:self.tipLabel.text width:width style:@"tipLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.tipLabel.text width:width style:@"bodyLabel"];
     self.tipLabel.top = top;
     self.tipLabel.left = left;
     self.tipLabel.width = labelSize.width;
     self.tipLabel.height = labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"timelineNameLabel"];
-    self.nameLabel.top = self.tipLabel.bottom;
+    top = self.tipLabel.bottom + MARGIN;
+    self.divider.frame = CGRectMake(left, top, width, 1.0);
+    top = self.divider.bottom + MARGIN;
+    
+    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"titleLabel"];
+    self.nameLabel.top = top;
     self.nameLabel.left = left;
     self.nameLabel.width = labelSize.width;
     self.nameLabel.height = labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:self.homeCityLabel.text width:width style:@"timelineHomeCityLabel"];
-    self.homeCityLabel.top = self.nameLabel.bottom;
+    top = self.nameLabel.bottom;
+    
+    labelSize = [PSStyleSheet sizeForText:self.homeCityLabel.text width:width style:@"subtitleLabel"];
+    self.homeCityLabel.top = top;
     self.homeCityLabel.left = left;
     self.homeCityLabel.width = labelSize.width;
     self.homeCityLabel.height = labelSize.height;
@@ -100,7 +111,7 @@ homeCityLabel = _homeCityLabel;
     NSString *name = [user objectForKey:@"firstName"];
     name = [user objectForKey:@"lastName"] ? [name stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : name;
     
-    self.tipLabel.text = [self.object objectForKey:@"text"];
+    self.tipLabel.text = [NSString stringWithFormat:@"\"%@\"", [object objectForKey:@"text"]];
     self.nameLabel.text = name;
     self.homeCityLabel.text = [user objectForKey:@"homeCity"];
 }
@@ -112,17 +123,21 @@ homeCityLabel = _homeCityLabel;
     
     height += MARGIN;
     
-    NSString *tipText = [object objectForKey:@"text"];
-    labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"tipLabel"];
+    NSString *tipText = [NSString stringWithFormat:@"\"%@\"", [object objectForKey:@"text"]];
+    labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"bodyLabel"];
     height += labelSize.height;
+    
+    height += MARGIN;
+    height += 1.0;
+    height += MARGIN;
     
     NSDictionary *user = [object objectForKey:@"user"];
     NSString *name = [user objectForKey:@"firstName"];
     name = [user objectForKey:@"lastName"] ? [name stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : name;
-    labelSize = [PSStyleSheet sizeForText:name width:width style:@"timelineNameLabel"];
+    labelSize = [PSStyleSheet sizeForText:name width:width style:@"titleLabel"];
     height += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[user objectForKey:@"homeCity"] width:width style:@"timelineHomeCityLabel"];
+    labelSize = [PSStyleSheet sizeForText:[user objectForKey:@"homeCity"] width:width style:@"subtitleLabel"];
     height += labelSize.height;
     
     height += MARGIN;

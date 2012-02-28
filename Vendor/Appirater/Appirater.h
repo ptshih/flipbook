@@ -47,7 +47,7 @@ extern NSString *const kAppiraterReminderRequestDate;
 /*
  Place your Apple generated software id here.
  */
-#define APPIRATER_APP_ID				505330217
+#define APPIRATER_APP_ID				466579899
 
 /*
  Your app's name.

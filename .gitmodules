@@ -10,3 +10,6 @@
 [submodule "Submodules/QuincyKit"]
 	path = Submodules/QuincyKit
 	url = https://github.com/TheRealKerni/QuincyKit.git
+[submodule "Submodules/AirWomp"]
+	path = Submodules/AirWomp
+	url = git@github.com:ptshih/airwomp.git

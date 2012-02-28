@@ -292,8 +292,10 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    GalleryViewController *vc = [[[GalleryViewController alloc] initWithDictionary:item] autorelease];
-    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    [AirWomp presentAlertViewWithBlock:^{
+        GalleryViewController *vc = [[[GalleryViewController alloc] initWithDictionary:item] autorelease];
+        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    }];
     
     return;
 

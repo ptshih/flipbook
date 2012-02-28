@@ -70,6 +70,8 @@ navigationController = _navigationController;
 {
 //    NSLog(@"Fonts: %@", [UIFont familyNames]);
     
+    [AirWomp startSession:@"4f4c00087ed8800008000003"];
+    
 #ifdef RELEASE
     [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];
     [[BWHockeyManager sharedHockeyManager] setAlwaysShowUpdateReminder:YES];

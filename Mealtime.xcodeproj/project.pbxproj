@@ -183,6 +183,8 @@
 		D05B5F9314EB068200970969 /* NSJSONSerialization+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D05B5F9214EB068200970969 /* NSJSONSerialization+PSKit.m */; };
 		D060639E14E90CA800150193 /* IconCalendarBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D060639C14E90CA800150193 /* IconCalendarBlack.png */; };
 		D060639F14E90CA800150193 /* IconCalendarBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D060639D14E90CA800150193 /* IconCalendarBlack@2x.png */; };
+		D06DF55114FC2FC1006DCFA5 /* AirWomp.m in Sources */ = {isa = PBXBuildFile; fileRef = D06DF55014FC2FC1006DCFA5 /* AirWomp.m */; };
+		D06DF55414FC5FA1006DCFA5 /* PSKeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D06DF55314FC5FA1006DCFA5 /* PSKeychainWrapper.m */; };
 		D07B2DB714F74DD400304E62 /* IconHeartBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D07B2DB514F74DD400304E62 /* IconHeartBlack.png */; };
 		D07B2DB814F74DD400304E62 /* IconHeartBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D07B2DB614F74DD400304E62 /* IconHeartBlack@2x.png */; };
 		D07B2DC114F750F500304E62 /* Appirater.m in Sources */ = {isa = PBXBuildFile; fileRef = D07B2DC014F750F500304E62 /* Appirater.m */; };
@@ -519,6 +521,10 @@
 		D05B5F9214EB068200970969 /* NSJSONSerialization+PSKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSJSONSerialization+PSKit.m"; sourceTree = "<group>"; };
 		D060639C14E90CA800150193 /* IconCalendarBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconCalendarBlack.png; sourceTree = "<group>"; };
 		D060639D14E90CA800150193 /* IconCalendarBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconCalendarBlack@2x.png"; sourceTree = "<group>"; };
+		D06DF54F14FC2FC1006DCFA5 /* AirWomp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirWomp.h; sourceTree = "<group>"; };
+		D06DF55014FC2FC1006DCFA5 /* AirWomp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirWomp.m; sourceTree = "<group>"; };
+		D06DF55214FC5FA1006DCFA5 /* PSKeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSKeychainWrapper.h; sourceTree = "<group>"; };
+		D06DF55314FC5FA1006DCFA5 /* PSKeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSKeychainWrapper.m; sourceTree = "<group>"; };
 		D070C00614F85BFA00E2D582 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		D070C00714F85BFA00E2D582 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = SOURCE_ROOT; };
 		D070C00914F85C0500E2D582 /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Info.h; sourceTree = SOURCE_ROOT; };
@@ -1247,6 +1253,7 @@
 		D031D2E814F84B6B00DEB789 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
+				D06DF54E14FC2FC1006DCFA5 /* AirWomp */,
 				D031D49214F84CDA00DEB789 /* HockeyKit */,
 				D031D47E14F84CC300DEB789 /* QuincyKit */,
 				D031D2E914F84B8700DEB789 /* PSStyleSheet */,
@@ -1357,6 +1364,17 @@
 				D03447CD14F7250D00CE226A /* Icon.png */,
 			);
 			name = AppStore;
+			sourceTree = "<group>";
+		};
+		D06DF54E14FC2FC1006DCFA5 /* AirWomp */ = {
+			isa = PBXGroup;
+			children = (
+				D06DF54F14FC2FC1006DCFA5 /* AirWomp.h */,
+				D06DF55014FC2FC1006DCFA5 /* AirWomp.m */,
+				D06DF55214FC5FA1006DCFA5 /* PSKeychainWrapper.h */,
+				D06DF55314FC5FA1006DCFA5 /* PSKeychainWrapper.m */,
+			);
+			path = AirWomp;
 			sourceTree = "<group>";
 		};
 		D07B2DBD14F750F400304E62 /* Vendor */ = {
@@ -1734,6 +1752,8 @@
 				D088EFD014F99912006F7675 /* GalleryView.m in Sources */,
 				D0FE068214F9C64B00140D9E /* VenueAnnotationView.m in Sources */,
 				D0FE068A14F9C75100140D9E /* VenueAnnotation.m in Sources */,
+				D06DF55114FC2FC1006DCFA5 /* AirWomp.m in Sources */,
+				D06DF55414FC5FA1006DCFA5 /* PSKeychainWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -62,7 +62,7 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 }
 
 //- (UIView *)baseBackgroundView {
-//  UIImageView *bgView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BackgroundWeave.jpg"]] autorelease];
+//  UIImageView *bgView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BackgroundLeather.jpg"]] autorelease];
 //  return bgView;
 //}
 

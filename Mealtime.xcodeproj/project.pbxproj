@@ -11,8 +11,6 @@
 		2810F579149202DF0028BCFE /* HorizontalLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F577149202DE0028BCFE /* HorizontalLine@2x.png */; };
 		2810F59B14921C340028BCFE /* BackgroundToolbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F59914921C330028BCFE /* BackgroundToolbar.png */; };
 		2810F59C14921C340028BCFE /* BackgroundToolbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F59A14921C330028BCFE /* BackgroundToolbar@2x.png */; };
-		281A48881486291400F5E19E /* BackgroundWeave.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 281A48861486291400F5E19E /* BackgroundWeave.jpg */; };
-		281A48891486291400F5E19E /* BackgroundWeave@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 281A48871486291400F5E19E /* BackgroundWeave@2x.jpg */; };
 		283818C314723F1D007E4827 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 283818C214723F1D007E4827 /* UIKit.framework */; };
 		283818C514723F1D007E4827 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 283818C414723F1D007E4827 /* Foundation.framework */; };
 		283818C714723F1D007E4827 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 283818C614723F1D007E4827 /* CoreGraphics.framework */; };
@@ -208,6 +206,9 @@
 		D0C5C01914F76FE60041A364 /* Default@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D0C5C01714F76FE60041A364 /* Default@2x.jpg */; };
 		D0DDA67B14E85DC1001FD463 /* PSPullRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DDA67A14E85DC1001FD463 /* PSPullRefreshView.m */; };
 		D0F4CB4814F996F70001FD7E /* PSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F4CB4714F996F70001FD7E /* PSCollectionViewController.m */; };
+		D0F6CA8514FD505700CCF2B4 /* ButtonBlockCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CA8214FD505700CCF2B4 /* ButtonBlockCenter.png */; };
+		D0F6CA8614FD505700CCF2B4 /* ButtonBlockLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CA8314FD505700CCF2B4 /* ButtonBlockLeft.png */; };
+		D0F6CA8714FD505700CCF2B4 /* ButtonBlockRight.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CA8414FD505700CCF2B4 /* ButtonBlockRight.png */; };
 		D0FE067A14F9C28600140D9E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0FE067914F9C28600140D9E /* MapKit.framework */; };
 		D0FE068214F9C64B00140D9E /* VenueAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FE068114F9C64B00140D9E /* VenueAnnotationView.m */; };
 		D0FE068514F9C6E400140D9E /* PinVenueBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068314F9C6E400140D9E /* PinVenueBlue.png */; };
@@ -241,8 +242,6 @@
 		2810F577149202DE0028BCFE /* HorizontalLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalLine@2x.png"; sourceTree = "<group>"; };
 		2810F59914921C330028BCFE /* BackgroundToolbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundToolbar.png; sourceTree = "<group>"; };
 		2810F59A14921C330028BCFE /* BackgroundToolbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackgroundToolbar@2x.png"; sourceTree = "<group>"; };
-		281A48861486291400F5E19E /* BackgroundWeave.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = BackgroundWeave.jpg; sourceTree = "<group>"; };
-		281A48871486291400F5E19E /* BackgroundWeave@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "BackgroundWeave@2x.jpg"; sourceTree = "<group>"; };
 		283818BE14723F1D007E4827 /* Mealtime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mealtime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		283818C214723F1D007E4827 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		283818C414723F1D007E4827 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -551,6 +550,9 @@
 		D0DDA67A14E85DC1001FD463 /* PSPullRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPullRefreshView.m; sourceTree = "<group>"; };
 		D0F4CB4614F996F70001FD7E /* PSCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCollectionViewController.h; sourceTree = "<group>"; };
 		D0F4CB4714F996F70001FD7E /* PSCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCollectionViewController.m; sourceTree = "<group>"; };
+		D0F6CA8214FD505700CCF2B4 /* ButtonBlockCenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonBlockCenter.png; sourceTree = "<group>"; };
+		D0F6CA8314FD505700CCF2B4 /* ButtonBlockLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonBlockLeft.png; sourceTree = "<group>"; };
+		D0F6CA8414FD505700CCF2B4 /* ButtonBlockRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonBlockRight.png; sourceTree = "<group>"; };
 		D0FE067914F9C28600140D9E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D0FE068014F9C64B00140D9E /* VenueAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueAnnotationView.h; sourceTree = "<group>"; };
 		D0FE068114F9C64B00140D9E /* VenueAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueAnnotationView.m; sourceTree = "<group>"; };
@@ -693,6 +695,9 @@
 				D07B2DB614F74DD400304E62 /* IconHeartBlack@2x.png */,
 				D054E99114F7001D00B03306 /* ButtonBlue@2x.png */,
 				D054E99214F7001D00B03306 /* ButtonWhite@2x.png */,
+				D0F6CA8214FD505700CCF2B4 /* ButtonBlockCenter.png */,
+				D0F6CA8314FD505700CCF2B4 /* ButtonBlockLeft.png */,
+				D0F6CA8414FD505700CCF2B4 /* ButtonBlockRight.png */,
 				D0B910B214F5C6A800587682 /* ButtonBlockCenter@2x.png */,
 				D0B910B314F5C6A800587682 /* ButtonBlockLeft@2x.png */,
 				D0B910B414F5C6A800587682 /* ButtonBlockRight@2x.png */,
@@ -1167,8 +1172,6 @@
 				28698733147394F500B40860 /* BackgroundDarkWood@2x.jpg */,
 				2869871F1473139E00B40860 /* BackgroundLeather.jpg */,
 				286987201473139E00B40860 /* BackgroundLeather@2x.jpg */,
-				281A48861486291400F5E19E /* BackgroundWeave.jpg */,
-				281A48871486291400F5E19E /* BackgroundWeave@2x.jpg */,
 			);
 			name = Backgrounds;
 			sourceTree = "<group>";
@@ -1463,8 +1466,6 @@
 				288F572014808609000EEC90 /* PhotoFrame@2x.png in Resources */,
 				288F572514808856000EEC90 /* CardPicturePlaceholder.png in Resources */,
 				288F572614808856000EEC90 /* CardPicturePlaceholder@2x.png in Resources */,
-				281A48881486291400F5E19E /* BackgroundWeave.jpg in Resources */,
-				281A48891486291400F5E19E /* BackgroundWeave@2x.jpg in Resources */,
 				2810F578149202DF0028BCFE /* HorizontalLine.png in Resources */,
 				2810F579149202DF0028BCFE /* HorizontalLine@2x.png in Resources */,
 				2810F59B14921C340028BCFE /* BackgroundToolbar.png in Resources */,
@@ -1536,6 +1537,9 @@
 				D0FE069014F9CE1F00140D9E /* IconPinBlack@2x.png in Resources */,
 				D0FE069114F9CE1F00140D9E /* IconPinWhite.png in Resources */,
 				D0FE069214F9CE1F00140D9E /* IconPinWhite@2x.png in Resources */,
+				D0F6CA8514FD505700CCF2B4 /* ButtonBlockCenter.png in Resources */,
+				D0F6CA8614FD505700CCF2B4 /* ButtonBlockLeft.png in Resources */,
+				D0F6CA8714FD505700CCF2B4 /* ButtonBlockRight.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 //
 
 #import "GalleryViewController.h"
+#import "TipListViewController.h"
 #import "GalleryView.h"
 #import "PSZoomView.h"
 
@@ -85,9 +86,16 @@ mapView = _mapView;
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
     
     // Setup collectionView header
-    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8, self.collectionView.width - 16, 160)] autorelease];
+    // 2 part collection header
+    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, 320)] autorelease];
     
-    UIView *backgroundView = [[[UIView alloc] initWithFrame:headerView.bounds] autorelease];
+    UIView *backgroundView = nil;
+    
+    // Map
+    UIView *mapView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8, headerView.width - 16, 148)] autorelease];
+    [headerView addSubview:mapView];
+    
+    backgroundView = [[[UIView alloc] initWithFrame:mapView.bounds] autorelease];
     backgroundView.backgroundColor = [UIColor whiteColor];
     backgroundView.layer.shadowColor = [[UIColor blackColor] CGColor];
     backgroundView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
@@ -95,9 +103,9 @@ mapView = _mapView;
     backgroundView.layer.shadowRadius = 3.0;
     backgroundView.layer.masksToBounds = NO;
     backgroundView.layer.shouldRasterize = YES;
-    [headerView addSubview:backgroundView];
+    [mapView addSubview:backgroundView];
     
-    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, 296, 152)] autorelease];
+    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, 296, 140)] autorelease];
     self.mapView.delegate = self;
     self.mapView.zoomEnabled = NO;
     self.mapView.scrollEnabled = NO;
@@ -108,7 +116,63 @@ mapView = _mapView;
     [self.mapView addAnnotation:annotation];
     UITapGestureRecognizer *gr = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(zoomMap:)] autorelease];
     [self.mapView addGestureRecognizer:gr];
-    [headerView addSubview:self.mapView];
+    [mapView addSubview:self.mapView];
+    
+    // Tip
+    UIView *tipView = [[[UIView alloc] initWithFrame:CGRectMake(8, mapView.bottom + 8.0, headerView.width - 16, 148)] autorelease];
+    UITapGestureRecognizer *tipGR = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushTips:)] autorelease];
+    [tipView addGestureRecognizer:tipGR];
+    [headerView addSubview:tipView];
+
+    backgroundView = [[[UIView alloc] initWithFrame:tipView.bounds] autorelease];
+    backgroundView.backgroundColor = [UIColor whiteColor];
+    backgroundView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    backgroundView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+    backgroundView.layer.shadowOpacity = 0.7;
+    backgroundView.layer.shadowRadius = 3.0;
+    backgroundView.layer.masksToBounds = NO;
+    backgroundView.layer.shouldRasterize = YES;
+    [tipView addSubview:backgroundView];
+    
+    UIImageView *divider = nil;
+    CGSize labelSize = CGSizeZero;
+    CGFloat tipWidth = tipView.width - 16 - 20;
+    
+    UILabel *titleLabel = [UILabel labelWithStyle:@"tipTitleLabel"];
+    titleLabel.text = @"Most Popular Tip";
+    labelSize = [PSStyleSheet sizeForText:titleLabel.text width:(tipView.width - 16.0) style:@"tipTitleLabel"];
+    titleLabel.frame = CGRectMake(8, 4, tipWidth, labelSize.height);
+    [tipView addSubview:titleLabel];
+    
+    divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
+    divider.frame = CGRectMake(4, titleLabel.bottom + 4, tipWidth, 1.0);
+    [tipView addSubview:divider];
+    
+    UILabel *tipLabel = [UILabel labelWithStyle:@"tipLabel"];
+    tipLabel.text = [[self.venueDict objectForKey:@"tip"] objectForKey:@"text"];
+    labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"tipLabel"];
+    tipLabel.frame = CGRectMake(8, divider.bottom + 4, tipWidth, labelSize.height);
+    [tipView addSubview:tipLabel];
+    
+    divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
+    divider.frame = CGRectMake(4, tipLabel.bottom + 4, tipWidth, 1.0);
+    [tipView addSubview:divider];
+    
+    UILabel *countLabel = [UILabel labelWithStyle:@"tipCountLabel"];
+    countLabel.text = [NSString stringWithFormat:@"View All %@ Tips", [self.venueDict objectForKey:@"tipCount"]];
+    labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"tipCountLabel"];
+    countLabel.frame = CGRectMake(8, divider.bottom + 4, tipWidth, labelSize.height);
+    [tipView addSubview:countLabel];
+    
+    CGFloat heightDiff = tipView.height - countLabel.bottom  - 4;
+    backgroundView.height -= heightDiff;
+    tipView.height -= heightDiff;
+    headerView.height -= heightDiff;
+    
+    UIImageView *disclosure = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureIndicatorWhiteBordered"]] autorelease];
+    disclosure.contentMode = UIViewContentModeCenter;
+    disclosure.frame = CGRectMake(tipView.width - 20, 0, 20, tipView.height);
+    [tipView addSubview:disclosure];
     
     self.collectionView.headerView = headerView;
     
@@ -160,12 +224,15 @@ mapView = _mapView;
     MKMapView *v = (MKMapView *)gr.view;
     
     NSLog(@"frame: %@", NSStringFromCGRect(v.frame));
-    
-    CGRect convertedRect = [[[self collectionView] headerView] convertRect:(CGRect)[v frame] toView:[self collectionView]];
-    CGRect windowRect = [self.collectionView convertRect:convertedRect toView:nil];
+    CGRect convertedRect = [v.superview convertRect:v.frame toView:nil];
     PSZoomView *zoomView = [[[PSZoomView alloc] initWithMapView:v mapRegion:v.region superView:v.superview] autorelease];
     [zoomView removeFromSuperview];
-    [zoomView showInRect:windowRect];
+    [zoomView showInRect:convertedRect];
+}
+
+- (void)pushTips:(UITapGestureRecognizer *)gr {
+    TipListViewController *vc = [[[TipListViewController alloc] initWithDictionary:self.venueDict] autorelease];
+    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 }
 
 #pragma mark - State Machine

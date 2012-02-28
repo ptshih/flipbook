@@ -218,6 +218,8 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
                         NSMutableArray *items = [NSMutableArray array];
                         for (NSDictionary *dict in [[groups objectAtIndex:0] objectForKey:@"items"]) {
                             NSDictionary *venue = [dict objectForKey:@"venue"];
+                            NSArray *tips = [dict objectForKey:@"tips"];
+                            NSDictionary *stats = [venue objectForKey:@"stats"];
                             NSDictionary *location = [venue objectForKey:@"location"];
                             NSDictionary *category = [[venue objectForKey:@"categories"] lastObject];
                             NSDictionary *featuredPhoto = [[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] lastObject];
@@ -242,6 +244,12 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
                             [item setObject:[featuredPhotoItem objectForKey:@"width"] forKey:@"width"];
                             [item setObject:[featuredPhotoItem objectForKey:@"height"] forKey:@"height"];
                             [item setObject:[featuredPhotoItem objectForKey:@"url"] forKey:@"source"];
+                            if (tips && [tips count] > 0) {
+                                [item setObject:[tips objectAtIndex:0] forKey:@"tip"];
+                            }
+                            [item setObject:[stats objectForKey:@"tipCount"] forKey:@"tipCount"];
+                            [item setObject:[stats objectForKey:@"photoCount"] forKey:@"photoCount"];
+                             
                             
                             [items addObject:item];
                         }

@@ -209,6 +209,10 @@
 		D0F6CA8514FD505700CCF2B4 /* ButtonBlockCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CA8214FD505700CCF2B4 /* ButtonBlockCenter.png */; };
 		D0F6CA8614FD505700CCF2B4 /* ButtonBlockLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CA8314FD505700CCF2B4 /* ButtonBlockLeft.png */; };
 		D0F6CA8714FD505700CCF2B4 /* ButtonBlockRight.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CA8414FD505700CCF2B4 /* ButtonBlockRight.png */; };
+		D0F6CA9914FD638800CCF2B4 /* DisclosureIndicatorWhiteBordered.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CA9714FD638700CCF2B4 /* DisclosureIndicatorWhiteBordered.png */; };
+		D0F6CA9A14FD638800CCF2B4 /* DisclosureIndicatorWhiteBordered@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CA9814FD638700CCF2B4 /* DisclosureIndicatorWhiteBordered@2x.png */; };
+		D0F6CA9D14FD653700CCF2B4 /* TipListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6CA9C14FD653700CCF2B4 /* TipListViewController.m */; };
+		D0F6CAA014FD675E00CCF2B4 /* TipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6CA9F14FD675E00CCF2B4 /* TipView.m */; };
 		D0FE067A14F9C28600140D9E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0FE067914F9C28600140D9E /* MapKit.framework */; };
 		D0FE068214F9C64B00140D9E /* VenueAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FE068114F9C64B00140D9E /* VenueAnnotationView.m */; };
 		D0FE068514F9C6E400140D9E /* PinVenueBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068314F9C6E400140D9E /* PinVenueBlue.png */; };
@@ -553,6 +557,12 @@
 		D0F6CA8214FD505700CCF2B4 /* ButtonBlockCenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonBlockCenter.png; sourceTree = "<group>"; };
 		D0F6CA8314FD505700CCF2B4 /* ButtonBlockLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonBlockLeft.png; sourceTree = "<group>"; };
 		D0F6CA8414FD505700CCF2B4 /* ButtonBlockRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonBlockRight.png; sourceTree = "<group>"; };
+		D0F6CA9714FD638700CCF2B4 /* DisclosureIndicatorWhiteBordered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisclosureIndicatorWhiteBordered.png; sourceTree = "<group>"; };
+		D0F6CA9814FD638700CCF2B4 /* DisclosureIndicatorWhiteBordered@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DisclosureIndicatorWhiteBordered@2x.png"; sourceTree = "<group>"; };
+		D0F6CA9B14FD653700CCF2B4 /* TipListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipListViewController.h; sourceTree = "<group>"; };
+		D0F6CA9C14FD653700CCF2B4 /* TipListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipListViewController.m; sourceTree = "<group>"; };
+		D0F6CA9E14FD675E00CCF2B4 /* TipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipView.h; sourceTree = "<group>"; };
+		D0F6CA9F14FD675E00CCF2B4 /* TipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipView.m; sourceTree = "<group>"; };
 		D0FE067914F9C28600140D9E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D0FE068014F9C64B00140D9E /* VenueAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueAnnotationView.h; sourceTree = "<group>"; };
 		D0FE068114F9C64B00140D9E /* VenueAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueAnnotationView.m; sourceTree = "<group>"; };
@@ -681,6 +691,8 @@
 		28698713147312EC00B40860 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D0F6CA9714FD638700CCF2B4 /* DisclosureIndicatorWhiteBordered.png */,
+				D0F6CA9814FD638700CCF2B4 /* DisclosureIndicatorWhiteBordered@2x.png */,
 				D0FE068B14F9CE1F00140D9E /* IconPinBlack.png */,
 				D0FE068C14F9CE1F00140D9E /* IconPinBlack@2x.png */,
 				D0FE068D14F9CE1F00140D9E /* IconPinWhite.png */,
@@ -1082,6 +1094,8 @@
 				28603B5A14AC4A1D00541BB1 /* TimelineViewController.m */,
 				D08E516E14E8ABB400B5CCCD /* GalleryViewController.h */,
 				D08E516F14E8ABB400B5CCCD /* GalleryViewController.m */,
+				D0F6CA9B14FD653700CCF2B4 /* TipListViewController.h */,
+				D0F6CA9C14FD653700CCF2B4 /* TipListViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1110,6 +1124,8 @@
 				28603B5E14AC4D9300541BB1 /* TimelineView.m */,
 				D088EFCE14F99912006F7675 /* GalleryView.h */,
 				D088EFCF14F99912006F7675 /* GalleryView.m */,
+				D0F6CA9E14FD675E00CCF2B4 /* TipView.h */,
+				D0F6CA9F14FD675E00CCF2B4 /* TipView.m */,
 				D0269E4214E1B5E100B690A2 /* UserCell.h */,
 				D0269E4314E1B5E100B690A2 /* UserCell.m */,
 				D054E98E14F6F98D00B03306 /* DateRangeView.h */,
@@ -1540,6 +1556,8 @@
 				D0F6CA8514FD505700CCF2B4 /* ButtonBlockCenter.png in Resources */,
 				D0F6CA8614FD505700CCF2B4 /* ButtonBlockLeft.png in Resources */,
 				D0F6CA8714FD505700CCF2B4 /* ButtonBlockRight.png in Resources */,
+				D0F6CA9914FD638800CCF2B4 /* DisclosureIndicatorWhiteBordered.png in Resources */,
+				D0F6CA9A14FD638800CCF2B4 /* DisclosureIndicatorWhiteBordered@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1668,6 +1686,8 @@
 				D0FE068214F9C64B00140D9E /* VenueAnnotationView.m in Sources */,
 				D0FE068A14F9C75100140D9E /* VenueAnnotation.m in Sources */,
 				D06DF55114FC2FC1006DCFA5 /* AirWomp.m in Sources */,
+				D0F6CA9D14FD653700CCF2B4 /* TipListViewController.m in Sources */,
+				D0F6CAA014FD675E00CCF2B4 /* TipView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -205,6 +205,8 @@ mapView = _mapView;
 }
 
 - (void)rightAction {
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"gallery#checkin"];
+    
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [self.venueDict objectForKey:@"id"]]]];
     } else {
@@ -225,6 +227,8 @@ mapView = _mapView;
 - (void)pushTips:(UITapGestureRecognizer *)gr {
     TipListViewController *vc = [[[TipListViewController alloc] initWithDictionary:self.venueDict] autorelease];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"gallery#tips"];
 }
 
 #pragma mark - State Machine
@@ -233,7 +237,7 @@ mapView = _mapView;
     
     [self loadDataSourceFromRemoteUsingCache:YES];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#load"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"gallery#load"];
 }
 
 - (void)reloadDataSource {
@@ -241,7 +245,7 @@ mapView = _mapView;
     
     [self loadDataSourceFromRemoteUsingCache:NO];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#reload"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"gallery#reload"];
 }
 
 - (void)dataSourceDidLoad {
@@ -353,7 +357,8 @@ mapView = _mapView;
     return [GalleryView heightForViewWithObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
-- (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {    
+- (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"gallery#zoom"];
     // ZOOM
     static BOOL isZooming;
     

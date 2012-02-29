@@ -143,6 +143,7 @@ radius = _radius;
 - (void)leftAction {
     UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Send Love" message:@"Your love makes us work harder. Rate our app now?" delegate:self cancelButtonTitle:@"No, Thanks" otherButtonTitles:@"Okay", nil] autorelease];
     [av show];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#sendLove"];
 }
 
 - (void)centerAction {
@@ -152,6 +153,8 @@ radius = _radius;
     popoverView.tag = kPopoverLocation;
     popoverView.delegate = self;
     [popoverView show];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#locationChooser"];
 }
 
 - (void)rightAction {
@@ -160,6 +163,7 @@ radius = _radius;
     popoverView.tag = kPopoverCategory;
     popoverView.delegate = self;
     [popoverView show];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#categoryChooser"];
 }
 
 - (void)locationDidUpdate {
@@ -361,6 +365,8 @@ radius = _radius;
         GalleryViewController *vc = [[[GalleryViewController alloc] initWithDictionary:item] autorelease];
         [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     }];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#venue"];
     
     return;
 

@@ -91,9 +91,10 @@ rightButton = _rightButton;
     
     self.centerButton = [UIButton buttonWithFrame:CGRectMake(44, 0, self.headerView.width - 88, 44) andStyle:@"timelineTitleLabel" target:self action:@selector(centerAction)];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockCenter" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.centerButton setTitle:[self.venueDict objectForKey:@"name"] forState:UIControlStateNormal];
+    [self.centerButton setTitle:[NSString stringWithFormat:@"Tips for %@", [self.venueDict objectForKey:@"name"]] forState:UIControlStateNormal];
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
+    self.centerButton.userInteractionEnabled = NO;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockRight" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
@@ -115,6 +116,13 @@ rightButton = _rightButton;
 }
 
 - (void)rightAction {
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"tips#checkin"];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [self.venueDict objectForKey:@"id"]]]];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
+    }
 }
 
 #pragma mark - State Machine
@@ -123,7 +131,7 @@ rightButton = _rightButton;
     
     [self loadDataSourceFromRemoteUsingCache:YES];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#load"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"tips#load"];
 }
 
 - (void)reloadDataSource {
@@ -131,7 +139,7 @@ rightButton = _rightButton;
     
     [self loadDataSourceFromRemoteUsingCache:NO];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#reload"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"tips#reload"];
 }
 
 - (void)dataSourceDidLoad {

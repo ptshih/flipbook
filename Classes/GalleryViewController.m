@@ -87,7 +87,7 @@ mapView = _mapView;
     
     // Setup collectionView header
     // 2 part collection header
-    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, 320)] autorelease];
+    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, 160)] autorelease];
     
     UIView *backgroundView = nil;
     
@@ -119,51 +119,56 @@ mapView = _mapView;
     [mapView addSubview:self.mapView];
     
     // Tip
-    UIView *tipView = [[[UIView alloc] initWithFrame:CGRectMake(8, mapView.bottom + 8.0, headerView.width - 16, 148)] autorelease];
-    UITapGestureRecognizer *tipGR = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushTips:)] autorelease];
-    [tipView addGestureRecognizer:tipGR];
-    [headerView addSubview:tipView];
-
-    backgroundView = [[[UIView alloc] initWithFrame:tipView.bounds] autorelease];
-    backgroundView.backgroundColor = [UIColor whiteColor];
-    backgroundView.layer.shadowColor = [[UIColor blackColor] CGColor];
-    backgroundView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
-    backgroundView.layer.shadowOpacity = 0.7;
-    backgroundView.layer.shadowRadius = 3.0;
-    backgroundView.layer.masksToBounds = NO;
-    backgroundView.layer.shouldRasterize = YES;
-    [tipView addSubview:backgroundView];
-    
-    UIImageView *divider = nil;
-    CGSize labelSize = CGSizeZero;
-    CGFloat tipWidth = tipView.width - 16 - 20;
-    
-    UILabel *tipLabel = [UILabel labelWithStyle:@"bodyLabel"];
-    
-    tipLabel.text = [NSString stringWithFormat:@"\"%@\"", [[self.venueDict objectForKey:@"tip"] objectForKey:@"text"]];
-    labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"bodyLabel"];
-    tipLabel.frame = CGRectMake(8, 4, tipWidth, labelSize.height);
-    [tipView addSubview:tipLabel];
-    
-    divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
-    divider.frame = CGRectMake(4, tipLabel.bottom + 4, tipWidth, 1.0);
-    [tipView addSubview:divider];
-    
-    UILabel *countLabel = [UILabel labelWithStyle:@"subtitleLabel"];
-    countLabel.text = [NSString stringWithFormat:@"View All %@ Tips", [self.venueDict objectForKey:@"tipCount"]];
-    labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"subtitleLabel"];
-    countLabel.frame = CGRectMake(8, divider.bottom + 4, tipWidth, labelSize.height);
-    [tipView addSubview:countLabel];
-    
-    CGFloat heightDiff = tipView.height - countLabel.bottom  - 4;
-    backgroundView.height -= heightDiff;
-    tipView.height -= heightDiff;
-    headerView.height -= heightDiff;
-    
-    UIImageView *disclosure = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureIndicatorWhiteBordered"]] autorelease];
-    disclosure.contentMode = UIViewContentModeCenter;
-    disclosure.frame = CGRectMake(tipView.width - 20, 0, 20, tipView.height);
-    [tipView addSubview:disclosure];
+    // Don't show if no tips
+    if ([self.venueDict objectForKey:@"tip"]) {
+        UIView *tipView = [[[UIView alloc] initWithFrame:CGRectMake(8, mapView.bottom + 8.0, headerView.width - 16, 148)] autorelease];
+        UITapGestureRecognizer *tipGR = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushTips:)] autorelease];
+        [tipView addGestureRecognizer:tipGR];
+        [headerView addSubview:tipView];
+        
+        backgroundView = [[[UIView alloc] initWithFrame:tipView.bounds] autorelease];
+        backgroundView.backgroundColor = [UIColor whiteColor];
+        backgroundView.layer.shadowColor = [[UIColor blackColor] CGColor];
+        backgroundView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+        backgroundView.layer.shadowOpacity = 0.7;
+        backgroundView.layer.shadowRadius = 3.0;
+        backgroundView.layer.masksToBounds = NO;
+        backgroundView.layer.shouldRasterize = YES;
+        [tipView addSubview:backgroundView];
+        
+        UIImageView *divider = nil;
+        CGSize labelSize = CGSizeZero;
+        CGFloat tipWidth = tipView.width - 16 - 20;
+        
+        UILabel *tipLabel = [UILabel labelWithStyle:@"bodyLabel"];
+        
+        tipLabel.text = [NSString stringWithFormat:@"\"%@\"", [[self.venueDict objectForKey:@"tip"] objectForKey:@"text"]];
+        labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"bodyLabel"];
+        tipLabel.frame = CGRectMake(8, 4, tipWidth, labelSize.height);
+        [tipView addSubview:tipLabel];
+        
+        divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
+        divider.frame = CGRectMake(4, tipLabel.bottom + 4, tipWidth, 1.0);
+        [tipView addSubview:divider];
+        
+        UILabel *countLabel = [UILabel labelWithStyle:@"subtitleLabel"];
+        countLabel.text = [NSString stringWithFormat:@"View All %@ Tips", [self.venueDict objectForKey:@"tipCount"]];
+        labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"subtitleLabel"];
+        countLabel.frame = CGRectMake(8, divider.bottom + 4, tipWidth, labelSize.height);
+        [tipView addSubview:countLabel];
+        
+        CGFloat tipHeight = countLabel.bottom + 4;
+        backgroundView.height = tipHeight;
+        tipView.height = tipHeight;
+        
+        UIImageView *disclosure = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureIndicatorWhiteBordered"]] autorelease];
+        disclosure.contentMode = UIViewContentModeCenter;
+        disclosure.frame = CGRectMake(tipView.width - 20, 0, 20, tipView.height);
+        [tipView addSubview:disclosure];
+        headerView.height += tipView.height + 12;
+    } else {
+        headerView.height += 4;
+    }
     
     self.collectionView.headerView = headerView;
     

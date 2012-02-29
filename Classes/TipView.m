@@ -15,7 +15,6 @@
 
 @synthesize
 object = _object,
-backgroundView = _backgroundView,
 tipLabel = _tipLabel,
 nameLabel = _nameLabel,
 homeCityLabel = _homeCityLabel,
@@ -25,17 +24,11 @@ divider = _divider;
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
+        self.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+        self.layer.shadowOpacity = 0.7;
+        self.layer.shadowRadius = 3.0;
         
-        self.backgroundView = [[[UIView alloc] initWithFrame:self.bounds] autorelease];
-        self.backgroundView.backgroundColor = [UIColor whiteColor];
-        self.backgroundView.layer.shadowColor = [[UIColor blackColor] CGColor];
-        self.backgroundView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
-        self.backgroundView.layer.shadowOpacity = 0.7;
-        self.backgroundView.layer.shadowRadius = 3.0;
-        self.backgroundView.layer.masksToBounds = NO;
-        self.backgroundView.layer.shouldRasterize = YES;
-        [self addSubview:self.backgroundView];
-
         self.tipLabel = [UILabel labelWithStyle:@"bodyLabel"];
         [self addSubview:self.tipLabel];
         
@@ -53,7 +46,6 @@ divider = _divider;
 
 - (void)dealloc {
     self.object = nil;
-    self.backgroundView = nil;
     
     self.tipLabel = nil;
     self.nameLabel = nil;
@@ -70,9 +62,6 @@ divider = _divider;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
-    self.backgroundView.frame = self.bounds;
-    self.backgroundView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.backgroundView.bounds] CGPath];
     
     CGFloat width = self.width - MARGIN * 2;
     CGFloat top = MARGIN;

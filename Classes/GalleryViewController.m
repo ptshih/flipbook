@@ -89,21 +89,17 @@ mapView = _mapView;
     // 2 part collection header
     UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, 160)] autorelease];
     
-    UIView *backgroundView = nil;
-    
     // Map
     UIView *mapView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8, headerView.width - 16, 148)] autorelease];
+    mapView.backgroundColor = [UIColor whiteColor];
+    mapView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    mapView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+    mapView.layer.shadowOpacity = 0.7;
+    mapView.layer.shadowRadius = 3.0;
+    mapView.layer.masksToBounds = NO;
+    mapView.layer.shouldRasterize = YES;
+    mapView.layer.rasterizationScale = [UIScreen mainScreen].scale;
     [headerView addSubview:mapView];
-    
-    backgroundView = [[[UIView alloc] initWithFrame:mapView.bounds] autorelease];
-    backgroundView.backgroundColor = [UIColor whiteColor];
-    backgroundView.layer.shadowColor = [[UIColor blackColor] CGColor];
-    backgroundView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
-    backgroundView.layer.shadowOpacity = 0.7;
-    backgroundView.layer.shadowRadius = 3.0;
-    backgroundView.layer.masksToBounds = NO;
-    backgroundView.layer.shouldRasterize = YES;
-    [mapView addSubview:backgroundView];
     
     self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, 296, 140)] autorelease];
     self.mapView.delegate = self;
@@ -122,19 +118,17 @@ mapView = _mapView;
     // Don't show if no tips
     if ([self.venueDict objectForKey:@"tip"]) {
         UIView *tipView = [[[UIView alloc] initWithFrame:CGRectMake(8, mapView.bottom + 8.0, headerView.width - 16, 148)] autorelease];
+        tipView.backgroundColor = [UIColor whiteColor];
+        tipView.layer.shadowColor = [[UIColor blackColor] CGColor];
+        tipView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+        tipView.layer.shadowOpacity = 0.7;
+        tipView.layer.shadowRadius = 3.0;
+        tipView.layer.masksToBounds = NO;
+        tipView.layer.shouldRasterize = YES;
+        tipView.layer.rasterizationScale = [UIScreen mainScreen].scale;
         UITapGestureRecognizer *tipGR = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushTips:)] autorelease];
         [tipView addGestureRecognizer:tipGR];
         [headerView addSubview:tipView];
-        
-        backgroundView = [[[UIView alloc] initWithFrame:tipView.bounds] autorelease];
-        backgroundView.backgroundColor = [UIColor whiteColor];
-        backgroundView.layer.shadowColor = [[UIColor blackColor] CGColor];
-        backgroundView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
-        backgroundView.layer.shadowOpacity = 0.7;
-        backgroundView.layer.shadowRadius = 3.0;
-        backgroundView.layer.masksToBounds = NO;
-        backgroundView.layer.shouldRasterize = YES;
-        [tipView addSubview:backgroundView];
         
         UIImageView *divider = nil;
         CGSize labelSize = CGSizeZero;
@@ -158,7 +152,6 @@ mapView = _mapView;
         [tipView addSubview:countLabel];
         
         CGFloat tipHeight = countLabel.bottom + 4;
-        backgroundView.height = tipHeight;
         tipView.height = tipHeight;
         
         UIImageView *disclosure = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureIndicatorWhiteBordered"]] autorelease];

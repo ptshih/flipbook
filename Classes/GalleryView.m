@@ -15,7 +15,6 @@
 
 @synthesize
 object = _object,
-backgroundView = _backgroundView,
 imageView = _imageView,
 nameLabel = _nameLabel,
 homeCityLabel = _homeCityLabel;
@@ -24,16 +23,10 @@ homeCityLabel = _homeCityLabel;
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        
-        self.backgroundView = [[[UIView alloc] initWithFrame:self.bounds] autorelease];
-        self.backgroundView.backgroundColor = [UIColor whiteColor];
-        self.backgroundView.layer.shadowColor = [[UIColor blackColor] CGColor];
-        self.backgroundView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
-        self.backgroundView.layer.shadowOpacity = 0.7;
-        self.backgroundView.layer.shadowRadius = 3.0;
-        self.backgroundView.layer.masksToBounds = NO;
-        self.backgroundView.layer.shouldRasterize = YES;
-        [self addSubview:self.backgroundView];
+        self.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+        self.layer.shadowOpacity = 0.7;
+        self.layer.shadowRadius = 3.0;
         
         self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
         self.imageView.shouldAnimate = YES;
@@ -52,7 +45,6 @@ homeCityLabel = _homeCityLabel;
 - (void)dealloc {
     self.object = nil;
     self.imageView = nil;
-    self.backgroundView = nil;
     
     self.nameLabel = nil;
     self.homeCityLabel = nil;
@@ -67,9 +59,6 @@ homeCityLabel = _homeCityLabel;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
-    self.backgroundView.frame = self.bounds;
-    self.backgroundView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.backgroundView.bounds] CGPath];
     
     CGFloat width = self.width - MARGIN * 2;
     CGFloat top = MARGIN;

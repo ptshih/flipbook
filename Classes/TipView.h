@@ -13,7 +13,6 @@
 @interface TipView : PSView
 
 @property (nonatomic, retain) id object;
-@property (nonatomic, retain) UIView *backgroundView;
 @property (nonatomic, retain) UILabel *tipLabel;
 @property (nonatomic, retain) UILabel *nameLabel;
 @property (nonatomic, retain) UILabel *homeCityLabel;

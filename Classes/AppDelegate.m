@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "PSReachabilityCenter.h"
 #import "PSLocationCenter.h"
-#import "WelcomeViewController.h"
 #import "TimelineViewController.h"
 
 #import "BWHockeyManager.h"

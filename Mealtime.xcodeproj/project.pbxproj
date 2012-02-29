@@ -111,7 +111,6 @@
 		289C3631148EC53300D02BAB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289C362E148EC53300D02BAB /* Security.framework */; };
 		28A19CF714A018FD0043F7BB /* PSWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A19CF614A018FD0043F7BB /* PSWindow.m */; };
 		28A19CFF14A023520043F7BB /* PSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A19CFE14A023520043F7BB /* PSNavigationController.m */; };
-		28B855ED147CE1A3004F84EA /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B855EC147CE1A3004F84EA /* WelcomeViewController.m */; };
 		28F38D55149839E0009D58BA /* IconHappyFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D4F149839E0009D58BA /* IconHappyFace.png */; };
 		28F38D56149839E0009D58BA /* IconHappyFace@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D50149839E0009D58BA /* IconHappyFace@2x.png */; };
 		28F38D57149839E0009D58BA /* IconSadFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D51149839E0009D58BA /* IconSadFace.png */; };
@@ -426,8 +425,6 @@
 		28A19CF614A018FD0043F7BB /* PSWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWindow.m; sourceTree = "<group>"; };
 		28A19CFD14A023520043F7BB /* PSNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSNavigationController.h; sourceTree = "<group>"; };
 		28A19CFE14A023520043F7BB /* PSNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSNavigationController.m; sourceTree = "<group>"; };
-		28B855EB147CE1A3004F84EA /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
-		28B855EC147CE1A3004F84EA /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		28F38D4F149839E0009D58BA /* IconHappyFace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconHappyFace.png; sourceTree = "<group>"; };
 		28F38D50149839E0009D58BA /* IconHappyFace@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconHappyFace@2x.png"; sourceTree = "<group>"; };
 		28F38D51149839E0009D58BA /* IconSadFace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconSadFace.png; sourceTree = "<group>"; };
@@ -1132,8 +1129,6 @@
 		28B855DA147CDCC4004F84EA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				28B855EB147CE1A3004F84EA /* WelcomeViewController.h */,
-				28B855EC147CE1A3004F84EA /* WelcomeViewController.m */,
 				28603B5914AC4A1D00541BB1 /* TimelineViewController.h */,
 				28603B5A14AC4A1D00541BB1 /* TimelineViewController.m */,
 				D08E516E14E8ABB400B5CCCD /* GalleryViewController.h */,
@@ -1725,7 +1720,6 @@
 				2869885A1475CEEC00B40860 /* Reachability.m in Sources */,
 				2869885C1475CEEC00B40860 /* SVProgressHUD.m in Sources */,
 				2869885D1475CEEC00B40860 /* TTTAttributedLabel.m in Sources */,
-				28B855ED147CE1A3004F84EA /* WelcomeViewController.m in Sources */,
 				28A19CF714A018FD0043F7BB /* PSWindow.m in Sources */,
 				28A19CFF14A023520043F7BB /* PSNavigationController.m in Sources */,
 				28603B4414AA860700541BB1 /* PSZoomView.m in Sources */,

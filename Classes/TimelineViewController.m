@@ -44,8 +44,6 @@ radius = _radius;
         self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidUpdate) name:kPSLocationCenterDidUpdate object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadDataSource) name:kLoginSucceeded object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshOnAppear) name:kTimelineShouldRefreshOnAppear object:nil];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDataSource) name:UIApplicationWillEnterForegroundNotification object:nil];
     }
     return self;
@@ -57,8 +55,6 @@ radius = _radius;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSLocationCenterDidUpdate object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLoginSucceeded object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kTimelineShouldRefreshOnAppear object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 
     [super dealloc];
@@ -167,6 +163,9 @@ radius = _radius;
 }
 
 - (void)locationDidUpdate {
+    self.radius = 500;
+    self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
+    
     [self reloadDataSource];
 }
 
@@ -209,12 +208,7 @@ radius = _radius;
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     if (![[PSLocationCenter defaultCenter] hasAcquiredAccurateLocation]) {
         return;
-    } else {
-        if (self.radius == 0 && self.centerCoordinate.latitude == 0 && self.centerCoordinate.longitude == 0) {
-            self.radius = 500;
-            self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
-        }
-        
+    } else {        
         [SVGeocoder reverseGeocode:self.centerCoordinate completion:^(NSArray *placemarks, NSError *error) {
             if (!error && [placemarks count] > 0) {
                 SVPlacemark *placemark = [placemarks objectAtIndex:0];

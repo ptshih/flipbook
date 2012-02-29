@@ -13,14 +13,20 @@
 #import "AirWomp.h"
 #import "SVGeocoder.h"
 
-#define CORE_DATA_MOM @"Phototime"
-#define CORE_DATA_SQL_FILE @"Phototime.sqlite"
+#define CORE_DATA_MOM @"Lunchbox"
+#define CORE_DATA_SQL_FILE @"Lunchbox.sqlite"
+
+#define FB_APP_ID @"262079367168011"
+
+/**
+ Constants
+ */
+#define kSecondsBackgroundedUntilStale 300
 
 /**
  Notifications
  */
-#define kLoginSucceeded @"kLoginSucceeded"
-#define kTimelineShouldRefreshOnAppear @"kTimelineShouldRefreshOnAppear"
+#define kShouldRecenterCurrentLocation @"kShouldRecenterCurrentLocation"
 
 // Facebook APP ID is in PSFacebookCenter.h
 

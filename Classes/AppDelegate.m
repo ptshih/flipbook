@@ -26,7 +26,9 @@ static NSMutableDictionary *_captionsCache;
 
 @synthesize
 window = _window,
-navigationController = _navigationController;
+navigationController = _navigationController,
+backgroundDate = _backgroundDate,
+foregroundDate = _foregroundDate;
 
 + (void)initialize {
     [self setupDefaults];
@@ -111,11 +113,20 @@ navigationController = _navigationController;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    self.backgroundDate = [NSDate date];
     [[LocalyticsSession sharedLocalyticsSession] close];
     [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    self.foregroundDate = [NSDate date];
+    
+    NSTimeInterval secondsBackgrounded = [self.foregroundDate timeIntervalSinceDate:self.backgroundDate];
+    // 5 min threshold
+    if (secondsBackgrounded > kSecondsBackgroundedUntilStale) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    
     [[LocalyticsSession sharedLocalyticsSession] resume];
     [[LocalyticsSession sharedLocalyticsSession] upload];
 }

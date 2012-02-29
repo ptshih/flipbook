@@ -77,7 +77,7 @@ navigationController = _navigationController;
 #endif
     [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];
     
-    [[LocalyticsSession sharedLocalyticsSession] startSession:@"34a9f3214a8fad66fc6fda1-e627441e-58cc-11e1-ab17-008545fe83d2"];
+    [[LocalyticsSession sharedLocalyticsSession] startSession:@"84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc"];
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     

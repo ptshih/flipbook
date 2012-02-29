@@ -23,7 +23,7 @@
 				<string>Icon@2x.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
-			<false/>
+			<true/>
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
@@ -67,6 +67,8 @@
 	</array>
 	<key>UILaunchImageFile</key>
 	<string>Default.jpg</string>
+	<key>UIPrerenderedIcon</key>
+	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

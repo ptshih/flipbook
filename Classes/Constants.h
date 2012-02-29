@@ -11,6 +11,7 @@
 #import "LocalyticsSession.h"
 #import "PSLocationCenter.h"
 #import "AirWomp.h"
+#import "SVGeocoder.h"
 
 #define CORE_DATA_MOM @"Phototime"
 #define CORE_DATA_SQL_FILE @"Phototime.sqlite"

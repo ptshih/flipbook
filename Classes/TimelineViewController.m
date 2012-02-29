@@ -146,7 +146,7 @@ radius = _radius;
 }
 
 - (void)centerAction {
-        MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
+    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
     LocationChooserView *cv = [[[LocationChooserView alloc] initWithFrame:CGRectMake(0, 0, 288, 352) mapRegion:mapRegion] autorelease];
     PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Choose a Location" contentView:cv] autorelease];
     popoverView.tag = kPopoverLocation;
@@ -210,6 +210,15 @@ radius = _radius;
             self.radius = 500;
             self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
         }
+        
+        [SVGeocoder reverseGeocode:self.centerCoordinate completion:^(NSArray *placemarks, NSError *error) {
+            if (!error && [placemarks count] > 0) {
+                SVPlacemark *placemark = [placemarks objectAtIndex:0];
+                NSString *street = [placemark.addressDictionary objectForKey:@"Street"];
+                NSString *locString = [NSString stringWithFormat:@"%@ of %@",[NSString localizedStringForDistance:self.radius] , street];
+                [self.centerButton setTitle:locString forState:UIControlStateNormal];
+            }
+        }];
     }
     
     NSString *ll = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];

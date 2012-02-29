@@ -1463,9 +1463,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		283818BD14723F1D007E4827 /* Mealtime */ = {
+		283818BD14723F1D007E4827 /* Lunchbox */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 283818D614723F1D007E4827 /* Build configuration list for PBXNativeTarget "Mealtime" */;
+			buildConfigurationList = 283818D614723F1D007E4827 /* Build configuration list for PBXNativeTarget "Lunchbox" */;
 			buildPhases = (
 				D0B910AD14F5C4DB00587682 /* ShellScript */,
 				283818BA14723F1D007E4827 /* Sources */,
@@ -1476,7 +1476,7 @@
 			);
 			dependencies = (
 			);
-			name = Mealtime;
+			name = Lunchbox;
 			productName = PSKitDemo;
 			productReference = 283818BE14723F1D007E4827 /* Mealtime.app */;
 			productType = "com.apple.product-type.application";
@@ -1489,7 +1489,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = 283818B814723F1C007E4827 /* Build configuration list for PBXProject "Mealtime" */;
+			buildConfigurationList = 283818B814723F1C007E4827 /* Build configuration list for PBXProject "Lunchbox" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1511,7 +1511,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				283818BD14723F1D007E4827 /* Mealtime */,
+				283818BD14723F1D007E4827 /* Lunchbox */,
 			);
 		};
 /* End PBXProject section */
@@ -1862,7 +1862,7 @@
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = Mealtime;
+				PRODUCT_NAME = Lunchbox;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1880,7 +1880,7 @@
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = Mealtime;
+				PRODUCT_NAME = Lunchbox;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1926,7 +1926,7 @@
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = Mealtime;
+				PRODUCT_NAME = Lunchbox;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B255315E-5BD9-48F7-89C2-51EB81FBF472";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -1936,7 +1936,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		283818B814723F1C007E4827 /* Build configuration list for PBXProject "Mealtime" */ = {
+		283818B814723F1C007E4827 /* Build configuration list for PBXProject "Lunchbox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				283818D414723F1D007E4827 /* Debug */,
@@ -1946,7 +1946,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		283818D614723F1D007E4827 /* Build configuration list for PBXNativeTarget "Mealtime" */ = {
+		283818D614723F1D007E4827 /* Build configuration list for PBXNativeTarget "Lunchbox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				283818D714723F1D007E4827 /* Debug */,

@@ -127,7 +127,7 @@ radius = _radius;
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockCenter" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
-    [self.centerButton setTitle:@"Mealtime" forState:UIControlStateNormal];
+    [self.centerButton setTitle:@"Lunchbox" forState:UIControlStateNormal];
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"ButtonBlockRight" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];

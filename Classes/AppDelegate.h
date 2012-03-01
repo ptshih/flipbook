@@ -16,6 +16,4 @@
 @property (nonatomic, retain) NSDate *backgroundDate;
 @property (nonatomic, retain) NSDate *foregroundDate;
 
-- (NSMutableDictionary *)captionsCache;
-
 @end

@@ -92,13 +92,11 @@ mapView = _mapView;
     // Map
     UIView *mapView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8, headerView.width - 16, 148)] autorelease];
     mapView.backgroundColor = [UIColor whiteColor];
-    mapView.layer.shadowColor = [[UIColor blackColor] CGColor];
-    mapView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
-    mapView.layer.shadowOpacity = 0.7;
-    mapView.layer.shadowRadius = 3.0;
-    mapView.layer.masksToBounds = NO;
-    mapView.layer.shouldRasterize = YES;
-    mapView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    UIImage *mapShadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
+    UIImageView *mapShadowView = [[[UIImageView alloc] initWithImage:mapShadowImage] autorelease];
+    mapShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    mapShadowView.frame = CGRectInset(mapView.bounds, -1, -2);
+    [mapView addSubview:mapShadowView];
     [headerView addSubview:mapView];
     
     self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, 296, 140)] autorelease];
@@ -119,13 +117,11 @@ mapView = _mapView;
     if ([self.venueDict objectForKey:@"tip"]) {
         UIView *tipView = [[[UIView alloc] initWithFrame:CGRectMake(8, mapView.bottom + 8.0, headerView.width - 16, 148)] autorelease];
         tipView.backgroundColor = [UIColor whiteColor];
-        tipView.layer.shadowColor = [[UIColor blackColor] CGColor];
-        tipView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
-        tipView.layer.shadowOpacity = 0.7;
-        tipView.layer.shadowRadius = 3.0;
-        tipView.layer.masksToBounds = NO;
-        tipView.layer.shouldRasterize = YES;
-        tipView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        UIImage *tipShadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
+        UIImageView *tipShadowView = [[[UIImageView alloc] initWithImage:tipShadowImage] autorelease];
+        tipShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        tipShadowView.frame = CGRectInset(tipView.bounds, -1, -2);
+        [tipView addSubview:tipShadowView];
         UITapGestureRecognizer *tipGR = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushTips:)] autorelease];
         [tipView addGestureRecognizer:tipGR];
         [headerView addSubview:tipView];

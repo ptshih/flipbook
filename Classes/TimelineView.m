@@ -25,10 +25,12 @@ distanceLabel = _distanceLabel;
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        self.layer.shadowColor = [[UIColor blackColor] CGColor];
-        self.layer.shadowOffset = CGSizeMake(0.0, 2.0);
-        self.layer.shadowOpacity = 0.7;
-        self.layer.shadowRadius = 3.0;
+
+        UIImage *shadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
+        UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
+        shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        shadowView.frame = CGRectInset(self.bounds, -1, -2);
+        [self addSubview:shadowView];
         
         self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
         self.imageView.shouldAnimate = YES;
@@ -65,6 +67,7 @@ distanceLabel = _distanceLabel;
     [self.imageView prepareForReuse];
     self.nameLabel.text = nil;
     self.addressLabel.text = nil;
+    self.categoryLabel.text = nil;
     self.distanceLabel.text = nil;
 }
 

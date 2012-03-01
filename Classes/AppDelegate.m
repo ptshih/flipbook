@@ -14,8 +14,6 @@
 #import "BWHockeyManager.h"
 #import "BWQuincyManager.h"
 
-static NSMutableDictionary *_captionsCache;
-
 @interface AppDelegate (Private)
 
 + (void)setupDefaults;
@@ -32,7 +30,6 @@ foregroundDate = _foregroundDate;
 
 + (void)initialize {
     [self setupDefaults];
-    _captionsCache = [[NSMutableDictionary alloc] init];
 }
 
 #pragma mark - Initial Defaults
@@ -54,9 +51,6 @@ foregroundDate = _foregroundDate;
 }
 
 #pragma mark - Global Statics
-- (NSMutableDictionary *)captionsCache {
-    return _captionsCache;
-}
 
 #pragma mark - Application Lifecycle
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
@@ -141,7 +135,7 @@ foregroundDate = _foregroundDate;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    RELEASE_SAFELY(_navigationController);
+    self.navigationController = nil;
     [_window release];
     [super dealloc];
 }

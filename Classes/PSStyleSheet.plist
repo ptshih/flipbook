@@ -29,8 +29,10 @@
 		<integer>18</integer>
 		<key>textColor</key>
 		<string>0xefefef</string>
-		<key>shadowColor</key>
+		<key>highlightedTextColor</key>
 		<string>0xefefef</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
 		<key>shadowOffset</key>
 		<string>{0,0}</string>
 		<key>numberOfLines</key>
@@ -46,8 +48,10 @@
 		<integer>18</integer>
 		<key>textColor</key>
 		<string>0x000000</string>
-		<key>shadowColor</key>
+		<key>highlightedTextColor</key>
 		<string>0x000000</string>
+		<key>shadowColor</key>
+		<string>0xefefef</string>
 		<key>shadowOffset</key>
 		<string>{0,0}</string>
 		<key>numberOfLines</key>
@@ -72,16 +76,16 @@
 		<key>textAlignment</key>
 		<string>center</string>
 	</dict>
-	<key>timelineTitleLabel</key>
+	<key>navigationTitleLabel</key>
 	<dict>
 		<key>fontName</key>
 		<string>HelveticaNeueLT-BoldCond</string>
 		<key>fontSize</key>
 		<integer>20</integer>
 		<key>textColor</key>
-		<string>0x333333</string>
+		<string>0xefefef</string>
 		<key>highlightedTextColor</key>
-		<string>0x666666</string>
+		<string>0xefefef</string>
 		<key>textAlignment</key>
 		<string>center</string>
 		<key>shadowColor</key>

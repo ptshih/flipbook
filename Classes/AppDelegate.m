@@ -26,7 +26,8 @@
 window = _window,
 navigationController = _navigationController,
 backgroundDate = _backgroundDate,
-foregroundDate = _foregroundDate;
+foregroundDate = _foregroundDate,
+shouldReloadInterface = _shouldReloadInterface;
 
 + (void)initialize {
     [self setupDefaults];
@@ -64,6 +65,8 @@ foregroundDate = _foregroundDate;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 //    NSLog(@"Fonts: %@", [UIFont familyNames]);
+    
+    self.shouldReloadInterface = NO;
     
     [AirWomp startSession:@"4f4c00087ed8800008000003"];
     
@@ -118,7 +121,7 @@ foregroundDate = _foregroundDate;
     NSTimeInterval secondsBackgrounded = [self.foregroundDate timeIntervalSinceDate:self.backgroundDate];
     // 5 min threshold
     if (secondsBackgrounded > kSecondsBackgroundedUntilStale) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        self.shouldReloadInterface = YES;
     }
     
     [[LocalyticsSession sharedLocalyticsSession] resume];
@@ -126,6 +129,10 @@ foregroundDate = _foregroundDate;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    if (self.shouldReloadInterface) {
+        self.shouldReloadInterface = NO;
+        [self.navigationController popToRootViewControllerAnimated:NO];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -135,6 +142,8 @@ foregroundDate = _foregroundDate;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.backgroundDate = nil;
+    self.foregroundDate = nil;
     self.navigationController = nil;
     [_window release];
     [super dealloc];

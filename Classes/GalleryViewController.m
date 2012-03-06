@@ -306,24 +306,21 @@ mapView = _mapView;
                             [item setObject:[user objectForKey:@"homeCity"] forKey:@"homeCity"];
                             [items addObject:item];
                         }
-                        
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            self.items = items;
-                            [self dataSourceDidLoad];
-                            
-                            // If this is the first load and we loaded cached data, we should refreh from remote now
-                            if (!self.hasLoadedOnce && isCached) {
-                                self.hasLoadedOnce = YES;
-                                [self reloadDataSource];
-                                NSLog(@"first load, stale cache");
-                            }
-                        }];
                     } else {
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            NSLog(@"# ERROR with JSON: %@", JSON);
-                            [self dataSourceDidError];
-                        }];
+                        NSLog(@"No photos found");
                     }
+                        
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        self.items = items;
+                        [self dataSourceDidLoad];
+                        
+                        // If this is the first load and we loaded cached data, we should refreh from remote now
+                        if (!self.hasLoadedOnce && isCached) {
+                            self.hasLoadedOnce = YES;
+                            [self reloadDataSource];
+                            NSLog(@"first load, stale cache");
+                        }
+                    }];
                 }
             }];
         }

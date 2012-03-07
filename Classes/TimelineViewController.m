@@ -108,6 +108,14 @@ radius = _radius;
     self.collectionView.numCols = 2;
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
     
+    UIView *emptyView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    //    emptyView.backgroundColor = RGBCOLOR(200, 200, 200);
+    UILabel *emptyLabel = [UILabel labelWithText:@"No Venues Found" style:@"emptyLabel"];
+    emptyLabel.frame = emptyView.bounds;
+    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [emptyView addSubview:emptyLabel];
+    self.collectionView.emptyView = emptyView;
+    
     [self.view addSubview:self.collectionView];
 }
 

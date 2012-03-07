@@ -253,8 +253,6 @@ mapView = _mapView;
 - (void)dataSourceDidLoad {
     [super dataSourceDidLoad];
     
-    [self.collectionView reloadViews];
-    
     if ([self dataSourceIsEmpty]) {
         // Show empty view
         
@@ -320,6 +318,7 @@ mapView = _mapView;
                         
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                         self.items = items;
+                        [self.collectionView reloadViews];
                         [self dataSourceDidLoad];
                         
                         // If this is the first load and we loaded cached data, we should refreh from remote now

@@ -85,14 +85,6 @@ mapView = _mapView;
     self.collectionView.numCols = 2;
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
     
-    UIView *emptyView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-//    emptyView.backgroundColor = RGBCOLOR(200, 200, 200);
-    UILabel *emptyLabel = [UILabel labelWithText:@"No Photos Found" style:@"emptyLabel"];
-    emptyLabel.frame = emptyView.bounds;
-    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [emptyView addSubview:emptyLabel];
-    self.collectionView.emptyView = emptyView;
-    
     // Setup collectionView header
     // 2 part collection header
     UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, 160)] autorelease];

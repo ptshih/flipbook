@@ -15,4 +15,4 @@
 	url = git@github.com:ptshih/airwomp.git
 [submodule "Submodules/SVGeocoder"]
 	path = Submodules/SVGeocoder
-	url = https://github.com/samvermette/SVGeocoder.git
+	url = git@github.com:ptshih/SVGeocoder.git

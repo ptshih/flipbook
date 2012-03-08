@@ -434,12 +434,10 @@ radius = _radius;
         
         CGFloat span = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint);
         
-        if (self.radius != ceilf(span / 2.0) || (self.centerCoordinate.latitude != mapView.centerCoordinate.latitude && self.centerCoordinate.longitude != mapView.centerCoordinate.longitude)) {
-            self.radius = ceilf(span / 2.0);
-            self.centerCoordinate = mapView.centerCoordinate;
-            
-            [self reloadDataSource];
-        }
+        self.radius = ceilf(span / 2.0);
+        self.centerCoordinate = mapView.centerCoordinate;
+        
+        [self reloadDataSource];
     }
 }
 

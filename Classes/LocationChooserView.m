@@ -46,7 +46,12 @@ mapView = _mapView;
 }
 
 - (void)centerCurrentLocation {
-    CLLocationCoordinate2D coord = [[PSLocationCenter defaultCenter] locationCoordinate];
+    CLLocationCoordinate2D coord;
+    if (self.mapView.userLocation) {
+        coord = self.mapView.userLocation.location.coordinate;
+    } else {
+        coord = [[PSLocationCenter defaultCenter] locationCoordinate];
+    }
     MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000);
     [self.mapView setRegion:mapRegion animated:YES];
 }

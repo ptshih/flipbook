@@ -7,6 +7,7 @@
 //
 
 #import "CategoryChooserView.h"
+#import "PSPopoverView.h"
 
 @implementation CategoryChooserView
 
@@ -81,6 +82,9 @@ tableView = _tableView;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"categoryIndex"];
+    if ([self.nextResponder isKindOfClass:[PSPopoverView class]]) {
+        [(PSPopoverView *)self.superview dismiss];
+    }
 }
 
 @end

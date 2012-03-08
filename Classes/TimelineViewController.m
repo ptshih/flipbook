@@ -176,7 +176,7 @@ radius = _radius;
 - (void)loadDataSource {
     [super loadDataSource];
     
-    [self loadDataSourceFromRemoteUsingCache:YES];
+    [self loadDataSourceFromRemoteUsingCache:NO];
     
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#load"];
 }

@@ -105,10 +105,19 @@ radius = _radius;
     self.collectionView.delegate = self; // scrollViewDelegate
     self.collectionView.collectionViewDelegate = self;
     self.collectionView.collectionViewDataSource = self;
-    self.collectionView.numCols = 2;
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
+    self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  
+    if (isDeviceIPad()) {
+        self.collectionView.numColsPortrait = 4;
+        self.collectionView.numColsLandscape = 5;
+    } else {
+        self.collectionView.numColsPortrait = 2;
+        self.collectionView.numColsLandscape = 3;
+    }
     
     UILabel *emptyLabel = [UILabel labelWithText:@"No Venues Found" style:@"emptyLabel"];
+    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.collectionView.emptyView = emptyLabel;
     
     [self.view addSubview:self.collectionView];
@@ -117,20 +126,24 @@ radius = _radius;
 - (void)setupHeader {
     // Setup perma header
     self.headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)] autorelease];
+    self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     self.leftButton = [UIButton buttonWithFrame:CGRectMake(0, 0, 44, 44) andStyle:nil target:self action:@selector(leftAction)];
     [self.leftButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonLeftBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     [self.leftButton setImage:[UIImage imageNamed:@"IconHeartWhite"] forState:UIControlStateNormal];
+    self.leftButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
     
     self.centerButton = [UIButton buttonWithFrame:CGRectMake(44, 0, self.headerView.width - 88, 44) andStyle:@"navigationTitleLabel" target:self action:@selector(centerAction)];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
     [self.centerButton setTitle:@"Lunchbox" forState:UIControlStateNormal];
+    self.centerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     [self.rightButton setImage:[UIImage imageNamed:@"IconSliderWhite"] forState:UIControlStateNormal];
+    self.rightButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     
     [self.headerView addSubview:self.leftButton];
     [self.headerView addSubview:self.centerButton];
@@ -147,11 +160,11 @@ radius = _radius;
 
 - (void)centerAction {
     MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
-    LocationChooserView *cv = [[[LocationChooserView alloc] initWithFrame:CGRectMake(0, 0, 288, 352) mapRegion:mapRegion] autorelease];
+    LocationChooserView *cv = [[[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion] autorelease];
     PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Choose a Location" contentView:cv] autorelease];
     popoverView.tag = kPopoverLocation;
     popoverView.delegate = self;
-    [popoverView show];
+    [popoverView showWithSize:cv.frame.size inView:self.view];
     
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#locationChooser"];
 }
@@ -161,7 +174,8 @@ radius = _radius;
     PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Choose a Category" contentView:cv] autorelease];
     popoverView.tag = kPopoverCategory;
     popoverView.delegate = self;
-    [popoverView show];
+    
+    [popoverView showWithSize:cv.frame.size inView:self.view];
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#categoryChooser"];
 }
 

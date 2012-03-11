@@ -82,18 +82,29 @@ mapView = _mapView;
     self.collectionView.delegate = self; // scrollViewDelegate
     self.collectionView.collectionViewDelegate = self;
     self.collectionView.collectionViewDataSource = self;
-    self.collectionView.numCols = 2;
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
+    self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
+    if (isDeviceIPad()) {
+        self.collectionView.numColsPortrait = 4;
+        self.collectionView.numColsLandscape = 5;
+    } else {
+        self.collectionView.numColsPortrait = 2;
+        self.collectionView.numColsLandscape = 3;
+    }
     
     UILabel *emptyLabel = [UILabel labelWithText:@"No Photos Found" style:@"emptyLabel"];
+    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.collectionView.emptyView = emptyLabel;
     
     // Setup collectionView header
     // 2 part collection header
     UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, 160)] autorelease];
+    headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     // Map
     UIView *mapView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8, headerView.width - 16, 148)] autorelease];
+    mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     mapView.backgroundColor = [UIColor whiteColor];
     UIImage *mapShadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
     UIImageView *mapShadowView = [[[UIImageView alloc] initWithImage:mapShadowImage] autorelease];
@@ -102,7 +113,8 @@ mapView = _mapView;
     [mapView addSubview:mapShadowView];
     [headerView addSubview:mapView];
     
-    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, 296, 140)] autorelease];
+    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, headerView.width - 24, 140)] autorelease];
+    self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.mapView.delegate = self;
     self.mapView.zoomEnabled = NO;
     self.mapView.scrollEnabled = NO;
@@ -119,6 +131,7 @@ mapView = _mapView;
     // Don't show if no tips
     if ([self.venueDict objectForKey:@"tip"]) {
         UIView *tipView = [[[UIView alloc] initWithFrame:CGRectMake(8, mapView.bottom + 8.0, headerView.width - 16, 148)] autorelease];
+        tipView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         tipView.backgroundColor = [UIColor whiteColor];
         UIImage *tipShadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
         UIImageView *tipShadowView = [[[UIImageView alloc] initWithImage:tipShadowImage] autorelease];
@@ -141,10 +154,12 @@ mapView = _mapView;
         [tipView addSubview:tipLabel];
         
         divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
+        divider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         divider.frame = CGRectMake(4, tipLabel.bottom + 4, tipWidth, 1.0);
         [tipView addSubview:divider];
         
         UILabel *countLabel = [UILabel labelWithStyle:@"subtitleLabel"];
+        countLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         countLabel.text = [NSString stringWithFormat:@"View All %@ Tips", [self.venueDict objectForKey:@"tipCount"]];
         labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"subtitleLabel"];
         countLabel.frame = CGRectMake(8, divider.bottom + 4, tipWidth, labelSize.height);
@@ -154,6 +169,7 @@ mapView = _mapView;
         tipView.height = tipHeight;
         
         UIImageView *disclosure = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureIndicatorWhiteBordered"]] autorelease];
+        disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         disclosure.contentMode = UIViewContentModeCenter;
         disclosure.frame = CGRectMake(tipView.width - 20, 0, 20, tipView.height);
         [tipView addSubview:disclosure];
@@ -170,10 +186,12 @@ mapView = _mapView;
 - (void)setupHeader {
     // Setup perma header
     self.headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)] autorelease];
+    self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     self.leftButton = [UIButton buttonWithFrame:CGRectMake(0, 0, 44, 44) andStyle:nil target:self action:@selector(leftAction)];
     [self.leftButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonLeftBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     [self.leftButton setImage:[UIImage imageNamed:@"IconBackWhite"] forState:UIControlStateNormal];
+    self.leftButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
     
     self.centerButton = [UIButton buttonWithFrame:CGRectMake(44, 0, self.headerView.width - 88, 44) andStyle:@"navigationTitleLabel" target:self action:@selector(centerAction)];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
@@ -181,10 +199,12 @@ mapView = _mapView;
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
     self.centerButton.userInteractionEnabled = NO;
+    self.centerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     [self.rightButton setImage:[UIImage imageNamed:@"IconPinWhite"] forState:UIControlStateNormal];
+    self.rightButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     
     [self.headerView addSubview:self.leftButton];
     [self.headerView addSubview:self.centerButton];
@@ -213,12 +233,9 @@ mapView = _mapView;
 
 - (void)zoomMap:(UITapGestureRecognizer *)gr {
     MKMapView *v = (MKMapView *)gr.view;
-    
-    NSLog(@"frame: %@", NSStringFromCGRect(v.frame));
-    CGRect convertedRect = [v.superview convertRect:v.frame toView:nil];
-    PSZoomView *zoomView = [[[PSZoomView alloc] initWithMapView:v mapRegion:v.region superView:v.superview] autorelease];
-    [zoomView removeFromSuperview];
-    [zoomView showInRect:convertedRect];
+
+    CGRect convertedFrame = [self.view convertRect:v.frame fromView:v.superview];
+    [PSZoomView showMapView:v withFrame:convertedFrame inView:self.view fullscreen:YES];
 }
 
 - (void)pushTips:(UITapGestureRecognizer *)gr {
@@ -379,10 +396,8 @@ mapView = _mapView;
         if (!error) {
             UIImage *sourceImage = [UIImage imageWithData:cachedData];
             if (sourceImage) {
-                UIViewContentMode contentMode = imageView.contentMode;
-                CGRect convertedRect = [imageView.superview convertRect:imageView.frame toView:nil];
-                PSZoomView *zoomView = [[[PSZoomView alloc] initWithImage:sourceImage contentMode:contentMode] autorelease];
-                [zoomView showInRect:convertedRect];
+                CGRect convertedFrame = [self.view convertRect:imageView.frame fromView:imageView.superview];
+                [PSZoomView showImage:imageView.image withFrame:convertedFrame inView:self.view];
             }
         }
     }];

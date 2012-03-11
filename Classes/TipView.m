@@ -23,6 +23,8 @@ divider = _divider;
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.layer.shouldRasterize = YES;
+        self.layer.rasterizationScale = [UIScreen mainScreen].scale;
         self.backgroundColor = [UIColor whiteColor];
         
         UIImage *shadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];

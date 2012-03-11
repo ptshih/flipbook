@@ -24,16 +24,20 @@ distanceLabel = _distanceLabel;
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.layer.shouldRasterize = YES;
+        self.layer.rasterizationScale = [UIScreen mainScreen].scale;
         self.backgroundColor = [UIColor whiteColor];
 
         UIImage *shadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
         UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
         shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         shadowView.frame = CGRectInset(self.bounds, -1, -2);
+        shadowView.opaque = YES;
+        shadowView.backgroundColor = [UIColor whiteColor];
         [self addSubview:shadowView];
         
         self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
-        self.imageView.shouldAnimate = YES;
+        self.imageView.shouldAnimate = NO;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         

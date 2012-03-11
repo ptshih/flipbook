@@ -82,8 +82,8 @@ tableView = _tableView;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"categoryIndex"];
-    if ([self.nextResponder isKindOfClass:[PSPopoverView class]]) {
-        [(PSPopoverView *)self.superview dismiss];
+    if ([self.nextResponder.nextResponder isKindOfClass:[PSPopoverView class]]) {
+        [(PSPopoverView *)self.nextResponder.nextResponder dismiss];
     }
 }
 

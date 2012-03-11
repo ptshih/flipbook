@@ -7,6 +7,7 @@
 //
 
 #import "LocationChooserView.h"
+#import "PSPopoverView.h"
 
 @implementation LocationChooserView
 
@@ -17,6 +18,7 @@ mapView = _mapView;
     self = [super initWithFrame:frame];
     if (self) {
         self.mapView = [[[MKMapView alloc] initWithFrame:self.bounds] autorelease];
+        self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.mapView.delegate = self;
         self.mapView.zoomEnabled = YES;
         self.mapView.scrollEnabled = YES;
@@ -26,6 +28,7 @@ mapView = _mapView;
         
         // Current Location
         UIButton *currentLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        currentLocationButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
         currentLocationButton.frame = CGRectMake(self.mapView.width - 36 - 8, 8, 36, 36);
         [currentLocationButton setImage:[UIImage imageNamed:@"IconLocationArrowMini"] forState:UIControlStateNormal];
         currentLocationButton.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
@@ -35,6 +38,24 @@ mapView = _mapView;
         currentLocationButton.layer.borderWidth = 1.0;
         [currentLocationButton addTarget:self action:@selector(centerCurrentLocation) forControlEvents:UIControlEventTouchUpInside];
         [self.mapView addSubview:currentLocationButton];
+        
+        UIButton *redoSearchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        redoSearchButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+        redoSearchButton.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
+        redoSearchButton.layer.cornerRadius = 4.0;
+        redoSearchButton.layer.masksToBounds = YES;
+        redoSearchButton.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
+        redoSearchButton.layer.borderWidth = 1.0;
+        [redoSearchButton addTarget:self action:@selector(redoSearch) forControlEvents:UIControlEventTouchUpInside];
+        redoSearchButton.height = 36;
+        redoSearchButton.width = self.mapView.width - 16;
+        redoSearchButton.left = 8;
+        redoSearchButton.top = self.mapView.height - 8 - 36;
+        [redoSearchButton setTitle:@"Redo Search In This Area" forState:UIControlStateNormal];
+        [PSStyleSheet applyStyle:@"popoverTitleLabel" forButton:redoSearchButton];
+        [self.mapView addSubview:redoSearchButton];
+        
+        
     }
     return self;
 }
@@ -54,6 +75,12 @@ mapView = _mapView;
     }
     MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000);
     [self.mapView setRegion:mapRegion animated:YES];
+}
+
+- (void)redoSearch {
+    if ([self.nextResponder.nextResponder isKindOfClass:[PSPopoverView class]]) {
+        [(PSPopoverView *)self.nextResponder.nextResponder dismiss];
+    }
 }
 
 @end

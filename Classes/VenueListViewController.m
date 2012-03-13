@@ -371,10 +371,10 @@ radius = _radius;
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    [AirWomp presentAlertViewWithBlock:^{
-        VenueDetailViewController *vc = [[[VenueDetailViewController alloc] initWithDictionary:item] autorelease];
-        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-    }];
+//    [AirWomp presentAlertViewWithBlock:^{
+//        VenueDetailViewController *vc = [[[VenueDetailViewController alloc] initWithDictionary:item] autorelease];
+//        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+//    }];
     
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#venue"];
 }

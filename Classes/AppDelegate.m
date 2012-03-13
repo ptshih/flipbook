@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "PSReachabilityCenter.h"
 #import "PSLocationCenter.h"
-#import "TimelineViewController.h"
+#import "VenueListViewController.h"
 
 #import "BWHockeyManager.h"
 #import "BWQuincyManager.h"
@@ -98,7 +98,7 @@ shouldReloadInterface = _shouldReloadInterface;
     
     // Root view controller
     id controller = nil;
-    controller = [[[TimelineViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+    controller = [[[VenueListViewController alloc] initWithNibName:nil bundle:nil] autorelease];
     
     self.navigationController = [[[PSNavigationController alloc] initWithRootViewController:controller] autorelease];
     self.window.rootViewController = self.navigationController;

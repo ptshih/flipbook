@@ -1,5 +1,5 @@
 //
-//  GalleryViewController.h
+//  VenueDetailViewController.h
 //  Phototime
 //
 //  Created by Peter on 2/12/12.
@@ -7,9 +7,8 @@
 //
 
 #import "PSCollectionViewController.h"
-#import "PSGalleryView.h"
 
-@interface GalleryViewController : PSCollectionViewController <MKMapViewDelegate>
+@interface VenueDetailViewController : PSCollectionViewController <MKMapViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, copy) NSDictionary *venueDict;
 @property (nonatomic, assign) UIButton *leftButton;

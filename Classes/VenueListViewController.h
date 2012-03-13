@@ -1,5 +1,5 @@
 //
-//  TimelineViewController.h
+//  VenueListViewController.h
 //  OSnap
 //
 //  Created by Peter Shih on 12/28/11.
@@ -9,7 +9,7 @@
 #import "PSCollectionViewController.h"
 #import "PSPopoverView.h"
 
-@interface TimelineViewController : PSCollectionViewController <PSPopoverViewDelegate, UIAlertViewDelegate>
+@interface VenueListViewController : PSCollectionViewController <PSPopoverViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, assign) UIButton *leftButton;
 @property (nonatomic, assign) UIButton *centerButton;

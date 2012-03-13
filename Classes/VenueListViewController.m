@@ -1,13 +1,13 @@
 //
-//  TimelineViewController.m
+//  VenueListViewController.m
 //  OSnap
 //
 //  Created by Peter Shih on 12/28/11.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "TimelineViewController.h"
-#import "GalleryViewController.h"
+#import "VenueListViewController.h"
+#import "VenueDetailViewController.h"
 #import "PSZoomView.h"
 #import "PSPopoverView.h"
 #import "TimelineView.h"
@@ -17,13 +17,13 @@
 #define kPopoverLocation 7001
 #define kPopoverCategory 7002
 
-@interface TimelineViewController (Private)
+@interface VenueListViewController (Private)
 
 - (void)refreshOnAppear;
 
 @end
 
-@implementation TimelineViewController
+@implementation VenueListViewController
 
 @synthesize
 leftButton = _leftButton,
@@ -372,49 +372,11 @@ radius = _radius;
     NSDictionary *item = [self.items objectAtIndex:index];
     
     [AirWomp presentAlertViewWithBlock:^{
-        GalleryViewController *vc = [[[GalleryViewController alloc] initWithDictionary:item] autorelease];
+        VenueDetailViewController *vc = [[[VenueDetailViewController alloc] initWithDictionary:item] autorelease];
         [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     }];
     
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#venue"];
-    
-    return;
-
-    
-    // ZOOM
-    static BOOL isZooming;
-    
-    TimelineView *timelineView = (TimelineView *)view;
-    
-    // If the image hasn't loaded, don't allow zoom
-    PSCachedImageView *imageView = timelineView.imageView;
-    if (!imageView.image) return;
-    
-    // If already zooming, don't rezoom
-    if (isZooming) return;
-    else isZooming = YES;
-    
-    // make sure to zoom the full res image here
-    NSURL *originalURL = imageView.originalURL;
-    UIActivityIndicatorViewStyle oldStyle = imageView.loadingIndicator.activityIndicatorViewStyle;
-    imageView.loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-    [imageView.loadingIndicator startAnimating];
-    
-    [[PSURLCache sharedCache] loadURL:originalURL cacheType:PSURLCacheTypePermanent usingCache:YES completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
-        [imageView.loadingIndicator stopAnimating];
-        imageView.loadingIndicator.activityIndicatorViewStyle = oldStyle;
-        isZooming = NO;
-        
-        if (!error) {
-            UIImage *sourceImage = [UIImage imageWithData:cachedData];
-            if (sourceImage) {
-                UIViewContentMode contentMode = imageView.contentMode;
-                CGRect convertedRect = [imageView.superview convertRect:imageView.frame toView:nil];
-                PSZoomView *zoomView = [[[PSZoomView alloc] initWithImage:sourceImage contentMode:contentMode] autorelease];
-                [zoomView showInRect:convertedRect];
-            }
-        }
-    }];
 }
 
 #pragma mark - PSErrorViewDelegate

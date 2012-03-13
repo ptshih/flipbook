@@ -1,20 +1,24 @@
 //
-//  GalleryViewController.m
+//  VenueDetailViewController.m
 //  Phototime
 //
 //  Created by Peter on 2/12/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "GalleryViewController.h"
+#import <ImageIO/ImageIO.h>
+#import <MobileCoreServices/UTCoreTypes.h>
+
+#import "VenueDetailViewController.h"
 #import "TipListViewController.h"
+#import "PreviewViewController.h"
 #import "GalleryView.h"
 #import "PSZoomView.h"
 
 #import "VenueAnnotation.h"
 #import "VenueAnnotationView.h"
 
-@implementation GalleryViewController
+@implementation VenueDetailViewController
 
 @synthesize
 venueDict = _venueDict,
@@ -97,13 +101,20 @@ mapView = _mapView;
     emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.collectionView.emptyView = emptyLabel;
     
+    CGFloat mapHeight;
+    if (isDeviceIPad()) {
+        mapHeight = 320;
+    } else {
+        mapHeight = 160;
+    }
+    
     // Setup collectionView header
     // 2 part collection header
-    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, 160)] autorelease];
+    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, mapHeight)] autorelease];
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     // Map
-    UIView *mapView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8, headerView.width - 16, 148)] autorelease];
+    UIView *mapView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8, headerView.width - 16, mapHeight - 16)] autorelease];
     mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     mapView.backgroundColor = [UIColor whiteColor];
     UIImage *mapShadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
@@ -113,7 +124,7 @@ mapView = _mapView;
     [mapView addSubview:mapShadowView];
     [headerView addSubview:mapView];
     
-    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, headerView.width - 24, 140)] autorelease];
+    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, headerView.width - 24, mapHeight - 24)] autorelease];
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.mapView.delegate = self;
     self.mapView.zoomEnabled = NO;
@@ -173,9 +184,8 @@ mapView = _mapView;
         disclosure.contentMode = UIViewContentModeCenter;
         disclosure.frame = CGRectMake(tipView.width - 20, 0, 20, tipView.height);
         [tipView addSubview:disclosure];
-        headerView.height += tipView.height + 12;
+        headerView.height += tipView.height + 8;
     } else {
-        headerView.height += 4;
     }
     
     self.collectionView.headerView = headerView;
@@ -203,7 +213,7 @@ mapView = _mapView;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.rightButton setImage:[UIImage imageNamed:@"IconPinWhite"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconCameraWhite"] forState:UIControlStateNormal];
     self.rightButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     
     [self.headerView addSubview:self.leftButton];
@@ -222,7 +232,23 @@ mapView = _mapView;
 }
 
 - (void)rightAction {
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"gallery#checkin"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"gallery#addphoto"];
+    
+    UIActionSheet *as = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil] autorelease];
+    
+    // Only show "Take Photo" option if device supports it
+    BOOL canTakePicture = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+    if (canTakePicture) {
+        [as addButtonWithTitle:@"Take Photo"];
+    }
+    
+    [as addButtonWithTitle:@"Choose From Library"];
+    [as addButtonWithTitle:@"Cancel"];
+    [as setCancelButtonIndex:[as numberOfButtons] - 1];
+    
+    [as showInView:self.view];
+    
+    return;
     
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [self.venueDict objectForKey:@"id"]]]];
@@ -234,8 +260,8 @@ mapView = _mapView;
 - (void)zoomMap:(UITapGestureRecognizer *)gr {
     MKMapView *v = (MKMapView *)gr.view;
 
-    CGRect convertedFrame = [self.view convertRect:v.frame fromView:v.superview];
-    [PSZoomView showMapView:v withFrame:convertedFrame inView:self.view fullscreen:YES];
+    CGRect convertedFrame = [self.view.window convertRect:v.frame fromView:v.superview];
+    [PSZoomView showMapView:v withFrame:convertedFrame inView:self.view.window fullscreen:YES];
 }
 
 - (void)pushTips:(UITapGestureRecognizer *)gr {
@@ -396,8 +422,8 @@ mapView = _mapView;
         if (!error) {
             UIImage *sourceImage = [UIImage imageWithData:cachedData];
             if (sourceImage) {
-                CGRect convertedFrame = [self.view convertRect:imageView.frame fromView:imageView.superview];
-                [PSZoomView showImage:imageView.image withFrame:convertedFrame inView:self.view];
+                CGRect convertedFrame = [self.view.window convertRect:imageView.frame fromView:imageView.superview];
+                [PSZoomView showImage:imageView.image withFrame:convertedFrame inView:self.view.window];
             }
         }
     }];
@@ -418,6 +444,56 @@ mapView = _mapView;
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
     [mapView selectAnnotation:[[mapView annotations] lastObject] animated:NO];
+}
+
+#pragma mark - ImagePickerDelegate
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker.presentingViewController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    
+    // Handle a still image capture
+    if (CFStringCompare((CFStringRef)mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
+        UIImage *originalImage = (UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage];
+        UIImage *scaledImage = [originalImage imageScaledAndRotated];
+        
+        if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+            UIImageWriteToSavedPhotosAlbum(originalImage, nil, nil, nil);
+        }
+        
+        PreviewViewController *vc = [[[PreviewViewController alloc] initWithDictionary:self.venueDict image:scaledImage] autorelease];
+        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    }
+    
+    [picker.presentingViewController dismissModalViewControllerAnimated:NO];
+}
+
+#pragma mark - Action Sheet Delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (actionSheet.cancelButtonIndex == buttonIndex) return;
+    
+    NSString *buttonName = [actionSheet buttonTitleAtIndex:buttonIndex];
+    UIImagePickerControllerSourceType sourceType;
+    
+    if ([buttonName isEqualToString:@"Take Photo"]) {
+        sourceType = UIImagePickerControllerSourceTypeCamera;
+    } else if ([buttonName isEqualToString:@"Choose From Library"]) {
+        sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    
+    if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
+        UIImagePickerController *vc = [[[UIImagePickerController alloc] init] autorelease];
+        vc.delegate = self;
+        vc.sourceType = sourceType;
+        
+        NSArray *availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:sourceType];
+        if ([availableMediaTypes containsObject:(NSString *)kUTTypeImage]) {
+            vc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+        }
+        [self presentModalViewController:vc animated:YES];
+    }
 }
 
 @end

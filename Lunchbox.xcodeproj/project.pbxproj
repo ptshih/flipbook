@@ -24,10 +24,15 @@
 		28381A981472F8C8007E4827 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28381A971472F8C8007E4827 /* CoreText.framework */; };
 		28381A9A1472F8EF007E4827 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28381A991472F8EF007E4827 /* CoreLocation.framework */; };
 		28381A9C1472F914007E4827 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28381A9B1472F914007E4827 /* MessageUI.framework */; };
+		284ABD97150E8FAF0040B250 /* CheckinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284ABD96150E8FAF0040B250 /* CheckinViewController.m */; };
+		284ABDAD150E98800040B250 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284ABDAC150E987F0040B250 /* PreviewViewController.m */; };
+		284ABDB3150ED1DD0040B250 /* IconXWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 284ABDB1150ED1DD0040B250 /* IconXWhite.png */; };
+		284ABDB4150ED1DD0040B250 /* IconXWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 284ABDB2150ED1DD0040B250 /* IconXWhite@2x.png */; };
+		2855FD89150CADEF00B6FC3A /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 2855FD88150CADEF00B6FC3A /* Icon-72.png */; };
 		28603B3114A7B20B00541BB1 /* IconNextBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 28603B2D14A7B20A00541BB1 /* IconNextBlack.png */; };
 		28603B3214A7B20B00541BB1 /* IconNextBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28603B2E14A7B20A00541BB1 /* IconNextBlack@2x.png */; };
 		28603B4414AA860700541BB1 /* PSZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B4314AA860700541BB1 /* PSZoomView.m */; };
-		28603B5B14AC4A1D00541BB1 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5A14AC4A1D00541BB1 /* TimelineViewController.m */; };
+		28603B5B14AC4A1D00541BB1 /* VenueListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5A14AC4A1D00541BB1 /* VenueListViewController.m */; };
 		28603B5F14AC4D9300541BB1 /* TimelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5E14AC4D9300541BB1 /* TimelineView.m */; };
 		28603B6514AD414F00541BB1 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28603B6414AD414E00541BB1 /* ImageIO.framework */; };
 		28603B6714AD41ED00541BB1 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28603B6614AD41ED00541BB1 /* CoreImage.framework */; };
@@ -180,7 +185,7 @@
 		D08C549414E973F800F1DD5C /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C548714E973F800F1DD5C /* AFURLConnectionOperation.m */; };
 		D08C549514E973F800F1DD5C /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C548914E973F800F1DD5C /* AFXMLRequestOperation.m */; };
 		D08E516214E8A54800B5CCCD /* PSPullRefreshView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D08E516114E8A54800B5CCCD /* PSPullRefreshView.bundle */; };
-		D08E517014E8ABB400B5CCCD /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E516F14E8ABB400B5CCCD /* GalleryViewController.m */; };
+		D08E517014E8ABB400B5CCCD /* VenueDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E516F14E8ABB400B5CCCD /* VenueDetailViewController.m */; };
 		D092D2C314DC4837001108A0 /* NSMutableURLRequest+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D092D2C214DC4837001108A0 /* NSMutableURLRequest+PSKit.m */; };
 		D0A3AC8814F42A8900748CE7 /* PSURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A3AC8714F42A8900748CE7 /* PSURLCache.m */; };
 		D0A3AC8B14F42AA300748CE7 /* PSCachedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A3AC8A14F42AA300748CE7 /* PSCachedImageView.m */; };
@@ -290,12 +295,19 @@
 		28381A971472F8C8007E4827 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		28381A991472F8EF007E4827 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		28381A9B1472F914007E4827 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		284ABD95150E8FAF0040B250 /* CheckinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinViewController.h; sourceTree = "<group>"; };
+		284ABD96150E8FAF0040B250 /* CheckinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinViewController.m; sourceTree = "<group>"; };
+		284ABDAB150E987F0040B250 /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
+		284ABDAC150E987F0040B250 /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
+		284ABDB1150ED1DD0040B250 /* IconXWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconXWhite.png; sourceTree = "<group>"; };
+		284ABDB2150ED1DD0040B250 /* IconXWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconXWhite@2x.png"; sourceTree = "<group>"; };
+		2855FD88150CADEF00B6FC3A /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		28603B2D14A7B20A00541BB1 /* IconNextBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconNextBlack.png; sourceTree = "<group>"; };
 		28603B2E14A7B20A00541BB1 /* IconNextBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconNextBlack@2x.png"; sourceTree = "<group>"; };
 		28603B4214AA860700541BB1 /* PSZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSZoomView.h; sourceTree = "<group>"; };
 		28603B4314AA860700541BB1 /* PSZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSZoomView.m; sourceTree = "<group>"; };
-		28603B5914AC4A1D00541BB1 /* TimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineViewController.h; sourceTree = "<group>"; };
-		28603B5A14AC4A1D00541BB1 /* TimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineViewController.m; sourceTree = "<group>"; };
+		28603B5914AC4A1D00541BB1 /* VenueListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueListViewController.h; sourceTree = "<group>"; };
+		28603B5A14AC4A1D00541BB1 /* VenueListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueListViewController.m; sourceTree = "<group>"; };
 		28603B5D14AC4D9300541BB1 /* TimelineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineView.h; sourceTree = "<group>"; };
 		28603B5E14AC4D9300541BB1 /* TimelineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineView.m; sourceTree = "<group>"; };
 		28603B6414AD414E00541BB1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -546,8 +558,8 @@
 		D08C548814E973F800F1DD5C /* AFXMLRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFXMLRequestOperation.h; sourceTree = "<group>"; };
 		D08C548914E973F800F1DD5C /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		D08E516114E8A54800B5CCCD /* PSPullRefreshView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PSPullRefreshView.bundle; sourceTree = "<group>"; };
-		D08E516E14E8ABB400B5CCCD /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewController.h; sourceTree = "<group>"; };
-		D08E516F14E8ABB400B5CCCD /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
+		D08E516E14E8ABB400B5CCCD /* VenueDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueDetailViewController.h; sourceTree = "<group>"; };
+		D08E516F14E8ABB400B5CCCD /* VenueDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueDetailViewController.m; sourceTree = "<group>"; };
 		D092D2C114DC4837001108A0 /* NSMutableURLRequest+PSKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+PSKit.h"; sourceTree = "<group>"; };
 		D092D2C214DC4837001108A0 /* NSMutableURLRequest+PSKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+PSKit.m"; sourceTree = "<group>"; };
 		D0A3AC8614F42A8900748CE7 /* PSURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSURLCache.h; sourceTree = "<group>"; };
@@ -1162,12 +1174,16 @@
 		28B855DA147CDCC4004F84EA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				28603B5914AC4A1D00541BB1 /* TimelineViewController.h */,
-				28603B5A14AC4A1D00541BB1 /* TimelineViewController.m */,
-				D08E516E14E8ABB400B5CCCD /* GalleryViewController.h */,
-				D08E516F14E8ABB400B5CCCD /* GalleryViewController.m */,
+				284ABDAB150E987F0040B250 /* PreviewViewController.h */,
+				284ABDAC150E987F0040B250 /* PreviewViewController.m */,
+				28603B5914AC4A1D00541BB1 /* VenueListViewController.h */,
+				28603B5A14AC4A1D00541BB1 /* VenueListViewController.m */,
+				D08E516E14E8ABB400B5CCCD /* VenueDetailViewController.h */,
+				D08E516F14E8ABB400B5CCCD /* VenueDetailViewController.m */,
 				D0F6CA9B14FD653700CCF2B4 /* TipListViewController.h */,
 				D0F6CA9C14FD653700CCF2B4 /* TipListViewController.m */,
+				284ABD95150E8FAF0040B250 /* CheckinViewController.h */,
+				284ABD96150E8FAF0040B250 /* CheckinViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1213,6 +1229,8 @@
 		28F38D4A149839B9009D58BA /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				284ABDB1150ED1DD0040B250 /* IconXWhite.png */,
+				284ABDB2150ED1DD0040B250 /* IconXWhite@2x.png */,
 				D0F6CAE014FDA90A00CCF2B4 /* IconLocationArrowMini.png */,
 				D0F6CAE114FDA90A00CCF2B4 /* IconLocationArrowMini@2x.png */,
 				D0F6CAD814FDA6BA00CCF2B4 /* IconLocationArrowBlack.png */,
@@ -1392,6 +1410,7 @@
 				D0F6CAEC14FDB7A900CCF2B4 /* Default.png */,
 				D03447CF14F7251000CE226A /* Icon@2x.png */,
 				D03447CD14F7250D00CE226A /* Icon.png */,
+				2855FD88150CADEF00B6FC3A /* Icon-72.png */,
 			);
 			name = AppStore;
 			sourceTree = "<group>";
@@ -1711,6 +1730,9 @@
 				D0ACA545150043FF00681176 /* NavButtonRightBlack@2x.png in Resources */,
 				D0ACA546150043FF00681176 /* NavButtonRightWhite.png in Resources */,
 				D0ACA547150043FF00681176 /* NavButtonRightWhite@2x.png in Resources */,
+				2855FD89150CADEF00B6FC3A /* Icon-72.png in Resources */,
+				284ABDB3150ED1DD0040B250 /* IconXWhite.png in Resources */,
+				284ABDB4150ED1DD0040B250 /* IconXWhite@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1792,14 +1814,14 @@
 				28A19CF714A018FD0043F7BB /* PSWindow.m in Sources */,
 				28A19CFF14A023520043F7BB /* PSNavigationController.m in Sources */,
 				28603B4414AA860700541BB1 /* PSZoomView.m in Sources */,
-				28603B5B14AC4A1D00541BB1 /* TimelineViewController.m in Sources */,
+				28603B5B14AC4A1D00541BB1 /* VenueListViewController.m in Sources */,
 				28603B5F14AC4D9300541BB1 /* TimelineView.m in Sources */,
 				288CB07114B2D72800233B45 /* CoreGraphics-PSKit.m in Sources */,
 				D092D2C314DC4837001108A0 /* NSMutableURLRequest+PSKit.m in Sources */,
 				D0269E4414E1B5E100B690A2 /* UserCell.m in Sources */,
 				D031558A14E5AB8B00CC8572 /* PSCollectionView.m in Sources */,
 				D0DDA67B14E85DC1001FD463 /* PSPullRefreshView.m in Sources */,
-				D08E517014E8ABB400B5CCCD /* GalleryViewController.m in Sources */,
+				D08E517014E8ABB400B5CCCD /* VenueDetailViewController.m in Sources */,
 				D08C548C14E973F800F1DD5C /* AFHTTPClient.m in Sources */,
 				D08C548D14E973F800F1DD5C /* AFHTTPRequestOperation.m in Sources */,
 				D08C548E14E973F800F1DD5C /* AFImageCache.m in Sources */,
@@ -1845,6 +1867,8 @@
 				D0F6CACF14FD8FF900CCF2B4 /* SVGeocoder.m in Sources */,
 				D0F6CAD014FD8FF900CCF2B4 /* SVPlacemark.m in Sources */,
 				D07031FA14FEEB4F002DA895 /* PSLayoutManager.m in Sources */,
+				284ABD97150E8FAF0040B250 /* CheckinViewController.m in Sources */,
+				284ABDAD150E98800040B250 /* PreviewViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

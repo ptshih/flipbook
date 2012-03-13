@@ -207,6 +207,7 @@ mapView = _mapView;
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     [self.centerButton setTitle:[self.venueDict objectForKey:@"name"] forState:UIControlStateNormal];
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.centerButton.titleLabel.minimumFontSize = 12.0;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
     self.centerButton.userInteractionEnabled = NO;
     self.centerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;

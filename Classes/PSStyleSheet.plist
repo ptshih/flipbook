@@ -131,7 +131,7 @@
 		<key>shadowOffset</key>
 		<string>{0,1}</string>
 		<key>numberOfLines</key>
-		<integer>1</integer>
+		<integer>0</integer>
 	</dict>
 	<key>titleLabel</key>
 	<dict>

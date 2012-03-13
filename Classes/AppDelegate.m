@@ -68,7 +68,7 @@ shouldReloadInterface = _shouldReloadInterface;
     
     self.shouldReloadInterface = NO;
     
-    [AirWomp startSession:@"4f4c00087ed8800008000003"];
+//    [AirWomp startSession:@"4f4c00087ed8800008000003"];
     
 #ifdef RELEASE
     [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];

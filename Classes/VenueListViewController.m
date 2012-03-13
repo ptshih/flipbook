@@ -116,7 +116,7 @@ radius = _radius;
         self.collectionView.numColsLandscape = 3;
     }
     
-    UILabel *emptyLabel = [UILabel labelWithText:@"No Venues Found" style:@"emptyLabel"];
+    UILabel *emptyLabel = [UILabel labelWithText:@"No Venues Found\r\nTry a Different Location" style:@"emptyLabel"];
     emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.collectionView.emptyView = emptyLabel;
     

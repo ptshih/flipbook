@@ -18,9 +18,16 @@
 #import "VenueAnnotation.h"
 #import "VenueAnnotationView.h"
 
+@interface VenueDetailViewController ()
+
+@property (nonatomic, retain) UIPopoverController *popover;
+
+@end
+
 @implementation VenueDetailViewController
 
 @synthesize
+popover = _popover,
 venueDict = _venueDict,
 leftButton = _leftButton,
 centerButton = _centerButton,
@@ -44,12 +51,14 @@ mapView = _mapView;
 }
 
 - (void)viewDidUnload {
+    self.popover = nil;
     self.mapView.delegate = nil;
     self.mapView = nil;
     [super viewDidUnload];
 }
 
 - (void)dealloc {
+    self.popover = nil;
     self.mapView.delegate = nil;
     self.mapView = nil;
     self.venueDict = nil;
@@ -97,7 +106,7 @@ mapView = _mapView;
         self.collectionView.numColsLandscape = 3;
     }
     
-    UILabel *emptyLabel = [UILabel labelWithText:@"No Photos Found" style:@"emptyLabel"];
+    UILabel *emptyLabel = [UILabel labelWithText:@"No Photos Found\r\nYou Should Add One!" style:@"emptyLabel"];
     emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.collectionView.emptyView = emptyLabel;
     
@@ -449,7 +458,11 @@ mapView = _mapView;
 
 #pragma mark - ImagePickerDelegate
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker.presentingViewController dismissModalViewControllerAnimated:YES];
+    if (isDeviceIPad()) {
+        [self.popover dismissPopoverAnimated:YES];
+    } else {
+        [picker.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
+    }
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -468,7 +481,11 @@ mapView = _mapView;
         [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     }
     
-    [picker.presentingViewController dismissModalViewControllerAnimated:NO];
+    if (isDeviceIPad()) {
+        [self.popover dismissPopoverAnimated:YES];
+    } else {
+        [picker.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
+    }
 }
 
 #pragma mark - Action Sheet Delegate
@@ -476,11 +493,13 @@ mapView = _mapView;
     if (actionSheet.cancelButtonIndex == buttonIndex) return;
     
     NSString *buttonName = [actionSheet buttonTitleAtIndex:buttonIndex];
-    UIImagePickerControllerSourceType sourceType;
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
     if ([buttonName isEqualToString:@"Take Photo"]) {
         sourceType = UIImagePickerControllerSourceTypeCamera;
     } else if ([buttonName isEqualToString:@"Choose From Library"]) {
+        sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    } else {
         sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
     
@@ -493,8 +512,19 @@ mapView = _mapView;
         if ([availableMediaTypes containsObject:(NSString *)kUTTypeImage]) {
             vc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
         }
-        [self presentModalViewController:vc animated:YES];
+        
+        if (isDeviceIPad()) {
+            self.popover = [[[UIPopoverController alloc] initWithContentViewController:vc] autorelease];
+            self.popover.delegate = self;
+            [self.popover presentPopoverFromRect:self.headerView.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        } else {
+            [self presentViewController:vc animated:YES completion:^{}];
+        }
     }
+}
+
+#pragma mark - UIPopoverDelegate
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
 }
 
 @end

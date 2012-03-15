@@ -155,7 +155,7 @@ radius = _radius;
 - (void)leftAction {
     UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Send Love" message:@"Your love makes us work harder. Rate our app now?" delegate:self cancelButtonTitle:@"No, Thanks" otherButtonTitles:@"Okay", nil] autorelease];
     [av show];
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#sendLove"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#sendLove"];
 }
 
 - (void)centerAction {
@@ -166,7 +166,7 @@ radius = _radius;
     popoverView.delegate = self;
     [popoverView showWithSize:cv.frame.size inView:self.view];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#locationChooser"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#locationChooser"];
 }
 
 - (void)rightAction {
@@ -176,7 +176,7 @@ radius = _radius;
     popoverView.delegate = self;
     
     [popoverView showWithSize:cv.frame.size inView:self.view];
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#categoryChooser"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#categoryChooser"];
 }
 
 - (void)locationDidUpdate {
@@ -192,7 +192,7 @@ radius = _radius;
     
     [self loadDataSourceFromRemoteUsingCache:NO];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#load"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#load"];
 }
 
 - (void)reloadDataSource {
@@ -200,7 +200,7 @@ radius = _radius;
 
     [self loadDataSourceFromRemoteUsingCache:NO];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#reload"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#reload"];
 }
 
 - (void)dataSourceDidLoad {
@@ -371,12 +371,15 @@ radius = _radius;
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
+    VenueDetailViewController *vc = [[[VenueDetailViewController alloc] initWithDictionary:item] autorelease];
+    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    
 //    [AirWomp presentAlertViewWithBlock:^{
 //        VenueDetailViewController *vc = [[[VenueDetailViewController alloc] initWithDictionary:item] autorelease];
 //        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 //    }];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timeline#venue"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#venue"];
 }
 
 #pragma mark - PSErrorViewDelegate

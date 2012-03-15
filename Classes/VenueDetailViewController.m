@@ -242,7 +242,7 @@ mapView = _mapView;
 }
 
 - (void)rightAction {
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"gallery#addphoto"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#addphoto"];
     
     UIActionSheet *as = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil] autorelease];
     
@@ -272,13 +272,15 @@ mapView = _mapView;
 
     CGRect convertedFrame = [self.view.window convertRect:v.frame fromView:v.superview];
     [PSZoomView showMapView:v withFrame:convertedFrame inView:self.view.window fullscreen:YES];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#zoomMap"];
 }
 
 - (void)pushTips:(UITapGestureRecognizer *)gr {
     TipListViewController *vc = [[[TipListViewController alloc] initWithDictionary:self.venueDict] autorelease];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"gallery#tips"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#tips"];
 }
 
 #pragma mark - State Machine
@@ -287,7 +289,7 @@ mapView = _mapView;
     
     [self loadDataSourceFromRemoteUsingCache:YES];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"gallery#load"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#load"];
 }
 
 - (void)reloadDataSource {
@@ -295,7 +297,7 @@ mapView = _mapView;
     
     [self loadDataSourceFromRemoteUsingCache:NO];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"gallery#reload"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#reload"];
 }
 
 - (void)dataSourceDidLoad {
@@ -404,7 +406,7 @@ mapView = _mapView;
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"gallery#zoom"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#zoom"];
     // ZOOM
     static BOOL isZooming;
     

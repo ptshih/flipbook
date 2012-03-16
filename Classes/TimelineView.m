@@ -33,7 +33,6 @@ distanceLabel = _distanceLabel;
         shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         shadowView.frame = CGRectInset(self.bounds, -1, -2);
         shadowView.opaque = YES;
-        shadowView.backgroundColor = [UIColor whiteColor];
         [self addSubview:shadowView];
         
         self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];

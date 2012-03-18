@@ -66,13 +66,8 @@ radius = _radius;
 
 #pragma mark - View Config
 - (UIColor *)baseBackgroundColor {
-    return [UIColor whiteColor];
+    return [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
 }
-
-//- (UIView *)baseBackgroundView {
-//  UIImageView *bgView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BackgroundLeather.jpg"]] autorelease];
-//  return bgView;
-//}
 
 #pragma mark - View
 - (void)viewDidLoad {
@@ -97,15 +92,13 @@ radius = _radius;
 
 #pragma mark - Config Subviews
 - (void)setupSubviews {
-    [self.view addSubview:[[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BackgroundLeather.jpg"]] autorelease]];
-    
     [self setupHeader];
     
     self.collectionView = [[[PSCollectionView alloc] initWithFrame:CGRectMake(0, self.headerView.bottom, self.view.width, self.view.height - self.headerView.height)] autorelease];
-    self.collectionView.delegate = self; // scrollViewDelegate
+    self.collectionView.delegate = self;
     self.collectionView.collectionViewDelegate = self;
     self.collectionView.collectionViewDataSource = self;
-    self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
+    self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   
     if (isDeviceIPad()) {
@@ -116,9 +109,9 @@ radius = _radius;
         self.collectionView.numColsLandscape = 3;
     }
     
-    UILabel *emptyLabel = [UILabel labelWithText:@"No Venues Found\r\nTry a Different Location" style:@"emptyLabel"];
-    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.collectionView.emptyView = emptyLabel;
+//    UILabel *emptyLabel = [UILabel labelWithText:@"No Venues Found\r\nTry a Different Location" style:@"emptyLabel"];
+//    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    self.collectionView.emptyView = emptyLabel;
     
     [self.view addSubview:self.collectionView];
 }

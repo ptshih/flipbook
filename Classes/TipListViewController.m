@@ -48,7 +48,7 @@ rightButton = _rightButton;
 
 #pragma mark - View Config
 - (UIColor *)baseBackgroundColor {
-    return [UIColor whiteColor];
+    return [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
 }
 
 #pragma mark - View
@@ -67,15 +67,13 @@ rightButton = _rightButton;
 
 #pragma mark - Config Subviews
 - (void)setupSubviews {
-    [self.view addSubview:[[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BackgroundLeather.jpg"]] autorelease]];
-    
     [self setupHeader];
     
     self.collectionView = [[[PSCollectionView alloc] initWithFrame:CGRectMake(0, self.headerView.bottom, self.view.width, self.view.height - self.headerView.height)] autorelease];
     self.collectionView.delegate = self; // scrollViewDelegate
     self.collectionView.collectionViewDelegate = self;
     self.collectionView.collectionViewDataSource = self;
-    self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
+    self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     if (isDeviceIPad()) {

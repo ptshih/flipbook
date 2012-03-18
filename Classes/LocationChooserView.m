@@ -73,7 +73,7 @@ mapView = _mapView;
     } else {
         coord = [[PSLocationCenter defaultCenter] locationCoordinate];
     }
-    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000);
+    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(coord, kMapRegionRadius * 2, kMapRegionRadius * 2);
     [self.mapView setRegion:mapRegion animated:YES];
 }
 

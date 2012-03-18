@@ -109,9 +109,9 @@ radius = _radius;
         self.collectionView.numColsLandscape = 3;
     }
     
-//    UILabel *emptyLabel = [UILabel labelWithText:@"No Venues Found\r\nTry a Different Location" style:@"emptyLabel"];
-//    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//    self.collectionView.emptyView = emptyLabel;
+    UILabel *emptyLabel = [UILabel labelWithText:@"No Venues Found\r\nTry a Different Location" style:@"emptyLabel"];
+    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.collectionView.emptyView = emptyLabel;
     
     [self.view addSubview:self.collectionView];
 }
@@ -174,7 +174,7 @@ radius = _radius;
 }
 
 - (void)locationDidUpdate {
-    self.radius = 500;
+    self.radius = kMapRegionRadius;
     self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
     
     [self reloadDataSource];

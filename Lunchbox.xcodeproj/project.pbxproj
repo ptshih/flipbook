@@ -24,6 +24,7 @@
 		28381A981472F8C8007E4827 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28381A971472F8C8007E4827 /* CoreText.framework */; };
 		28381A9A1472F8EF007E4827 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28381A991472F8EF007E4827 /* CoreLocation.framework */; };
 		28381A9C1472F914007E4827 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28381A9B1472F914007E4827 /* MessageUI.framework */; };
+		283F89311515DCFF003C1D63 /* PSDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 283F89301515DCFF003C1D63 /* PSDateFormatter.m */; };
 		284ABD97150E8FAF0040B250 /* CheckinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284ABD96150E8FAF0040B250 /* CheckinViewController.m */; };
 		284ABDAD150E98800040B250 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284ABDAC150E987F0040B250 /* PreviewViewController.m */; };
 		284ABDB3150ED1DD0040B250 /* IconXWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 284ABDB1150ED1DD0040B250 /* IconXWhite.png */; };
@@ -296,6 +297,8 @@
 		28381A971472F8C8007E4827 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		28381A991472F8EF007E4827 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		28381A9B1472F914007E4827 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		283F892F1515DCFF003C1D63 /* PSDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDateFormatter.h; sourceTree = "<group>"; };
+		283F89301515DCFF003C1D63 /* PSDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDateFormatter.m; sourceTree = "<group>"; };
 		284ABD95150E8FAF0040B250 /* CheckinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinViewController.h; sourceTree = "<group>"; };
 		284ABD96150E8FAF0040B250 /* CheckinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinViewController.m; sourceTree = "<group>"; };
 		284ABDAB150E987F0040B250 /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
@@ -759,6 +762,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		283F892E1515DCFF003C1D63 /* PSDateFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				283F892F1515DCFF003C1D63 /* PSDateFormatter.h */,
+				283F89301515DCFF003C1D63 /* PSDateFormatter.m */,
+			);
+			path = PSDateFormatter;
+			sourceTree = "<group>";
+		};
 		284EA205147CF5A600C4F3CE /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -815,6 +827,7 @@
 		2869873D1475CECD00B40860 /* PSKit */ = {
 			isa = PBXGroup;
 			children = (
+				283F892E1515DCFF003C1D63 /* PSDateFormatter */,
 				D07031F714FEEB3B002DA895 /* PSLayoutManager */,
 				D0A3AC8514F42A8900748CE7 /* PSURLCache */,
 				D0DDA67814E85DAB001FD463 /* PSPullRefreshView */,
@@ -1873,6 +1886,7 @@
 				D07031FA14FEEB4F002DA895 /* PSLayoutManager.m in Sources */,
 				284ABD97150E8FAF0040B250 /* CheckinViewController.m in Sources */,
 				284ABDAD150E98800040B250 /* PreviewViewController.m in Sources */,
+				283F89311515DCFF003C1D63 /* PSDateFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

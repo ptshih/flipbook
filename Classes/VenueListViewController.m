@@ -114,6 +114,8 @@ radius = _radius;
     self.collectionView.emptyView = emptyLabel;
     
     [self.view addSubview:self.collectionView];
+    
+    [self addRoundedCorners];
 }
 
 - (void)setupHeader {

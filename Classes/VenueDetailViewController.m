@@ -198,6 +198,8 @@ mapView = _mapView;
     self.collectionView.headerView = headerView;
     
     [self.view addSubview:self.collectionView];
+    
+    [self addRoundedCorners];
 }
 
 - (void)setupHeader {

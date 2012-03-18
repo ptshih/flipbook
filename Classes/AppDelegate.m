@@ -94,8 +94,8 @@ shouldReloadInterface = _shouldReloadInterface;
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     [self.window makeKeyAndVisible];
-//    self.window.backgroundColor = [UIColor blackColor];
-    self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLeather.jpg"]];
+    self.window.backgroundColor = [UIColor blackColor];
+//    self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLeather.jpg"]];
     
     // Root view controller
     id controller = nil;

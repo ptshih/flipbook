@@ -99,6 +99,8 @@ imageView = _imageView;
     self.imageView.backgroundColor = RGBCOLOR(200, 200, 200);
     [self.imageView setImage:self.image];
     [self.containerView addSubview:self.imageView];
+    
+    [self addRoundedCorners];
 }
 
 - (void)setupHeader {

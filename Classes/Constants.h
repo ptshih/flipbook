@@ -24,7 +24,7 @@
  Constants
  */
 #define kSecondsBackgroundedUntilStale 300
-#define kMapRegionRadius 800
+#define kMapRegionRadius 1000
 
 /**
  Notifications

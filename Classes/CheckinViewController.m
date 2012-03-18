@@ -97,6 +97,8 @@ webView = _webView;
     } else {
         // don't show webview
     }
+    
+    [self addRoundedCorners];
 }
 
 - (void)setupSubviews {

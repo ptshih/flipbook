@@ -209,5 +209,16 @@
 		<key>numberOfLines</key>
 		<integer>1</integer>
 	</dict>
+	<key>queryField</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-MediumCond</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0xefefef</string>
+		<key>textAlignment</key>
+		<string>left</string>
+	</dict>
 </dict>
 </plist>

@@ -9,10 +9,18 @@
 #import "LocationChooserView.h"
 #import "PSPopoverView.h"
 
+@interface LocationChooserView ()
+
+@property (nonatomic, assign) PSTextField *queryField;
+
+@end
+
 @implementation LocationChooserView
 
 @synthesize
-mapView = _mapView;
+queryField = _queryField,
+mapView = _mapView,
+query = _query;
 
 - (id)initWithFrame:(CGRect)frame mapRegion:(MKCoordinateRegion)mapRegion {
     self = [super initWithFrame:frame];
@@ -25,6 +33,32 @@ mapView = _mapView;
         self.mapView.showsUserLocation = YES;
         [self.mapView setRegion:mapRegion animated:NO];
         [self addSubview:self.mapView];
+        
+        UIView *queryView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8, self.mapView.width - 16 - 36 - 8, 36)] autorelease];
+        queryView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
+        queryView.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
+        queryView.layer.cornerRadius = 4.0;
+        queryView.layer.masksToBounds = YES;
+        queryView.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
+        queryView.layer.borderWidth = 1.0;
+        
+        PSTextField *queryField = [[[PSTextField alloc] initWithFrame:queryView.bounds withInset:CGSizeMake(8, 8)] autorelease];
+        [PSStyleSheet applyStyle:@"queryField" forTextField:queryField];
+        queryField.leftViewMode = UITextFieldViewModeAlways;
+        UIImageView *searchImageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconSearchMiniWhite"]] autorelease];
+        searchImageView.contentMode = UIViewContentModeLeft;
+        queryField.leftView = searchImageView;
+        queryField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        queryField.delegate = self;
+        queryField.returnKeyType = UIReturnKeyDefault;
+        queryField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        queryField.placeholder = @"Search for something...";
+//        [queryField setEnablesReturnKeyAutomatically:YES];
+        [queryField addTarget:self action:@selector(queryChanged:) forControlEvents:UIControlEventEditingChanged];
+        [queryView addSubview:queryField];
+        self.queryField = queryField;
+        
+        [self.mapView addSubview:queryView];
         
         // Current Location
         UIButton *currentLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -63,6 +97,7 @@ mapView = _mapView;
 - (void)dealloc {
     self.mapView.delegate = nil;
     self.mapView = nil;
+    self.query = nil;
     [super dealloc];
 }
 
@@ -80,6 +115,23 @@ mapView = _mapView;
 - (void)redoSearch {
     if ([self.nextResponder.nextResponder isKindOfClass:[PSPopoverView class]]) {
         [(PSPopoverView *)self.nextResponder.nextResponder dismiss];
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {    
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)queryChanged:(PSTextField *)textField {
+    self.query = textField.text;
+}
+
+#pragma mark - MKMapViewDelegate
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+    if ([self.queryField isFirstResponder]) {
+        [self.queryField resignFirstResponder];
     }
 }
 

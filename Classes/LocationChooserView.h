@@ -8,9 +8,10 @@
 
 #import "PSView.h"
 
-@interface LocationChooserView : PSView <MKMapViewDelegate>
+@interface LocationChooserView : PSView <MKMapViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, retain) MKMapView *mapView;
+@property (nonatomic, copy) NSString *query;
 
 - (id)initWithFrame:(CGRect)frame mapRegion:(MKCoordinateRegion)mapRegion;
 

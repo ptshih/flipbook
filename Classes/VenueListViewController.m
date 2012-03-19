@@ -17,7 +17,11 @@
 #define kPopoverLocation 7001
 #define kPopoverCategory 7002
 
-@interface VenueListViewController (Private)
+@interface VenueListViewController ()
+
+@property (nonatomic, assign) CLLocationCoordinate2D centerCoordinate;
+@property (nonatomic, assign) CGFloat radius;
+@property (nonatomic, copy) NSString *query;
 
 - (void)refreshOnAppear;
 
@@ -32,7 +36,8 @@ rightButton = _rightButton,
 shouldRefreshOnAppear = _shouldRefreshOnAppear,
 categoryIndex = _categoryIndex,
 centerCoordinate = _centerCoordinate,
-radius = _radius;
+radius = _radius,
+query = _query;
 
 #pragma mark - Init
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -57,6 +62,7 @@ radius = _radius;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSLocationCenterDidUpdate object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 
+    self.query = nil;
     [super dealloc];
 }
 
@@ -240,6 +246,9 @@ radius = _radius;
     if (radius) {
         [parameters setObject:radius forKey:@"radius"];
     }
+    if (self.query) {
+        [parameters setObject:self.query forKey:@"query"];
+    }
     [parameters setObject:@"20120222" forKey:@"v"];
     [parameters setObject:[NSNumber numberWithInteger:1] forKey:@"venuePhotos"];
     [parameters setObject:[NSNumber numberWithInteger:50] forKey:@"limit"];
@@ -305,8 +314,10 @@ radius = _radius;
                                 [item setObject:[location objectForKey:@"address"] forKey:@"address"];
                             }
                             [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
-                            [item setObject:[location objectForKey:@"lat"] forKey:@"lat"];
-                            [item setObject:[location objectForKey:@"lng"] forKey:@"lng"];
+                            if ([location objectForKey:@"lat"] && [location objectForKey:@"lng"]) {
+                                [item setObject:[location objectForKey:@"lat"] forKey:@"lat"];
+                                [item setObject:[location objectForKey:@"lng"] forKey:@"lng"];
+                            }
                             [item setObject:[featuredPhotoItem objectForKey:@"width"] forKey:@"width"];
                             [item setObject:[featuredPhotoItem objectForKey:@"height"] forKey:@"height"];
                             [item setObject:[featuredPhotoItem objectForKey:@"url"] forKey:@"source"];
@@ -411,6 +422,7 @@ radius = _radius;
         
         self.radius = ceilf(span / 2.0);
         self.centerCoordinate = mapView.centerCoordinate;
+        self.query = [(LocationChooserView *)popoverView.contentView query];
         
         [self reloadDataSource];
     }

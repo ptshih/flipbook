@@ -16,8 +16,6 @@
 @property (nonatomic, assign) UIButton *rightButton;
 @property (nonatomic, assign) BOOL shouldRefreshOnAppear;
 @property (nonatomic, assign) NSInteger categoryIndex;
-@property (nonatomic, assign) CLLocationCoordinate2D centerCoordinate;
-@property (nonatomic, assign) CGFloat radius;
 
 
 @end

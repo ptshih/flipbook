@@ -104,6 +104,14 @@ mapView = _mapView;
         self.collectionView.numColsLandscape = 3;
     }
     
+    // 4sq attribution
+    UIImageView *pb4sq = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]] autorelease];
+    pb4sq.contentMode = UIViewContentModeCenter;
+    pb4sq.frame = CGRectMake(0, 0, self.collectionView.width, pb4sq.height);
+    // Add gradient
+    [pb4sq addGradientLayerWithFrame:CGRectMake(0, 0, pb4sq.width, 8.0) colors:[NSArray arrayWithObjects:(id)RGBACOLOR(0, 0, 0, 0.3).CGColor, (id)RGBACOLOR(0, 0, 0, 0.2).CGColor, (id)RGBACOLOR(0, 0, 0, 0.1).CGColor, (id)RGBACOLOR(0, 0, 0, 0.0).CGColor, nil] locations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.1], [NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:1.0], nil] startPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 1.0)];
+    self.collectionView.footerView = pb4sq;
+    
     UILabel *emptyLabel = [UILabel labelWithText:@"No Photos Found\r\nYou Should Add One!" style:@"emptyLabel"];
     emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.collectionView.emptyView = emptyLabel;

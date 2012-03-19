@@ -13,10 +13,6 @@
 @interface TipView : PSView
 
 @property (nonatomic, retain) id object;
-@property (nonatomic, retain) UILabel *tipLabel;
-@property (nonatomic, retain) UILabel *nameLabel;
-@property (nonatomic, retain) UILabel *homeCityLabel;
-@property (nonatomic, retain) UIImageView *divider;
 
 - (void)prepareForReuse;
 - (void)fillViewWithObject:(id)object;

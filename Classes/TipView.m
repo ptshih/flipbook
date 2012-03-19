@@ -11,6 +11,15 @@
 
 #define MARGIN 4.0
 
+@interface TipView ()
+
+@property (nonatomic, retain) UILabel *tipLabel;
+@property (nonatomic, retain) UILabel *nameLabel;
+@property (nonatomic, retain) UILabel *homeCityLabel;
+@property (nonatomic, retain) UIImageView *divider;
+
+@end
+
 @implementation TipView
 
 @synthesize

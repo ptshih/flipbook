@@ -328,68 +328,73 @@ mapView = _mapView;
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/photos", [self.venueDict objectForKey:@"id"]];
-    
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:@"20120222" forKey:@"v"];
-    [parameters setObject:@"venue" forKey:@"group"];
-    [parameters setObject:[NSNumber numberWithInteger:500] forKey:@"limit"];
-    [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
-    [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
-    
-    NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
-    
-    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
-        if (error) {
-            [self dataSourceDidError];
-        } else {
-            [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
-                id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-                if (!JSON) {
-                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        [self dataSourceDidError];
-                    }];
-                } else {
-                    // Process 4sq response
-                    NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
-                    NSDictionary *response = [JSON objectForKey:@"response"];
-                    NSArray *photos = [[response objectForKey:@"photos"] objectForKey:@"items"];
-                    if (photos && [photos count] > 0) {
-                        for (NSDictionary *photo in photos) {
-                            NSDictionary *user = [photo objectForKey:@"user"];
-                            NSString *firstName = [NSString stringWithFormat:@"%@", [user objectForKey:@"firstName"]];
-                            NSString *name = ([user objectForKey:@"lastName"]) ? [firstName stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : firstName;
-                            NSDictionary *sizes = [photo objectForKey:@"sizes"];
-                            NSDictionary *fullSize = [[sizes objectForKey:@"items"] objectAtIndex:0];
-                            
-                            NSMutableDictionary *item = [NSMutableDictionary dictionary];
-                            [item setObject:[fullSize objectForKey:@"url"] forKey:@"source"];
-                            [item setObject:[fullSize objectForKey:@"width"] forKey:@"width"];
-                            [item setObject:[fullSize objectForKey:@"height"] forKey:@"height"];
-                            [item setObject:name forKey:@"name"];
-                            [item setObject:[user objectForKey:@"homeCity"] forKey:@"homeCity"];
-                            [items addObject:item];
-                        }
+    [self.requestQueue addOperationWithBlock:^{
+        NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/photos", [self.venueDict objectForKey:@"id"]];
+        
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:@"20120222" forKey:@"v"];
+        [parameters setObject:@"venue" forKey:@"group"];
+        [parameters setObject:[NSNumber numberWithInteger:500] forKey:@"limit"];
+        [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
+        [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
+        
+        NSURL *URL = [NSURL URLWithString:URLPath];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
+        
+        [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+            if (error) {
+                [self dataSourceDidError];
+            } else {
+                [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
+                    id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+                    if (!JSON) {
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            [self dataSourceDidError];
+                        }];
                     } else {
-                        NSLog(@"No photos found");
-                    }
-                        
-                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        self.items = items;
-                        [self.collectionView reloadViews];
-                        [self dataSourceDidLoad];
-                        
-                        // If this is the first load and we loaded cached data, we should refreh from remote now
-                        if (!self.hasLoadedOnce && isCached) {
-                            self.hasLoadedOnce = YES;
-                            [self reloadDataSource];
-                            NSLog(@"first load, stale cache");
+                        // Process 4sq response
+                        NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
+                        NSDictionary *response = [JSON objectForKey:@"response"];
+                        NSArray *photos = [[response objectForKey:@"photos"] objectForKey:@"items"];
+                        if (photos && [photos count] > 0) {
+                            for (NSDictionary *photo in photos) {
+                                NSDictionary *user = [photo objectForKey:@"user"];
+                                NSString *firstName = [NSString stringWithFormat:@"%@", [user objectForKey:@"firstName"]];
+                                NSString *name = ([user objectForKey:@"lastName"]) ? [firstName stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : firstName;
+                                NSDictionary *sizes = [photo objectForKey:@"sizes"];
+                                NSDictionary *fullSize = [[sizes objectForKey:@"items"] objectAtIndex:0];
+                                
+                                NSMutableDictionary *item = [NSMutableDictionary dictionary];
+                                [item setObject:[fullSize objectForKey:@"url"] forKey:@"source"];
+                                [item setObject:[fullSize objectForKey:@"width"] forKey:@"width"];
+                                [item setObject:[fullSize objectForKey:@"height"] forKey:@"height"];
+                                [item setObject:name forKey:@"name"];
+                                [item setObject:[user objectForKey:@"homeCity"] forKey:@"homeCity"];
+                                [items addObject:item];
+                            }
+                        } else {
+                            NSLog(@"No photos found");
                         }
-                    }];
-                }
-            }];
-        }
+                        
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            if (!self.isReload) {
+                                self.contentOffset = self.collectionView.contentOffset.y > 0 ? self.collectionView.contentOffset : CGPointZero;
+                            }
+                            self.items = items;
+                            [self.collectionView reloadViews];
+                            [self dataSourceDidLoad];
+                            
+                            // If this is the first load and we loaded cached data, we should refreh from remote now
+                            if (!self.hasLoadedOnce && isCached) {
+                                self.hasLoadedOnce = YES;
+                                [self reloadDataSource];
+                                NSLog(@"first load, stale cache");
+                            }
+                        }];
+                    }
+                }];
+            }
+        }];
     }];
 }
 

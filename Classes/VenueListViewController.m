@@ -231,134 +231,139 @@ query = _query;
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    if (![[PSLocationCenter defaultCenter] hasAcquiredAccurateLocation]) {
-        return;
-    } else {        
-        [SVGeocoder reverseGeocode:self.centerCoordinate completion:^(NSArray *placemarks, NSError *error) {
-            if (!error && [placemarks count] > 0) {
-                SVPlacemark *placemark = [placemarks objectAtIndex:0];
-                NSString *street = [placemark.addressDictionary objectForKey:@"Street"];
-                NSString *locString = [NSString stringWithFormat:@"%@ of %@",[NSString localizedStringForDistance:self.radius] , street];
-                [self.centerButton setTitle:locString forState:UIControlStateNormal];
-            }
-        }];
-    }
-    
-    NSString *ll = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
-    NSNumber *radius = (self.radius > 0) ? [NSNumber numberWithFloat:self.radius] : nil;
-    
-    NSString *URLPath = @"https://api.foursquare.com/v2/venues/explore";
-    
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:ll forKey:@"ll"];
-    if (radius) {
-        [parameters setObject:radius forKey:@"radius"];
-    }
-    if (self.query) {
-        [parameters setObject:self.query forKey:@"query"];
-    }
-    [parameters setObject:@"20120222" forKey:@"v"];
-    [parameters setObject:[NSNumber numberWithInteger:1] forKey:@"venuePhotos"];
-    [parameters setObject:[NSNumber numberWithInteger:50] forKey:@"limit"];
-    [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
-    [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
-    NSString *section = nil;
-    switch (self.categoryIndex) {
-        case 0:
-            section = @"food";
-            break;
-        case 1:
-            section = @"coffee";
-            break;
-        case 2:
-            section = @"drinks";
-            break;
-        default:
-            section = @"food";
-            break;
-    }
-    [parameters setObject:section forKey:@"section"];
-    
-    NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
-    
-    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
-        if (error) {
-            [self dataSourceDidError];
-        } else {
-            [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
-                id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-                if (!JSON) {
-                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        [self dataSourceDidError];
-                    }];
-                } else {
-                    // Process 4sq response
-                    NSDictionary *response = [JSON objectForKey:@"response"];
-                    NSArray *groups = [response objectForKey:@"groups"];
-                    if (groups && [groups count] > 0) {
-                        // Format the response for our consumption
-                        NSMutableArray *items = [NSMutableArray array];
-                        for (NSDictionary *dict in [[groups objectAtIndex:0] objectForKey:@"items"]) {
-                            NSDictionary *venue = [dict objectForKey:@"venue"];
-                            NSArray *tips = [dict objectForKey:@"tips"];
-                            NSDictionary *stats = [venue objectForKey:@"stats"];
-                            NSDictionary *location = [venue objectForKey:@"location"];
-                            NSDictionary *category = [[venue objectForKey:@"categories"] lastObject];
-                            NSDictionary *featuredPhoto = [[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] lastObject];
-                            
-                            if (!featuredPhoto) {
-                                // skip if there is no photo
-                                continue;
-                            }
-                            
-                            NSDictionary *featuredPhotoItem = [[[featuredPhoto objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0];
-                            
-                            NSMutableDictionary *item = [NSMutableDictionary dictionary];
-                            [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
-                            [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
-                            [item setObject:[category objectForKey:@"name"] forKey:@"category"];
-                            if ([location objectForKey:@"address"]) {
-                                [item setObject:[location objectForKey:@"address"] forKey:@"address"];
-                            }
-                            [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
-                            if ([location objectForKey:@"lat"] && [location objectForKey:@"lng"]) {
-                                [item setObject:[location objectForKey:@"lat"] forKey:@"lat"];
-                                [item setObject:[location objectForKey:@"lng"] forKey:@"lng"];
-                            }
-                            [item setObject:[featuredPhotoItem objectForKey:@"width"] forKey:@"width"];
-                            [item setObject:[featuredPhotoItem objectForKey:@"height"] forKey:@"height"];
-                            [item setObject:[featuredPhotoItem objectForKey:@"url"] forKey:@"source"];
-                            if (tips && [tips count] > 0) {
-                                [item setObject:[tips objectAtIndex:0] forKey:@"tip"];
-                            }
-                            [item setObject:[stats objectForKey:@"tipCount"] forKey:@"tipCount"];
-                            [item setObject:[stats objectForKey:@"photoCount"] forKey:@"photoCount"];
-                             
-                            
-                            [items addObject:item];
-                        }
-                        
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            self.items = items;
-                            [self.collectionView reloadViews];
-                            [self dataSourceDidLoad];
-                            
-                            // If this is the first load and we loaded cached data, we should refreh from remote now
-                            if (!self.hasLoadedOnce && isCached) {
-                                self.hasLoadedOnce = YES;
-                                [self reloadDataSource];
-                                NSLog(@"first load, stale cache");
-                            }
-                        }];
-                    } else {
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            [self dataSourceDidError];
-                        }];
-                    }
+    [self.requestQueue addOperationWithBlock:^{
+        if (![[PSLocationCenter defaultCenter] hasAcquiredAccurateLocation]) {
+            return;
+        } else {        
+            [SVGeocoder reverseGeocode:self.centerCoordinate completion:^(NSArray *placemarks, NSError *error) {
+                if (!error && [placemarks count] > 0) {
+                    SVPlacemark *placemark = [placemarks objectAtIndex:0];
+                    NSString *street = [placemark.addressDictionary objectForKey:@"Street"];
+                    NSString *locString = [NSString stringWithFormat:@"%@ of %@",[NSString localizedStringForDistance:self.radius] , street];
+                    [self.centerButton setTitle:locString forState:UIControlStateNormal];
                 }
             }];
         }
+        
+        NSString *ll = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
+        NSNumber *radius = (self.radius > 0) ? [NSNumber numberWithFloat:self.radius] : nil;
+        
+        NSString *URLPath = @"https://api.foursquare.com/v2/venues/explore";
+        
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:ll forKey:@"ll"];
+        if (radius) {
+            [parameters setObject:radius forKey:@"radius"];
+        }
+        if (self.query) {
+            [parameters setObject:self.query forKey:@"query"];
+        }
+        [parameters setObject:@"20120222" forKey:@"v"];
+        [parameters setObject:[NSNumber numberWithInteger:1] forKey:@"venuePhotos"];
+        [parameters setObject:[NSNumber numberWithInteger:50] forKey:@"limit"];
+        [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
+        [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
+        NSString *section = nil;
+        switch (self.categoryIndex) {
+            case 0:
+                section = @"food";
+                break;
+            case 1:
+                section = @"coffee";
+                break;
+            case 2:
+                section = @"drinks";
+                break;
+            default:
+                section = @"food";
+                break;
+        }
+        [parameters setObject:section forKey:@"section"];
+        
+        NSURL *URL = [NSURL URLWithString:URLPath];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
+        
+        [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+            if (error) {
+                [self dataSourceDidError];
+            } else {
+                [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
+                    id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+                    if (!JSON) {
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            [self dataSourceDidError];
+                        }];
+                    } else {
+                        // Process 4sq response
+                        NSDictionary *response = [JSON objectForKey:@"response"];
+                        NSArray *groups = [response objectForKey:@"groups"];
+                        if (groups && [groups count] > 0) {
+                            // Format the response for our consumption
+                            NSMutableArray *items = [NSMutableArray array];
+                            for (NSDictionary *dict in [[groups objectAtIndex:0] objectForKey:@"items"]) {
+                                NSDictionary *venue = [dict objectForKey:@"venue"];
+                                NSArray *tips = [dict objectForKey:@"tips"];
+                                NSDictionary *stats = [venue objectForKey:@"stats"];
+                                NSDictionary *location = [venue objectForKey:@"location"];
+                                NSDictionary *category = [[venue objectForKey:@"categories"] lastObject];
+                                NSDictionary *featuredPhoto = [[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] lastObject];
+                                
+                                if (!featuredPhoto) {
+                                    // skip if there is no photo
+                                    continue;
+                                }
+                                
+                                NSDictionary *featuredPhotoItem = [[[featuredPhoto objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0];
+                                
+                                NSMutableDictionary *item = [NSMutableDictionary dictionary];
+                                [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
+                                [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
+                                [item setObject:[category objectForKey:@"name"] forKey:@"category"];
+                                if ([location objectForKey:@"address"]) {
+                                    [item setObject:[location objectForKey:@"address"] forKey:@"address"];
+                                }
+                                [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
+                                if ([location objectForKey:@"lat"] && [location objectForKey:@"lng"]) {
+                                    [item setObject:[location objectForKey:@"lat"] forKey:@"lat"];
+                                    [item setObject:[location objectForKey:@"lng"] forKey:@"lng"];
+                                }
+                                [item setObject:[featuredPhotoItem objectForKey:@"width"] forKey:@"width"];
+                                [item setObject:[featuredPhotoItem objectForKey:@"height"] forKey:@"height"];
+                                [item setObject:[featuredPhotoItem objectForKey:@"url"] forKey:@"source"];
+                                if (tips && [tips count] > 0) {
+                                    [item setObject:[tips objectAtIndex:0] forKey:@"tip"];
+                                }
+                                [item setObject:[stats objectForKey:@"tipCount"] forKey:@"tipCount"];
+                                [item setObject:[stats objectForKey:@"photoCount"] forKey:@"photoCount"];
+                                
+                                
+                                [items addObject:item];
+                            }
+                            
+                            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                if (!self.isReload) {
+                                    self.contentOffset = self.collectionView.contentOffset.y > 0 ? self.collectionView.contentOffset : CGPointZero;
+                                }
+                                self.items = items;
+                                [self.collectionView reloadViews];
+                                [self dataSourceDidLoad];
+                                
+                                // If this is the first load and we loaded cached data, we should refreh from remote now
+                                if (!self.hasLoadedOnce && isCached) {
+                                    self.hasLoadedOnce = YES;
+                                    [self reloadDataSource];
+                                    NSLog(@"first load, stale cache");
+                                }
+                            }];
+                        } else {
+                            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                [self dataSourceDidError];
+                            }];
+                        }
+                    }
+                }];
+            }
+        }];
     }];
 }
 

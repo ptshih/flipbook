@@ -186,57 +186,62 @@ rightButton = _rightButton;
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/tips", [self.venueDict objectForKey:@"id"]];
-    
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:@"20120222" forKey:@"v"];
-    [parameters setObject:@"popular" forKey:@"sort"];
-    [parameters setObject:[NSNumber numberWithInteger:500] forKey:@"limit"];
-    [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
-    [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
-    
-    NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
-    
-    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
-        if (error) {
-            [self dataSourceDidError];
-        } else {
-            [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
-                id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-                if (!JSON) {
-                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        [self dataSourceDidError];
-                    }];
-                } else {
-                    // Process 4sq response
-                    NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
-                    NSDictionary *response = [JSON objectForKey:@"response"];
-                    NSArray *tips = [[response objectForKey:@"tips"] objectForKey:@"items"];
-                    if (tips && [tips count] > 0) {
-                        [items addObjectsFromArray:tips];
-                        
+    [self.requestQueue addOperationWithBlock:^{
+        NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/tips", [self.venueDict objectForKey:@"id"]];
+        
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:@"20120222" forKey:@"v"];
+        [parameters setObject:@"popular" forKey:@"sort"];
+        [parameters setObject:[NSNumber numberWithInteger:500] forKey:@"limit"];
+        [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
+        [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
+        
+        NSURL *URL = [NSURL URLWithString:URLPath];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
+        
+        [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+            if (error) {
+                [self dataSourceDidError];
+            } else {
+                [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
+                    id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+                    if (!JSON) {
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            self.items = items;
-                            [self.collectionView reloadViews];
-                            [self dataSourceDidLoad];
-                            
-                            // If this is the first load and we loaded cached data, we should refreh from remote now
-                            if (!self.hasLoadedOnce && isCached) {
-                                self.hasLoadedOnce = YES;
-                                [self reloadDataSource];
-                                NSLog(@"first load, stale cache");
-                            }
-                        }];
-                    } else {
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            NSLog(@"# ERROR with JSON: %@", JSON);
                             [self dataSourceDidError];
                         }];
+                    } else {
+                        // Process 4sq response
+                        NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
+                        NSDictionary *response = [JSON objectForKey:@"response"];
+                        NSArray *tips = [[response objectForKey:@"tips"] objectForKey:@"items"];
+                        if (tips && [tips count] > 0) {
+                            [items addObjectsFromArray:tips];
+                            
+                            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                if (!self.isReload) {
+                                    self.contentOffset = self.collectionView.contentOffset.y > 0 ? self.collectionView.contentOffset : CGPointZero;
+                                }
+                                self.items = items;
+                                [self.collectionView reloadViews];
+                                [self dataSourceDidLoad];
+                                
+                                // If this is the first load and we loaded cached data, we should refreh from remote now
+                                if (!self.hasLoadedOnce && isCached) {
+                                    self.hasLoadedOnce = YES;
+                                    [self reloadDataSource];
+                                    NSLog(@"first load, stale cache");
+                                }
+                            }];
+                        } else {
+                            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                NSLog(@"# ERROR with JSON: %@", JSON);
+                                [self dataSourceDidError];
+                            }];
+                        }
                     }
-                }
-            }];
-        }
+                }];
+            }
+        }];
     }];
 }
 

@@ -63,6 +63,7 @@ divider = _divider;
         
         // Must set to 0 lines and word wrap line break mode
         self.tipLabel = [[[TTTAttributedLabel alloc] initWithFrame:CGRectZero] autorelease];
+        self.tipLabel.userInteractionEnabled = NO;
         [PSStyleSheet applyStyle:@"attributedLabel" forLabel:self.tipLabel];
         [self addSubview:self.tipLabel];
         
@@ -129,7 +130,7 @@ divider = _divider;
         self.tipLabel.height = labelSize.height;
         
         top = self.tipLabel.bottom;
-//        top += MARGIN;
+        top += MARGIN;
         self.divider.hidden = NO;
         self.divider.frame = CGRectMake(left, top, width, 1.0);
         top = self.divider.bottom + MARGIN;
@@ -215,7 +216,7 @@ divider = _divider;
         labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"attributedLabel"];
         height += labelSize.height;
         
-//        height += MARGIN;
+        height += MARGIN;
         height += 1.0;
         height += MARGIN;
     }

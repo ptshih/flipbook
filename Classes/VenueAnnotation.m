@@ -41,4 +41,8 @@ venueDict = _venueDict;
     return [self.venueDict objectForKey:@"name"];
 }
 
+- (NSString *)subtitle {
+    return [self.venueDict objectForKey:@"address"] ? [self.venueDict objectForKey:@"address"] : nil;
+}
+
 @end

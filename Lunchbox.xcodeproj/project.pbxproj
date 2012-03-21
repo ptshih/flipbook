@@ -988,12 +988,18 @@
 		286987831475CEEC00B40860 /* PSKit */ = {
 			isa = PBXGroup;
 			children = (
+				286987AA1475CEEC00B40860 /* PSViewController.h */,
+				286987AB1475CEEC00B40860 /* PSViewController.m */,
+				286987841475CEEC00B40860 /* PSBaseViewController.h */,
+				286987851475CEEC00B40860 /* PSBaseViewController.m */,
+				D0F4CB4614F996F70001FD7E /* PSCollectionViewController.h */,
+				D0F4CB4714F996F70001FD7E /* PSCollectionViewController.m */,
+				2869879E1475CEEC00B40860 /* PSTableViewController.h */,
+				2869879F1475CEEC00B40860 /* PSTableViewController.m */,
 				D0A3AC8914F42AA300748CE7 /* PSCachedImageView.h */,
 				D0A3AC8A14F42AA300748CE7 /* PSCachedImageView.m */,
-				286987841475CEEC00B40860 /* PSBaseViewController.h */,
 				28603B4214AA860700541BB1 /* PSZoomView.h */,
 				28603B4314AA860700541BB1 /* PSZoomView.m */,
-				286987851475CEEC00B40860 /* PSBaseViewController.m */,
 				286987861475CEEC00B40860 /* PSCell.h */,
 				286987871475CEEC00B40860 /* PSCell.m */,
 				2869878C1475CEEC00B40860 /* PSImageView.h */,
@@ -1011,8 +1017,6 @@
 				2869879B1475CEEC00B40860 /* PSStarView.h */,
 				2869879C1475CEEC00B40860 /* PSStarView.m */,
 				2869879D1475CEEC00B40860 /* PSStateMachine.h */,
-				2869879E1475CEEC00B40860 /* PSTableViewController.h */,
-				2869879F1475CEEC00B40860 /* PSTableViewController.m */,
 				286987A01475CEEC00B40860 /* PSTextField.h */,
 				286987A11475CEEC00B40860 /* PSTextField.m */,
 				286987A21475CEEC00B40860 /* PSTextView.h */,
@@ -1021,16 +1025,12 @@
 				286987A51475CEEC00B40860 /* PSTutorialView.m */,
 				286987A81475CEEC00B40860 /* PSView.h */,
 				286987A91475CEEC00B40860 /* PSView.m */,
-				286987AA1475CEEC00B40860 /* PSViewController.h */,
-				286987AB1475CEEC00B40860 /* PSViewController.m */,
 				28A19CF514A018FD0043F7BB /* PSWindow.h */,
 				28A19CF614A018FD0043F7BB /* PSWindow.m */,
 				288CB06F14B2D72700233B45 /* CoreGraphics-PSKit.h */,
 				288CB07014B2D72700233B45 /* CoreGraphics-PSKit.m */,
 				D054E98B14F6EE5E00B03306 /* PSPopoverView.h */,
 				D054E98C14F6EE5F00B03306 /* PSPopoverView.m */,
-				D0F4CB4614F996F70001FD7E /* PSCollectionViewController.h */,
-				D0F4CB4714F996F70001FD7E /* PSCollectionViewController.m */,
 			);
 			path = PSKit;
 			sourceTree = "<group>";

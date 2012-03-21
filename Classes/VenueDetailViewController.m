@@ -282,6 +282,8 @@ mapView = _mapView;
     CGRect convertedFrame = [self.view.window convertRect:v.frame fromView:v.superview];
     [PSZoomView showMapView:v withFrame:convertedFrame inView:self.view.window fullscreen:YES];
     
+    [self.mapView selectAnnotation:[[self.mapView annotations] lastObject] animated:YES];
+    
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#zoomMap"];
 }
 
@@ -462,14 +464,19 @@ mapView = _mapView;
     
     if (!v) {
         v = [[[VenueAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIdentifier] autorelease];
-        v.canShowCallout = NO;
+        v.canShowCallout = YES;
+        v.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     }
     
     return v;
 }
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
-    [mapView selectAnnotation:[[mapView annotations] lastObject] animated:NO];
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Directions" message:[NSString stringWithFormat:@"Want to view driving directions to %@?", [view.annotation title]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+    [av show];
 }
 
 #pragma mark - ImagePickerDelegate
@@ -541,6 +548,22 @@ mapView = _mapView;
 
 #pragma mark - UIPopoverDelegate
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.cancelButtonIndex == buttonIndex) return;
+    
+    // Show directions
+    CLLocationCoordinate2D currentLocation = [[PSLocationCenter defaultCenter] locationCoordinate];
+    NSString *lat = [self.venueDict objectForKey:@"lat"];
+    NSString *lng = [self.venueDict objectForKey:@"lng"];
+    
+    if (lat && lng) {
+        NSString *mapsUrl = [NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%@,%@", currentLocation.latitude, currentLocation.longitude, lat, lng];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mapsUrl]];
+    }
+    
 }
 
 @end

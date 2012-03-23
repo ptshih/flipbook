@@ -24,7 +24,7 @@ homeCityLabel = _homeCityLabel;
     if (self) {
         self.layer.shouldRasterize = YES;
         self.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = RGBACOLOR(200, 200, 200, 1.0);
         
         UIImage *shadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
         UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
@@ -38,9 +38,11 @@ homeCityLabel = _homeCityLabel;
         [self addSubview:self.imageView];
         
         self.nameLabel = [UILabel labelWithStyle:@"titleLabel"];
+        self.nameLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.nameLabel];
         
         self.homeCityLabel = [UILabel labelWithStyle:@"subtitleLabel"];
+        self.homeCityLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.homeCityLabel];
     }
     return self;

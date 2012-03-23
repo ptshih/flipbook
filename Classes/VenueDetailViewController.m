@@ -158,7 +158,7 @@ mapView = _mapView;
     if ([self.venueDict objectForKey:@"tip"]) {
         UIView *tipView = [[[UIView alloc] initWithFrame:CGRectMake(8, mapView.bottom + 8.0, headerView.width - 16, 148)] autorelease];
         tipView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        tipView.backgroundColor = [UIColor whiteColor];
+        tipView.backgroundColor = RGBACOLOR(200, 200, 200, 1.0);
         UIImage *tipShadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
         UIImageView *tipShadowView = [[[UIImageView alloc] initWithImage:tipShadowImage] autorelease];
         tipShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -173,6 +173,7 @@ mapView = _mapView;
         CGFloat tipWidth = tipView.width - 16 - 20;
         
         UILabel *tipLabel = [UILabel labelWithStyle:@"bodyLabel"];
+        tipLabel.backgroundColor = tipView.backgroundColor;
         
         tipLabel.text = [NSString stringWithFormat:@"\"%@\"", [[self.venueDict objectForKey:@"tip"] objectForKey:@"text"]];
         labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"bodyLabel"];
@@ -185,6 +186,7 @@ mapView = _mapView;
         [tipView addSubview:divider];
         
         UILabel *countLabel = [UILabel labelWithStyle:@"subtitleLabel"];
+        countLabel.backgroundColor = tipView.backgroundColor;
         countLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         countLabel.text = [NSString stringWithFormat:@"View All %@ Tips", [self.venueDict objectForKey:@"tipCount"]];
         labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"subtitleLabel"];

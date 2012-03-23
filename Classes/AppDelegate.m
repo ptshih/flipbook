@@ -14,6 +14,8 @@
 #import "BWHockeyManager.h"
 #import "BWQuincyManager.h"
 
+#import "TapjoyConnect.h"
+
 @interface AppDelegate (Private)
 
 + (void)setupDefaults;
@@ -68,13 +70,18 @@ shouldReloadInterface = _shouldReloadInterface;
     
     self.shouldReloadInterface = NO;
     
-//    [AirWomp startSession:@"4f4c00087ed8800008000003"];
+    [AirWomp startSession:@"4f4c00087ed8800008000003"];
     
 #ifdef RELEASE
     [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];
     [[BWHockeyManager sharedHockeyManager] setAlwaysShowUpdateReminder:YES];
 #endif
     [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];
+    
+    
+    
+    // Vendor analytics
+    [TapjoyConnect requestTapjoyConnect:@"af5f1a49-b4bb-4f7f-8482-01489f1be53b" secretKey:@"1xRqieVumpivrDFdOHrF"];
     
     [[LocalyticsSession sharedLocalyticsSession] startSession:@"84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc"];
     

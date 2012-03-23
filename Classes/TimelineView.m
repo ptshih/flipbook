@@ -35,13 +35,12 @@ divider = _divider;
     if (self) {
         self.layer.shouldRasterize = YES;
         self.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = RGBACOLOR(200, 200, 200, 1.0);
 
         UIImage *shadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
         UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
         shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         shadowView.frame = CGRectInset(self.bounds, -1, -2);
-        shadowView.opaque = YES;
         [self addSubview:shadowView];
         
         self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
@@ -50,19 +49,24 @@ divider = _divider;
         [self addSubview:self.imageView];
         
         self.nameLabel = [UILabel labelWithStyle:@"titleLabel"];
+        self.nameLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.nameLabel];
         
         self.addressLabel = [UILabel labelWithStyle:@"subtitleLabel"];
+        self.addressLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.addressLabel];
         
         self.categoryLabel = [UILabel labelWithStyle:@"metaLabel"];
+        self.categoryLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.categoryLabel];
         
         self.distanceLabel = [UILabel labelWithStyle:@"metaLabel"];
+        self.distanceLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.distanceLabel];
         
         // Must set to 0 lines and word wrap line break mode
         self.tipLabel = [[[TTTAttributedLabel alloc] initWithFrame:CGRectZero] autorelease];
+        self.tipLabel.backgroundColor = self.backgroundColor;
         self.tipLabel.userInteractionEnabled = NO;
         [PSStyleSheet applyStyle:@"attributedLabel" forLabel:self.tipLabel];
         [self addSubview:self.tipLabel];

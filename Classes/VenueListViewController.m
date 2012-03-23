@@ -391,13 +391,10 @@ query = _query;
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    VenueDetailViewController *vc = [[[VenueDetailViewController alloc] initWithDictionary:item] autorelease];
-    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-    
-//    [AirWomp presentAlertViewWithBlock:^{
-//        VenueDetailViewController *vc = [[[VenueDetailViewController alloc] initWithDictionary:item] autorelease];
-//        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-//    }];
+    [AirWomp presentAlertWithBlock:^{
+        VenueDetailViewController *vc = [[[VenueDetailViewController alloc] initWithDictionary:item] autorelease];
+        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    }];
     
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#venue"];
 }

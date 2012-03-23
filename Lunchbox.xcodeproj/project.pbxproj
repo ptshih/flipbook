@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2808C3DF151D33A300763095 /* TTTArrayFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3CC151D33A300763095 /* TTTArrayFormatter.m */; };
+		2808C3E0151D33A300763095 /* TTTHoursOfOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3CF151D33A300763095 /* TTTHoursOfOperation.m */; };
+		2808C3E1151D33A300763095 /* TTTLocationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3D2151D33A300763095 /* TTTLocationFormatter.m */; };
+		2808C3E2151D33A300763095 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3D5151D33A300763095 /* TTTOrdinalNumberFormatter.m */; };
+		2808C3E3151D33A300763095 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3D8151D33A300763095 /* TTTTimeIntervalFormatter.m */; };
+		2808C3E4151D33A300763095 /* TTTUnitOfInformationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3DB151D33A300763095 /* TTTUnitOfInformationFormatter.m */; };
+		2808C3E5151D33A300763095 /* TTTURLRequestFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3DE151D33A300763095 /* TTTURLRequestFormatter.m */; };
+		2808C3F6151D358400763095 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2808C3E9151D358400763095 /* FBDialog.bundle */; };
+		2808C3F7151D358400763095 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2808C3EF151D358400763095 /* libfacebook_ios_sdk.a */; };
 		2810F578149202DF0028BCFE /* HorizontalLine.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F576149202DE0028BCFE /* HorizontalLine.png */; };
 		2810F579149202DF0028BCFE /* HorizontalLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F577149202DE0028BCFE /* HorizontalLine@2x.png */; };
 		2810F59B14921C340028BCFE /* BackgroundToolbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F59914921C330028BCFE /* BackgroundToolbar.png */; };
@@ -89,18 +98,6 @@
 		286988351475CEEC00B40860 /* PSView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987A91475CEEC00B40860 /* PSView.m */; };
 		286988361475CEEC00B40860 /* PSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987AB1475CEEC00B40860 /* PSViewController.m */; };
 		286988371475CEEC00B40860 /* PSKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 286987AC1475CEEC00B40860 /* PSKit.bundle */; };
-		286988471475CEEC00B40860 /* AFURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987D01475CEEC00B40860 /* AFURLCache.m */; };
-		2869884C1475CEEC00B40860 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987DC1475CEEC00B40860 /* Facebook.m */; };
-		2869884D1475CEEC00B40860 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 286987DE1475CEEC00B40860 /* FBDialog.bundle */; };
-		2869884E1475CEEC00B40860 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987E01475CEEC00B40860 /* FBDialog.m */; };
-		2869884F1475CEEC00B40860 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987E21475CEEC00B40860 /* FBLoginDialog.m */; };
-		286988501475CEEC00B40860 /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987E41475CEEC00B40860 /* FBRequest.m */; };
-		286988511475CEEC00B40860 /* TTTArrayFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987E81475CEEC00B40860 /* TTTArrayFormatter.m */; };
-		286988521475CEEC00B40860 /* TTTHoursOfOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987EB1475CEEC00B40860 /* TTTHoursOfOperation.m */; };
-		286988531475CEEC00B40860 /* TTTLocationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987EE1475CEEC00B40860 /* TTTLocationFormatter.m */; };
-		286988541475CEEC00B40860 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987F11475CEEC00B40860 /* TTTOrdinalNumberFormatter.m */; };
-		286988551475CEEC00B40860 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987F41475CEEC00B40860 /* TTTTimeIntervalFormatter.m */; };
-		286988561475CEEC00B40860 /* TTTURLRequestFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987F71475CEEC00B40860 /* TTTURLRequestFormatter.m */; };
 		2869885A1475CEEC00B40860 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 286988011475CEEC00B40860 /* Reachability.m */; };
 		2869885B1475CEEC00B40860 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 286988031475CEEC00B40860 /* SVProgressHUD.bundle */; };
 		2869885C1475CEEC00B40860 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 286988051475CEEC00B40860 /* SVProgressHUD.m */; };
@@ -288,6 +285,35 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2808C3CB151D33A300763095 /* TTTArrayFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTArrayFormatter.h; sourceTree = "<group>"; };
+		2808C3CC151D33A300763095 /* TTTArrayFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTArrayFormatter.m; sourceTree = "<group>"; };
+		2808C3CE151D33A300763095 /* TTTHoursOfOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTHoursOfOperation.h; sourceTree = "<group>"; };
+		2808C3CF151D33A300763095 /* TTTHoursOfOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTHoursOfOperation.m; sourceTree = "<group>"; };
+		2808C3D1151D33A300763095 /* TTTLocationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTLocationFormatter.h; sourceTree = "<group>"; };
+		2808C3D2151D33A300763095 /* TTTLocationFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTLocationFormatter.m; sourceTree = "<group>"; };
+		2808C3D4151D33A300763095 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
+		2808C3D5151D33A300763095 /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
+		2808C3D7151D33A300763095 /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
+		2808C3D8151D33A300763095 /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
+		2808C3DA151D33A300763095 /* TTTUnitOfInformationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTUnitOfInformationFormatter.h; sourceTree = "<group>"; };
+		2808C3DB151D33A300763095 /* TTTUnitOfInformationFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTUnitOfInformationFormatter.m; sourceTree = "<group>"; };
+		2808C3DD151D33A300763095 /* TTTURLRequestFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTURLRequestFormatter.h; sourceTree = "<group>"; };
+		2808C3DE151D33A300763095 /* TTTURLRequestFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTURLRequestFormatter.m; sourceTree = "<group>"; };
+		2808C3E7151D358400763095 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
+		2808C3E8151D358400763095 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
+		2808C3E9151D358400763095 /* FBDialog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBDialog.bundle; sourceTree = "<group>"; };
+		2808C3EA151D358400763095 /* FBDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDialog.h; sourceTree = "<group>"; };
+		2808C3EB151D358400763095 /* FBFrictionlessRequestSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFrictionlessRequestSettings.h; sourceTree = "<group>"; };
+		2808C3EC151D358400763095 /* FBLoginDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLoginDialog.h; sourceTree = "<group>"; };
+		2808C3ED151D358400763095 /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequest.h; sourceTree = "<group>"; };
+		2808C3EE151D358400763095 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		2808C3EF151D358400763095 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfacebook_ios_sdk.a; sourceTree = "<group>"; };
+		2808C3F0151D358400763095 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		2808C3F1151D358400763095 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		2808C3F2151D358400763095 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		2808C3F3151D358400763095 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		2808C3F4151D358400763095 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		2808C3F5151D358400763095 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		2810F576149202DE0028BCFE /* HorizontalLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HorizontalLine.png; sourceTree = "<group>"; };
 		2810F577149202DE0028BCFE /* HorizontalLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalLine@2x.png"; sourceTree = "<group>"; };
 		2810F59914921C330028BCFE /* BackgroundToolbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundToolbar.png; sourceTree = "<group>"; };
@@ -421,30 +447,6 @@
 		286987AA1475CEEC00B40860 /* PSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSViewController.h; sourceTree = "<group>"; };
 		286987AB1475CEEC00B40860 /* PSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSViewController.m; sourceTree = "<group>"; };
 		286987AC1475CEEC00B40860 /* PSKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PSKit.bundle; sourceTree = "<group>"; };
-		286987CF1475CEEC00B40860 /* AFURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLCache.h; sourceTree = "<group>"; };
-		286987D01475CEEC00B40860 /* AFURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLCache.m; sourceTree = "<group>"; };
-		286987DB1475CEEC00B40860 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
-		286987DC1475CEEC00B40860 /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Facebook.m; sourceTree = "<group>"; };
-		286987DD1475CEEC00B40860 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
-		286987DE1475CEEC00B40860 /* FBDialog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBDialog.bundle; sourceTree = "<group>"; };
-		286987DF1475CEEC00B40860 /* FBDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDialog.h; sourceTree = "<group>"; };
-		286987E01475CEEC00B40860 /* FBDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBDialog.m; sourceTree = "<group>"; };
-		286987E11475CEEC00B40860 /* FBLoginDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLoginDialog.h; sourceTree = "<group>"; };
-		286987E21475CEEC00B40860 /* FBLoginDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBLoginDialog.m; sourceTree = "<group>"; };
-		286987E31475CEEC00B40860 /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequest.h; sourceTree = "<group>"; };
-		286987E41475CEEC00B40860 /* FBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRequest.m; sourceTree = "<group>"; };
-		286987E71475CEEC00B40860 /* TTTArrayFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTArrayFormatter.h; sourceTree = "<group>"; };
-		286987E81475CEEC00B40860 /* TTTArrayFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTArrayFormatter.m; sourceTree = "<group>"; };
-		286987EA1475CEEC00B40860 /* TTTHoursOfOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTHoursOfOperation.h; sourceTree = "<group>"; };
-		286987EB1475CEEC00B40860 /* TTTHoursOfOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTHoursOfOperation.m; sourceTree = "<group>"; };
-		286987ED1475CEEC00B40860 /* TTTLocationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTLocationFormatter.h; sourceTree = "<group>"; };
-		286987EE1475CEEC00B40860 /* TTTLocationFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTLocationFormatter.m; sourceTree = "<group>"; };
-		286987F01475CEEC00B40860 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
-		286987F11475CEEC00B40860 /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
-		286987F31475CEEC00B40860 /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
-		286987F41475CEEC00B40860 /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
-		286987F61475CEEC00B40860 /* TTTURLRequestFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTURLRequestFormatter.h; sourceTree = "<group>"; };
-		286987F71475CEEC00B40860 /* TTTURLRequestFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTURLRequestFormatter.m; sourceTree = "<group>"; };
 		286988001475CEEC00B40860 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		286988011475CEEC00B40860 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		286988031475CEEC00B40860 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
@@ -704,12 +706,112 @@
 				283818C514723F1D007E4827 /* Foundation.framework in Frameworks */,
 				283818C714723F1D007E4827 /* CoreGraphics.framework in Frameworks */,
 				D031D48C14F84CC300DEB789 /* CrashReporter.framework in Frameworks */,
+				2808C3F7151D358400763095 /* libfacebook_ios_sdk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2808C3C9151D33A300763095 /* FormatterKit */ = {
+			isa = PBXGroup;
+			children = (
+				2808C3CA151D33A300763095 /* TTTArrayFormatter */,
+				2808C3CD151D33A300763095 /* TTTHoursOfOperation */,
+				2808C3D0151D33A300763095 /* TTTLocationFormatter */,
+				2808C3D3151D33A300763095 /* TTTOrdinalNumberFormatter */,
+				2808C3D6151D33A300763095 /* TTTTimeIntervalFormatter */,
+				2808C3D9151D33A300763095 /* TTTUnitOfInformationFormatter */,
+				2808C3DC151D33A300763095 /* TTTURLRequestFormatter */,
+			);
+			path = FormatterKit;
+			sourceTree = "<group>";
+		};
+		2808C3CA151D33A300763095 /* TTTArrayFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				2808C3CB151D33A300763095 /* TTTArrayFormatter.h */,
+				2808C3CC151D33A300763095 /* TTTArrayFormatter.m */,
+			);
+			path = TTTArrayFormatter;
+			sourceTree = "<group>";
+		};
+		2808C3CD151D33A300763095 /* TTTHoursOfOperation */ = {
+			isa = PBXGroup;
+			children = (
+				2808C3CE151D33A300763095 /* TTTHoursOfOperation.h */,
+				2808C3CF151D33A300763095 /* TTTHoursOfOperation.m */,
+			);
+			path = TTTHoursOfOperation;
+			sourceTree = "<group>";
+		};
+		2808C3D0151D33A300763095 /* TTTLocationFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				2808C3D1151D33A300763095 /* TTTLocationFormatter.h */,
+				2808C3D2151D33A300763095 /* TTTLocationFormatter.m */,
+			);
+			path = TTTLocationFormatter;
+			sourceTree = "<group>";
+		};
+		2808C3D3151D33A300763095 /* TTTOrdinalNumberFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				2808C3D4151D33A300763095 /* TTTOrdinalNumberFormatter.h */,
+				2808C3D5151D33A300763095 /* TTTOrdinalNumberFormatter.m */,
+			);
+			path = TTTOrdinalNumberFormatter;
+			sourceTree = "<group>";
+		};
+		2808C3D6151D33A300763095 /* TTTTimeIntervalFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				2808C3D7151D33A300763095 /* TTTTimeIntervalFormatter.h */,
+				2808C3D8151D33A300763095 /* TTTTimeIntervalFormatter.m */,
+			);
+			path = TTTTimeIntervalFormatter;
+			sourceTree = "<group>";
+		};
+		2808C3D9151D33A300763095 /* TTTUnitOfInformationFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				2808C3DA151D33A300763095 /* TTTUnitOfInformationFormatter.h */,
+				2808C3DB151D33A300763095 /* TTTUnitOfInformationFormatter.m */,
+			);
+			path = TTTUnitOfInformationFormatter;
+			sourceTree = "<group>";
+		};
+		2808C3DC151D33A300763095 /* TTTURLRequestFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				2808C3DD151D33A300763095 /* TTTURLRequestFormatter.h */,
+				2808C3DE151D33A300763095 /* TTTURLRequestFormatter.m */,
+			);
+			path = TTTURLRequestFormatter;
+			sourceTree = "<group>";
+		};
+		2808C3E6151D358400763095 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				2808C3E7151D358400763095 /* Facebook.h */,
+				2808C3E8151D358400763095 /* FBConnect.h */,
+				2808C3E9151D358400763095 /* FBDialog.bundle */,
+				2808C3EA151D358400763095 /* FBDialog.h */,
+				2808C3EB151D358400763095 /* FBFrictionlessRequestSettings.h */,
+				2808C3EC151D358400763095 /* FBLoginDialog.h */,
+				2808C3ED151D358400763095 /* FBRequest.h */,
+				2808C3EE151D358400763095 /* JSON.h */,
+				2808C3EF151D358400763095 /* libfacebook_ios_sdk.a */,
+				2808C3F0151D358400763095 /* NSObject+SBJSON.h */,
+				2808C3F1151D358400763095 /* NSString+SBJSON.h */,
+				2808C3F2151D358400763095 /* SBJSON.h */,
+				2808C3F3151D358400763095 /* SBJsonBase.h */,
+				2808C3F4151D358400763095 /* SBJsonParser.h */,
+				2808C3F5151D358400763095 /* SBJsonWriter.h */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
 		28150464151ACBB90028A0B6 /* TapjoyConnect */ = {
 			isa = PBXGroup;
 			children = (
@@ -1056,10 +1158,9 @@
 		286987B61475CEEC00B40860 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				2808C3E6151D358400763095 /* Facebook */,
+				2808C3C9151D33A300763095 /* FormatterKit */,
 				286987B71475CEEC00B40860 /* AFNetworking */,
-				286987CE1475CEEC00B40860 /* AFURLCache */,
-				286987DA1475CEEC00B40860 /* Facebook */,
-				286987E51475CEEC00B40860 /* FormatterKit */,
 				286987FF1475CEEC00B40860 /* Reachability */,
 				286988021475CEEC00B40860 /* SVProgressHUD */,
 				286988061475CEEC00B40860 /* TTTAttributedLabel */,
@@ -1093,99 +1194,6 @@
 				D08C548914E973F800F1DD5C /* AFXMLRequestOperation.m */,
 			);
 			path = AFNetworking;
-			sourceTree = "<group>";
-		};
-		286987CE1475CEEC00B40860 /* AFURLCache */ = {
-			isa = PBXGroup;
-			children = (
-				286987CF1475CEEC00B40860 /* AFURLCache.h */,
-				286987D01475CEEC00B40860 /* AFURLCache.m */,
-			);
-			path = AFURLCache;
-			sourceTree = "<group>";
-		};
-		286987DA1475CEEC00B40860 /* Facebook */ = {
-			isa = PBXGroup;
-			children = (
-				286987DB1475CEEC00B40860 /* Facebook.h */,
-				286987DC1475CEEC00B40860 /* Facebook.m */,
-				286987DD1475CEEC00B40860 /* FBConnect.h */,
-				286987DE1475CEEC00B40860 /* FBDialog.bundle */,
-				286987DF1475CEEC00B40860 /* FBDialog.h */,
-				286987E01475CEEC00B40860 /* FBDialog.m */,
-				286987E11475CEEC00B40860 /* FBLoginDialog.h */,
-				286987E21475CEEC00B40860 /* FBLoginDialog.m */,
-				286987E31475CEEC00B40860 /* FBRequest.h */,
-				286987E41475CEEC00B40860 /* FBRequest.m */,
-			);
-			path = Facebook;
-			sourceTree = "<group>";
-		};
-		286987E51475CEEC00B40860 /* FormatterKit */ = {
-			isa = PBXGroup;
-			children = (
-				286987E61475CEEC00B40860 /* TTTArrayFormatter */,
-				286987E91475CEEC00B40860 /* TTTHoursOfOperation */,
-				286987EC1475CEEC00B40860 /* TTTLocationFormatter */,
-				286987EF1475CEEC00B40860 /* TTTOrdinalNumberFormatter */,
-				286987F21475CEEC00B40860 /* TTTTimeIntervalFormatter */,
-				286987F51475CEEC00B40860 /* TTTURLRequestFormatter */,
-			);
-			path = FormatterKit;
-			sourceTree = "<group>";
-		};
-		286987E61475CEEC00B40860 /* TTTArrayFormatter */ = {
-			isa = PBXGroup;
-			children = (
-				286987E71475CEEC00B40860 /* TTTArrayFormatter.h */,
-				286987E81475CEEC00B40860 /* TTTArrayFormatter.m */,
-			);
-			path = TTTArrayFormatter;
-			sourceTree = "<group>";
-		};
-		286987E91475CEEC00B40860 /* TTTHoursOfOperation */ = {
-			isa = PBXGroup;
-			children = (
-				286987EA1475CEEC00B40860 /* TTTHoursOfOperation.h */,
-				286987EB1475CEEC00B40860 /* TTTHoursOfOperation.m */,
-			);
-			path = TTTHoursOfOperation;
-			sourceTree = "<group>";
-		};
-		286987EC1475CEEC00B40860 /* TTTLocationFormatter */ = {
-			isa = PBXGroup;
-			children = (
-				286987ED1475CEEC00B40860 /* TTTLocationFormatter.h */,
-				286987EE1475CEEC00B40860 /* TTTLocationFormatter.m */,
-			);
-			path = TTTLocationFormatter;
-			sourceTree = "<group>";
-		};
-		286987EF1475CEEC00B40860 /* TTTOrdinalNumberFormatter */ = {
-			isa = PBXGroup;
-			children = (
-				286987F01475CEEC00B40860 /* TTTOrdinalNumberFormatter.h */,
-				286987F11475CEEC00B40860 /* TTTOrdinalNumberFormatter.m */,
-			);
-			path = TTTOrdinalNumberFormatter;
-			sourceTree = "<group>";
-		};
-		286987F21475CEEC00B40860 /* TTTTimeIntervalFormatter */ = {
-			isa = PBXGroup;
-			children = (
-				286987F31475CEEC00B40860 /* TTTTimeIntervalFormatter.h */,
-				286987F41475CEEC00B40860 /* TTTTimeIntervalFormatter.m */,
-			);
-			path = TTTTimeIntervalFormatter;
-			sourceTree = "<group>";
-		};
-		286987F51475CEEC00B40860 /* TTTURLRequestFormatter */ = {
-			isa = PBXGroup;
-			children = (
-				286987F61475CEEC00B40860 /* TTTURLRequestFormatter.h */,
-				286987F71475CEEC00B40860 /* TTTURLRequestFormatter.m */,
-			);
-			path = TTTURLRequestFormatter;
 			sourceTree = "<group>";
 		};
 		286987FF1475CEEC00B40860 /* Reachability */ = {
@@ -1682,7 +1690,6 @@
 				28698735147394F600B40860 /* BackgroundDarkWood.jpg in Resources */,
 				28698736147394F600B40860 /* BackgroundDarkWood@2x.jpg in Resources */,
 				286988371475CEEC00B40860 /* PSKit.bundle in Resources */,
-				2869884D1475CEEC00B40860 /* FBDialog.bundle in Resources */,
 				2869885B1475CEEC00B40860 /* SVProgressHUD.bundle in Resources */,
 				286988621475CF3500B40860 /* InitialDefaults.plist in Resources */,
 				288F570A147F02B0000EEC90 /* BackgroundSectionHeader.png in Resources */,
@@ -1802,6 +1809,7 @@
 				28EB001E15178A01004C55DE /* PoweredByFoursquareBlack@2x.png in Resources */,
 				28EB001F15178A01004C55DE /* PoweredByFoursquareWhite.png in Resources */,
 				28EB002015178A01004C55DE /* PoweredByFoursquareWhite@2x.png in Resources */,
+				2808C3F6151D358400763095 /* FBDialog.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1866,17 +1874,6 @@
 				286988331475CEEC00B40860 /* PSTutorialView.m in Sources */,
 				286988351475CEEC00B40860 /* PSView.m in Sources */,
 				286988361475CEEC00B40860 /* PSViewController.m in Sources */,
-				286988471475CEEC00B40860 /* AFURLCache.m in Sources */,
-				2869884C1475CEEC00B40860 /* Facebook.m in Sources */,
-				2869884E1475CEEC00B40860 /* FBDialog.m in Sources */,
-				2869884F1475CEEC00B40860 /* FBLoginDialog.m in Sources */,
-				286988501475CEEC00B40860 /* FBRequest.m in Sources */,
-				286988511475CEEC00B40860 /* TTTArrayFormatter.m in Sources */,
-				286988521475CEEC00B40860 /* TTTHoursOfOperation.m in Sources */,
-				286988531475CEEC00B40860 /* TTTLocationFormatter.m in Sources */,
-				286988541475CEEC00B40860 /* TTTOrdinalNumberFormatter.m in Sources */,
-				286988551475CEEC00B40860 /* TTTTimeIntervalFormatter.m in Sources */,
-				286988561475CEEC00B40860 /* TTTURLRequestFormatter.m in Sources */,
 				2869885A1475CEEC00B40860 /* Reachability.m in Sources */,
 				2869885C1475CEEC00B40860 /* SVProgressHUD.m in Sources */,
 				2869885D1475CEEC00B40860 /* TTTAttributedLabel.m in Sources */,
@@ -1941,6 +1938,13 @@
 				282E821F1515F0E8000B8566 /* PSCollectionViewCell.m in Sources */,
 				28150468151ACBB90028A0B6 /* TapjoyConnect.m in Sources */,
 				288348EF151C17940039DD6C /* AirWomp.m in Sources */,
+				2808C3DF151D33A300763095 /* TTTArrayFormatter.m in Sources */,
+				2808C3E0151D33A300763095 /* TTTHoursOfOperation.m in Sources */,
+				2808C3E1151D33A300763095 /* TTTLocationFormatter.m in Sources */,
+				2808C3E2151D33A300763095 /* TTTOrdinalNumberFormatter.m in Sources */,
+				2808C3E3151D33A300763095 /* TTTTimeIntervalFormatter.m in Sources */,
+				2808C3E4151D33A300763095 /* TTTUnitOfInformationFormatter.m in Sources */,
+				2808C3E5151D33A300763095 /* TTTURLRequestFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2032,6 +2036,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Vendor/FlurryAnalytics\"",
 					"\"$(SRCROOT)/Vendor/FlurryAppCircle\"",
+					"\"$(SRCROOT)/Submodules/PSKit/src/Vendor/Facebook\"",
 				);
 				PRODUCT_NAME = Lunchbox;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2055,6 +2060,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Vendor/FlurryAnalytics\"",
 					"\"$(SRCROOT)/Vendor/FlurryAppCircle\"",
+					"\"$(SRCROOT)/Submodules/PSKit/src/Vendor/Facebook\"",
 				);
 				PRODUCT_NAME = Lunchbox;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2106,6 +2112,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Vendor/FlurryAnalytics\"",
 					"\"$(SRCROOT)/Vendor/FlurryAppCircle\"",
+					"\"$(SRCROOT)/Submodules/PSKit/src/Vendor/Facebook\"",
 				);
 				PRODUCT_NAME = Lunchbox;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B255315E-5BD9-48F7-89C2-51EB81FBF472";

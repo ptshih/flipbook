@@ -23,7 +23,6 @@
 @implementation TipView
 
 @synthesize
-object = _object,
 tipLabel = _tipLabel,
 nameLabel = _nameLabel,
 homeCityLabel = _homeCityLabel,
@@ -32,16 +31,6 @@ divider = _divider;
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.layer.shouldRasterize = YES;
-        self.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        self.backgroundColor = RGBACOLOR(200, 200, 200, 1.0);
-        
-        UIImage *shadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
-        UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
-        shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        shadowView.frame = CGRectInset(self.bounds, -1, -2);
-        [self addSubview:shadowView];
-        
         self.tipLabel = [UILabel labelWithStyle:@"bodyLabel"];
         self.tipLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.tipLabel];
@@ -61,8 +50,6 @@ divider = _divider;
 }
 
 - (void)dealloc {
-    self.object = nil;
-    
     self.tipLabel = nil;
     self.nameLabel = nil;
     self.homeCityLabel = nil;
@@ -71,6 +58,8 @@ divider = _divider;
 }
 
 - (void)prepareForReuse {
+    [super prepareForReuse];
+    
     self.tipLabel.text = nil;
     self.nameLabel.text = nil;
     self.homeCityLabel.text = nil;
@@ -111,7 +100,8 @@ divider = _divider;
 }
 
 - (void)fillViewWithObject:(id)object {
-    self.object = object;
+    [super fillViewWithObject:object];
+    
     NSDictionary *user = [self.object objectForKey:@"user"];
     NSString *name = [user objectForKey:@"firstName"];
     name = [user objectForKey:@"lastName"] ? [name stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : name;

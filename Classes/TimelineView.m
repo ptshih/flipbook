@@ -21,7 +21,6 @@
 @implementation TimelineView
 
 @synthesize
-object = _object,
 imageView = _imageView,
 nameLabel = _nameLabel,
 addressLabel = _addressLabel,
@@ -33,18 +32,8 @@ divider = _divider;
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.layer.shouldRasterize = YES;
-        self.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        self.backgroundColor = RGBACOLOR(200, 200, 200, 1.0);
-
-        UIImage *shadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
-        UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
-        shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        shadowView.frame = CGRectInset(self.bounds, -1, -2);
-        [self addSubview:shadowView];
-        
         self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
-        self.imageView.shouldAnimate = YES;
+        self.imageView.shouldAnimate = NO;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
@@ -79,9 +68,7 @@ divider = _divider;
 }
 
 - (void)dealloc {
-    self.object = nil;
     self.imageView = nil;
-    
     self.nameLabel = nil;
     self.addressLabel = nil;
     self.categoryLabel = nil;
@@ -92,6 +79,8 @@ divider = _divider;
 }
 
 - (void)prepareForReuse {
+    [super prepareForReuse];
+    
     [self.imageView prepareForReuse];
     self.nameLabel.text = nil;
     self.addressLabel.text = nil;
@@ -163,7 +152,7 @@ divider = _divider;
 }
 
 - (void)fillViewWithObject:(id)object {
-    self.object = object;
+    [super fillViewWithObject:object];
     
     [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"source"]]];
     [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"source"]]];

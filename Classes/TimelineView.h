@@ -6,21 +6,16 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "PSView.h"
+#import "PSCollectionViewCell.h"
 
 @class PSCachedImageView;
 
-@interface TimelineView : PSView
+@interface TimelineView : PSCollectionViewCell
 
-@property (nonatomic, retain) id object;
 @property (nonatomic, retain) PSCachedImageView *imageView;
 @property (nonatomic, retain) UILabel *nameLabel;
 @property (nonatomic, retain) UILabel *addressLabel;
 @property (nonatomic, retain) UILabel *categoryLabel;
 @property (nonatomic, retain) UILabel *distanceLabel;
-
-- (void)prepareForReuse;
-- (void)fillViewWithObject:(id)object;
-+ (CGFloat)heightForViewWithObject:(id)object inColumnWidth:(CGFloat)columnWidth;
 
 @end

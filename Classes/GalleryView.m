@@ -14,26 +14,15 @@
 @implementation GalleryView
 
 @synthesize
-object = _object,
 imageView = _imageView,
 nameLabel = _nameLabel,
 homeCityLabel = _homeCityLabel;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    if (self) {
-        self.layer.shouldRasterize = YES;
-        self.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        self.backgroundColor = RGBACOLOR(200, 200, 200, 1.0);
-        
-        UIImage *shadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
-        UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
-        shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        shadowView.frame = CGRectInset(self.bounds, -1, -2);
-        [self addSubview:shadowView];
-        
+    if (self) {        
         self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
-        self.imageView.shouldAnimate = YES;
+        self.imageView.shouldAnimate = NO;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
@@ -49,7 +38,6 @@ homeCityLabel = _homeCityLabel;
 }
 
 - (void)dealloc {
-    self.object = nil;
     self.imageView = nil;
     
     self.nameLabel = nil;
@@ -58,6 +46,8 @@ homeCityLabel = _homeCityLabel;
 }
 
 - (void)prepareForReuse {
+    [super prepareForReuse];
+    
     [self.imageView prepareForReuse];
     self.nameLabel.text = nil;
     self.homeCityLabel.text = nil;
@@ -92,7 +82,7 @@ homeCityLabel = _homeCityLabel;
 }
 
 - (void)fillViewWithObject:(id)object {
-    self.object = object;
+    [super fillViewWithObject:object];
     
     [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"source"]]];
     [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"source"]]];

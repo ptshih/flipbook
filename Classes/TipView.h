@@ -6,16 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "PSView.h"
+#import "PSCollectionViewCell.h"
 
 @class PSCachedImageView;
 
-@interface TipView : PSView
-
-@property (nonatomic, retain) id object;
-
-- (void)prepareForReuse;
-- (void)fillViewWithObject:(id)object;
-+ (CGFloat)heightForViewWithObject:(id)object inColumnWidth:(CGFloat)columnWidth;
+@interface TipView : PSCollectionViewCell
 
 @end

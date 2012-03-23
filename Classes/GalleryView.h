@@ -6,19 +6,14 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "PSView.h"
+#import "PSCollectionViewCell.h"
 
 @class PSCachedImageView;
 
-@interface GalleryView : PSView
+@interface GalleryView : PSCollectionViewCell
 
-@property (nonatomic, retain) id object;
 @property (nonatomic, retain) PSCachedImageView *imageView;
 @property (nonatomic, retain) UILabel *nameLabel;
 @property (nonatomic, retain) UILabel *homeCityLabel;
-
-- (void)prepareForReuse;
-- (void)fillViewWithObject:(id)object;
-+ (CGFloat)heightForViewWithObject:(id)object inColumnWidth:(CGFloat)columnWidth;
 
 @end

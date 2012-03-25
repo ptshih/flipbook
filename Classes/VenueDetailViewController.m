@@ -424,19 +424,17 @@ mapView = _mapView;
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
+    if (![PSZoomView prepareToZoom]) {
+        return;
+    }
+    
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#zoom"];
-    // ZOOM
-    static BOOL isZooming;
     
     GalleryView *v = (GalleryView *)view;
     
     // If the image hasn't loaded, don't allow zoom
     PSCachedImageView *imageView = v.imageView;
     if (!imageView.image) return;
-    
-    // If already zooming, don't rezoom
-    if (isZooming) return;
-    else isZooming = YES;
     
     // make sure to zoom the full res image here
     NSURL *originalURL = imageView.originalURL;
@@ -447,7 +445,6 @@ mapView = _mapView;
     [[PSURLCache sharedCache] loadURL:originalURL cacheType:PSURLCacheTypePermanent usingCache:YES completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
         [imageView.loadingIndicator stopAnimating];
         imageView.loadingIndicator.activityIndicatorViewStyle = oldStyle;
-        isZooming = NO;
         
         if (!error) {
             UIImage *sourceImage = [UIImage imageWithData:cachedData];

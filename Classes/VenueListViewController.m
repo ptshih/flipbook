@@ -8,7 +8,6 @@
 
 #import "VenueListViewController.h"
 #import "VenueDetailViewController.h"
-#import "PSZoomView.h"
 #import "PSPopoverView.h"
 #import "TimelineView.h"
 #import "CategoryChooserView.h"

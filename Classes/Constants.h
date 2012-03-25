@@ -26,7 +26,7 @@
 /**
  Constants
  */
-#define kSecondsBackgroundedUntilStale 300
+#define kSecondsBackgroundedUntilStale 5
 #define kMapRegionRadius 1000
 
 /**

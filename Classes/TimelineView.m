@@ -13,7 +13,7 @@
 
 @interface TimelineView ()
 
-@property (nonatomic, retain) TTTAttributedLabel *tipLabel;
+@property (nonatomic, retain) UILabel *tipLabel;
 @property (nonatomic, retain) UIImageView *divider;
 
 @end
@@ -32,6 +32,12 @@ divider = _divider;
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        UIImage *shadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
+        UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
+        shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        shadowView.frame = CGRectInset(self.bounds, -1, -2);
+        [self addSubview:shadowView];
+        
         self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
         self.imageView.shouldAnimate = NO;
         self.imageView.clipsToBounds = YES;
@@ -53,12 +59,16 @@ divider = _divider;
         self.distanceLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.distanceLabel];
         
-        // Must set to 0 lines and word wrap line break mode
-        self.tipLabel = [[[TTTAttributedLabel alloc] initWithFrame:CGRectZero] autorelease];
+        self.tipLabel = [UILabel labelWithStyle:@"attributedLabel"];
         self.tipLabel.backgroundColor = self.backgroundColor;
-        self.tipLabel.userInteractionEnabled = NO;
-        [PSStyleSheet applyStyle:@"attributedLabel" forLabel:self.tipLabel];
         [self addSubview:self.tipLabel];
+        
+        // Must set to 0 lines and word wrap line break mode
+//        self.tipLabel = [[[TTTAttributedLabel alloc] initWithFrame:CGRectZero] autorelease];
+//        self.tipLabel.backgroundColor = self.backgroundColor;
+//        self.tipLabel.userInteractionEnabled = NO;
+//        [PSStyleSheet applyStyle:@"attributedLabel" forLabel:self.tipLabel];
+//        [self addSubview:self.tipLabel];
         
         self.divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
         self.divider.hidden = YES;
@@ -168,15 +178,18 @@ divider = _divider;
         NSDictionary *tipUser = [tip objectForKey:@"user"];
         NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
         tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
-        NSString *tipText = tip ? [NSString stringWithFormat:@"%@ says: %@", tipUserName, [tip objectForKey:@"text"]] : nil;
-        [self.tipLabel setText:tipText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-            NSRange userNameRange = [[mutableAttributedString string] rangeOfString:tipUserName options:NSCaseInsensitiveSearch];
-            
-            // Color
-            [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:userNameRange];
-            
-            return mutableAttributedString;
-        }];
+        NSString *tipText = tip ? [NSString stringWithFormat:@"%@", [[tip objectForKey:@"text"] capitalizedString]] : nil;
+        
+        self.tipLabel.text = tipText;
+        
+//        [self.tipLabel setText:tipText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+//            NSRange userNameRange = [[mutableAttributedString string] rangeOfString:tipUserName options:NSCaseInsensitiveSearch];
+//            
+//            // Color
+//            [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:userNameRange];
+//            
+//            return mutableAttributedString;
+//        }];
     }
 }
 
@@ -204,7 +217,7 @@ divider = _divider;
         NSDictionary *tipUser = [tip objectForKey:@"user"];
         NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
         tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
-        NSString *tipText = tip ? [NSString stringWithFormat:@"%@ says: %@", tipUserName, [tip objectForKey:@"text"]] : nil;
+        NSString *tipText = tip ? [NSString stringWithFormat:@"%@", [[tip objectForKey:@"text"] capitalizedString]] : nil;
         
         labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"attributedLabel"];
         height += labelSize.height;

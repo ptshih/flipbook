@@ -20,7 +20,13 @@ homeCityLabel = _homeCityLabel;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    if (self) {        
+    if (self) {
+        UIImage *shadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
+        UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
+        shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        shadowView.frame = CGRectInset(self.bounds, -1, -2);
+        [self addSubview:shadowView];
+        
         self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
         self.imageView.shouldAnimate = NO;
         self.imageView.clipsToBounds = YES;

@@ -27,10 +27,11 @@
 /**
  Constants
  */
-#ifndef DISTRIBUTION
-    #define kSecondsBackgroundedUntilStale 1
-#else
+#ifdef DISTRIBUTION
     #define kSecondsBackgroundedUntilStale 300
+#else
+    #define kSecondsBackgroundedUntilStale 1
+
 #endif
 
 #define kMapRegionRadius 1000

@@ -175,7 +175,13 @@ mapView = _mapView;
         UILabel *tipLabel = [UILabel labelWithStyle:@"bodyLabel"];
         tipLabel.backgroundColor = tipView.backgroundColor;
         
-        tipLabel.text = [NSString stringWithFormat:@"\"%@\"", [[self.venueDict objectForKey:@"tip"] objectForKey:@"text"]];
+        NSDictionary *tip = [self.venueDict objectForKey:@"tip"];
+        NSDictionary *tipUser = [tip objectForKey:@"user"];
+        NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
+        tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
+        NSString *tipText = tip ? [NSString stringWithFormat:@"%@ says: %@", tipUserName, [[tip objectForKey:@"text"] capitalizedString]] : nil;
+        
+        tipLabel.text = tipText;
         labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"bodyLabel"];
         tipLabel.frame = CGRectMake(8, 4, tipWidth, labelSize.height);
         [tipView addSubview:tipLabel];

@@ -178,10 +178,10 @@ divider = _divider;
     
     NSDictionary *tip = [self.object objectForKey:@"tip"];
     if (tip) {
-//        NSDictionary *tipUser = [tip objectForKey:@"user"];
-//        NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
-//        tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
-        NSString *tipText = tip ? [NSString stringWithFormat:@"%@", [[tip objectForKey:@"text"] capitalizedString]] : nil;
+        NSDictionary *tipUser = [tip objectForKey:@"user"];
+        NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
+        tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
+        NSString *tipText = tip ? [NSString stringWithFormat:@"%@ says: %@", tipUserName, [[tip objectForKey:@"text"] capitalizedString]] : nil;
         
         self.tipLabel.text = tipText;
         
@@ -217,10 +217,10 @@ divider = _divider;
     
     NSDictionary *tip = [object objectForKey:@"tip"];
     if (tip) {
-//        NSDictionary *tipUser = [tip objectForKey:@"user"];
-//        NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
-//        tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
-        NSString *tipText = tip ? [NSString stringWithFormat:@"%@", [[tip objectForKey:@"text"] capitalizedString]] : nil;
+        NSDictionary *tipUser = [tip objectForKey:@"user"];
+        NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
+        tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
+        NSString *tipText = tip ? [NSString stringWithFormat:@"%@ says: %@", tipUserName, [[tip objectForKey:@"text"] capitalizedString]] : nil;
         
         labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"attributedLabel"];
         height += labelSize.height;

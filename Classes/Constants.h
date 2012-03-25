@@ -23,10 +23,16 @@
 #define FS_ACCESS_TOKEN @"BIHQ3R0JVGSQ4R2BIPMTMTWEHAFICRUF54KQJ0WKTJ404KB3"
 #define FS_CLIENT_ID @"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO"
 #define FS_CALLBACK_URL @"http://www.petershih.com/fscallback"
+
 /**
  Constants
  */
-#define kSecondsBackgroundedUntilStale 5
+#ifndef DISTRIBUTION
+    #define kSecondsBackgroundedUntilStale 1
+#else
+    #define kSecondsBackgroundedUntilStale 300
+#endif
+
 #define kMapRegionRadius 1000
 
 /**
@@ -34,7 +40,11 @@
  */
 #define kShouldRecenterCurrentLocation @"kShouldRecenterCurrentLocation"
 
-// Facebook APP ID is in PSFacebookCenter.h
+/**
+ Alert Tags
+ */
+#define kAlertTagDirections 7001
+#define kAlertTagFoursquare 7002
 
 // Convenience
 #define APP_DRAWER [APP_DELEGATE drawerController]

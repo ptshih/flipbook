@@ -51,10 +51,10 @@ mapView = _mapView;
 }
 
 - (void)viewDidUnload {
+    [super viewDidUnload];
     self.popover = nil;
     self.mapView.delegate = nil;
     self.mapView = nil;
-    [super viewDidUnload];
 }
 
 - (void)dealloc {
@@ -159,7 +159,7 @@ mapView = _mapView;
         UIView *tipView = [[[UIView alloc] initWithFrame:CGRectMake(8, mapView.bottom + 8.0, headerView.width - 16, 148)] autorelease];
         tipView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         tipView.backgroundColor = [UIColor whiteColor];
-        UIImage *tipShadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
+        UIImage *tipShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
         UIImageView *tipShadowView = [[[UIImageView alloc] initWithImage:tipShadowImage] autorelease];
         tipShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         tipShadowView.frame = CGRectInset(tipView.bounds, -1, -2);
@@ -229,7 +229,6 @@ mapView = _mapView;
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.centerButton.titleLabel.minimumFontSize = 12.0;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
-    self.centerButton.userInteractionEnabled = NO;
     self.centerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
@@ -249,7 +248,11 @@ mapView = _mapView;
 }
 
 - (void)centerAction {
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#checkin"];
     
+    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check-in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+    av.tag = kAlertTagFoursquare;
+    [av show];
 }
 
 - (void)rightAction {
@@ -279,6 +282,10 @@ mapView = _mapView;
 }
 
 - (void)zoomMap:(UITapGestureRecognizer *)gr {
+    if (![PSZoomView prepareToZoom]) {
+        return;
+    }
+    
     MKMapView *v = (MKMapView *)gr.view;
 
     CGRect convertedFrame = [self.view.window convertRect:v.frame fromView:v.superview];
@@ -381,9 +388,7 @@ mapView = _mapView;
                         }
                         
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            if (!self.isReload) {
-                                self.contentOffset = self.collectionView.contentOffset.y > 0 ? self.collectionView.contentOffset : CGPointZero;
-                            }
+                            self.contentOffset = self.collectionView.contentOffset.y > 0 ? self.collectionView.contentOffset : CGPointZero;
                             self.items = items;
                             [self.collectionView reloadViews];
                             [self dataSourceDidLoad];
@@ -474,7 +479,8 @@ mapView = _mapView;
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Directions" message:[NSString stringWithFormat:@"View directions to %@?", [view.annotation title]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"View Directions" message:[NSString stringWithFormat:@"Open %@ in Google Maps?", [view.annotation title]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+    av.tag = kAlertTagDirections;
     [av show];
 }
 
@@ -553,16 +559,23 @@ mapView = _mapView;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.cancelButtonIndex == buttonIndex) return;
     
-    // Show directions
-    CLLocationCoordinate2D currentLocation = [[PSLocationCenter defaultCenter] locationCoordinate];
-    NSString *lat = [self.venueDict objectForKey:@"lat"];
-    NSString *lng = [self.venueDict objectForKey:@"lng"];
-    
-    if (lat && lng) {
-        NSString *mapsUrl = [NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%@,%@", currentLocation.latitude, currentLocation.longitude, lat, lng];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mapsUrl]];
+    if (alertView.tag == kAlertTagDirections) {
+        // Show directions
+        CLLocationCoordinate2D currentLocation = [[PSLocationCenter defaultCenter] locationCoordinate];
+        NSString *lat = [self.venueDict objectForKey:@"lat"];
+        NSString *lng = [self.venueDict objectForKey:@"lng"];
+        
+        if (lat && lng) {
+            NSString *mapsUrl = [NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%@,%@", currentLocation.latitude, currentLocation.longitude, lat, lng];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mapsUrl]];
+        }
+    } else if (alertView.tag == kAlertTagFoursquare) {
+        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [self.venueDict objectForKey:@"id"]]]];
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
+        }
     }
-    
 }
 
 @end

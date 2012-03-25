@@ -11,6 +11,8 @@
 #import "PSLocationCenter.h"
 #import "VenueListViewController.h"
 
+#import "PSZoomView.h"
+
 #import "BWHockeyManager.h"
 #import "BWQuincyManager.h"
 
@@ -139,6 +141,10 @@ shouldReloadInterface = _shouldReloadInterface;
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     if (self.shouldReloadInterface) {
         self.shouldReloadInterface = NO;
+        
+        // Reset PSZoomView
+        [[PSZoomView sharedView] reset];
+        
         [self.navigationController popToRootViewControllerAnimated:NO];
     }
 }

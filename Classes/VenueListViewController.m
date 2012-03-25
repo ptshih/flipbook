@@ -340,9 +340,7 @@ query = _query;
                             }
                             
                             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                if (!self.isReload) {
-                                    self.contentOffset = self.collectionView.contentOffset.y > 0 ? self.collectionView.contentOffset : CGPointZero;
-                                }
+                                self.contentOffset = self.collectionView.contentOffset.y > 0 ? self.collectionView.contentOffset : CGPointZero;
                                 self.items = items;
                                 [self.collectionView reloadViews];
                                 [self dataSourceDidLoad];

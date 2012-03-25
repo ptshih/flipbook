@@ -13,8 +13,8 @@
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.centerOffset = CGPointMake(0, -27);
-        self.image = [UIImage imageNamed:@"PinVenueBlue"];
+//        self.centerOffset = CGPointMake(0, -27);
+        self.image = [UIImage imageNamed:@"PinVenueRed"];
     }
     
     return self;

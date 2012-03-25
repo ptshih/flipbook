@@ -22,6 +22,8 @@
 		2810F59C14921C340028BCFE /* BackgroundToolbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F59A14921C330028BCFE /* BackgroundToolbar@2x.png */; };
 		28150468151ACBB90028A0B6 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 28150466151ACBB90028A0B6 /* TapjoyConnect.m */; };
 		2815046A151ACC050028A0B6 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28150469151ACC050028A0B6 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		281CFC87151EB64C003DABCD /* PinVenueRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 281CFC85151EB64C003DABCD /* PinVenueRed.png */; };
+		281CFC88151EB64C003DABCD /* PinVenueRed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 281CFC86151EB64C003DABCD /* PinVenueRed@2x.png */; };
 		282E821F1515F0E8000B8566 /* PSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 282E821E1515F0E8000B8566 /* PSCollectionViewCell.m */; };
 		283818C314723F1D007E4827 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 283818C214723F1D007E4827 /* UIKit.framework */; };
 		283818C514723F1D007E4827 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 283818C414723F1D007E4827 /* Foundation.framework */; };
@@ -324,6 +326,8 @@
 		28150466151ACBB90028A0B6 /* TapjoyConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapjoyConnect.m; sourceTree = "<group>"; };
 		28150467151ACBB90028A0B6 /* TapjoyConnectConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapjoyConnectConstants.h; sourceTree = "<group>"; };
 		28150469151ACC050028A0B6 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		281CFC85151EB64C003DABCD /* PinVenueRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinVenueRed.png; sourceTree = "<group>"; };
+		281CFC86151EB64C003DABCD /* PinVenueRed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PinVenueRed@2x.png"; sourceTree = "<group>"; };
 		282E821D1515F0E8000B8566 /* PSCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCollectionViewCell.h; sourceTree = "<group>"; };
 		282E821E1515F0E8000B8566 /* PSCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCollectionViewCell.m; sourceTree = "<group>"; };
 		283818BE14723F1D007E4827 /* Lunchbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lunchbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -939,6 +943,8 @@
 				D0FE068E14F9CE1F00140D9E /* IconPinWhite@2x.png */,
 				D0FE068314F9C6E400140D9E /* PinVenueBlue.png */,
 				D0FE068414F9C6E400140D9E /* PinVenueBlue@2x.png */,
+				281CFC85151EB64C003DABCD /* PinVenueRed.png */,
+				281CFC86151EB64C003DABCD /* PinVenueRed@2x.png */,
 				D0C5BFEB14F75C4B0041A364 /* ButtonFacebook.png */,
 				D0C5BFEC14F75C4B0041A364 /* ButtonFacebook@2x.png */,
 				D0C5BFE714F75B960041A364 /* ButtonFacebookHighlighted.png */,
@@ -1818,6 +1824,8 @@
 				2808C3F6151D358400763095 /* FBDialog.bundle in Resources */,
 				28F49076151EA9540050A423 /* ShadowFlattened.png in Resources */,
 				28F49077151EA9540050A423 /* ShadowFlattened@2x.png in Resources */,
+				281CFC87151EB64C003DABCD /* PinVenueRed.png in Resources */,
+				281CFC88151EB64C003DABCD /* PinVenueRed@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2106,7 +2114,7 @@
 		D0B910BE14F5D6A600587682 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Peter Shih";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2123,7 +2131,7 @@
 					"\"$(SRCROOT)/Submodules/PSKit/src/Vendor/Facebook\"",
 				);
 				PRODUCT_NAME = Lunchbox;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B255315E-5BD9-48F7-89C2-51EB81FBF472";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

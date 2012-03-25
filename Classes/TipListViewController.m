@@ -122,8 +122,9 @@ rightButton = _rightButton;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.rightButton setImage:[UIImage imageNamed:@"IconPinWhite"] forState:UIControlStateNormal];
+//    [self.rightButton setImage:[UIImage imageNamed:@"IconPinWhite"] forState:UIControlStateNormal];
     self.rightButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    self.rightButton.userInteractionEnabled = NO;
     
     [self.headerView addSubview:self.leftButton];
     [self.headerView addSubview:self.centerButton];
@@ -141,13 +142,6 @@ rightButton = _rightButton;
 }
 
 - (void)rightAction {
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"tips#checkin"];
-    
-    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [self.venueDict objectForKey:@"id"]]]];
-    } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
-    }
 }
 
 #pragma mark - State Machine
@@ -218,9 +212,7 @@ rightButton = _rightButton;
                             [items addObjectsFromArray:tips];
                             
                             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                if (!self.isReload) {
-                                    self.contentOffset = self.collectionView.contentOffset.y > 0 ? self.collectionView.contentOffset : CGPointZero;
-                                }
+                                self.contentOffset = self.collectionView.contentOffset.y > 0 ? self.collectionView.contentOffset : CGPointZero;
                                 self.items = items;
                                 [self.collectionView reloadViews];
                                 [self dataSourceDidLoad];

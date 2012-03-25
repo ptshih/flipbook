@@ -61,6 +61,7 @@ divider = _divider;
         
         self.tipLabel = [UILabel labelWithStyle:@"attributedLabel"];
         self.tipLabel.backgroundColor = self.backgroundColor;
+        self.tipLabel.hidden = YES;
         [self addSubview:self.tipLabel];
         
         // Must set to 0 lines and word wrap line break mode
@@ -97,6 +98,7 @@ divider = _divider;
     self.categoryLabel.text = nil;
     self.distanceLabel.text = nil;
     self.tipLabel.text = nil;
+    self.tipLabel.hidden = YES;
     self.divider.hidden = YES;
 }
 
@@ -131,6 +133,7 @@ divider = _divider;
         self.tipLabel.left = left;
         self.tipLabel.width = labelSize.width;
         self.tipLabel.height = labelSize.height;
+        self.tipLabel.hidden = NO;
         
         top = self.tipLabel.bottom;
         top += MARGIN;

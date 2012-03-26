@@ -248,11 +248,6 @@
 		D0F6CABB14FD761500CCF2B4 /* IconSliderWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CAB714FD761500CCF2B4 /* IconSliderWhite@2x.png */; };
 		D0F6CABE14FD772900CCF2B4 /* CategoryChooserView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6CABD14FD772900CCF2B4 /* CategoryChooserView.m */; };
 		D0F6CAC114FD7CE900CCF2B4 /* LocationChooserView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6CAC014FD7CE800CCF2B4 /* LocationChooserView.m */; };
-		D0F6CACC14FD8FF900CCF2B4 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CAC414FD8FF900CCF2B4 /* CHANGELOG.md */; };
-		D0F6CACD14FD8FF900CCF2B4 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6CAC614FD8FF900CCF2B4 /* JSONKit.m */; };
-		D0F6CACE14FD8FF900CCF2B4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CAC714FD8FF900CCF2B4 /* README.md */; };
-		D0F6CACF14FD8FF900CCF2B4 /* SVGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6CAC914FD8FF900CCF2B4 /* SVGeocoder.m */; };
-		D0F6CAD014FD8FF900CCF2B4 /* SVPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6CACB14FD8FF900CCF2B4 /* SVPlacemark.m */; };
 		D0F6CAD214FD903B00CCF2B4 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F6CAD114FD903B00CCF2B4 /* AddressBook.framework */; };
 		D0F6CADC14FDA6BA00CCF2B4 /* IconLocationArrowBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CAD814FDA6BA00CCF2B4 /* IconLocationArrowBlack.png */; };
 		D0F6CADD14FDA6BA00CCF2B4 /* IconLocationArrowBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CAD914FDA6BA00CCF2B4 /* IconLocationArrowBlack@2x.png */; };
@@ -659,14 +654,6 @@
 		D0F6CABD14FD772900CCF2B4 /* CategoryChooserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryChooserView.m; sourceTree = "<group>"; };
 		D0F6CABF14FD7CE800CCF2B4 /* LocationChooserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationChooserView.h; sourceTree = "<group>"; };
 		D0F6CAC014FD7CE800CCF2B4 /* LocationChooserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationChooserView.m; sourceTree = "<group>"; };
-		D0F6CAC414FD8FF900CCF2B4 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG.md; sourceTree = "<group>"; };
-		D0F6CAC514FD8FF900CCF2B4 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		D0F6CAC614FD8FF900CCF2B4 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		D0F6CAC714FD8FF900CCF2B4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		D0F6CAC814FD8FF900CCF2B4 /* SVGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGeocoder.h; sourceTree = "<group>"; };
-		D0F6CAC914FD8FF900CCF2B4 /* SVGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGeocoder.m; sourceTree = "<group>"; };
-		D0F6CACA14FD8FF900CCF2B4 /* SVPlacemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPlacemark.h; sourceTree = "<group>"; };
-		D0F6CACB14FD8FF900CCF2B4 /* SVPlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPlacemark.m; sourceTree = "<group>"; };
 		D0F6CAD114FD903B00CCF2B4 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		D0F6CAD814FDA6BA00CCF2B4 /* IconLocationArrowBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconLocationArrowBlack.png; sourceTree = "<group>"; };
 		D0F6CAD914FDA6BA00CCF2B4 /* IconLocationArrowBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconLocationArrowBlack@2x.png"; sourceTree = "<group>"; };
@@ -1388,7 +1375,6 @@
 			isa = PBXGroup;
 			children = (
 				288348EC151C17940039DD6C /* AirWomp */,
-				D0F6CAC214FD8FF900CCF2B4 /* SVGeocoder */,
 				D031D49214F84CDA00DEB789 /* HockeyKit */,
 				D031D47E14F84CC300DEB789 /* QuincyKit */,
 				D031D2E914F84B8700DEB789 /* PSStyleSheet */,
@@ -1584,30 +1570,6 @@
 			path = PSPullRefreshView;
 			sourceTree = "<group>";
 		};
-		D0F6CAC214FD8FF900CCF2B4 /* SVGeocoder */ = {
-			isa = PBXGroup;
-			children = (
-				D0F6CAC314FD8FF900CCF2B4 /* JSONKit */,
-				D0F6CAC814FD8FF900CCF2B4 /* SVGeocoder.h */,
-				D0F6CAC914FD8FF900CCF2B4 /* SVGeocoder.m */,
-				D0F6CACA14FD8FF900CCF2B4 /* SVPlacemark.h */,
-				D0F6CACB14FD8FF900CCF2B4 /* SVPlacemark.m */,
-			);
-			name = SVGeocoder;
-			path = SVGeocoder/SVGeocoder;
-			sourceTree = "<group>";
-		};
-		D0F6CAC314FD8FF900CCF2B4 /* JSONKit */ = {
-			isa = PBXGroup;
-			children = (
-				D0F6CAC414FD8FF900CCF2B4 /* CHANGELOG.md */,
-				D0F6CAC514FD8FF900CCF2B4 /* JSONKit.h */,
-				D0F6CAC614FD8FF900CCF2B4 /* JSONKit.m */,
-				D0F6CAC714FD8FF900CCF2B4 /* README.md */,
-			);
-			path = JSONKit;
-			sourceTree = "<group>";
-		};
 		D0FE068714F9C73E00140D9E /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1778,8 +1740,6 @@
 				D0F6CAB914FD761500CCF2B4 /* IconSliderBlack@2x.png in Resources */,
 				D0F6CABA14FD761500CCF2B4 /* IconSliderWhite.png in Resources */,
 				D0F6CABB14FD761500CCF2B4 /* IconSliderWhite@2x.png in Resources */,
-				D0F6CACC14FD8FF900CCF2B4 /* CHANGELOG.md in Resources */,
-				D0F6CACE14FD8FF900CCF2B4 /* README.md in Resources */,
 				D0F6CADC14FDA6BA00CCF2B4 /* IconLocationArrowBlack.png in Resources */,
 				D0F6CADD14FDA6BA00CCF2B4 /* IconLocationArrowBlack@2x.png in Resources */,
 				D0F6CADE14FDA6BA00CCF2B4 /* IconLocationArrowWhite.png in Resources */,
@@ -1944,9 +1904,6 @@
 				D0F6CAA014FD675E00CCF2B4 /* TipView.m in Sources */,
 				D0F6CABE14FD772900CCF2B4 /* CategoryChooserView.m in Sources */,
 				D0F6CAC114FD7CE900CCF2B4 /* LocationChooserView.m in Sources */,
-				D0F6CACD14FD8FF900CCF2B4 /* JSONKit.m in Sources */,
-				D0F6CACF14FD8FF900CCF2B4 /* SVGeocoder.m in Sources */,
-				D0F6CAD014FD8FF900CCF2B4 /* SVPlacemark.m in Sources */,
 				D07031FA14FEEB4F002DA895 /* PSLayoutManager.m in Sources */,
 				284ABD97150E8FAF0040B250 /* CheckinViewController.m in Sources */,
 				284ABDAD150E98800040B250 /* PreviewViewController.m in Sources */,

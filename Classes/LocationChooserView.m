@@ -50,8 +50,10 @@ query = _query;
         queryField.leftView = searchImageView;
         queryField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         queryField.delegate = self;
-        queryField.returnKeyType = UIReturnKeyDefault;
+        queryField.returnKeyType = UIReturnKeySearch;
         queryField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        queryField.autocorrectionType = UITextAutocorrectionTypeNo;
+        queryField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         queryField.placeholder = @"Search for something...";
 //        [queryField setEnablesReturnKeyAutomatically:YES];
         [queryField addTarget:self action:@selector(queryChanged:) forControlEvents:UIControlEventEditingChanged];
@@ -121,6 +123,7 @@ query = _query;
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {    
     [textField resignFirstResponder];
+    [self redoSearch];
     return YES;
 }
 

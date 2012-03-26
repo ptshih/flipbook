@@ -233,13 +233,30 @@ query = _query;
     [self.requestQueue addOperationWithBlock:^{
         if (![[PSLocationCenter defaultCenter] hasAcquiredAccurateLocation]) {
             return;
-        } else {        
-            [SVGeocoder reverseGeocode:self.centerCoordinate completion:^(NSArray *placemarks, NSError *error) {
+        } else {
+            // Cancel ongoing geocoding
+            if ([[[PSLocationCenter defaultCenter] geocoder] isGeocoding]) {
+                [[[PSLocationCenter defaultCenter] geocoder] cancelGeocode];
+            }
+            
+            CLLocation *centerLocation = [[[CLLocation alloc] initWithLatitude:self.centerCoordinate.latitude longitude:self.centerCoordinate.longitude] autorelease];
+            
+            [[[PSLocationCenter defaultCenter] geocoder] reverseGeocodeLocation:centerLocation completionHandler:^(NSArray *placemarks, NSError *error) {
                 if (!error && [placemarks count] > 0) {
-                    SVPlacemark *placemark = [placemarks objectAtIndex:0];
-                    NSString *street = [placemark.addressDictionary objectForKey:@"Street"];
-                    NSString *locString = [NSString stringWithFormat:@"%@ of %@",[NSString localizedStringForDistance:self.radius] , street];
+                    NSString *locString = nil;
+                    CLPlacemark *placemark = [placemarks lastObject];
+                    // Areas of Interest (UNUSED)
+//                    NSArray *areasOfInterest = [placemark areasOfInterest];
+//                    if (areasOfInterest && [areasOfInterest count] > 0) {
+//                        locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [areasOfInterest objectAtIndex:0]];
+//                    } else {
+//                        locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [placemark name]];
+//                    }
+                    
+                    locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [placemark name]];
+                    
                     [self.centerButton setTitle:locString forState:UIControlStateNormal];
+//                    NSLog(@"placemark: %@", placemark);
                 }
             }];
         }

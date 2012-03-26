@@ -142,8 +142,9 @@ shouldReloadInterface = _shouldReloadInterface;
     if (self.shouldReloadInterface) {
         self.shouldReloadInterface = NO;
         
-        // Reset PSZoomView
-        [[PSZoomView sharedView] reset];
+        if ([[PSZoomView sharedView] isZooming]) {
+            [[PSZoomView sharedView] reset];
+        }
         
         [self.navigationController popToRootViewControllerAnimated:NO];
     }

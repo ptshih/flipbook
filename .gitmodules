@@ -13,6 +13,3 @@
 [submodule "Submodules/AirWomp"]
 	path = Submodules/AirWomp
 	url = git@github.com:ptshih/airwomp.git
-[submodule "Submodules/SVGeocoder"]
-	path = Submodules/SVGeocoder
-	url = git@github.com:ptshih/SVGeocoder.git

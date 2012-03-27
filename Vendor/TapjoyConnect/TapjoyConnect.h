@@ -17,7 +17,7 @@
 #import <UIKit/UIkit.h>
 
 
-#define TJC_LIBRARY_VERSION_NUMBER			@"8.1.7"					/*!< The SDK version number. */
+#define TJC_LIBRARY_VERSION_NUMBER			@"8.1.8"					/*!< The SDK version number. */
 
 #define TJC_SERVICE_URL							@"https://ws.tapjoyads.com/"
 #define TJC_SERVICE_URL_ALTERNATE			@"https://ws1.tapjoyads.com/"
@@ -45,7 +45,10 @@
 #define TJC_MOBILE_COUNTRY_CODE				@"mobile_country_code"	/*!< The mobile country code (MCC) for the user’s cellular service provider. */
 #define TJC_MOBILE_NETWORK_CODE				@"mobile_network_code"	/*!< The mobile network code (MNC) for the user’s cellular service provider. */
 #define TJC_PLATFORM								@"platform"				/*!< The name of the platform. */
-#define TJC_PLATFORM_IOS						@"iOS"
+#define TJC_PLATFORM_IOS						@"iOS"					/*!< The parameter value of the platform. */
+#define TJC_PLUGIN								@"plugin"				/*!< The plugin being used, if any. */
+#define TJC_PLUGIN_NATIVE						@"native"				/*!< The default value for the plugin parameter, native means not a plugin. */
+#define TJC_SDK_TYPE								@"sdk_type"				/*!< The type of SDK, advertiser, publisher, virtual goods, etc. */
 // The user ID.
 #define TJC_URL_PARAM_USER_ID					@"publisher_user_id"
 // NOTE: This doesn't actually affect currency earned, just the value displayed on the offer wall.
@@ -70,6 +73,7 @@
 	NSString *appID_;						/*!< The application ID unique to this app. */
 	NSString *secretKey_;				/*!< The Tapjoy secret key for this applicaiton. */
 	NSString *userID_;					/*!< The user ID, used to display ads. This is the UDID by default. */
+	NSString *plugin_;					/*!< The name of the plugin used. If no plugin is used, this value is set to "native" by default. */
 	float currencyMultiplier_;			/*!< The currency multiplier value, used to adjust currency earned. */
 	NSMutableData *data_;				/*!< Holds data for any data that comes back from a URL request. */
 	NSURLConnection *connection_;		/*!< Used to provide support to perform the loading of a URL request. Delegate methods are defined to handle when a response is receive with associated data. This is used for asynchronous requests only. */
@@ -80,9 +84,10 @@
 #endif
 }
 
-@property (nonatomic,copy) NSString* appID;
-@property (nonatomic,copy) NSString* secretKey;
-@property (nonatomic,copy) NSString* userID;
+@property (nonatomic, copy) NSString *appID;
+@property (nonatomic, copy) NSString *secretKey;
+@property (nonatomic, copy) NSString *userID;
+@property (nonatomic, copy) NSString *plugin;
 @property (nonatomic) BOOL isInitialConnect;
 
 
@@ -181,6 +186,15 @@
  *	\return The Tapjoy secret key for this application.
  */
 + (NSString*)getSecretKey;
+
+/*!	\fn setPlugin:(NSString*)thePlugin
+ *	\brief Sets the plugin.
+ *
+ * The plugin defaults to "native".
+ *	\param thePlugin The name of the plugin.
+ *	\return n/a
+ */
++ (void)setPlugin:(NSString*)thePlugin;
 
 /*! \fn isJailBroken
  *	\brief Simple check to detect jail broken devices/apps.

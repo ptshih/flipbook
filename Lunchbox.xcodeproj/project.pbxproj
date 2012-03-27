@@ -106,6 +106,9 @@
 		2869885D1475CEEC00B40860 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 286988081475CEEC00B40860 /* TTTAttributedLabel.m */; };
 		286988621475CF3500B40860 /* InitialDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 286988611475CF3500B40860 /* InitialDefaults.plist */; };
 		288348EF151C17940039DD6C /* AirWomp.m in Sources */ = {isa = PBXBuildFile; fileRef = 288348EE151C17940039DD6C /* AirWomp.m */; };
+		28866AAD1521A622005C30F9 /* LocalyticsDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 28866AA71521A622005C30F9 /* LocalyticsDatabase.m */; };
+		28866AAE1521A622005C30F9 /* LocalyticsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 28866AA91521A622005C30F9 /* LocalyticsSession.m */; };
+		28866AAF1521A622005C30F9 /* LocalyticsUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 28866AAB1521A622005C30F9 /* LocalyticsUploader.m */; };
 		288CB07114B2D72800233B45 /* CoreGraphics-PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 288CB07014B2D72700233B45 /* CoreGraphics-PSKit.m */; };
 		288CE08714A3CC4800BA93A6 /* IconCaptionBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 288CE08314A3CC4800BA93A6 /* IconCaptionBlack@2x.png */; };
 		288CE08814A3CC4800BA93A6 /* IconCaptionBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 288CE08414A3CC4800BA93A6 /* IconCaptionBlack.png */; };
@@ -232,9 +235,6 @@
 		D0C5BFFA14F764290041A364 /* BackgroundPaper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFF614F764290041A364 /* BackgroundPaper@2x.png */; };
 		D0C5BFFF14F766C90041A364 /* BackgroundPostIt.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFFD14F766C80041A364 /* BackgroundPostIt.png */; };
 		D0C5C00014F766C90041A364 /* BackgroundPostIt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFFE14F766C80041A364 /* BackgroundPostIt@2x.png */; };
-		D0C5C01114F76E520041A364 /* LocalyticsDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C5C00B14F76E520041A364 /* LocalyticsDatabase.m */; };
-		D0C5C01214F76E520041A364 /* LocalyticsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C5C00D14F76E520041A364 /* LocalyticsSession.m */; };
-		D0C5C01314F76E520041A364 /* UploaderThread.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C5C00F14F76E520041A364 /* UploaderThread.m */; };
 		D0C5C01514F76F920041A364 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C5C01414F76F910041A364 /* libz.dylib */; };
 		D0DDA67B14E85DC1001FD463 /* PSPullRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DDA67A14E85DC1001FD463 /* PSPullRefreshView.m */; };
 		D0F4CB4814F996F70001FD7E /* PSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F4CB4714F996F70001FD7E /* PSCollectionViewController.m */; };
@@ -458,6 +458,13 @@
 		286988611475CF3500B40860 /* InitialDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InitialDefaults.plist; sourceTree = "<group>"; };
 		288348ED151C17940039DD6C /* AirWomp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirWomp.h; sourceTree = "<group>"; };
 		288348EE151C17940039DD6C /* AirWomp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirWomp.m; sourceTree = "<group>"; };
+		28866AA61521A622005C30F9 /* LocalyticsDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalyticsDatabase.h; path = Vendor/Localytics/LocalyticsDatabase.h; sourceTree = SOURCE_ROOT; };
+		28866AA71521A622005C30F9 /* LocalyticsDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalyticsDatabase.m; path = Vendor/Localytics/LocalyticsDatabase.m; sourceTree = SOURCE_ROOT; };
+		28866AA81521A622005C30F9 /* LocalyticsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalyticsSession.h; path = Vendor/Localytics/LocalyticsSession.h; sourceTree = SOURCE_ROOT; };
+		28866AA91521A622005C30F9 /* LocalyticsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalyticsSession.m; path = Vendor/Localytics/LocalyticsSession.m; sourceTree = SOURCE_ROOT; };
+		28866AAA1521A622005C30F9 /* LocalyticsUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalyticsUploader.h; path = Vendor/Localytics/LocalyticsUploader.h; sourceTree = SOURCE_ROOT; };
+		28866AAB1521A622005C30F9 /* LocalyticsUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalyticsUploader.m; path = Vendor/Localytics/LocalyticsUploader.m; sourceTree = SOURCE_ROOT; };
+		28866AAC1521A622005C30F9 /* WebserviceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebserviceConstants.h; path = Vendor/Localytics/WebserviceConstants.h; sourceTree = SOURCE_ROOT; };
 		288CB06F14B2D72700233B45 /* CoreGraphics-PSKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreGraphics-PSKit.h"; sourceTree = "<group>"; };
 		288CB07014B2D72700233B45 /* CoreGraphics-PSKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoreGraphics-PSKit.m"; sourceTree = "<group>"; };
 		288CE08314A3CC4800BA93A6 /* IconCaptionBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconCaptionBlack@2x.png"; sourceTree = "<group>"; };
@@ -628,13 +635,6 @@
 		D0C5BFF614F764290041A364 /* BackgroundPaper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackgroundPaper@2x.png"; sourceTree = "<group>"; };
 		D0C5BFFD14F766C80041A364 /* BackgroundPostIt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundPostIt.png; sourceTree = "<group>"; };
 		D0C5BFFE14F766C80041A364 /* BackgroundPostIt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackgroundPostIt@2x.png"; sourceTree = "<group>"; };
-		D0C5C00A14F76E520041A364 /* LocalyticsDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalyticsDatabase.h; sourceTree = "<group>"; };
-		D0C5C00B14F76E520041A364 /* LocalyticsDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalyticsDatabase.m; sourceTree = "<group>"; };
-		D0C5C00C14F76E520041A364 /* LocalyticsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalyticsSession.h; sourceTree = "<group>"; };
-		D0C5C00D14F76E520041A364 /* LocalyticsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalyticsSession.m; sourceTree = "<group>"; };
-		D0C5C00E14F76E520041A364 /* UploaderThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploaderThread.h; sourceTree = "<group>"; };
-		D0C5C00F14F76E520041A364 /* UploaderThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploaderThread.m; sourceTree = "<group>"; };
-		D0C5C01014F76E520041A364 /* WebserviceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebserviceConstants.h; sourceTree = "<group>"; };
 		D0C5C01414F76F910041A364 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D0DDA67914E85DC1001FD463 /* PSPullRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPullRefreshView.h; sourceTree = "<group>"; };
 		D0DDA67A14E85DC1001FD463 /* PSPullRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPullRefreshView.m; sourceTree = "<group>"; };
@@ -810,6 +810,13 @@
 		28150464151ACBB90028A0B6 /* TapjoyConnect */ = {
 			isa = PBXGroup;
 			children = (
+				28866AA61521A622005C30F9 /* LocalyticsDatabase.h */,
+				28866AA71521A622005C30F9 /* LocalyticsDatabase.m */,
+				28866AA81521A622005C30F9 /* LocalyticsSession.h */,
+				28866AA91521A622005C30F9 /* LocalyticsSession.m */,
+				28866AAA1521A622005C30F9 /* LocalyticsUploader.h */,
+				28866AAB1521A622005C30F9 /* LocalyticsUploader.m */,
+				28866AAC1521A622005C30F9 /* WebserviceConstants.h */,
 				28150465151ACBB90028A0B6 /* TapjoyConnect.h */,
 				28150466151ACBB90028A0B6 /* TapjoyConnect.m */,
 				28150467151ACBB90028A0B6 /* TapjoyConnectConstants.h */,
@@ -1549,13 +1556,6 @@
 		D0C5C00914F76E520041A364 /* Localytics */ = {
 			isa = PBXGroup;
 			children = (
-				D0C5C00A14F76E520041A364 /* LocalyticsDatabase.h */,
-				D0C5C00B14F76E520041A364 /* LocalyticsDatabase.m */,
-				D0C5C00C14F76E520041A364 /* LocalyticsSession.h */,
-				D0C5C00D14F76E520041A364 /* LocalyticsSession.m */,
-				D0C5C00E14F76E520041A364 /* UploaderThread.h */,
-				D0C5C00F14F76E520041A364 /* UploaderThread.m */,
-				D0C5C01014F76E520041A364 /* WebserviceConstants.h */,
 			);
 			path = Localytics;
 			sourceTree = "<group>";
@@ -1881,9 +1881,6 @@
 				D054E97214F6C41F00B03306 /* PSGalleryView.m in Sources */,
 				D054E98D14F6EE5F00B03306 /* PSPopoverView.m in Sources */,
 				D07B2DC114F750F500304E62 /* Appirater.m in Sources */,
-				D0C5C01114F76E520041A364 /* LocalyticsDatabase.m in Sources */,
-				D0C5C01214F76E520041A364 /* LocalyticsSession.m in Sources */,
-				D0C5C01314F76E520041A364 /* UploaderThread.m in Sources */,
 				D031D2ED14F84B8700DEB789 /* PSStyleSheet.m in Sources */,
 				D031D48B14F84CC300DEB789 /* BWQuincyManager.m in Sources */,
 				D031D4BD14F84CDA00DEB789 /* BWApp.m in Sources */,
@@ -1918,6 +1915,9 @@
 				2808C3E3151D33A300763095 /* TTTTimeIntervalFormatter.m in Sources */,
 				2808C3E4151D33A300763095 /* TTTUnitOfInformationFormatter.m in Sources */,
 				2808C3E5151D33A300763095 /* TTTURLRequestFormatter.m in Sources */,
+				28866AAD1521A622005C30F9 /* LocalyticsDatabase.m in Sources */,
+				28866AAE1521A622005C30F9 /* LocalyticsSession.m in Sources */,
+				28866AAF1521A622005C30F9 /* LocalyticsUploader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -77,6 +77,7 @@ shouldReloadInterface = _shouldReloadInterface;
 #ifdef RELEASE
     [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];
     [[BWHockeyManager sharedHockeyManager] setAlwaysShowUpdateReminder:YES];
+    [[BWHockeyManager sharedHockeyManager] setDelegate:self];
 #endif
     [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];
     
@@ -153,6 +154,14 @@ shouldReloadInterface = _shouldReloadInterface;
 - (void)applicationWillTerminate:(UIApplication *)application {
     [[LocalyticsSession sharedLocalyticsSession] close];
     [[LocalyticsSession sharedLocalyticsSession] upload];
+}
+
+- (NSString *)customDeviceIdentifier {
+#ifndef DISTRIBUTION
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
+        return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+#endif
+    return nil;
 }
 
 - (void)dealloc {

@@ -20,7 +20,6 @@
 		2810F579149202DF0028BCFE /* HorizontalLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F577149202DE0028BCFE /* HorizontalLine@2x.png */; };
 		2810F59B14921C340028BCFE /* BackgroundToolbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F59914921C330028BCFE /* BackgroundToolbar.png */; };
 		2810F59C14921C340028BCFE /* BackgroundToolbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F59A14921C330028BCFE /* BackgroundToolbar@2x.png */; };
-		28150468151ACBB90028A0B6 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 28150466151ACBB90028A0B6 /* TapjoyConnect.m */; };
 		2815046A151ACC050028A0B6 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28150469151ACC050028A0B6 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		281CFC87151EB64C003DABCD /* PinVenueRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 281CFC85151EB64C003DABCD /* PinVenueRed.png */; };
 		281CFC88151EB64C003DABCD /* PinVenueRed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 281CFC86151EB64C003DABCD /* PinVenueRed@2x.png */; };
@@ -317,9 +316,6 @@
 		2810F577149202DE0028BCFE /* HorizontalLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalLine@2x.png"; sourceTree = "<group>"; };
 		2810F59914921C330028BCFE /* BackgroundToolbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundToolbar.png; sourceTree = "<group>"; };
 		2810F59A14921C330028BCFE /* BackgroundToolbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackgroundToolbar@2x.png"; sourceTree = "<group>"; };
-		28150465151ACBB90028A0B6 /* TapjoyConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapjoyConnect.h; sourceTree = "<group>"; };
-		28150466151ACBB90028A0B6 /* TapjoyConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapjoyConnect.m; sourceTree = "<group>"; };
-		28150467151ACBB90028A0B6 /* TapjoyConnectConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapjoyConnectConstants.h; sourceTree = "<group>"; };
 		28150469151ACC050028A0B6 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		281CFC85151EB64C003DABCD /* PinVenueRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinVenueRed.png; sourceTree = "<group>"; };
 		281CFC86151EB64C003DABCD /* PinVenueRed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PinVenueRed@2x.png"; sourceTree = "<group>"; };
@@ -805,23 +801,6 @@
 				2808C3F5151D358400763095 /* SBJsonWriter.h */,
 			);
 			path = Facebook;
-			sourceTree = "<group>";
-		};
-		28150464151ACBB90028A0B6 /* TapjoyConnect */ = {
-			isa = PBXGroup;
-			children = (
-				28866AA61521A622005C30F9 /* LocalyticsDatabase.h */,
-				28866AA71521A622005C30F9 /* LocalyticsDatabase.m */,
-				28866AA81521A622005C30F9 /* LocalyticsSession.h */,
-				28866AA91521A622005C30F9 /* LocalyticsSession.m */,
-				28866AAA1521A622005C30F9 /* LocalyticsUploader.h */,
-				28866AAB1521A622005C30F9 /* LocalyticsUploader.m */,
-				28866AAC1521A622005C30F9 /* WebserviceConstants.h */,
-				28150465151ACBB90028A0B6 /* TapjoyConnect.h */,
-				28150466151ACBB90028A0B6 /* TapjoyConnect.m */,
-				28150467151ACBB90028A0B6 /* TapjoyConnectConstants.h */,
-			);
-			path = TapjoyConnect;
 			sourceTree = "<group>";
 		};
 		283818B314723F1C007E4827 = {
@@ -1509,7 +1488,6 @@
 		D07B2DBD14F750F400304E62 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				28150464151ACBB90028A0B6 /* TapjoyConnect */,
 				D0C5C00914F76E520041A364 /* Localytics */,
 				D07B2DBE14F750F500304E62 /* Appirater */,
 			);
@@ -1556,6 +1534,13 @@
 		D0C5C00914F76E520041A364 /* Localytics */ = {
 			isa = PBXGroup;
 			children = (
+				28866AA61521A622005C30F9 /* LocalyticsDatabase.h */,
+				28866AA71521A622005C30F9 /* LocalyticsDatabase.m */,
+				28866AA81521A622005C30F9 /* LocalyticsSession.h */,
+				28866AA91521A622005C30F9 /* LocalyticsSession.m */,
+				28866AAA1521A622005C30F9 /* LocalyticsUploader.h */,
+				28866AAB1521A622005C30F9 /* LocalyticsUploader.m */,
+				28866AAC1521A622005C30F9 /* WebserviceConstants.h */,
 			);
 			path = Localytics;
 			sourceTree = "<group>";
@@ -1906,7 +1891,6 @@
 				284ABDAD150E98800040B250 /* PreviewViewController.m in Sources */,
 				283F89311515DCFF003C1D63 /* PSDateFormatter.m in Sources */,
 				282E821F1515F0E8000B8566 /* PSCollectionViewCell.m in Sources */,
-				28150468151ACBB90028A0B6 /* TapjoyConnect.m in Sources */,
 				288348EF151C17940039DD6C /* AirWomp.m in Sources */,
 				2808C3DF151D33A300763095 /* TTTArrayFormatter.m in Sources */,
 				2808C3E0151D33A300763095 /* TTTHoursOfOperation.m in Sources */,

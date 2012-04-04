@@ -116,6 +116,8 @@
 		288F572014808609000EEC90 /* PhotoFrame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 288F571E14808609000EEC90 /* PhotoFrame@2x.png */; };
 		288F572514808856000EEC90 /* CardPicturePlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 288F572314808856000EEC90 /* CardPicturePlaceholder.png */; };
 		288F572614808856000EEC90 /* CardPicturePlaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 288F572414808856000EEC90 /* CardPicturePlaceholder@2x.png */; };
+		2896CF52152BF8DC0070EB9C /* IconFoursquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 2896CF50152BF8DC0070EB9C /* IconFoursquare.png */; };
+		2896CF53152BF8DC0070EB9C /* IconFoursquare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2896CF51152BF8DC0070EB9C /* IconFoursquare@2x.png */; };
 		289734031521A8CE004BE577 /* LocalyticsDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 289733FD1521A8CE004BE577 /* LocalyticsDatabase.m */; };
 		289734041521A8CE004BE577 /* LocalyticsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 289733FF1521A8CE004BE577 /* LocalyticsSession.m */; };
 		289734051521A8CE004BE577 /* LocalyticsUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 289734011521A8CE004BE577 /* LocalyticsUploader.m */; };
@@ -466,6 +468,8 @@
 		288F571E14808609000EEC90 /* PhotoFrame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PhotoFrame@2x.png"; sourceTree = "<group>"; };
 		288F572314808856000EEC90 /* CardPicturePlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CardPicturePlaceholder.png; sourceTree = "<group>"; };
 		288F572414808856000EEC90 /* CardPicturePlaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CardPicturePlaceholder@2x.png"; sourceTree = "<group>"; };
+		2896CF50152BF8DC0070EB9C /* IconFoursquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconFoursquare.png; sourceTree = "<group>"; };
+		2896CF51152BF8DC0070EB9C /* IconFoursquare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconFoursquare@2x.png"; sourceTree = "<group>"; };
 		289733FC1521A8CE004BE577 /* LocalyticsDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalyticsDatabase.h; sourceTree = "<group>"; };
 		289733FD1521A8CE004BE577 /* LocalyticsDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalyticsDatabase.m; sourceTree = "<group>"; };
 		289733FE1521A8CE004BE577 /* LocalyticsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalyticsSession.h; sourceTree = "<group>"; };
@@ -1285,6 +1289,8 @@
 		28F38D4A149839B9009D58BA /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				2896CF50152BF8DC0070EB9C /* IconFoursquare.png */,
+				2896CF51152BF8DC0070EB9C /* IconFoursquare@2x.png */,
 				284ABDB1150ED1DD0040B250 /* IconXWhite.png */,
 				284ABDB2150ED1DD0040B250 /* IconXWhite@2x.png */,
 				28EBFFFD15177BD0004C55DE /* IconSearchMiniWhite.png */,
@@ -1771,6 +1777,8 @@
 				28F49077151EA9540050A423 /* ShadowFlattened@2x.png in Resources */,
 				281CFC87151EB64C003DABCD /* PinVenueRed.png in Resources */,
 				281CFC88151EB64C003DABCD /* PinVenueRed@2x.png in Resources */,
+				2896CF52152BF8DC0070EB9C /* IconFoursquare.png in Resources */,
+				2896CF53152BF8DC0070EB9C /* IconFoursquare@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

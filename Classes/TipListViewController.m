@@ -117,8 +117,8 @@ rightButton = _rightButton;
     [self.centerButton setTitle:[NSString stringWithFormat:@"Tips for %@", [self.venueDict objectForKey:@"name"]] forState:UIControlStateNormal];
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
-    self.centerButton.userInteractionEnabled = NO;
     self.centerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.centerButton.userInteractionEnabled = NO;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];

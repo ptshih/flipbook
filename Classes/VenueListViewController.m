@@ -139,7 +139,7 @@ query = _query;
     
     self.leftButton = [UIButton buttonWithFrame:CGRectMake(0, 0, 44, 44) andStyle:nil target:self action:@selector(leftAction)];
     [self.leftButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonLeftBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.leftButton setImage:[UIImage imageNamed:@"IconHeartWhite"] forState:UIControlStateNormal];
+    [self.leftButton setImage:[UIImage imageNamed:@"IconLocationArrowWhite"] forState:UIControlStateNormal];
     self.leftButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
     
     self.centerButton = [UIButton buttonWithFrame:CGRectMake(44, 0, self.headerView.width - 88, 44) andStyle:@"navigationTitleLabel" target:self action:@selector(centerAction)];
@@ -162,9 +162,18 @@ query = _query;
 
 #pragma mark - Actions
 - (void)leftAction {
-    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Send Love" message:@"Your love makes us work harder. Rate our app now?" delegate:self cancelButtonTitle:@"No, Thanks" otherButtonTitles:@"Okay", nil] autorelease];
-    [av show];
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#sendLove"];
+//    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Send Love" message:@"Your love makes us work harder. Rate our app now?" delegate:self cancelButtonTitle:@"No, Thanks" otherButtonTitles:@"Okay", nil] autorelease];
+//    [av show];
+//    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#sendLove"];
+    
+    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
+    LocationChooserView *cv = [[[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion] autorelease];
+    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Find Places in Map Area" contentView:cv] autorelease];
+    popoverView.tag = kPopoverLocation;
+    popoverView.delegate = self;
+    [popoverView showWithSize:cv.frame.size inView:self.view];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#locationChooser"];
 }
 
 - (void)centerAction {

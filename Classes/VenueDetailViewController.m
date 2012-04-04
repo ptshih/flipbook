@@ -236,10 +236,11 @@ mapView = _mapView;
     self.centerButton.titleLabel.minimumFontSize = 12.0;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
     self.centerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.centerButton.userInteractionEnabled = NO;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.rightButton setImage:[UIImage imageNamed:@"IconCameraWhite"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconFoursquare"] forState:UIControlStateNormal];
     self.rightButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     
     [self.headerView addSubview:self.leftButton];
@@ -262,6 +263,14 @@ mapView = _mapView;
 }
 
 - (void)rightAction {
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#checkin"];
+    
+    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+    av.tag = kAlertTagFoursquare;
+    [av show];
+    
+    return;
+    
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#addphoto"];
     
     UIActionSheet *as = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil] autorelease];

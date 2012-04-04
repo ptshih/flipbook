@@ -82,6 +82,8 @@ shouldReloadInterface = _shouldReloadInterface;
     // Vendor analytics
     [[LocalyticsSession sharedLocalyticsSession] startSession:@"84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc"];
     
+    [Appirater appLaunched:YES];
+    
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     // PSFacebookCenter
@@ -121,6 +123,8 @@ shouldReloadInterface = _shouldReloadInterface;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    [Appirater appEnteredForeground:YES];
+    
     self.foregroundDate = [NSDate date];
     
     NSTimeInterval secondsBackgrounded = [self.foregroundDate timeIntervalSinceDate:self.backgroundDate];

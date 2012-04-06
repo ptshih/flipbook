@@ -139,7 +139,7 @@ mapView = _mapView;
     [mapView addSubview:mapShadowView];
     [headerView addSubview:mapView];
     
-    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, headerView.width - 24, mapHeight - 12)] autorelease];
+    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, headerView.width - 24, mapHeight - 16)] autorelease];
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.mapView.delegate = self;
     self.mapView.zoomEnabled = NO;

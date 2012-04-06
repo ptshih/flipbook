@@ -97,7 +97,7 @@
     topLabel.backgroundColor = RGBACOLOR(255, 255, 255, 0.75);
     topLabel.frame = CGRectMake(8, topView.height - LABEL_HEIGHT - 8, labelSize.width, LABEL_HEIGHT);
     
-    UILabel *midLabel = [UILabel labelWithText:@"  Cafes, Coffee, and Tea  " style:@"categoryHeadline"];
+    UILabel *midLabel = [UILabel labelWithText:@"  Coffee and Tea  " style:@"categoryHeadline"];
     [midView addSubview:midLabel];
     labelSize = [PSStyleSheet sizeForText:midLabel.text width:width style:@"categoryHeadline"];
     midLabel.backgroundColor = RGBACOLOR(255, 255, 255, 0.75);

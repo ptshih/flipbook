@@ -162,7 +162,7 @@ query = _query;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.rightButton setImage:[UIImage imageNamed:@"IconSliderWhite"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconSearchWhite"] forState:UIControlStateNormal];
     self.rightButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     
     [self.headerView addSubview:self.leftButton];
@@ -201,13 +201,24 @@ query = _query;
 }
 
 - (void)rightAction {
-    CategoryChooserView *cv = [[[CategoryChooserView alloc] initWithFrame:CGRectMake(0, 0, 288, 152)] autorelease];
-    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Choose a Category" contentView:cv] autorelease];
-    popoverView.tag = kPopoverCategory;
+    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
+    LocationChooserView *cv = [[[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion] autorelease];
+    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv] autorelease];
+    popoverView.tag = kPopoverLocation;
     popoverView.delegate = self;
-    
     [popoverView showWithSize:cv.frame.size inView:self.view];
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#categoryChooser"];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#locationChooser"];
+    
+    return;
+    
+//    CategoryChooserView *cv = [[[CategoryChooserView alloc] initWithFrame:CGRectMake(0, 0, 288, 152)] autorelease];
+//    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Choose a Category" contentView:cv] autorelease];
+//    popoverView.tag = kPopoverCategory;
+//    popoverView.delegate = self;
+//    
+//    [popoverView showWithSize:cv.frame.size inView:self.view];
+//    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#categoryChooser"];
 }
 
 - (void)locationDidUpdate {

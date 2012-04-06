@@ -74,13 +74,15 @@ tableView = _tableView;
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
     
-    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:YES completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession usingCache:YES completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
         if (error) {
+            [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
             [self dataSourceDidError];
         } else {
             // parse the json
             id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
             if (!apiResponse) {
+                [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
                 [self dataSourceDidError];
             } else {
                 if ([apiResponse objectForKey:@"data"] && [[[apiResponse objectForKey:@"data"] objectForKey:@"businesses"] count] > 0) {
@@ -88,6 +90,7 @@ tableView = _tableView;
                     
                     [self dataSourceDidLoad];
                 } else {
+                    [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
                     [self dataSourceDidError];
                 }
             }

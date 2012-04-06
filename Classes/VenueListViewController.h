@@ -15,7 +15,7 @@
 @property (nonatomic, assign) UIButton *centerButton;
 @property (nonatomic, assign) UIButton *rightButton;
 @property (nonatomic, assign) BOOL shouldRefreshOnAppear;
-@property (nonatomic, assign) NSInteger categoryIndex;
 
+- (id)initWithCategory:(NSString *)category;
 
 @end

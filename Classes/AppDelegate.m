@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "PSReachabilityCenter.h"
 #import "PSLocationCenter.h"
-#import "VenueListViewController.h"
+#import "CategoryListViewController.h"
 
 #import "PSZoomView.h"
 
@@ -105,7 +105,7 @@ shouldReloadInterface = _shouldReloadInterface;
     
     // Root view controller
     id controller = nil;
-    controller = [[[VenueListViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+    controller = [[[CategoryListViewController alloc] initWithNibName:nil bundle:nil] autorelease];
     
     self.navigationController = [[[PSNavigationController alloc] initWithRootViewController:controller] autorelease];
     self.window.rootViewController = self.navigationController;

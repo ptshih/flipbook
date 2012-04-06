@@ -18,6 +18,7 @@
 
 @interface VenueListViewController ()
 
+@property (nonatomic, copy) NSString *category;
 @property (nonatomic, assign) CLLocationCoordinate2D centerCoordinate;
 @property (nonatomic, assign) CGFloat radius;
 @property (nonatomic, copy) NSString *query;
@@ -32,18 +33,27 @@
 leftButton = _leftButton,
 centerButton = _centerButton,
 rightButton = _rightButton,
-shouldRefreshOnAppear = _shouldRefreshOnAppear,
-categoryIndex = _categoryIndex,
+shouldRefreshOnAppear = _shouldRefreshOnAppear;
+
+@synthesize
+category = _category,
 centerCoordinate = _centerCoordinate,
 radius = _radius,
 query = _query;
 
 #pragma mark - Init
+- (id)initWithCategory:(NSString *)category {
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        self.category = category;
+    }
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.shouldRefreshOnAppear = NO;
-        self.categoryIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"categoryIndex"];
         self.radius = 0;
         self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
         
@@ -61,6 +71,7 @@ query = _query;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSLocationCenterDidUpdate object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 
+    self.category = nil;
     self.query = nil;
     [super dealloc];
 }
@@ -139,7 +150,7 @@ query = _query;
     
     self.leftButton = [UIButton buttonWithFrame:CGRectMake(0, 0, 44, 44) andStyle:nil target:self action:@selector(leftAction)];
     [self.leftButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonLeftBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.leftButton setImage:[UIImage imageNamed:@"IconLocationArrowWhite"] forState:UIControlStateNormal];
+    [self.leftButton setImage:[UIImage imageNamed:@"IconBackWhite"] forState:UIControlStateNormal];
     self.leftButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
     
     self.centerButton = [UIButton buttonWithFrame:CGRectMake(44, 0, self.headerView.width - 88, 44) andStyle:@"navigationTitleLabel" target:self action:@selector(centerAction)];
@@ -162,18 +173,20 @@ query = _query;
 
 #pragma mark - Actions
 - (void)leftAction {
+    [(PSNavigationController *)self.parentViewController popViewControllerWithDirection:PSNavigationControllerDirectionRight animated:YES];
+    
 //    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Send Love" message:@"Your love makes us work harder. Rate our app now?" delegate:self cancelButtonTitle:@"No, Thanks" otherButtonTitles:@"Okay", nil] autorelease];
 //    [av show];
 //    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#sendLove"];
     
-    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
-    LocationChooserView *cv = [[[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion] autorelease];
-    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv] autorelease];
-    popoverView.tag = kPopoverLocation;
-    popoverView.delegate = self;
-    [popoverView showWithSize:cv.frame.size inView:self.view];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#locationChooser"];
+//    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
+//    LocationChooserView *cv = [[[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion] autorelease];
+//    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv] autorelease];
+//    popoverView.tag = kPopoverLocation;
+//    popoverView.delegate = self;
+//    [popoverView showWithSize:cv.frame.size inView:self.view];
+//    
+//    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#locationChooser"];
 }
 
 - (void)centerAction {
@@ -262,7 +275,11 @@ query = _query;
 //                        locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [placemark name]];
 //                    }
                     
-                    locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [placemark name]];
+                    if (self.radius == 0) {
+                        locString = [NSString stringWithFormat:@"Near %@", [placemark name]];
+                    } else {
+                        locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [placemark name]];
+                    }
                     
                     [self.centerButton setTitle:locString forState:UIControlStateNormal];
 //                    NSLog(@"placemark: %@", placemark);
@@ -288,21 +305,7 @@ query = _query;
         [parameters setObject:[NSNumber numberWithInteger:50] forKey:@"limit"];
         [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
         [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
-        NSString *section = nil;
-        switch (self.categoryIndex) {
-            case 0:
-                section = @"food";
-                break;
-            case 1:
-                section = @"coffee";
-                break;
-            case 2:
-                section = @"drinks";
-                break;
-            default:
-                section = @"food";
-                break;
-        }
+        NSString *section = self.category;
         [parameters setObject:section forKey:@"section"];
         
         NSURL *URL = [NSURL URLWithString:URLPath];
@@ -321,6 +324,9 @@ query = _query;
                     } else {
                         // Process 4sq response
                         NSDictionary *response = [JSON objectForKey:@"response"];
+                        if (self.radius == 0 && [response objectForKey:@"suggestedRadius"]) {
+                            self.radius = [[response objectForKey:@"suggestedRadius"] integerValue];
+                        }
                         NSArray *groups = [response objectForKey:@"groups"];
                         if (groups && [groups count] > 0) {
                             // Format the response for our consumption
@@ -458,12 +464,12 @@ query = _query;
 #pragma mark - PSPopoverViewDelegate
 - (void)popoverViewDidDismiss:(PSPopoverView *)popoverView {
     if (popoverView.tag == kPopoverCategory) {
-        NSInteger newCategoryIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"categoryIndex"];
-        if (newCategoryIndex != self.categoryIndex) {
-            self.query = nil; // remove query term when changing categories
-            self.categoryIndex = newCategoryIndex;
-            [self reloadDataSource];
-        }
+//        NSInteger newCategoryIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"categoryIndex"];
+//        if (newCategoryIndex != self.categoryIndex) {
+//            self.query = nil; // remove query term when changing categories
+//            self.categoryIndex = newCategoryIndex;
+//            [self reloadDataSource];
+//        }
     } else if (popoverView.tag = kPopoverLocation) {
         MKMapView *mapView = [(LocationChooserView *)popoverView.contentView mapView];
         MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mapView.visibleMapRect), MKMapRectGetMidY(mapView.visibleMapRect));

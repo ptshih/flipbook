@@ -69,10 +69,10 @@ tableView = _tableView;
             cell.textLabel.text = @"Food and Restaurants";
             break;
         case 1:
-            cell.textLabel.text = @"Coffee and Cafes";
+            cell.textLabel.text = @"Cafes, Coffee, and Tea";
             break;
         case 2:
-            cell.textLabel.text = @"Nightlight and Drinks";
+            cell.textLabel.text = @"Bars and Nightclubs";
             break;
         default:
             break;

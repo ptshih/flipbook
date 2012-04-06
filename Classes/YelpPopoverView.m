@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSDictionary *yelpDict;
 @property (nonatomic, retain) NSMutableArray *items;
 @property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, retain) UILabel *loadingLabel;
 
 - (void)loadDataSource;
 - (void)dataSourceDidLoad;
@@ -28,7 +29,8 @@
 venueDict = _venueDict,
 yelpDict = _yelpDict,
 items = _items,
-tableView = _tableView;
+tableView = _tableView,
+loadingLabel = _loadingLabel;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary frame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -43,6 +45,10 @@ tableView = _tableView;
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         [self addSubview:self.tableView];
+        
+        self.loadingLabel = [UILabel labelWithText:@"Loading..." style:@"emptyLabel"];
+        self.loadingLabel.frame = self.bounds;
+        [self addSubview:self.loadingLabel];
         
         // Load remote data
         [self loadDataSource];
@@ -99,6 +105,8 @@ tableView = _tableView;
 }
 
 - (void)dataSourceDidLoad {
+    self.loadingLabel.hidden = YES;
+    
     NSDictionary *biz = self.yelpDict;
     
     // Load into dataSource
@@ -163,9 +171,7 @@ tableView = _tableView;
 }
 
 - (void)dataSourceDidError {
-    UILabel *errorLabel = [UILabel labelWithText:[NSString stringWithFormat:@"Yelp didn't find any matches for %@", [self.venueDict objectForKey:@"name"]] style:@"emptyLabel"];
-    errorLabel.frame = self.bounds;
-    [self addSubview:errorLabel];
+    self.loadingLabel.text = [NSString stringWithFormat:@"Yelp didn't find any matches for %@", [self.venueDict objectForKey:@"name"]];
     [self.tableView reloadData];
 }
 

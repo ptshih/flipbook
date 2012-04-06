@@ -134,17 +134,21 @@ loadingLabel = _loadingLabel;
                                  ];
     [firstSection addObject:reviewCount];
     
+    // Read Reviews
+    NSString *readReviews = @"Read Reviews on Yelp";
+    [firstSection addObject:readReviews];
+    
     // Phone
-    if ([biz objectForKey:@"phone"]) {
-        NSDictionary *phone = [NSDictionary dictionaryWithObjectsAndKeys:
-                               [biz objectForKey:@"phone"],
-                               @"subtitle",
-                               @"Phone",
-                               @"title",
-                               nil
-                               ];
-        [firstSection addObject:phone];
-    }
+//    if ([biz objectForKey:@"phone"]) {
+//        NSDictionary *phone = [NSDictionary dictionaryWithObjectsAndKeys:
+//                               [biz objectForKey:@"phone"],
+//                               @"subtitle",
+//                               @"Phone",
+//                               @"title",
+//                               nil
+//                               ];
+//        [firstSection addObject:phone];
+//    }
     
     [self.items addObject:firstSection];
     
@@ -160,12 +164,12 @@ loadingLabel = _loadingLabel;
 //    [self.items addObject:secondSection];
     
     // Third Section
-     NSMutableArray *thirdSection = [NSMutableArray array];
-    
-    NSString *readReviews = @"Read Reviews on Yelp";
-    [thirdSection addObject:readReviews];
-    
-    [self.items addObject:thirdSection];
+//     NSMutableArray *thirdSection = [NSMutableArray array];
+//    
+//    NSString *readReviews = @"Read Reviews on Yelp";
+//    [thirdSection addObject:readReviews];
+//    
+//    [self.items addObject:thirdSection];
     
     [self.tableView reloadData];
 }
@@ -202,15 +206,11 @@ loadingLabel = _loadingLabel;
     // Reset
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.accessoryView = nil;
-    if (indexPath.section == 0) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    } else {
-        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-    }
     
     id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
     if ([item isKindOfClass:[NSDictionary class]]) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         if ([[item objectForKey:@"title"] isEqualToString:@"Rating"]) {
             PSCachedImageView *iv = [[[PSCachedImageView alloc] initWithFrame:CGRectMake(0, 0, 111, 20)] autorelease];
             [iv loadImageWithURL:[NSURL URLWithString:[item objectForKey:@"subtitle"]] cacheType:PSURLCacheTypePermanent];
@@ -222,6 +222,7 @@ loadingLabel = _loadingLabel;
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [item objectForKey:@"subtitle"]];
         }
     } else if ([item isKindOfClass:[NSString class]]) {
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         cell.textLabel.text = item;
         cell.detailTextLabel.text = nil;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

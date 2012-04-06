@@ -114,7 +114,7 @@ mapView = _mapView;
     [pb4sq addGradientLayerWithFrame:CGRectMake(0, 0, pb4sq.width, 8.0) colors:[NSArray arrayWithObjects:(id)RGBACOLOR(0, 0, 0, 0.3).CGColor, (id)RGBACOLOR(0, 0, 0, 0.2).CGColor, (id)RGBACOLOR(0, 0, 0, 0.1).CGColor, (id)RGBACOLOR(0, 0, 0, 0.0).CGColor, nil] locations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.1], [NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:1.0], nil] startPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 1.0)];
     self.collectionView.footerView = pb4sq;
     
-    UILabel *emptyLabel = [UILabel labelWithText:@"No Photos Found\r\nYou Should Add One!" style:@"emptyLabel"];
+    UILabel *emptyLabel = [UILabel labelWithText:@"No Photos Found" style:@"emptyLabel"];
     emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.collectionView.emptyView = emptyLabel;
     
@@ -268,7 +268,7 @@ mapView = _mapView;
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#yelp"];
     
     YelpPopoverView *v = [[[YelpPopoverView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, 288, 218)] autorelease];
-    PSPopoverView *pv = [[[PSPopoverView alloc] initWithTitle:@"Yelp" contentView:v] autorelease];
+    PSPopoverView *pv = [[[PSPopoverView alloc] initWithTitle:@"Powered by Yelp" contentView:v] autorelease];
     pv.delegate = self;
     [pv showWithSize:v.frame.size inView:self.view];
 }

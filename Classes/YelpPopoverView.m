@@ -194,6 +194,7 @@ tableView = _tableView;
     }
     
     // Reset
+    cell.accessoryType = UITableViewCellAccessoryNone;
     cell.accessoryView = nil;
     if (indexPath.section == 0) {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -217,6 +218,7 @@ tableView = _tableView;
     } else if ([item isKindOfClass:[NSString class]]) {
         cell.textLabel.text = item;
         cell.detailTextLabel.text = nil;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else {
         
     }

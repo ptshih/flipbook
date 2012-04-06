@@ -8,14 +8,6 @@
 
 #import "PSCollectionViewCell.h"
 
-@class PSCachedImageView;
-
 @interface TimelineView : PSCollectionViewCell
-
-@property (nonatomic, retain) PSCachedImageView *imageView;
-@property (nonatomic, retain) UILabel *nameLabel;
-@property (nonatomic, retain) UILabel *addressLabel;
-@property (nonatomic, retain) UILabel *categoryLabel;
-@property (nonatomic, retain) UILabel *distanceLabel;
 
 @end

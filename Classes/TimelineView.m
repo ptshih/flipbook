@@ -13,6 +13,12 @@
 
 @interface TimelineView ()
 
+@property (nonatomic, retain) PSCachedImageView *imageView;
+@property (nonatomic, retain) UILabel *nameLabel;
+@property (nonatomic, retain) UILabel *addressLabel;
+@property (nonatomic, retain) UILabel *categoryLabel;
+@property (nonatomic, retain) UILabel *distanceLabel;
+@property (nonatomic, retain) UILabel *tipUserLabel;
 @property (nonatomic, retain) UILabel *tipLabel;
 @property (nonatomic, retain) UIImageView *divider;
 
@@ -26,6 +32,7 @@ nameLabel = _nameLabel,
 addressLabel = _addressLabel,
 categoryLabel = _categoryLabel,
 distanceLabel = _distanceLabel,
+tipUserLabel = _tipUserLabel,
 tipLabel = _tipLabel,
 divider = _divider;
 
@@ -59,6 +66,11 @@ divider = _divider;
         self.distanceLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.distanceLabel];
         
+        self.tipUserLabel = [UILabel labelWithStyle:@"attributedBoldLabel"];
+        self.tipUserLabel.backgroundColor = self.backgroundColor;
+        self.tipUserLabel.hidden = YES;
+        [self addSubview:self.tipUserLabel];
+        
         self.tipLabel = [UILabel labelWithStyle:@"attributedLabel"];
         self.tipLabel.backgroundColor = self.backgroundColor;
         self.tipLabel.hidden = YES;
@@ -84,6 +96,7 @@ divider = _divider;
     self.addressLabel = nil;
     self.categoryLabel = nil;
     self.distanceLabel = nil;
+    self.tipUserLabel = nil;
     self.tipLabel = nil;
     self.divider = nil;
     [super dealloc];
@@ -97,6 +110,8 @@ divider = _divider;
     self.addressLabel.text = nil;
     self.categoryLabel.text = nil;
     self.distanceLabel.text = nil;
+    self.tipUserLabel.text = nil;;
+    self.tipUserLabel.hidden = YES;
     self.tipLabel.text = nil;
     self.tipLabel.hidden = YES;
     self.divider.hidden = YES;
@@ -128,11 +143,14 @@ divider = _divider;
     top = self.imageView.bottom + MARGIN;
     
     if ([self.tipLabel.text length] > 0) {
+        labelSize = [PSStyleSheet sizeForText:self.tipUserLabel.text width:width style:@"attributedBoldLabel"];
+        self.tipUserLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
+        self.tipUserLabel.hidden = NO;
+        
+        top = self.tipUserLabel.bottom;
+        
         labelSize = [PSStyleSheet sizeForText:self.tipLabel.text width:width style:@"attributedLabel"];
-        self.tipLabel.top = top;
-        self.tipLabel.left = left;
-        self.tipLabel.width = labelSize.width;
-        self.tipLabel.height = labelSize.height;
+        self.tipLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
         self.tipLabel.hidden = NO;
         
         top = self.tipLabel.bottom;
@@ -181,8 +199,10 @@ divider = _divider;
         NSDictionary *tipUser = [tip objectForKey:@"user"];
         NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
         tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
-        NSString *tipText = tip ? [NSString stringWithFormat:@"%@ says: %@", tipUserName, [[tip objectForKey:@"text"] capitalizedString]] : nil;
+        NSString *tipUserText = [NSString stringWithFormat:@"%@ says:", tipUserName];
+        NSString *tipText = [[tip objectForKey:@"text"] capitalizedString];
         
+        self.tipUserLabel.text = tipUserText;
         self.tipLabel.text = tipText;
         
 //        [self.tipLabel setText:tipText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
@@ -220,7 +240,11 @@ divider = _divider;
         NSDictionary *tipUser = [tip objectForKey:@"user"];
         NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
         tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
-        NSString *tipText = tip ? [NSString stringWithFormat:@"%@ says: %@", tipUserName, [[tip objectForKey:@"text"] capitalizedString]] : nil;
+        NSString *tipUserText = [NSString stringWithFormat:@"%@ says:", tipUserName];
+        NSString *tipText = [[tip objectForKey:@"text"] capitalizedString];
+        
+        labelSize = [PSStyleSheet sizeForText:tipUserText width:width style:@"attributedBoldLabel"];
+        height += labelSize.height;
         
         labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"attributedLabel"];
         height += labelSize.height;

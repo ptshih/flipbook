@@ -129,7 +129,7 @@ mapView = _mapView;
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     // Map
-    UIView *mapView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8, headerView.width - 16, mapHeight - 16)] autorelease];
+    UIView *mapView = [[[UIView alloc] initWithFrame:CGRectMake(8, 0, headerView.width - 16, mapHeight - 8)] autorelease];
     mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     mapView.backgroundColor = [UIColor whiteColor];
     UIImage *mapShadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
@@ -139,7 +139,7 @@ mapView = _mapView;
     [mapView addSubview:mapShadowView];
     [headerView addSubview:mapView];
     
-    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, headerView.width - 24, mapHeight - 24)] autorelease];
+    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, headerView.width - 24, mapHeight - 12)] autorelease];
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.mapView.delegate = self;
     self.mapView.zoomEnabled = NO;
@@ -172,23 +172,33 @@ mapView = _mapView;
         CGSize labelSize = CGSizeZero;
         CGFloat tipWidth = tipView.width - 16 - 20;
         
-        UILabel *tipLabel = [UILabel labelWithStyle:@"bodyLabel"];
-        tipLabel.backgroundColor = tipView.backgroundColor;
+        UILabel *tipUserLabel = [UILabel labelWithStyle:@"attributedBoldLabel"];
+        tipUserLabel.backgroundColor = tipView.backgroundColor;
+        [tipView addSubview:tipUserLabel];
         
+        UILabel *tipLabel = [UILabel labelWithStyle:@"attributedLabel"];
+        tipLabel.backgroundColor = tipView.backgroundColor;
+        [tipView addSubview:tipLabel];
+        
+        // Tip
         NSDictionary *tip = [self.venueDict objectForKey:@"tip"];
         NSDictionary *tipUser = [tip objectForKey:@"user"];
         NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
         tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
-        NSString *tipText = tip ? [NSString stringWithFormat:@"%@ says: %@", tipUserName, [[tip objectForKey:@"text"] capitalizedString]] : nil;
+        NSString *tipUserText = [NSString stringWithFormat:@"%@ says:", tipUserName];
+        NSString *tipText = [[tip objectForKey:@"text"] capitalizedString];
+        
+        tipUserLabel.text = tipUserText;
+        labelSize = [PSStyleSheet sizeForText:tipUserLabel.text width:(tipView.width - 16.0) style:@"attributedBoldLabel"];
+        tipUserLabel.frame = CGRectMake(8, 4, tipWidth, labelSize.height);
         
         tipLabel.text = tipText;
-        labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"bodyLabel"];
-        tipLabel.frame = CGRectMake(8, 4, tipWidth, labelSize.height);
-        [tipView addSubview:tipLabel];
+        labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"attributedLabel"];
+        tipLabel.frame = CGRectMake(8, tipUserLabel.bottom, tipWidth, labelSize.height);
         
         divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
         divider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        divider.frame = CGRectMake(4, tipLabel.bottom + 4, tipWidth, 1.0);
+        divider.frame = CGRectMake(8, tipLabel.bottom + 4, tipWidth, 1.0);
         [tipView addSubview:divider];
         
         UILabel *countLabel = [UILabel labelWithStyle:@"subtitleLabel"];
@@ -207,10 +217,9 @@ mapView = _mapView;
         disclosure.contentMode = UIViewContentModeCenter;
         disclosure.frame = CGRectMake(tipView.width - 20, 0, 20, tipView.height);
         [tipView addSubview:disclosure];
-        headerView.height += tipView.height + 8;
+        headerView.height += tipView.height;
     } else {
     }
-    
     self.collectionView.headerView = headerView;
     
     [self.view addSubview:self.collectionView];

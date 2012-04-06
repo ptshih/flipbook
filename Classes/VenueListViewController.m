@@ -333,17 +333,14 @@ query = _query;
                                 NSDictionary *category = [[venue objectForKey:@"categories"] lastObject];
                                 NSDictionary *featuredPhoto = [[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] lastObject];
                                 
-                                if (!featuredPhoto) {
-                                    // skip if there is no photo
-                                    continue;
-                                }
-                                
-                                NSDictionary *featuredPhotoItem = [[[featuredPhoto objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0];
-                                
                                 NSMutableDictionary *item = [NSMutableDictionary dictionary];
+                                
+                                // Basic Info
                                 [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
                                 [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
                                 [item setObject:[category objectForKey:@"name"] forKey:@"category"];
+                                
+                                // Location
                                 if ([location objectForKey:@"address"]) {
                                     [item setObject:[location objectForKey:@"address"] forKey:@"address"];
                                 }
@@ -352,15 +349,35 @@ query = _query;
                                     [item setObject:[location objectForKey:@"lat"] forKey:@"lat"];
                                     [item setObject:[location objectForKey:@"lng"] forKey:@"lng"];
                                 }
-                                [item setObject:[featuredPhotoItem objectForKey:@"width"] forKey:@"width"];
-                                [item setObject:[featuredPhotoItem objectForKey:@"height"] forKey:@"height"];
-                                [item setObject:[featuredPhotoItem objectForKey:@"url"] forKey:@"source"];
+                                
+                                // Tip
                                 if (tips && [tips count] > 0) {
                                     [item setObject:[tips objectAtIndex:0] forKey:@"tip"];
                                 }
-                                [item setObject:[stats objectForKey:@"tipCount"] forKey:@"tipCount"];
-                                [item setObject:[stats objectForKey:@"photoCount"] forKey:@"photoCount"];
                                 
+                                // Stats
+                                if ([stats objectForKey:@"tipCount"]) {
+                                    [item setObject:[stats objectForKey:@"tipCount"] forKey:@"tipCount"];
+                                }
+                                if ([stats objectForKey:@"photoCount"]) {
+                                    [item setObject:[stats objectForKey:@"photoCount"] forKey:@"photoCount"];
+                                }
+                                
+                                // Photo
+                                if (!featuredPhoto) {
+                                    // Use category icon if no photo
+                                    NSDictionary *icon = [category objectForKey:@"icon"];
+                                    NSArray *sizes = [icon objectForKey:@"sizes"];
+                                    NSString *source = [[icon objectForKey:@"prefix"] stringByAppendingFormat:@"%@%@", [sizes lastObject], [icon objectForKey:@"name"]];
+                                    [item setObject:source forKey:@"source"];
+                                    [item setObject:[NSNumber numberWithInteger:256] forKey:@"width"];
+                                    [item setObject:[NSNumber numberWithInteger:256] forKey:@"height"];
+                                } else {
+                                    NSDictionary *featuredPhotoItem = [[[featuredPhoto objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0];
+                                    [item setObject:[featuredPhotoItem objectForKey:@"width"] forKey:@"width"];
+                                    [item setObject:[featuredPhotoItem objectForKey:@"height"] forKey:@"height"];
+                                    [item setObject:[featuredPhotoItem objectForKey:@"url"] forKey:@"source"];
+                                }
                                 
                                 [items addObject:item];
                             }

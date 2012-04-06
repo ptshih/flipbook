@@ -42,7 +42,7 @@ query = _query;
         queryView.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
         queryView.layer.borderWidth = 1.0;
         
-        PSTextField *queryField = [[[PSTextField alloc] initWithFrame:queryView.bounds withInset:CGSizeMake(8, 8)] autorelease];
+        PSTextField *queryField = [[[PSTextField alloc] initWithFrame:queryView.bounds withInset:UIEdgeInsetsMake(8, 8, 8, 8)] autorelease];
         [PSStyleSheet applyStyle:@"queryField" forTextField:queryField];
         queryField.leftViewMode = UITextFieldViewModeAlways;
         UIImageView *searchImageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconSearchMiniWhite"]] autorelease];

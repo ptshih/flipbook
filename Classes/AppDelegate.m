@@ -16,7 +16,7 @@
 #import "BWHockeyManager.h"
 #import "BWQuincyManager.h"
 
-@interface AppDelegate (Private)
+@interface AppDelegate () <BWHockeyManagerDelegate, BWQuincyManagerDelegate>
 
 + (void)setupDefaults;
 

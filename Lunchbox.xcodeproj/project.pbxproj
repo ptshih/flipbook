@@ -132,6 +132,7 @@
 		289C3631148EC53300D02BAB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289C362E148EC53300D02BAB /* Security.framework */; };
 		28A19CF714A018FD0043F7BB /* PSWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A19CF614A018FD0043F7BB /* PSWindow.m */; };
 		28A19CFF14A023520043F7BB /* PSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A19CFE14A023520043F7BB /* PSNavigationController.m */; };
+		28DEE593152FA06500458D8D /* YelpPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28DEE592152FA06500458D8D /* YelpPopoverView.m */; };
 		28DEEFB115166D8C007B8CF2 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 2855FD88150CADEF00B6FC3A /* Icon-72.png */; };
 		28DEEFB315166E68007B8CF2 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28DEEFB215166E68007B8CF2 /* Icon-72@2x.png */; };
 		28EB000015177BD0004C55DE /* IconSearchMiniWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28EBFFFE15177BD0004C55DE /* IconSearchMiniWhite@2x.png */; };
@@ -497,6 +498,8 @@
 		28A19CF614A018FD0043F7BB /* PSWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWindow.m; sourceTree = "<group>"; };
 		28A19CFD14A023520043F7BB /* PSNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSNavigationController.h; sourceTree = "<group>"; };
 		28A19CFE14A023520043F7BB /* PSNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSNavigationController.m; sourceTree = "<group>"; };
+		28DEE591152FA06500458D8D /* YelpPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YelpPopoverView.h; sourceTree = "<group>"; };
+		28DEE592152FA06500458D8D /* YelpPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YelpPopoverView.m; sourceTree = "<group>"; };
 		28DEEFB215166E68007B8CF2 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		28EB001915178A01004C55DE /* PoweredByFoursquareBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoweredByFoursquareBlack.png; sourceTree = "<group>"; };
 		28EB001A15178A01004C55DE /* PoweredByFoursquareBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoweredByFoursquareBlack@2x.png"; sourceTree = "<group>"; };
@@ -1310,6 +1313,8 @@
 				D0F6CABD14FD772900CCF2B4 /* CategoryChooserView.m */,
 				D0F6CABF14FD7CE800CCF2B4 /* LocationChooserView.h */,
 				D0F6CAC014FD7CE800CCF2B4 /* LocationChooserView.m */,
+				28DEE591152FA06500458D8D /* YelpPopoverView.h */,
+				28DEE592152FA06500458D8D /* YelpPopoverView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1944,6 +1949,7 @@
 				289734041521A8CE004BE577 /* LocalyticsSession.m in Sources */,
 				289734051521A8CE004BE577 /* LocalyticsUploader.m in Sources */,
 				284B1DBE152F6296000F2BAE /* CategoryListViewController.m in Sources */,
+				28DEE593152FA06500458D8D /* YelpPopoverView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

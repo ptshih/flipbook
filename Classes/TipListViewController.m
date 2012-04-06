@@ -198,15 +198,15 @@ rightButton = _rightButton;
                 [self dataSourceDidError];
             } else {
                 [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
-                    id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-                    if (!JSON) {
+                    id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+                    if (!apiResponse) {
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                             [self dataSourceDidError];
                         }];
                     } else {
                         // Process 4sq response
                         NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
-                        NSDictionary *response = [JSON objectForKey:@"response"];
+                        NSDictionary *response = [apiResponse objectForKey:@"response"];
                         NSArray *tips = [[response objectForKey:@"tips"] objectForKey:@"items"];
                         if (tips && [tips count] > 0) {
                             [items addObjectsFromArray:tips];
@@ -226,7 +226,7 @@ rightButton = _rightButton;
                             }];
                         } else {
                             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                NSLog(@"# ERROR with JSON: %@", JSON);
+                                NSLog(@"# ERROR with apiResponse: %@", apiResponse);
                                 [self dataSourceDidError];
                             }];
                         }

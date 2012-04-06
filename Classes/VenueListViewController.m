@@ -327,14 +327,14 @@ query = _query;
                 [self dataSourceDidError];
             } else {
                 [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
-                    id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-                    if (!JSON) {
+                    id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+                    if (!apiResponse) {
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                             [self dataSourceDidError];
                         }];
                     } else {
                         // Process 4sq response
-                        NSDictionary *response = [JSON objectForKey:@"response"];
+                        NSDictionary *response = [apiResponse objectForKey:@"response"];
                         if (self.radius == 0 && [response objectForKey:@"suggestedRadius"]) {
                             self.radius = [[response objectForKey:@"suggestedRadius"] integerValue];
                         }

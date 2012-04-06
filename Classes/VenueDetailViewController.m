@@ -14,11 +14,13 @@
 #import "PreviewViewController.h"
 #import "GalleryView.h"
 #import "PSZoomView.h"
+#import "PSPopoverView.h"
+#import "YelpPopoverView.h"
 
 #import "VenueAnnotation.h"
 #import "VenueAnnotationView.h"
 
-@interface VenueDetailViewController ()
+@interface VenueDetailViewController () <PSPopoverViewDelegate>
 
 @property (nonatomic, retain) UIPopoverController *popover;
 
@@ -245,7 +247,6 @@ mapView = _mapView;
     self.centerButton.titleLabel.minimumFontSize = 12.0;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
     self.centerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.centerButton.userInteractionEnabled = NO;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
@@ -264,11 +265,12 @@ mapView = _mapView;
 }
 
 - (void)centerAction {
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#checkin"];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#yelp"];
     
-    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check-in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
-    av.tag = kAlertTagFoursquare;
-    [av show];
+    YelpPopoverView *v = [[[YelpPopoverView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, 288, 218)] autorelease];
+    PSPopoverView *pv = [[[PSPopoverView alloc] initWithTitle:@"Yelp" contentView:v] autorelease];
+    pv.delegate = self;
+    [pv showWithSize:v.frame.size inView:self.view];
 }
 
 - (void)rightAction {
@@ -381,15 +383,15 @@ mapView = _mapView;
                 [self dataSourceDidError];
             } else {
                 [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
-                    id JSON = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-                    if (!JSON) {
+                    id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+                    if (!apiResponse) {
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                             [self dataSourceDidError];
                         }];
                     } else {
                         // Process 4sq response
                         NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
-                        NSDictionary *response = [JSON objectForKey:@"response"];
+                        NSDictionary *response = [apiResponse objectForKey:@"response"];
                         NSArray *photos = [[response objectForKey:@"photos"] objectForKey:@"items"];
                         if (photos && [photos count] > 0) {
                             for (NSDictionary *photo in photos) {
@@ -600,6 +602,11 @@ mapView = _mapView;
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
         }
     }
+}
+
+#pragma mark - PSPopoverViewDelegate
+- (void)popoverViewDidDismiss:(PSPopoverView *)popoverView {
+    
 }
 
 @end

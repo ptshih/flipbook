@@ -32,7 +32,7 @@
 #ifdef DISTRIBUTION
     #define kSecondsBackgroundedUntilStale 300
 #else
-    #define kSecondsBackgroundedUntilStale 1
+    #define kSecondsBackgroundedUntilStale 5
 
 #endif
 
@@ -66,7 +66,7 @@
 #endif
 
 #define API_LOCALHOST @"http://localhost:5000"
-#define API_REMOTE @"http://whiskey.herokuapp.com"
+#define API_REMOTE @"http://initech.herokuapp.com"
 
 #ifdef USE_LOCALHOST
   #define API_BASE_URL [NSString stringWithFormat:API_LOCALHOST]

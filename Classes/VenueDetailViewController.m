@@ -467,12 +467,6 @@ mapView = _mapView;
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
-    if (![PSZoomView prepareToZoom]) {
-        return;
-    }
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#zoom"];
-    
     GalleryView *v = (GalleryView *)view;
     
     // If the image hasn't loaded, don't allow zoom
@@ -493,7 +487,11 @@ mapView = _mapView;
             UIImage *sourceImage = [UIImage imageWithData:cachedData];
             if (sourceImage) {
                 CGRect convertedFrame = [self.view.window convertRect:imageView.frame fromView:imageView.superview];
-                [PSZoomView showImage:imageView.image withFrame:convertedFrame inView:self.view.window];
+                
+                if ([PSZoomView prepareToZoom]) {
+                    [PSZoomView showImage:imageView.image withFrame:convertedFrame inView:self.view.window];
+                    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#zoom"];
+                }
             }
         }
     }];

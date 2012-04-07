@@ -235,7 +235,7 @@ loadingLabel = _loadingLabel;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 1) {
+    if (indexPath.row == 2) {
         NSString *yelpUrlString = nil;
         if (isYelpInstalled()) {
             yelpUrlString = [NSString stringWithFormat:@"yelp:///biz/%@", [self.yelpDict objectForKey:@"id"]];

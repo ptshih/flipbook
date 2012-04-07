@@ -352,6 +352,9 @@ query = _query;
                                 
                                 NSMutableDictionary *item = [NSMutableDictionary dictionary];
                                 
+                                BOOL hasTip = NO;
+                                BOOL hasPhoto = NO;
+                                
                                 // Basic Info
                                 [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
                                 [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
@@ -360,15 +363,29 @@ query = _query;
                                 // Location
                                 if ([location objectForKey:@"address"]) {
                                     [item setObject:[location objectForKey:@"address"] forKey:@"address"];
+                                } else {
+                                    continue;
                                 }
+                                
+                                if ([location objectForKey:@"address"] && [location objectForKey:@"city"] && [location objectForKey:@"state"] && [location objectForKey:@"postalCode"]) {
+                                    [item setObject:[NSString stringWithFormat:@"%@ %@, %@ %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"], [location objectForKey:@"postalCode"]] forKey:@"formattedAddress"];
+                                } else if ([location objectForKey:@"address"]) {
+                                    [item setObject:[location objectForKey:@"address"] forKey:@"formattedAddress"];
+                                } else {
+                                    continue;
+                                }
+                                
                                 [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
                                 if ([location objectForKey:@"lat"] && [location objectForKey:@"lng"]) {
                                     [item setObject:[location objectForKey:@"lat"] forKey:@"lat"];
                                     [item setObject:[location objectForKey:@"lng"] forKey:@"lng"];
+                                } else {
+                                    continue;
                                 }
                                 
                                 // Tip
                                 if (tips && [tips count] > 0) {
+                                    hasTip = YES;
                                     [item setObject:[tips objectAtIndex:0] forKey:@"tip"];
                                 }
                                 
@@ -390,10 +407,15 @@ query = _query;
                                     [item setObject:[NSNumber numberWithInteger:256] forKey:@"width"];
                                     [item setObject:[NSNumber numberWithInteger:256] forKey:@"height"];
                                 } else {
+                                    hasPhoto = YES;
                                     NSDictionary *featuredPhotoItem = [[[featuredPhoto objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0];
                                     [item setObject:[featuredPhotoItem objectForKey:@"width"] forKey:@"width"];
                                     [item setObject:[featuredPhotoItem objectForKey:@"height"] forKey:@"height"];
                                     [item setObject:[featuredPhotoItem objectForKey:@"url"] forKey:@"source"];
+                                }
+                                
+                                if (!hasTip && !hasPhoto) {
+                                    continue;
                                 }
                                 
                                 [items addObject:item];

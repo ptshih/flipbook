@@ -155,6 +155,18 @@ mapView = _mapView;
     [self.mapView addGestureRecognizer:gr];
     [mapView addSubview:self.mapView];
     
+    // Address
+    if ([self.venueDict objectForKey:@"formattedAddress"]) {
+        UILabel *addressLabel = [UILabel labelWithStyle:@"attributedLabel"];
+        addressLabel.backgroundColor = mapView.backgroundColor;
+        [mapView addSubview:addressLabel];
+        addressLabel.text = [self.venueDict objectForKey:@"formattedAddress"];
+        CGSize addressLabelSize = [PSStyleSheet sizeForText:addressLabel.text width:self.mapView.width -16 style:@"attributedLabel"];
+        addressLabel.frame = CGRectMake(8, self.mapView.bottom + 4.0, addressLabelSize.width, 16.0);
+        mapView.height += addressLabel.height + 4.0;
+        headerView.height += addressLabel.height + 4.0;
+    }
+    
     // Tip
     // Don't show if no tips
     if ([self.venueDict objectForKey:@"tip"]) {

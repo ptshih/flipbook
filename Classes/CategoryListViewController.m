@@ -10,6 +10,7 @@
 
 #import "VenueListViewController.h"
 
+#define MARGIN 8.0
 #define LABEL_HEIGHT 40.0
 #define kTopViewTag 9001
 #define kMidViewTag 9002
@@ -89,25 +90,25 @@
     
     // Labels
     CGSize labelSize = CGSizeZero;
-    CGFloat width = topView.width - 16.0;
+    CGFloat width = topView.width - MARGIN * 2;
     
     UILabel *topLabel = [UILabel labelWithText:@"  Food and Restaurants  " style:@"categoryHeadline"];
     [topView addSubview:topLabel];
     labelSize = [PSStyleSheet sizeForText:topLabel.text width:width style:@"categoryHeadline"];
     topLabel.backgroundColor = RGBACOLOR(255, 255, 255, 0.75);
-    topLabel.frame = CGRectMake(8, topView.height - LABEL_HEIGHT - 8, labelSize.width, LABEL_HEIGHT);
+    topLabel.frame = CGRectMake(MARGIN, topView.height - LABEL_HEIGHT - MARGIN, labelSize.width, LABEL_HEIGHT);
     
     UILabel *midLabel = [UILabel labelWithText:@"  Coffee and Tea  " style:@"categoryHeadline"];
     [midView addSubview:midLabel];
     labelSize = [PSStyleSheet sizeForText:midLabel.text width:width style:@"categoryHeadline"];
     midLabel.backgroundColor = RGBACOLOR(255, 255, 255, 0.75);
-    midLabel.frame = CGRectMake(8, midView.height - LABEL_HEIGHT - 8, labelSize.width, LABEL_HEIGHT);
+    midLabel.frame = CGRectMake(MARGIN, midView.height - LABEL_HEIGHT - MARGIN, labelSize.width, LABEL_HEIGHT);
     
     UILabel *botLabel = [UILabel labelWithText:@"  Bars and Nightclubs  " style:@"categoryHeadline"];
     [botView addSubview:botLabel];
     labelSize = [PSStyleSheet sizeForText:botLabel.text width:width style:@"categoryHeadline"];
     botLabel.backgroundColor = RGBACOLOR(255, 255, 255, 0.75);
-    botLabel.frame = CGRectMake(8, botView.height - LABEL_HEIGHT - 8, labelSize.width, LABEL_HEIGHT);
+    botLabel.frame = CGRectMake(MARGIN, botView.height - LABEL_HEIGHT - MARGIN, labelSize.width, LABEL_HEIGHT);
 }
 
 - (void)pushCategory:(UITapGestureRecognizer *)gestureRecognizer {

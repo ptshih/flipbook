@@ -28,7 +28,7 @@ homeCityLabel = _homeCityLabel;
         [self addSubview:shadowView];
         
         self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
-        self.imageView.shouldAnimate = NO;
+        self.imageView.shouldAnimate = YES;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         

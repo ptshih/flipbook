@@ -279,7 +279,7 @@ mapView = _mapView;
 - (void)centerAction {
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#yelp"];
     
-    YelpPopoverView *v = [[[YelpPopoverView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, 288, 152)] autorelease]; // 218
+    YelpPopoverView *v = [[[YelpPopoverView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, 288, 154)] autorelease]; // 218
     PSPopoverView *pv = [[[PSPopoverView alloc] initWithTitle:@"Powered by Yelp" contentView:v] autorelease];
     pv.delegate = self;
     [pv showWithSize:v.frame.size inView:self.view];

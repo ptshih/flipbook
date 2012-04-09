@@ -1,17 +1,17 @@
 //
-//  TimelineView.m
+//  VenueView.m
 //  OSnap
 //
 //  Created by Peter Shih on 12/28/11.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "TimelineView.h"
+#import "VenueView.h"
 #import "PSCachedImageView.h"
 
 #define MARGIN 4.0
 
-@interface TimelineView ()
+@interface VenueView ()
 
 @property (nonatomic, retain) PSCachedImageView *imageView;
 @property (nonatomic, retain) UILabel *nameLabel;
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation TimelineView
+@implementation VenueView
 
 @synthesize
 imageView = _imageView,

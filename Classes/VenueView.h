@@ -1,5 +1,5 @@
 //
-//  TimelineView.h
+//  VenueView.h
 //  OSnap
 //
 //  Created by Peter Shih on 12/28/11.
@@ -8,6 +8,6 @@
 
 #import "PSCollectionViewCell.h"
 
-@interface TimelineView : PSCollectionViewCell
+@interface VenueView : PSCollectionViewCell
 
 @end

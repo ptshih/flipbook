@@ -9,7 +9,7 @@
 #import "VenueListViewController.h"
 #import "VenueDetailViewController.h"
 #import "PSPopoverView.h"
-#import "TimelineView.h"
+#import "VenueView.h"
 #import "CategoryChooserView.h"
 #import "LocationChooserView.h"
 
@@ -450,9 +450,9 @@ query = _query;
 - (UIView *)collectionView:(PSCollectionView *)collectionView viewAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    TimelineView *v = (TimelineView *)[self.collectionView dequeueReusableView];
+    VenueView *v = (VenueView *)[self.collectionView dequeueReusableView];
     if (!v) {
-        v = [[[TimelineView alloc] initWithFrame:CGRectZero] autorelease];
+        v = [[[VenueView alloc] initWithFrame:CGRectZero] autorelease];
     }
     
     [v fillViewWithObject:item];
@@ -464,7 +464,7 @@ query = _query;
 - (CGFloat)heightForViewAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
 
-    return [TimelineView heightForViewWithObject:item inColumnWidth:self.collectionView.colWidth];
+    return [VenueView heightForViewWithObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {

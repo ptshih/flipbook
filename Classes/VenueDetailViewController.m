@@ -12,7 +12,7 @@
 #import "VenueDetailViewController.h"
 #import "TipListViewController.h"
 #import "PreviewViewController.h"
-#import "GalleryView.h"
+#import "PhotoView.h"
 #import "PSZoomView.h"
 #import "PSPopoverView.h"
 #import "YelpPopoverView.h"
@@ -449,9 +449,9 @@ mapView = _mapView;
 - (UIView *)collectionView:(PSCollectionView *)collectionView viewAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    GalleryView *v = (GalleryView *)[self.collectionView dequeueReusableView];
+    PhotoView *v = (PhotoView *)[self.collectionView dequeueReusableView];
     if (!v) {
-        v = [[[GalleryView alloc] initWithFrame:CGRectZero] autorelease];
+        v = [[[PhotoView alloc] initWithFrame:CGRectZero] autorelease];
     }
     
     [v fillViewWithObject:item];
@@ -463,11 +463,11 @@ mapView = _mapView;
 - (CGFloat)heightForViewAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    return [GalleryView heightForViewWithObject:item inColumnWidth:self.collectionView.colWidth];
+    return [PhotoView heightForViewWithObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
-    GalleryView *v = (GalleryView *)view;
+    PhotoView *v = (PhotoView *)view;
     
     // If the image hasn't loaded, don't allow zoom
     PSCachedImageView *imageView = v.imageView;

@@ -1,17 +1,17 @@
 //
-//  GalleryView.m
+//  PhotoView.m
 //  Lunchbox
 //
 //  Created by Peter on 2/25/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "GalleryView.h"
+#import "PhotoView.h"
 #import "PSCachedImageView.h"
 
 #define MARGIN 4.0
 
-@implementation GalleryView
+@implementation PhotoView
 
 @synthesize
 imageView = _imageView,

@@ -1,5 +1,5 @@
 //
-//  GalleryView.h
+//  PhotoView.h
 //  Lunchbox
 //
 //  Created by Peter on 2/25/12.
@@ -10,7 +10,7 @@
 
 @class PSCachedImageView;
 
-@interface GalleryView : PSCollectionViewCell
+@interface PhotoView : PSCollectionViewCell
 
 @property (nonatomic, retain) PSCachedImageView *imageView;
 @property (nonatomic, retain) UILabel *nameLabel;

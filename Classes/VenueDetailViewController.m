@@ -20,6 +20,8 @@
 #import "VenueAnnotation.h"
 #import "VenueAnnotationView.h"
 
+static NSNumberFormatter *__numberFormatter = nil;
+
 @interface VenueDetailViewController () <PSPopoverViewDelegate>
 
 @property (nonatomic, retain) UIPopoverController *popover;
@@ -35,6 +37,11 @@ leftButton = _leftButton,
 centerButton = _centerButton,
 rightButton = _rightButton,
 mapView = _mapView;
+
++ (void)initialize {
+    __numberFormatter = [[NSNumberFormatter alloc] init];
+    [__numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+}
 
 #pragma mark - Init
 - (id)initWithDictionary:(NSDictionary *)dictionary {
@@ -155,16 +162,69 @@ mapView = _mapView;
     [self.mapView addGestureRecognizer:gr];
     [mapView addSubview:self.mapView];
     
+    CGFloat top = self.mapView.bottom + 4.0;
+    
+    // Stats
+    UILabel *statsLabel = nil;
+    if ([self.venueDict objectForKey:@"stats"]) {
+        statsLabel = [UILabel labelWithStyle:@"metaLabel"];
+        [mapView addSubview:statsLabel];
+        statsLabel.backgroundColor = mapView.backgroundColor;
+        statsLabel.text = [NSString stringWithFormat:@"%@ People Have Been Here", [__numberFormatter stringFromNumber:[[self.venueDict objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
+        
+        CGSize statsLabelSize = [PSStyleSheet sizeForText:statsLabel.text width:self.mapView.width - 16 style:@"attributedLabel"];
+        statsLabel.frame = CGRectMake(8, top, statsLabelSize.width, 16.0);
+        
+        top += statsLabel.height + 2.0;
+    }
+    
     // Address
+    UILabel *addressLabel = nil;
     if ([self.venueDict objectForKey:@"formattedAddress"]) {
-        UILabel *addressLabel = [UILabel labelWithStyle:@"attributedLabel"];
-        addressLabel.backgroundColor = mapView.backgroundColor;
+        addressLabel = [UILabel labelWithStyle:@"attributedLabel"];
         [mapView addSubview:addressLabel];
+        addressLabel.backgroundColor = mapView.backgroundColor;
         addressLabel.text = [self.venueDict objectForKey:@"formattedAddress"];
-        CGSize addressLabelSize = [PSStyleSheet sizeForText:addressLabel.text width:self.mapView.width -16 style:@"attributedLabel"];
-        addressLabel.frame = CGRectMake(8, self.mapView.bottom + 4.0, addressLabelSize.width, 16.0);
-        mapView.height += addressLabel.height + 4.0;
-        headerView.height += addressLabel.height + 4.0;
+        
+        CGSize addressLabelSize = [PSStyleSheet sizeForText:addressLabel.text width:self.mapView.width - 16 style:@"attributedLabel"];
+        addressLabel.frame = CGRectMake(8, top, addressLabelSize.width, 16.0);
+        
+        top += addressLabel.height + 2.0;
+    }
+    
+    // Phone
+    UIButton *phoneButton = nil;
+    if ([self.venueDict objectForKey:@"contact"] && [[self.venueDict objectForKey:@"contact"] objectForKey:@"formattedPhone"]) {
+        phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [mapView addSubview:phoneButton];
+        phoneButton.backgroundColor = mapView.backgroundColor;
+        [phoneButton addTarget:self action:@selector(openPhone:) forControlEvents:UIControlEventTouchUpInside];
+        [phoneButton setTitle:[NSString stringWithFormat:@"%@", [[self.venueDict objectForKey:@"contact"] objectForKey:@"formattedPhone"]] forState:UIControlStateNormal];
+        [PSStyleSheet applyStyle:@"linkButton" forButton:phoneButton];
+        
+        phoneButton.frame = CGRectMake(8, top, self.mapView.width - 16, 16);
+        
+        top += phoneButton.height + 2.0;
+    }
+    
+    // Website
+    UIButton *websiteButton = nil;
+    if ([self.venueDict objectForKey:@"url"]) {
+        websiteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [mapView addSubview:websiteButton];
+        websiteButton.backgroundColor = mapView.backgroundColor;
+        [websiteButton addTarget:self action:@selector(openWebsite:) forControlEvents:UIControlEventTouchUpInside];
+        [websiteButton setTitle:[NSString stringWithFormat:@"%@", [self.venueDict objectForKey:@"url"]] forState:UIControlStateNormal];
+        [PSStyleSheet applyStyle:@"linkButton" forButton:websiteButton];
+        
+        websiteButton.frame = CGRectMake(8, top, self.mapView.width - 16, 16);
+        
+        top += phoneButton.height + 2.0;
+    }
+    
+    if (addressLabel || statsLabel || phoneButton || websiteButton) {
+        mapView.height += top - self.mapView.bottom;
+        headerView.height += top - self.mapView.bottom;
     }
     
     // Tip
@@ -235,8 +295,9 @@ mapView = _mapView;
         disclosure.frame = CGRectMake(tipView.width - 20, 0, 20, tipView.height);
         [tipView addSubview:disclosure];
         headerView.height += tipView.height;
-    } else {
     }
+    
+    
     self.collectionView.headerView = headerView;
     
     [self.view addSubview:self.collectionView];
@@ -620,6 +681,15 @@ mapView = _mapView;
 #pragma mark - PSPopoverViewDelegate
 - (void)popoverViewDidDismiss:(PSPopoverView *)popoverView {
     
+}
+
+#pragma mark - Button Actions
+- (void)openPhone:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[[self.venueDict objectForKey:@"contact"] objectForKey:@"phone"]]];
+}
+
+- (void)openWebsite:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self.venueDict objectForKey:@"url"]]];
 }
 
 @end

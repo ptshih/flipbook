@@ -360,6 +360,15 @@ query = _query;
                                 [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
                                 [item setObject:[category objectForKey:@"name"] forKey:@"category"];
                                 
+                                // Contact
+                                if ([venue objectForKey:@"contact"]) {
+                                    [item setObject:[venue objectForKey:@"contact"] forKey:@"contact"];
+                                }
+                                
+                                if ([venue objectForKey:@"url"]) {
+                                    [item setObject:[venue objectForKey:@"url"] forKey:@"url"];
+                                }
+                                
                                 // Location
                                 if ([location objectForKey:@"address"]) {
                                     [item setObject:[location objectForKey:@"address"] forKey:@"address"];

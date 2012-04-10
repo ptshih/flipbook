@@ -369,7 +369,7 @@
 		28603B4314AA860700541BB1 /* PSZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSZoomView.m; sourceTree = "<group>"; };
 		28603B5914AC4A1D00541BB1 /* VenueListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueListViewController.h; sourceTree = "<group>"; };
 		28603B5A14AC4A1D00541BB1 /* VenueListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueListViewController.m; sourceTree = "<group>"; };
-		28603B5D14AC4D9300541BB1 /* VenueView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = VenueView.h; sourceTree = "<group>"; };
+		28603B5D14AC4D9300541BB1 /* VenueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueView.h; sourceTree = "<group>"; };
 		28603B5E14AC4D9300541BB1 /* VenueView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueView.m; sourceTree = "<group>"; };
 		28603B6414AD414E00541BB1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		28603B6614AD41ED00541BB1 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -591,7 +591,7 @@
 		D080F6C114E5D10B0061A38B /* IconMinusBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMinusBlack@2x.png"; sourceTree = "<group>"; };
 		D080F6C214E5D10B0061A38B /* IconPlusBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconPlusBlack.png; sourceTree = "<group>"; };
 		D080F6C314E5D10B0061A38B /* IconPlusBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPlusBlack@2x.png"; sourceTree = "<group>"; };
-		D088EFCE14F99912006F7675 /* PhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PhotoView.h; sourceTree = "<group>"; };
+		D088EFCE14F99912006F7675 /* PhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoView.h; sourceTree = "<group>"; };
 		D088EFCF14F99912006F7675 /* PhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoView.m; sourceTree = "<group>"; };
 		D08C547514E973F800F1DD5C /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		D08C547614E973F800F1DD5C /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };

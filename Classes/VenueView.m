@@ -214,7 +214,7 @@ divider = _divider;
     self.addressLabel.text = [self.object objectForKey:@"address"];
     self.categoryLabel.text = [self.object objectForKey:@"category"];
     self.distanceLabel.text = [NSString localizedStringForDistance:[[self.object objectForKey:@"distance"] floatValue]];
-    self.statsLabel.text = [NSString stringWithFormat:@"%@ People Have Been Here", [__numberFormatter stringFromNumber:[[self.object objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
+    self.statsLabel.text = [NSString stringWithFormat:@"%@ people checked in.", [__numberFormatter stringFromNumber:[[self.object objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
     
     NSDictionary *tip = [self.object objectForKey:@"tip"];
     if (tip) {
@@ -257,7 +257,7 @@ divider = _divider;
     
     height += MARGIN;
     
-    labelSize = [PSStyleSheet sizeForText:[NSString stringWithFormat:@"%@ People Have Been Here", [__numberFormatter stringFromNumber:[[object objectForKey:@"stats"] objectForKey:@"checkinsCount"]]] width:width style:@"metaLabel"];
+    labelSize = [PSStyleSheet sizeForText:[NSString stringWithFormat:@"%@ people checked in.", [__numberFormatter stringFromNumber:[[object objectForKey:@"stats"] objectForKey:@"checkinsCount"]]] width:width style:@"metaLabel"];
     height += labelSize.height;
     
     height += MARGIN;

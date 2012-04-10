@@ -170,7 +170,7 @@ mapView = _mapView;
         statsLabel = [UILabel labelWithStyle:@"metaLabel"];
         [mapView addSubview:statsLabel];
         statsLabel.backgroundColor = mapView.backgroundColor;
-        statsLabel.text = [NSString stringWithFormat:@"%@ People Have Been Here", [__numberFormatter stringFromNumber:[[self.venueDict objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
+        statsLabel.text = [NSString stringWithFormat:@"%@ people checked in here.", [__numberFormatter stringFromNumber:[[self.venueDict objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
         
         CGSize statsLabelSize = [PSStyleSheet sizeForText:statsLabel.text width:self.mapView.width - 16 style:@"attributedLabel"];
         statsLabel.frame = CGRectMake(8, top, statsLabelSize.width, 16.0);

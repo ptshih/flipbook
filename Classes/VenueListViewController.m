@@ -390,13 +390,10 @@ query = _query;
                                 }
                                 
                                 // Stats
-                                if ([stats objectForKey:@"tipCount"]) {
-                                    [item setObject:[stats objectForKey:@"tipCount"] forKey:@"tipCount"];
+                                if (stats) {
+                                    [item setObject:stats forKey:@"stats"];
                                 }
-                                if ([stats objectForKey:@"photoCount"]) {
-                                    [item setObject:[stats objectForKey:@"photoCount"] forKey:@"photoCount"];
-                                }
-                                
+                                                                
                                 // Photo
                                 if (!featuredPhoto) {
                                     // Use category icon if no photo

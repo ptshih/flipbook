@@ -11,6 +11,8 @@
 
 #define MARGIN 4.0
 
+static NSNumberFormatter *__numberFormatter = nil;
+
 @interface VenueView ()
 
 @property (nonatomic, retain) PSCachedImageView *imageView;
@@ -20,6 +22,8 @@
 @property (nonatomic, retain) UILabel *distanceLabel;
 @property (nonatomic, retain) UILabel *tipUserLabel;
 @property (nonatomic, retain) UILabel *tipLabel;
+@property (nonatomic, retain) UILabel *statsLabel;
+@property (nonatomic, retain) UIImageView *topDivider;
 @property (nonatomic, retain) UIImageView *divider;
 
 @end
@@ -34,7 +38,14 @@ categoryLabel = _categoryLabel,
 distanceLabel = _distanceLabel,
 tipUserLabel = _tipUserLabel,
 tipLabel = _tipLabel,
+statsLabel = _statsLabel,
+topDivider = _topDivider,
 divider = _divider;
+
++ (void)initialize {
+    __numberFormatter = [[NSNumberFormatter alloc] init];
+    [__numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+}
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -66,6 +77,10 @@ divider = _divider;
         self.distanceLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.distanceLabel];
         
+        self.statsLabel = [UILabel labelWithStyle:@"metaLabel"];
+        self.statsLabel.backgroundColor = self.backgroundColor;
+        [self addSubview:self.statsLabel];
+        
         self.tipUserLabel = [UILabel labelWithStyle:@"attributedBoldLabel"];
         self.tipUserLabel.backgroundColor = self.backgroundColor;
         self.tipUserLabel.hidden = YES;
@@ -83,6 +98,10 @@ divider = _divider;
 //        [PSStyleSheet applyStyle:@"attributedLabel" forLabel:self.tipLabel];
 //        [self addSubview:self.tipLabel];
         
+        self.topDivider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
+        self.topDivider.hidden = YES;
+        [self addSubview:self.topDivider];
+        
         self.divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
         self.divider.hidden = YES;
         [self addSubview:self.divider];
@@ -98,6 +117,8 @@ divider = _divider;
     self.distanceLabel = nil;
     self.tipUserLabel = nil;
     self.tipLabel = nil;
+    self.statsLabel = nil;
+    self.topDivider = nil;
     self.divider = nil;
     [super dealloc];
 }
@@ -114,6 +135,8 @@ divider = _divider;
     self.tipUserLabel.hidden = YES;
     self.tipLabel.text = nil;
     self.tipLabel.hidden = YES;
+    self.statsLabel.text = nil;
+    self.topDivider.hidden = YES;
     self.divider.hidden = YES;
 }
 
@@ -128,10 +151,7 @@ divider = _divider;
     CGSize labelSize = CGSizeZero;
     
     labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"titleLabel"];
-    self.nameLabel.top = top;
-    self.nameLabel.left = left;
-    self.nameLabel.width = labelSize.width;
-    self.nameLabel.height = labelSize.height;
+    self.nameLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.nameLabel.bottom + MARGIN;
     
@@ -141,6 +161,16 @@ divider = _divider;
     self.imageView.frame = CGRectMake(left, top, width, scaledHeight);
     
     top = self.imageView.bottom + MARGIN;
+    
+    labelSize = [PSStyleSheet sizeForText:self.statsLabel.text width:width style:@"metaLabel"];
+    self.statsLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
+    
+    top = self.statsLabel.bottom;
+    
+    top += MARGIN;
+    self.topDivider.hidden = NO;
+    self.topDivider.frame = CGRectMake(left, top, width, 1.0);
+    top = self.topDivider.bottom + MARGIN;
     
     if ([self.tipLabel.text length] > 0) {
         labelSize = [PSStyleSheet sizeForText:self.tipUserLabel.text width:width style:@"attributedBoldLabel"];
@@ -161,25 +191,16 @@ divider = _divider;
     }
     
     labelSize = [PSStyleSheet sizeForText:self.addressLabel.text width:width style:@"subtitleLabel"];
-    self.addressLabel.top = top;
-    self.addressLabel.left = left;
-    self.addressLabel.width = labelSize.width;
-    self.addressLabel.height = labelSize.height;
+    self.addressLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.addressLabel.bottom;
     
     labelSize = [PSStyleSheet sizeForText:self.distanceLabel.text width:width style:@"metaLabel"];
-    self.distanceLabel.top = top;
-    self.distanceLabel.left = right - labelSize.width;
-    self.distanceLabel.width = labelSize.width;
-    self.distanceLabel.height = labelSize.height;
+    self.distanceLabel.frame = CGRectMake(right - labelSize.width, top, labelSize.width, labelSize.height);
     
     
     labelSize = [PSStyleSheet sizeForText:self.categoryLabel.text width:(width - self.distanceLabel.width - MARGIN) style:@"metaLabel"];
-    self.categoryLabel.top = top;
-    self.categoryLabel.left = left;
-    self.categoryLabel.width = labelSize.width;
-    self.categoryLabel.height = labelSize.height;
+    self.categoryLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
 }
 
 - (void)fillViewWithObject:(id)object {
@@ -193,6 +214,7 @@ divider = _divider;
     self.addressLabel.text = [self.object objectForKey:@"address"];
     self.categoryLabel.text = [self.object objectForKey:@"category"];
     self.distanceLabel.text = [NSString localizedStringForDistance:[[self.object objectForKey:@"distance"] floatValue]];
+    self.statsLabel.text = [NSString stringWithFormat:@"%@ People Have Been Here", [__numberFormatter stringFromNumber:[[self.object objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
     
     NSDictionary *tip = [self.object objectForKey:@"tip"];
     if (tip) {
@@ -233,6 +255,13 @@ divider = _divider;
     labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"name"] width:width style:@"titleLabel"];
     height += labelSize.height;
     
+    height += MARGIN;
+    
+    labelSize = [PSStyleSheet sizeForText:[NSString stringWithFormat:@"%@ People Have Been Here", [__numberFormatter stringFromNumber:[[object objectForKey:@"stats"] objectForKey:@"checkinsCount"]]] width:width style:@"metaLabel"];
+    height += labelSize.height;
+    
+    height += MARGIN;
+    height += 1.0;
     height += MARGIN;
     
     NSDictionary *tip = [object objectForKey:@"tip"];

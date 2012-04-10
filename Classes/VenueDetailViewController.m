@@ -215,10 +215,13 @@ mapView = _mapView;
         divider.frame = CGRectMake(8, tipLabel.bottom + 4, tipWidth, 1.0);
         [tipView addSubview:divider];
         
+        // Stats
+        NSDictionary *stats = [self.venueDict objectForKey:@"stats"];
+        
         UILabel *countLabel = [UILabel labelWithStyle:@"subtitleLabel"];
         countLabel.backgroundColor = tipView.backgroundColor;
         countLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        countLabel.text = [NSString stringWithFormat:@"View All %@ Tips", [self.venueDict objectForKey:@"tipCount"]];
+        countLabel.text = [NSString stringWithFormat:@"View All %@ Tips", [stats objectForKey:@"tipCount"]];
         labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"subtitleLabel"];
         countLabel.frame = CGRectMake(8, divider.bottom + 4, tipWidth, labelSize.height);
         [tipView addSubview:countLabel];

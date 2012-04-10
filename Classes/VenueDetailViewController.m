@@ -135,13 +135,14 @@ mapView = _mapView;
     // Setup collectionView header
     // 2 part collection header
     UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, mapHeight)] autorelease];
+    headerView.backgroundColor = [UIColor whiteColor];
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     // Map
     UIView *mapView = [[[UIView alloc] initWithFrame:CGRectMake(8, 0, headerView.width - 16, mapHeight - 8)] autorelease];
     mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     mapView.backgroundColor = [UIColor whiteColor];
-    UIImage *mapShadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
+    UIImage *mapShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
     UIImageView *mapShadowView = [[[UIImageView alloc] initWithImage:mapShadowImage] autorelease];
     mapShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     mapShadowView.frame = CGRectInset(mapView.bounds, -1, -2);
@@ -149,6 +150,9 @@ mapView = _mapView;
     [headerView addSubview:mapView];
     
     self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, headerView.width - 24, mapHeight - 16)] autorelease];
+    self.mapView.layer.borderWidth = 0.5;
+    self.mapView.layer.borderColor = [RGBACOLOR(200, 200, 200, 1.0) CGColor];
+    self.mapView.layer.masksToBounds = YES;
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.mapView.delegate = self;
     self.mapView.zoomEnabled = NO;
@@ -167,12 +171,12 @@ mapView = _mapView;
     // Stats
     UILabel *statsLabel = nil;
     if ([self.venueDict objectForKey:@"stats"]) {
-        statsLabel = [UILabel labelWithStyle:@"metaLabel"];
+        statsLabel = [UILabel labelWithStyle:@"titleLabel"];
         [mapView addSubview:statsLabel];
         statsLabel.backgroundColor = mapView.backgroundColor;
         statsLabel.text = [NSString stringWithFormat:@"%@ people checked in here.", [__numberFormatter stringFromNumber:[[self.venueDict objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
         
-        CGSize statsLabelSize = [PSStyleSheet sizeForText:statsLabel.text width:self.mapView.width - 16 style:@"attributedLabel"];
+        CGSize statsLabelSize = [PSStyleSheet sizeForText:statsLabel.text width:self.mapView.width - 16 style:@"titleLabel"];
         statsLabel.frame = CGRectMake(8, top, statsLabelSize.width, 16.0);
         
         top += statsLabel.height + 2.0;

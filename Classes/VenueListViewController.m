@@ -434,11 +434,11 @@ query = _query;
                                 [self dataSourceDidLoad];
                                 
                                 // If this is the first load and we loaded cached data, we should refreh from remote now
-                                if (!self.hasLoadedOnce && isCached) {
-                                    self.hasLoadedOnce = YES;
-                                    [self reloadDataSource];
-                                    NSLog(@"first load, stale cache");
-                                }
+//                                if (!self.hasLoadedOnce && isCached) {
+//                                    self.hasLoadedOnce = YES;
+//                                    [self reloadDataSource];
+//                                    NSLog(@"first load, stale cache");
+//                                }
                             }];
                         } else {
                             [[NSOperationQueue mainQueue] addOperationWithBlock:^{

@@ -685,7 +685,7 @@ mapView = _mapView;
 
 #pragma mark - Button Actions
 - (void)openPhone:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[[self.venueDict objectForKey:@"contact"] objectForKey:@"phone"]]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", [[self.venueDict objectForKey:@"contact"] objectForKey:@"phone"]]]];
 }
 
 - (void)openWebsite:(id)sender {

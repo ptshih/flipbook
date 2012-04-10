@@ -16,6 +16,9 @@
 #import "BWHockeyManager.h"
 #import "BWQuincyManager.h"
 
+#import "FlurryAnalytics.h"
+#import "FlurryAppCircle.h"
+
 @interface AppDelegate () <BWHockeyManagerDelegate, BWQuincyManagerDelegate>
 
 + (void)setupDefaults;
@@ -81,6 +84,9 @@ shouldReloadInterface = _shouldReloadInterface;
     
     // Vendor analytics
     [[LocalyticsSession sharedLocalyticsSession] startSession:@"84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc"];
+    
+    [FlurryAppCircle setAppCircleEnabled:YES];
+    [FlurryAnalytics startSession:@"UTWDBDPVIEUCJ9PNBI2H"];
     
     [Appirater appLaunched:YES];
     

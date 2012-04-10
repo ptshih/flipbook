@@ -147,6 +147,8 @@
 		28F38D631498442E009D58BA /* IconMore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D611498442E009D58BA /* IconMore@2x.png */; };
 		28F49076151EA9540050A423 /* ShadowFlattened.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F49074151EA9540050A423 /* ShadowFlattened.png */; };
 		28F49077151EA9540050A423 /* ShadowFlattened@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F49075151EA9540050A423 /* ShadowFlattened@2x.png */; };
+		28F84E851534FC13003F698F /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F84E7F1534FC13003F698F /* libFlurryAnalytics.a */; };
+		28F84E861534FC13003F698F /* libFlurryAppCircle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F84E841534FC13003F698F /* libFlurryAppCircle.a */; };
 		D0269E3E14E1B2F300B690A2 /* IconClockBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D0269E3A14E1B2F200B690A2 /* IconClockBlack.png */; };
 		D0269E3F14E1B2F300B690A2 /* IconClockBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0269E3B14E1B2F200B690A2 /* IconClockBlack@2x.png */; };
 		D0269E4014E1B2F300B690A2 /* IconGearBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D0269E3C14E1B2F200B690A2 /* IconGearBlack.png */; };
@@ -513,6 +515,12 @@
 		28F38D611498442E009D58BA /* IconMore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMore@2x.png"; sourceTree = "<group>"; };
 		28F49074151EA9540050A423 /* ShadowFlattened.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShadowFlattened.png; sourceTree = "<group>"; };
 		28F49075151EA9540050A423 /* ShadowFlattened@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShadowFlattened@2x.png"; sourceTree = "<group>"; };
+		28F84E7E1534FC13003F698F /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
+		28F84E7F1534FC13003F698F /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
+		28F84E811534FC13003F698F /* FlurryAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdDelegate.h; sourceTree = "<group>"; };
+		28F84E821534FC13003F698F /* FlurryAppCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAppCircle.h; sourceTree = "<group>"; };
+		28F84E831534FC13003F698F /* FlurryOffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryOffer.h; sourceTree = "<group>"; };
+		28F84E841534FC13003F698F /* libFlurryAppCircle.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAppCircle.a; sourceTree = "<group>"; };
 		D0269E3A14E1B2F200B690A2 /* IconClockBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconClockBlack.png; sourceTree = "<group>"; };
 		D0269E3B14E1B2F200B690A2 /* IconClockBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconClockBlack@2x.png"; sourceTree = "<group>"; };
 		D0269E3C14E1B2F200B690A2 /* IconGearBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconGearBlack.png; sourceTree = "<group>"; };
@@ -718,6 +726,8 @@
 				283818C714723F1D007E4827 /* CoreGraphics.framework in Frameworks */,
 				D031D48C14F84CC300DEB789 /* CrashReporter.framework in Frameworks */,
 				2808C3F7151D358400763095 /* libfacebook_ios_sdk.a in Frameworks */,
+				28F84E851534FC13003F698F /* libFlurryAnalytics.a in Frameworks */,
+				28F84E861534FC13003F698F /* libFlurryAppCircle.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1383,6 +1393,26 @@
 			name = Backgrounds;
 			sourceTree = "<group>";
 		};
+		28F84E7D1534FC13003F698F /* FlurryAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				28F84E7E1534FC13003F698F /* FlurryAnalytics.h */,
+				28F84E7F1534FC13003F698F /* libFlurryAnalytics.a */,
+			);
+			path = FlurryAnalytics;
+			sourceTree = "<group>";
+		};
+		28F84E801534FC13003F698F /* FlurryAppCircle */ = {
+			isa = PBXGroup;
+			children = (
+				28F84E811534FC13003F698F /* FlurryAdDelegate.h */,
+				28F84E821534FC13003F698F /* FlurryAppCircle.h */,
+				28F84E831534FC13003F698F /* FlurryOffer.h */,
+				28F84E841534FC13003F698F /* libFlurryAppCircle.a */,
+			);
+			path = FlurryAppCircle;
+			sourceTree = "<group>";
+		};
 		D031558714E5AB8B00CC8572 /* PSCollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1527,6 +1557,8 @@
 		D07B2DBD14F750F400304E62 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				28F84E7D1534FC13003F698F /* FlurryAnalytics */,
+				28F84E801534FC13003F698F /* FlurryAppCircle */,
 				D0C5C00914F76E520041A364 /* Localytics */,
 				D07B2DBE14F750F500304E62 /* Appirater */,
 			);

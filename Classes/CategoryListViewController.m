@@ -52,6 +52,17 @@
     [self addRoundedCorners];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+#ifdef DEBUG
+    [PSAlertView showWithTitle:@"Groupon: The Copacabana" message:@"$69 for Three-Course Dinner for Two with Bottle of Wine and Live Music and Dancing (Up to $140 Value)" buttonTitles:[NSArray arrayWithObjects:@"Skip", @"View", nil] emailText:@"[ save for later ]" completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue){
+        NSLog(@"alert finished: %d, %@", buttonIndex, textFieldValue);
+    }];
+#endif
+    
+}
+
 - (void)setupSubviews {
     // Images
     UIImageView *topView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CategoryFood.jpg"]] autorelease];

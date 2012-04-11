@@ -118,6 +118,8 @@
 		28888CFF15356EBA001743CA /* IconCheckWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 28888CFB15356EBA001743CA /* IconCheckWhite.png */; };
 		28888D0015356EBA001743CA /* IconCheckWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28888CFC15356EBA001743CA /* IconCheckWhite@2x.png */; };
 		28888D1B153576DE001743CA /* AddPhotoBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28888D1A153576DE001743CA /* AddPhotoBackground@2x.png */; };
+		28888D2415358071001743CA /* PSAlertView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 28888D2115358071001743CA /* PSAlertView.bundle */; };
+		28888D2515358071001743CA /* PSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28888D2315358071001743CA /* PSAlertView.m */; };
 		288CB07114B2D72800233B45 /* CoreGraphics-PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 288CB07014B2D72700233B45 /* CoreGraphics-PSKit.m */; };
 		288CE08714A3CC4800BA93A6 /* IconCaptionBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 288CE08314A3CC4800BA93A6 /* IconCaptionBlack@2x.png */; };
 		288CE08814A3CC4800BA93A6 /* IconCaptionBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 288CE08414A3CC4800BA93A6 /* IconCaptionBlack.png */; };
@@ -515,6 +517,9 @@
 		28888CFB15356EBA001743CA /* IconCheckWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconCheckWhite.png; sourceTree = "<group>"; };
 		28888CFC15356EBA001743CA /* IconCheckWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconCheckWhite@2x.png"; sourceTree = "<group>"; };
 		28888D1A153576DE001743CA /* AddPhotoBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddPhotoBackground@2x.png"; sourceTree = "<group>"; };
+		28888D2115358071001743CA /* PSAlertView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PSAlertView.bundle; sourceTree = "<group>"; };
+		28888D2215358071001743CA /* PSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSAlertView.h; sourceTree = "<group>"; };
+		28888D2315358071001743CA /* PSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSAlertView.m; sourceTree = "<group>"; };
 		288CB06F14B2D72700233B45 /* CoreGraphics-PSKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreGraphics-PSKit.h"; sourceTree = "<group>"; };
 		288CB07014B2D72700233B45 /* CoreGraphics-PSKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoreGraphics-PSKit.m"; sourceTree = "<group>"; };
 		288CE08314A3CC4800BA93A6 /* IconCaptionBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconCaptionBlack@2x.png"; sourceTree = "<group>"; };
@@ -1074,6 +1079,7 @@
 		2869873D1475CECD00B40860 /* PSKit */ = {
 			isa = PBXGroup;
 			children = (
+				28888D2015358071001743CA /* PSAlertView */,
 				283F892E1515DCFF003C1D63 /* PSDateFormatter */,
 				D07031F714FEEB3B002DA895 /* PSLayoutManager */,
 				D0A3AC8514F42A8900748CE7 /* PSURLCache */,
@@ -1337,6 +1343,16 @@
 				288348EE151C17940039DD6C /* AirWomp.m */,
 			);
 			path = AirWomp;
+			sourceTree = "<group>";
+		};
+		28888D2015358071001743CA /* PSAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				28888D2115358071001743CA /* PSAlertView.bundle */,
+				28888D2215358071001743CA /* PSAlertView.h */,
+				28888D2315358071001743CA /* PSAlertView.m */,
+			);
+			path = PSAlertView;
 			sourceTree = "<group>";
 		};
 		28A19CFC14A023450043F7BB /* PSNavigationController */ = {
@@ -1993,6 +2009,7 @@
 				28888CFF15356EBA001743CA /* IconCheckWhite.png in Resources */,
 				28888D0015356EBA001743CA /* IconCheckWhite@2x.png in Resources */,
 				28888D1B153576DE001743CA /* AddPhotoBackground@2x.png in Resources */,
+				28888D2415358071001743CA /* PSAlertView.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2126,6 +2143,7 @@
 				289734051521A8CE004BE577 /* LocalyticsUploader.m in Sources */,
 				284B1DBE152F6296000F2BAE /* CategoryListViewController.m in Sources */,
 				28DEE593152FA06500458D8D /* YelpPopoverView.m in Sources */,
+				28888D2515358071001743CA /* PSAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

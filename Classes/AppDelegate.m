@@ -135,7 +135,12 @@ shouldReloadInterface = _shouldReloadInterface;
     self.splashImage.top = splashTop;
     [self.window addSubview:self.splashImage];
     
-    
+    [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.splashImage.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.splashImage removeFromSuperview];
+        self.splashImage = nil;
+    }];
     
     return YES;
 }
@@ -144,8 +149,6 @@ shouldReloadInterface = _shouldReloadInterface;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    self.splashImage.alpha = 1.0;
-    
     self.backgroundDate = [NSDate date];
     [[LocalyticsSession sharedLocalyticsSession] close];
     [[LocalyticsSession sharedLocalyticsSession] upload];
@@ -166,13 +169,7 @@ shouldReloadInterface = _shouldReloadInterface;
     [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.splashImage.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        
-    }];
-    
+- (void)applicationDidBecomeActive:(UIApplication *)application {    
     if (self.shouldReloadInterface) {
         self.shouldReloadInterface = NO;
         

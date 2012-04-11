@@ -1,8 +1,7 @@
 #import <MapKit/MapKit.h>
 
 #import "PSConstants.h"
-#import "PSNavigationController.h"
-#import "PSReachabilityCenter.h"
+
 
 // Vendor imports
 #import "PSFacebookCenter.h"

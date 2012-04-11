@@ -139,7 +139,7 @@ hasLoadedOnce = _hasLoadedOnce;
     [pb4sq addGradientLayerWithFrame:CGRectMake(0, 0, pb4sq.width, 8.0) colors:[NSArray arrayWithObjects:(id)RGBACOLOR(0, 0, 0, 0.3).CGColor, (id)RGBACOLOR(0, 0, 0, 0.2).CGColor, (id)RGBACOLOR(0, 0, 0, 0.1).CGColor, (id)RGBACOLOR(0, 0, 0, 0.0).CGColor, nil] locations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.1], [NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:1.0], nil] startPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 1.0)];
     self.collectionView.footerView = pb4sq;
     
-    UILabel *emptyLabel = [UILabel labelWithText:@"No Venues Found\r\nTry a Searching Again" style:@"emptyLabel"];
+    UILabel *emptyLabel = [UILabel labelWithText:@"No Venues Found\r\nTry Searching Again" style:@"emptyLabel"];
     emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.collectionView.emptyView = emptyLabel;
     
@@ -440,7 +440,6 @@ hasLoadedOnce = _hasLoadedOnce;
                             }
                             
                             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                self.contentOffset = self.collectionView.contentOffset.y > 0 ? self.collectionView.contentOffset : CGPointZero;
                                 self.items = items;
                                 [self dataSourceDidLoad];
                                 

@@ -212,7 +212,6 @@ rightButton = _rightButton;
                             [items addObjectsFromArray:tips];
                             
                             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                self.contentOffset = self.collectionView.contentOffset.y > 0 ? self.collectionView.contentOffset : CGPointZero;
                                 self.items = items;
                                 [self dataSourceDidLoad];
                                 

@@ -54,21 +54,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-#ifdef DEBUG
-    [PSAlertView showWithTitle:@"Groupon: The Linc" message:@"Four-Course Contemporary Dinner for Two or Four (Up to 53% Off)" buttonTitles:[NSArray arrayWithObjects:@"Skip", @"View", nil] emailText:@"[ save for later ]" completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue) {
-        if (!textFieldValue) {
-            // on demand
-            if (buttonIndex == 1) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://touch.groupon.com/deals/the-linc-1"]];
-            }
-        } else {
-            // save for later
-        }
-        NSLog(@"alert finished: %d, %@", buttonIndex, textFieldValue);
-    }];
-#endif
-    
 }
 
 - (void)setupSubviews {
@@ -130,6 +115,69 @@
     botLabel.frame = CGRectMake(MARGIN, botView.height - LABEL_HEIGHT - MARGIN, labelSize.width, LABEL_HEIGHT);
 }
 
+#ifdef DEBUG
+- (void)pushCategory:(UITapGestureRecognizer *)gestureRecognizer {
+    NSString *category = nil;
+    UIView *view = gestureRecognizer.view;
+    switch (view.tag) {
+        case kTopViewTag:
+            category = @"food";
+            
+            [PSAlertView showWithTitle:@"Groupon: The Linc" message:@"Four-Course Contemporary Dinner for Two or Four (Up to 53% Off)" buttonTitles:[NSArray arrayWithObjects:@"Skip", @"View", nil] emailText:@"[ save for later ]" completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue) {
+                if (!textFieldValue) {
+                    // on demand
+                    if (buttonIndex == 1) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://touch.groupon.com/deals/the-linc-1"]];
+                        return;
+                    }
+                } else {
+                    // save for later
+                }
+                NSLog(@"alert finished: %d, %@", buttonIndex, textFieldValue);
+                id vc = [[[VenueListViewController alloc] initWithCategory:category] autorelease];
+                [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+            }]; 
+            break;
+        case kMidViewTag:
+            category = @"coffee";
+            
+            [PSAlertView showWithTitle:@"Urban Outfitters Survey" message:@"Have you visited an Urban Outfitters retail store in the past month?" buttonTitles:[NSArray arrayWithObjects:@"No", @"Yes", nil] textFieldPlaceholder:nil completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue) {
+                if (!textFieldValue) {
+                } else {
+                }
+                NSLog(@"alert finished: %d, %@", buttonIndex, textFieldValue);
+                id vc = [[[VenueListViewController alloc] initWithCategory:category] autorelease];
+                [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+            }];
+            break;
+        case kBotViewTag:
+            category = @"drinks";
+            
+            [PSAlertView showWithTitle:@"Gilt City: King’s Cross" message:@"Up to 87% Off Drinks & More" buttonTitles:[NSArray arrayWithObjects:@"Skip", @"View", nil] emailText:@"[ save for later ]" completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue) {
+                if (!textFieldValue) {
+                    // on demand
+                    if (buttonIndex == 1) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://m.giltcity.com/mobile/newyork/kingscrossnyc"]];
+                        return;
+                    }
+                } else {
+                    // save for later
+                }
+                NSLog(@"alert finished: %d, %@", buttonIndex, textFieldValue);
+                id vc = [[[VenueListViewController alloc] initWithCategory:category] autorelease];
+                [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+            }];
+            break;
+        default: {
+            category = @"food";
+            
+            id vc = [[[VenueListViewController alloc] initWithCategory:category] autorelease];
+            [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+            break;
+        }
+    }
+}
+#else
 - (void)pushCategory:(UITapGestureRecognizer *)gestureRecognizer {
     NSString *category = nil;
     UIView *view = gestureRecognizer.view;
@@ -151,5 +199,6 @@
     id vc = [[[VenueListViewController alloc] initWithCategory:category] autorelease];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 }
+#endif
 
 @end

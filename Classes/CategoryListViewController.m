@@ -56,7 +56,15 @@
     [super viewDidAppear:animated];
     
 #ifdef DEBUG
-    [PSAlertView showWithTitle:@"Groupon: The Copacabana" message:@"$69 for Three-Course Dinner for Two with Bottle of Wine and Live Music and Dancing (Up to $140 Value)" buttonTitles:[NSArray arrayWithObjects:@"Skip", @"View", nil] emailText:@"[ save for later ]" completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue){
+    [PSAlertView showWithTitle:@"Groupon: The Linc" message:@"Four-Course Contemporary Dinner for Two or Four (Up to 53% Off)" buttonTitles:[NSArray arrayWithObjects:@"Skip", @"View", nil] emailText:@"[ save for later ]" completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue) {
+        if (!textFieldValue) {
+            // on demand
+            if (buttonIndex == 1) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://touch.groupon.com/deals/the-linc-1"]];
+            }
+        } else {
+            // save for later
+        }
         NSLog(@"alert finished: %d, %@", buttonIndex, textFieldValue);
     }];
 #endif
@@ -73,7 +81,7 @@
     topView.clipsToBounds = YES;
     topView.userInteractionEnabled = YES;
     [topView addGestureRecognizer:[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushCategory:)] autorelease]];
-
+    
     UIImageView *midView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CategoryCafe.jpg"]] autorelease];
     [self.view addSubview:midView];
     midView.tag = kMidViewTag;

@@ -104,6 +104,10 @@ query = _query;
 }
 
 - (void)centerCurrentLocation {
+    if (![[PSLocationCenter defaultCenter] locationServicesEnabled]) {
+        return;
+    }
+    
     CLLocationCoordinate2D coord;
     if (self.mapView.userLocation) {
         coord = self.mapView.userLocation.location.coordinate;

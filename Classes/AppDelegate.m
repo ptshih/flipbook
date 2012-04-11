@@ -135,7 +135,7 @@ shouldReloadInterface = _shouldReloadInterface;
     self.splashImage.top = splashTop;
     [self.window addSubview:self.splashImage];
     
-    [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.splashImage.alpha = 0.0;
     } completion:^(BOOL finished) {
         [self.splashImage removeFromSuperview];

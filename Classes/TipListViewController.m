@@ -184,7 +184,7 @@ rightButton = _rightButton;
         NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/tips", [self.venueDict objectForKey:@"id"]];
         
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:@"20120222" forKey:@"v"];
+        [parameters setObject:FS_API_VERSION forKey:@"v"];
         [parameters setObject:@"popular" forKey:@"sort"];
         [parameters setObject:[NSNumber numberWithInteger:500] forKey:@"limit"];
         [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];

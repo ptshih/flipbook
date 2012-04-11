@@ -8,7 +8,7 @@
 
 #import "PSCollectionViewController.h"
 
-@interface VenueDetailViewController : PSCollectionViewController <MKMapViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UIPopoverControllerDelegate>
+@interface VenueDetailViewController : PSCollectionViewController <MKMapViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, copy) NSDictionary *venueDict;
 @property (nonatomic, assign) UIButton *leftButton;

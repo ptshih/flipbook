@@ -6,12 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <ImageIO/ImageIO.h>
-#import <MobileCoreServices/UTCoreTypes.h>
-
 #import "VenueDetailViewController.h"
 #import "TipListViewController.h"
-#import "PreviewViewController.h"
+#import "CheckinViewController.h"
 #import "PhotoView.h"
 #import "PSZoomView.h"
 #import "PSPopoverView.h"
@@ -22,16 +19,13 @@
 
 static NSNumberFormatter *__numberFormatter = nil;
 
-@interface VenueDetailViewController () <PSPopoverViewDelegate>
-
-@property (nonatomic, retain) UIPopoverController *popover;
+@interface VenueDetailViewController ()
 
 @end
 
 @implementation VenueDetailViewController
 
 @synthesize
-popover = _popover,
 venueDict = _venueDict,
 leftButton = _leftButton,
 centerButton = _centerButton,
@@ -61,13 +55,11 @@ mapView = _mapView;
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    self.popover = nil;
     self.mapView.delegate = nil;
     self.mapView = nil;
 }
 
 - (void)dealloc {
-    self.popover = nil;
     self.mapView.delegate = nil;
     self.mapView = nil;
     self.venueDict = nil;
@@ -170,13 +162,17 @@ mapView = _mapView;
     // Stats
     UILabel *statsLabel = nil;
     if ([self.venueDict objectForKey:@"stats"]) {
+        UIImageView *peopleIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPersonMiniBlack"]] autorelease];
+        [mapView addSubview:peopleIcon];
+        peopleIcon.frame = CGRectMake(8, top + 2, 11, 11);
+        
         statsLabel = [UILabel labelWithStyle:@"titleLabel"];
         [mapView addSubview:statsLabel];
         statsLabel.backgroundColor = mapView.backgroundColor;
-        statsLabel.text = [NSString stringWithFormat:@"%@ people checked in here.", [__numberFormatter stringFromNumber:[[self.venueDict objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
+        statsLabel.text = [NSString stringWithFormat:@"%@ people checked in here", [__numberFormatter stringFromNumber:[[self.venueDict objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
         
         CGSize statsLabelSize = [PSStyleSheet sizeForText:statsLabel.text width:self.mapView.width - 16 style:@"titleLabel"];
-        statsLabel.frame = CGRectMake(8, top, statsLabelSize.width, 16.0);
+        statsLabel.frame = CGRectMake(8 + 16, top, statsLabelSize.width, 16.0);
         
         top += statsLabel.height + 2.0;
     }
@@ -184,13 +180,17 @@ mapView = _mapView;
     // Address
     UILabel *addressLabel = nil;
     if ([self.venueDict objectForKey:@"formattedAddress"]) {
+        UIImageView *addressIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPinMiniBlack"]] autorelease];
+        [mapView addSubview:addressIcon];
+        addressIcon.frame = CGRectMake(8, top + 2, 11, 11);
+        
         addressLabel = [UILabel labelWithStyle:@"attributedLabel"];
         [mapView addSubview:addressLabel];
         addressLabel.backgroundColor = mapView.backgroundColor;
         addressLabel.text = [self.venueDict objectForKey:@"formattedAddress"];
         
         CGSize addressLabelSize = [PSStyleSheet sizeForText:addressLabel.text width:self.mapView.width - 16 style:@"attributedLabel"];
-        addressLabel.frame = CGRectMake(8, top, addressLabelSize.width, 16.0);
+        addressLabel.frame = CGRectMake(8 + 16, top, addressLabelSize.width, 16.0);
         
         top += addressLabel.height + 2.0;
     }
@@ -198,6 +198,10 @@ mapView = _mapView;
     // Phone
     UIButton *phoneButton = nil;
     if ([self.venueDict objectForKey:@"contact"] && [[self.venueDict objectForKey:@"contact"] objectForKey:@"formattedPhone"]) {
+        UIImageView *phoneIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPhoneBlack"]] autorelease];
+        [mapView addSubview:phoneIcon];
+        phoneIcon.frame = CGRectMake(8, top + 2, 11, 11);
+        
         phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [mapView addSubview:phoneButton];
         phoneButton.backgroundColor = mapView.backgroundColor;
@@ -205,7 +209,7 @@ mapView = _mapView;
         [phoneButton setTitle:[NSString stringWithFormat:@"%@", [[self.venueDict objectForKey:@"contact"] objectForKey:@"formattedPhone"]] forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:phoneButton];
         
-        phoneButton.frame = CGRectMake(8, top, self.mapView.width - 16, 16);
+        phoneButton.frame = CGRectMake(8 + 16, top, self.mapView.width - 16, 16);
         
         top += phoneButton.height + 2.0;
     }
@@ -213,6 +217,10 @@ mapView = _mapView;
     // Website
     UIButton *websiteButton = nil;
     if ([self.venueDict objectForKey:@"url"]) {
+        UIImageView *websiteIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPlanetBlack"]] autorelease];
+        [mapView addSubview:websiteIcon];
+        websiteIcon.frame = CGRectMake(8, top + 2, 11, 11);
+        
         websiteButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [mapView addSubview:websiteButton];
         websiteButton.backgroundColor = mapView.backgroundColor;
@@ -220,7 +228,7 @@ mapView = _mapView;
         [websiteButton setTitle:[NSString stringWithFormat:@"%@", [self.venueDict objectForKey:@"url"]] forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:websiteButton];
         
-        websiteButton.frame = CGRectMake(8, top, self.mapView.width - 16, 16);
+        websiteButton.frame = CGRectMake(8 + 16, top, self.mapView.width - 16, 16);
         
         top += phoneButton.height + 2.0;
     }
@@ -353,29 +361,17 @@ mapView = _mapView;
 }
 
 - (void)rightAction {
+    
+    CheckinViewController *vc = [[[CheckinViewController alloc] initWithDictionary:self.venueDict] autorelease];
+    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    
+    return;
+    
     [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#checkin"];
     
     UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
     av.tag = kAlertTagFoursquare;
     [av show];
-    
-    return;
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#addphoto"];
-    
-    UIActionSheet *as = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil] autorelease];
-    
-    // Only show "Take Photo" option if device supports it
-    BOOL canTakePicture = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
-    if (canTakePicture) {
-        [as addButtonWithTitle:@"Take Photo"];
-    }
-    
-    [as addButtonWithTitle:@"Choose From Library"];
-    [as addButtonWithTitle:@"Cancel"];
-    [as setCancelButtonIndex:[as numberOfButtons] - 1];
-    
-    [as showInView:self.view];
     
     return;
     
@@ -448,7 +444,7 @@ mapView = _mapView;
         NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/photos", [self.venueDict objectForKey:@"id"]];
         
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:@"20120222" forKey:@"v"];
+        [parameters setObject:FS_API_VERSION forKey:@"v"];
         [parameters setObject:@"venue" forKey:@"group"];
         [parameters setObject:[NSNumber numberWithInteger:500] forKey:@"limit"];
         [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
@@ -586,77 +582,6 @@ mapView = _mapView;
     [av show];
 }
 
-#pragma mark - ImagePickerDelegate
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    if (isDeviceIPad()) {
-        [self.popover dismissPopoverAnimated:YES];
-    } else {
-        [picker.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
-    }
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-    
-    // Handle a still image capture
-    if (CFStringCompare((CFStringRef)mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
-        UIImage *originalImage = (UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage];
-        UIImage *scaledImage = [originalImage imageScaledAndRotated];
-        
-        if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-            UIImageWriteToSavedPhotosAlbum(originalImage, nil, nil, nil);
-        }
-        
-        PreviewViewController *vc = [[[PreviewViewController alloc] initWithDictionary:self.venueDict image:scaledImage] autorelease];
-        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-    }
-    
-    if (isDeviceIPad()) {
-        [self.popover dismissPopoverAnimated:YES];
-    } else {
-        [picker.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
-    }
-}
-
-#pragma mark - Action Sheet Delegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (actionSheet.cancelButtonIndex == buttonIndex) return;
-    
-    NSString *buttonName = [actionSheet buttonTitleAtIndex:buttonIndex];
-    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    if ([buttonName isEqualToString:@"Take Photo"]) {
-        sourceType = UIImagePickerControllerSourceTypeCamera;
-    } else if ([buttonName isEqualToString:@"Choose From Library"]) {
-        sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    } else {
-        sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
-    
-    if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
-        UIImagePickerController *vc = [[[UIImagePickerController alloc] init] autorelease];
-        vc.delegate = self;
-        vc.sourceType = sourceType;
-        
-        NSArray *availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:sourceType];
-        if ([availableMediaTypes containsObject:(NSString *)kUTTypeImage]) {
-            vc.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
-        }
-        
-        if (isDeviceIPad()) {
-            self.popover = [[[UIPopoverController alloc] initWithContentViewController:vc] autorelease];
-            self.popover.delegate = self;
-            [self.popover presentPopoverFromRect:self.headerView.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        } else {
-            [self presentViewController:vc animated:YES completion:^{}];
-        }
-    }
-}
-
-#pragma mark - UIPopoverDelegate
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
-}
-
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.cancelButtonIndex == buttonIndex) return;
@@ -678,11 +603,6 @@ mapView = _mapView;
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
         }
     }
-}
-
-#pragma mark - PSPopoverViewDelegate
-- (void)popoverViewDidDismiss:(PSPopoverView *)popoverView {
-    
 }
 
 #pragma mark - Button Actions

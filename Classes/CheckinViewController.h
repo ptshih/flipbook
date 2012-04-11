@@ -8,7 +8,7 @@
 
 #import "PSViewController.h"
 
-@interface CheckinViewController : PSViewController <UIWebViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface CheckinViewController : PSViewController <UIWebViewDelegate>
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

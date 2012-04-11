@@ -52,7 +52,7 @@ peopleIcon = _peopleIcon;
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        UIImage *shadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
+        UIImage *shadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
         UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
         shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         shadowView.frame = CGRectInset(self.bounds, -1, -2);

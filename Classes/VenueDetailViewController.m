@@ -135,14 +135,13 @@ mapView = _mapView;
     // Setup collectionView header
     // 2 part collection header
     UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, mapHeight)] autorelease];
-    headerView.backgroundColor = [UIColor whiteColor];
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     // Map
     UIView *mapView = [[[UIView alloc] initWithFrame:CGRectMake(8, 0, headerView.width - 16, mapHeight - 8)] autorelease];
     mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     mapView.backgroundColor = [UIColor whiteColor];
-    UIImage *mapShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
+    UIImage *mapShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
     UIImageView *mapShadowView = [[[UIImageView alloc] initWithImage:mapShadowImage] autorelease];
     mapShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     mapShadowView.frame = CGRectInset(mapView.bounds, -1, -2);
@@ -237,7 +236,7 @@ mapView = _mapView;
         UIView *tipView = [[[UIView alloc] initWithFrame:CGRectMake(8, mapView.bottom + 8.0, headerView.width - 16, 148)] autorelease];
         tipView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         tipView.backgroundColor = [UIColor whiteColor];
-        UIImage *tipShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
+        UIImage *tipShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
         UIImageView *tipShadowView = [[[UIImageView alloc] initWithImage:tipShadowImage] autorelease];
         tipShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         tipShadowView.frame = CGRectInset(tipView.bounds, -1, -2);

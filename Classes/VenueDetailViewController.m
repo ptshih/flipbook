@@ -230,7 +230,7 @@ mapView = _mapView;
         
         websiteButton.frame = CGRectMake(8 + 16, top, self.mapView.width - 16, 16);
         
-        top += phoneButton.height + 2.0;
+        top += websiteButton.height + 2.0;
     }
     
     if (addressLabel || statsLabel || phoneButton || websiteButton) {

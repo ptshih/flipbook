@@ -21,11 +21,16 @@
 
 @interface AppDelegate () <BWHockeyManagerDelegate, BWQuincyManagerDelegate>
 
+@property (nonatomic, retain) UIImageView *splashImage;
+
 + (void)setupDefaults;
 
 @end
 
 @implementation AppDelegate
+
+@synthesize
+splashImage = _splashImage;
 
 @synthesize
 window = _window,
@@ -116,6 +121,22 @@ shouldReloadInterface = _shouldReloadInterface;
     self.navigationController = [[[PSNavigationController alloc] initWithRootViewController:controller] autorelease];
     self.window.rootViewController = self.navigationController;
     
+    // Splash Image
+    NSString *splashImageName = nil;
+    CGFloat splashTop = 0.0;
+    if (isDeviceIPad()) {
+        splashImageName = @"Default-Portrait";
+        splashTop = 20.0;
+    } else {
+        splashImageName = @"Default";
+        splashTop = 0.0;
+    }
+    self.splashImage = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:splashImageName]] autorelease];
+    self.splashImage.top = splashTop;
+    [self.window addSubview:self.splashImage];
+    
+    
+    
     return YES;
 }
 
@@ -123,6 +144,8 @@ shouldReloadInterface = _shouldReloadInterface;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    self.splashImage.alpha = 1.0;
+    
     self.backgroundDate = [NSDate date];
     [[LocalyticsSession sharedLocalyticsSession] close];
     [[LocalyticsSession sharedLocalyticsSession] upload];
@@ -144,6 +167,12 @@ shouldReloadInterface = _shouldReloadInterface;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.splashImage.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        
+    }];
+    
     if (self.shouldReloadInterface) {
         self.shouldReloadInterface = NO;
         
@@ -169,6 +198,8 @@ shouldReloadInterface = _shouldReloadInterface;
 }
 
 - (void)dealloc {
+    self.splashImage = nil;
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.backgroundDate = nil;
     self.foregroundDate = nil;

@@ -131,6 +131,9 @@ shouldReloadInterface = _shouldReloadInterface;
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [Appirater appEnteredForeground:YES];
     
+    // Update location on foreground
+    [[PSLocationCenter defaultCenter] updateMyLocation];
+    
     self.foregroundDate = [NSDate date];
     
     NSTimeInterval secondsBackgrounded = [self.foregroundDate timeIntervalSinceDate:self.backgroundDate];

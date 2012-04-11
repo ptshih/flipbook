@@ -12,7 +12,6 @@
 #import "LocalyticsSession.h"
 #import "PSLocationCenter.h"
 #import "TTTAttributedLabel.h"
-#import "EGOTextView.h"
 
 #import "AirWomp.h"
 

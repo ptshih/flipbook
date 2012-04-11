@@ -150,17 +150,17 @@ hasPhoto = _hasPhoto;
     
     UIView *composeView = [[[UIView alloc] initWithFrame:CGRectMake(0, self.headerView.bottom, self.view.width, 200)] autorelease];
     [self.view addSubview:composeView];
-    composeView.clipsToBounds = YES;
     composeView.backgroundColor = self.view.backgroundColor;
     
     self.textView = [[[PSTextView alloc] initWithFrame:CGRectMake(8, 8, self.view.width - 96 - 24, 96.0)] autorelease];
     [composeView addSubview:self.textView];
     self.textView.backgroundColor = composeView.backgroundColor;
+    self.textView.font = [UIFont fontWithName:@"HelveticaNeueLT-MediumCond" size:16.0];
     self.textView.placeholder = @"What are you up to?";
-    self.textView.clipsToBounds = NO;
-//    self.textView.layer.borderColor = [RGBACOLOR(200, 200, 200, 1.0) CGColor];
-//    self.textView.layer.borderWidth = 0.5;
-//    self.textView.layer.masksToBounds = YES;
+    
+    self.textView.layer.borderColor = [RGBACOLOR(200, 200, 200, 1.0) CGColor];
+    self.textView.layer.borderWidth = 0.5;
+    self.textView.layer.masksToBounds = YES;
     
     self.addPhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [composeView addSubview:self.addPhotoButton];
@@ -170,10 +170,19 @@ hasPhoto = _hasPhoto;
     [self.addPhotoButton addTarget:self action:@selector(addPhoto:) forControlEvents:UIControlEventTouchUpInside];
     self.addPhotoButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
     
-    self.checkinButton = [UIButton buttonWithFrame:CGRectMake(8, 8 + 96 + 8, self.view.width - 16, 31) andStyle:@"checkinButton" target:self action:@selector(checkin:)];
-    [composeView addSubview:self.checkinButton];
-    [self.checkinButton setBackgroundImage:[[UIImage imageNamed:@"ButtonBlue"] stretchableImageWithLeftCapWidth:5 topCapHeight:0] forState:UIControlStateNormal];
-    [self.checkinButton setTitle:@"Check In" forState:UIControlStateNormal];
+    self.addPhotoButton.layer.borderColor = [RGBACOLOR(200, 200, 200, 1.0) CGColor];
+    self.addPhotoButton.layer.borderWidth = 0.5;
+    self.addPhotoButton.layer.masksToBounds = YES;
+    
+    UILabel *disclaimerLabel = [UILabel labelWithText:@"Note: Checkins and photos are public on Foursquare." style:@"metaCenteredLabel"];
+    [composeView addSubview:disclaimerLabel];
+    disclaimerLabel.frame = CGRectMake(8, self.textView.bottom + 8, self.view.width - 16, 14.0);
+
+    
+//    self.checkinButton = [UIButton buttonWithFrame:CGRectMake(8, 8 + 96 + 8, self.view.width - 16, 31) andStyle:@"checkinButton" target:self action:@selector(checkin:)];
+//    [composeView addSubview:self.checkinButton];
+//    [self.checkinButton setBackgroundImage:[[UIImage imageNamed:@"ButtonBlue"] stretchableImageWithLeftCapWidth:5 topCapHeight:0] forState:UIControlStateNormal];
+//    [self.checkinButton setTitle:@"Check In" forState:UIControlStateNormal];
     
 //    
 //    
@@ -215,9 +224,8 @@ hasPhoto = _hasPhoto;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-//    [self.rightButton setImage:[UIImage imageNamed:@"IconSliderWhite"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconCheckWhite"] forState:UIControlStateNormal];
     self.rightButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    self.rightButton.userInteractionEnabled = NO;
     
     [self.headerView addSubview:self.leftButton];
     [self.headerView addSubview:self.centerButton];
@@ -235,6 +243,7 @@ hasPhoto = _hasPhoto;
 }
 
 - (void)rightAction {
+    [self checkin];
 }
 
 - (void)addPhoto:(id)sender {
@@ -255,9 +264,11 @@ hasPhoto = _hasPhoto;
     [as showInView:self.view];
 }
 
-- (void)checkin:(UIButton *)sender {
+- (void)checkin {
+    [SVProgressHUD showWithStatus:@"Checking you in..." maskType:SVProgressHUDMaskTypeGradient];
+    
     self.leftButton.enabled = NO;
-    self.checkinButton.enabled = NO;
+    self.rightButton.enabled = NO;
     
     NSString *fsAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fsAccessToken"];
     
@@ -360,12 +371,12 @@ hasPhoto = _hasPhoto;
 
 - (void)checkinSucceeded:(BOOL)didSucceed {
     if (didSucceed) {
-        [SVProgressHUD showSuccessWithStatus:@"Check In Succeeded" duration:1];
+        [SVProgressHUD dismissWithSuccess:@"Check In Succeeded"];
         [self leftAction];
     } else {
-        [SVProgressHUD showErrorWithStatus:@"Check In Failed" duration:1];
+        [SVProgressHUD dismissWithError:@"Check In Failed"];
         self.leftButton.enabled = YES;
-        self.checkinButton.enabled = YES;
+        self.rightButton.enabled = YES;
     }
 }
 

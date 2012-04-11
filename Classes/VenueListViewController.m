@@ -23,6 +23,8 @@
 @property (nonatomic, assign) CGFloat radius;
 @property (nonatomic, copy) NSString *query;
 
+@property (nonatomic, assign) BOOL hasLoadedOnce;
+
 - (void)refreshOnAppear;
 
 @end
@@ -41,6 +43,9 @@ centerCoordinate = _centerCoordinate,
 radius = _radius,
 query = _query;
 
+@synthesize
+hasLoadedOnce = _hasLoadedOnce;
+
 #pragma mark - Init
 - (id)initWithCategory:(NSString *)category {
     self = [self initWithNibName:nil bundle:nil];
@@ -56,6 +61,7 @@ query = _query;
         self.shouldRefreshOnAppear = NO;
         self.radius = 0;
         self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
+        self.hasLoadedOnce = NO;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidUpdate) name:kPSLocationCenterDidUpdate object:nil];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDataSource) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -221,11 +227,14 @@ query = _query;
 //    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#categoryChooser"];
 }
 
+#pragma mark - Location Notification
 - (void)locationDidUpdate {
-    self.radius = kMapRegionRadius;
+    self.radius = 0;
     self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
     
-    [self reloadDataSource];
+    if (!self.hasLoadedOnce) {
+        [self loadDataSource];
+    }
 }
 
 #pragma mark - State Machine
@@ -263,40 +272,43 @@ query = _query;
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
+    if (![[PSLocationCenter defaultCenter] hasAcquiredLocation]) {
+        self.hasLoadedOnce = NO;
+        return;
+    } else {
+        self.hasLoadedOnce = YES;
+    }
+    
     [self.requestQueue addOperationWithBlock:^{
-        if (![[PSLocationCenter defaultCenter] hasAcquiredAccurateLocation]) {
-            return;
-        } else {
-            // Cancel ongoing geocoding
-            if ([[[PSLocationCenter defaultCenter] geocoder] isGeocoding]) {
-                [[[PSLocationCenter defaultCenter] geocoder] cancelGeocode];
-            }
-            
-            CLLocation *centerLocation = [[[CLLocation alloc] initWithLatitude:self.centerCoordinate.latitude longitude:self.centerCoordinate.longitude] autorelease];
-            
-            [[[PSLocationCenter defaultCenter] geocoder] reverseGeocodeLocation:centerLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-                if (!error && [placemarks count] > 0) {
-                    NSString *locString = nil;
-                    CLPlacemark *placemark = [placemarks lastObject];
-                    // Areas of Interest (UNUSED)
+        // Cancel ongoing geocoding
+        if ([[[PSLocationCenter defaultCenter] geocoder] isGeocoding]) {
+            [[[PSLocationCenter defaultCenter] geocoder] cancelGeocode];
+        }
+        
+        CLLocation *centerLocation = [[[CLLocation alloc] initWithLatitude:self.centerCoordinate.latitude longitude:self.centerCoordinate.longitude] autorelease];
+        
+        [[[PSLocationCenter defaultCenter] geocoder] reverseGeocodeLocation:centerLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+            if (!error && [placemarks count] > 0) {
+                NSString *locString = nil;
+                CLPlacemark *placemark = [placemarks lastObject];
+                // Areas of Interest (UNUSED)
 //                    NSArray *areasOfInterest = [placemark areasOfInterest];
 //                    if (areasOfInterest && [areasOfInterest count] > 0) {
 //                        locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [areasOfInterest objectAtIndex:0]];
 //                    } else {
 //                        locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [placemark name]];
 //                    }
-                    
-                    if (self.radius == 0) {
-                        locString = [NSString stringWithFormat:@"Near %@", [placemark name]];
-                    } else {
-                        locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [placemark name]];
-                    }
-                    
-                    [self.centerButton setTitle:locString forState:UIControlStateNormal];
-//                    NSLog(@"placemark: %@", placemark);
+                
+                if (self.radius == 0) {
+                    locString = [NSString stringWithFormat:@"Near %@", [placemark name]];
+                } else {
+                    locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [placemark name]];
                 }
-            }];
-        }
+                
+                [self.centerButton setTitle:locString forState:UIControlStateNormal];
+//                    NSLog(@"placemark: %@", placemark);
+            }
+        }];
         
         NSString *ll = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
         NSNumber *radius = (self.radius > 0) ? [NSNumber numberWithFloat:self.radius] : nil;
@@ -311,7 +323,7 @@ query = _query;
         if (self.query) {
             [parameters setObject:self.query forKey:@"query"];
         }
-        [parameters setObject:@"20120222" forKey:@"v"];
+        [parameters setObject:FS_API_VERSION forKey:@"v"];
         [parameters setObject:[NSNumber numberWithInteger:1] forKey:@"venuePhotos"];
         [parameters setObject:[NSNumber numberWithInteger:50] forKey:@"limit"];
         [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];

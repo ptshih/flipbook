@@ -149,6 +149,10 @@
 		28F49077151EA9540050A423 /* ShadowFlattened@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F49075151EA9540050A423 /* ShadowFlattened@2x.png */; };
 		28F84E851534FC13003F698F /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F84E7F1534FC13003F698F /* libFlurryAnalytics.a */; };
 		28F84E861534FC13003F698F /* libFlurryAppCircle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F84E841534FC13003F698F /* libFlurryAppCircle.a */; };
+		28F84E89153503DF003F698F /* IconPersonMiniWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F84E87153503DF003F698F /* IconPersonMiniWhite.png */; };
+		28F84E8A153503DF003F698F /* IconPersonMiniWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F84E88153503DF003F698F /* IconPersonMiniWhite@2x.png */; };
+		28F84E8D153504E8003F698F /* IconPersonMiniBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F84E8B153504E8003F698F /* IconPersonMiniBlack.png */; };
+		28F84E8E153504E8003F698F /* IconPersonMiniBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F84E8C153504E8003F698F /* IconPersonMiniBlack@2x.png */; };
 		D0269E3E14E1B2F300B690A2 /* IconClockBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D0269E3A14E1B2F200B690A2 /* IconClockBlack.png */; };
 		D0269E3F14E1B2F300B690A2 /* IconClockBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0269E3B14E1B2F200B690A2 /* IconClockBlack@2x.png */; };
 		D0269E4014E1B2F300B690A2 /* IconGearBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D0269E3C14E1B2F200B690A2 /* IconGearBlack.png */; };
@@ -521,6 +525,10 @@
 		28F84E821534FC13003F698F /* FlurryAppCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAppCircle.h; sourceTree = "<group>"; };
 		28F84E831534FC13003F698F /* FlurryOffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryOffer.h; sourceTree = "<group>"; };
 		28F84E841534FC13003F698F /* libFlurryAppCircle.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAppCircle.a; sourceTree = "<group>"; };
+		28F84E87153503DF003F698F /* IconPersonMiniWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconPersonMiniWhite.png; sourceTree = "<group>"; };
+		28F84E88153503DF003F698F /* IconPersonMiniWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPersonMiniWhite@2x.png"; sourceTree = "<group>"; };
+		28F84E8B153504E8003F698F /* IconPersonMiniBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconPersonMiniBlack.png; sourceTree = "<group>"; };
+		28F84E8C153504E8003F698F /* IconPersonMiniBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPersonMiniBlack@2x.png"; sourceTree = "<group>"; };
 		D0269E3A14E1B2F200B690A2 /* IconClockBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconClockBlack.png; sourceTree = "<group>"; };
 		D0269E3B14E1B2F200B690A2 /* IconClockBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconClockBlack@2x.png"; sourceTree = "<group>"; };
 		D0269E3C14E1B2F200B690A2 /* IconGearBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconGearBlack.png; sourceTree = "<group>"; };
@@ -1332,6 +1340,10 @@
 		28F38D4A149839B9009D58BA /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				28F84E87153503DF003F698F /* IconPersonMiniWhite.png */,
+				28F84E88153503DF003F698F /* IconPersonMiniWhite@2x.png */,
+				28F84E8B153504E8003F698F /* IconPersonMiniBlack.png */,
+				28F84E8C153504E8003F698F /* IconPersonMiniBlack@2x.png */,
 				2896CF50152BF8DC0070EB9C /* IconFoursquare.png */,
 				2896CF51152BF8DC0070EB9C /* IconFoursquare@2x.png */,
 				284ABDB1150ED1DD0040B250 /* IconXWhite.png */,
@@ -1849,6 +1861,10 @@
 				284B1DC4152F75A9000F2BAE /* CategoryNightlife.jpg in Resources */,
 				284B1DC8152F803B000F2BAE /* IconSearchWhite.png in Resources */,
 				284B1DC9152F803B000F2BAE /* IconSearchWhite@2x.png in Resources */,
+				28F84E89153503DF003F698F /* IconPersonMiniWhite.png in Resources */,
+				28F84E8A153503DF003F698F /* IconPersonMiniWhite@2x.png in Resources */,
+				28F84E8D153504E8003F698F /* IconPersonMiniBlack.png in Resources */,
+				28F84E8E153504E8003F698F /* IconPersonMiniBlack@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -430,7 +430,6 @@ query = _query;
                             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                 self.contentOffset = self.collectionView.contentOffset.y > 0 ? self.collectionView.contentOffset : CGPointZero;
                                 self.items = items;
-                                [self.collectionView reloadViews];
                                 [self dataSourceDidLoad];
                                 
                                 // If this is the first load and we loaded cached data, we should refreh from remote now

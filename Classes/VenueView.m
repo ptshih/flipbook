@@ -25,6 +25,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 @property (nonatomic, retain) UILabel *statsLabel;
 @property (nonatomic, retain) UIImageView *topDivider;
 @property (nonatomic, retain) UIImageView *divider;
+@property (nonatomic, retain) UIImageView *peopleIcon;
 
 @end
 
@@ -40,7 +41,8 @@ tipUserLabel = _tipUserLabel,
 tipLabel = _tipLabel,
 statsLabel = _statsLabel,
 topDivider = _topDivider,
-divider = _divider;
+divider = _divider,
+peopleIcon = _peopleIcon;
 
 + (void)initialize {
     __numberFormatter = [[NSNumberFormatter alloc] init];
@@ -77,7 +79,7 @@ divider = _divider;
         self.distanceLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.distanceLabel];
         
-        self.statsLabel = [UILabel labelWithStyle:@"metaLabel"];
+        self.statsLabel = [UILabel labelWithStyle:@"metaDarkLabel"];
         self.statsLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.statsLabel];
         
@@ -105,6 +107,10 @@ divider = _divider;
         self.divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
         self.divider.hidden = YES;
         [self addSubview:self.divider];
+        
+        self.peopleIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPersonMiniBlack"]] autorelease];
+        self.peopleIcon.contentMode = UIViewContentModeScaleToFill;
+        [self addSubview:self.peopleIcon];
     }
     return self;
 }
@@ -120,6 +126,7 @@ divider = _divider;
     self.statsLabel = nil;
     self.topDivider = nil;
     self.divider = nil;
+    self.peopleIcon = nil;
     [super dealloc];
 }
 
@@ -162,8 +169,10 @@ divider = _divider;
     
     top = self.imageView.bottom + MARGIN;
     
-    labelSize = [PSStyleSheet sizeForText:self.statsLabel.text width:width style:@"metaLabel"];
-    self.statsLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
+    self.peopleIcon.frame = CGRectMake(left, top + 2, 10, 10);
+    
+    labelSize = [PSStyleSheet sizeForText:self.statsLabel.text width:(width - 12) style:@"metaDarkLabel"];
+    self.statsLabel.frame = CGRectMake(left + 12, top, labelSize.width, labelSize.height);
     
     top = self.statsLabel.bottom;
     
@@ -214,7 +223,7 @@ divider = _divider;
     self.addressLabel.text = [self.object objectForKey:@"address"];
     self.categoryLabel.text = [self.object objectForKey:@"category"];
     self.distanceLabel.text = [NSString localizedStringForDistance:[[self.object objectForKey:@"distance"] floatValue]];
-    self.statsLabel.text = [NSString stringWithFormat:@"%@ people checked in.", [__numberFormatter stringFromNumber:[[self.object objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
+    self.statsLabel.text = [NSString stringWithFormat:@"%@ people checked in", [__numberFormatter stringFromNumber:[[self.object objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
     
     NSDictionary *tip = [self.object objectForKey:@"tip"];
     if (tip) {
@@ -257,7 +266,7 @@ divider = _divider;
     
     height += MARGIN;
     
-    labelSize = [PSStyleSheet sizeForText:[NSString stringWithFormat:@"%@ people checked in.", [__numberFormatter stringFromNumber:[[object objectForKey:@"stats"] objectForKey:@"checkinsCount"]]] width:width style:@"metaLabel"];
+    labelSize = [PSStyleSheet sizeForText:[NSString stringWithFormat:@"%@ people checked in", [__numberFormatter stringFromNumber:[[object objectForKey:@"stats"] objectForKey:@"checkinsCount"]]] width:width style:@"metaDarkLabel"];
     height += labelSize.height;
     
     height += MARGIN;

@@ -117,6 +117,7 @@
 		28888CFE15356EBA001743CA /* IconCheckBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28888CFA15356EBA001743CA /* IconCheckBlack@2x.png */; };
 		28888CFF15356EBA001743CA /* IconCheckWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 28888CFB15356EBA001743CA /* IconCheckWhite.png */; };
 		28888D0015356EBA001743CA /* IconCheckWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28888CFC15356EBA001743CA /* IconCheckWhite@2x.png */; };
+		28888D1B153576DE001743CA /* AddPhotoBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28888D1A153576DE001743CA /* AddPhotoBackground@2x.png */; };
 		288CB07114B2D72800233B45 /* CoreGraphics-PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 288CB07014B2D72700233B45 /* CoreGraphics-PSKit.m */; };
 		288CE08714A3CC4800BA93A6 /* IconCaptionBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 288CE08314A3CC4800BA93A6 /* IconCaptionBlack@2x.png */; };
 		288CE08814A3CC4800BA93A6 /* IconCaptionBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 288CE08414A3CC4800BA93A6 /* IconCaptionBlack.png */; };
@@ -513,6 +514,7 @@
 		28888CFA15356EBA001743CA /* IconCheckBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconCheckBlack@2x.png"; sourceTree = "<group>"; };
 		28888CFB15356EBA001743CA /* IconCheckWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconCheckWhite.png; sourceTree = "<group>"; };
 		28888CFC15356EBA001743CA /* IconCheckWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconCheckWhite@2x.png"; sourceTree = "<group>"; };
+		28888D1A153576DE001743CA /* AddPhotoBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddPhotoBackground@2x.png"; sourceTree = "<group>"; };
 		288CB06F14B2D72700233B45 /* CoreGraphics-PSKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreGraphics-PSKit.h"; sourceTree = "<group>"; };
 		288CB07014B2D72700233B45 /* CoreGraphics-PSKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoreGraphics-PSKit.m"; sourceTree = "<group>"; };
 		288CE08314A3CC4800BA93A6 /* IconCaptionBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconCaptionBlack@2x.png"; sourceTree = "<group>"; };
@@ -1010,6 +1012,7 @@
 			isa = PBXGroup;
 			children = (
 				28EDA6C815354130001BF4D1 /* AddPhotoBackground.png */,
+				28888D1A153576DE001743CA /* AddPhotoBackground@2x.png */,
 				28F84EBB15353F20003F698F /* AddPhoto.png */,
 				28F84EBC15353F20003F698F /* AddPhoto@2x.png */,
 				284B1DC5152F75AD000F2BAE /* Category */,
@@ -1989,6 +1992,7 @@
 				28888CFE15356EBA001743CA /* IconCheckBlack@2x.png in Resources */,
 				28888CFF15356EBA001743CA /* IconCheckWhite.png in Resources */,
 				28888D0015356EBA001743CA /* IconCheckWhite@2x.png in Resources */,
+				28888D1B153576DE001743CA /* AddPhotoBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

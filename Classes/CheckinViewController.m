@@ -115,6 +115,8 @@ hasPhoto = _hasPhoto;
     if (!fsAccessToken) {
         // show webview
         self.webView = [[[UIWebView alloc] initWithFrame:self.view.bounds] autorelease];
+        self.webView.top = self.headerView.bottom;
+        self.webView.height -= self.headerView.height;
         self.webView.delegate = self;
         
         NSString *authenticateURLString = [NSString stringWithFormat:@"https://foursquare.com/oauth2/authenticate?client_id=%@&response_type=token&redirect_uri=%@", FS_CLIENT_ID, FS_CALLBACK_URL];
@@ -124,10 +126,23 @@ hasPhoto = _hasPhoto;
         [self.view addSubview:self.webView];
     } else {
         // don't show webview
-        [self.textView becomeFirstResponder];
     }
     
     [self addRoundedCorners];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    NSString *fsAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fsAccessToken"];
+    if (fsAccessToken) {
+        [self.textView becomeFirstResponder];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.textView resignFirstResponder];
 }
 
 - (void)setupSubviews {
@@ -345,7 +360,6 @@ hasPhoto = _hasPhoto;
 
 - (void)checkinSucceeded:(BOOL)didSucceed {
     if (didSucceed) {
-        [self.textView resignFirstResponder];
         [SVProgressHUD showSuccessWithStatus:@"Check In Succeeded" duration:1];
         [self leftAction];
     } else {

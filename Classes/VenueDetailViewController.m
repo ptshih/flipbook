@@ -19,7 +19,7 @@
 
 static NSNumberFormatter *__numberFormatter = nil;
 
-@interface VenueDetailViewController ()
+@interface VenueDetailViewController () <PSPopoverViewDelegate>
 
 @end
 

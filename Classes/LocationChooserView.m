@@ -104,7 +104,7 @@ query = _query;
 }
 
 - (void)centerCurrentLocation {
-    if (![[PSLocationCenter defaultCenter] locationServicesEnabled]) {
+    if (![CLLocationManager locationServicesEnabled] || ![[PSLocationCenter defaultCenter] locationServicesAuthorized]) {
         return;
     }
     

@@ -454,13 +454,16 @@ mapView = _mapView;
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
         
         [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+            ASSERT_MAIN_THREAD;
             if (error) {
+                [self.items removeAllObjects];
                 [self dataSourceDidError];
             } else {
                 [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
                     id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
                     if (!apiResponse) {
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            [self.items removeAllObjects];
                             [self dataSourceDidError];
                         }];
                     } else {
@@ -485,11 +488,16 @@ mapView = _mapView;
                                 [items addObject:item];
                             }
                         } else {
-                            NSLog(@"No photos found");
+                            // No photos found
+                            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                [self.items removeAllObjects];
+                                [self dataSourceDidError];
+                            }];
                         }
                         
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            self.items = items;
+                            [self.items removeAllObjects];
+                            [self.items addObjectsFromArray:items];
                             [self dataSourceDidLoad];
                             
                             // If this is the first load and we loaded cached data, we should refreh from remote now
@@ -541,6 +549,7 @@ mapView = _mapView;
     [imageView.loadingIndicator startAnimating];
     
     [[PSURLCache sharedCache] loadURL:originalURL cacheType:PSURLCacheTypePermanent usingCache:YES completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+        ASSERT_MAIN_THREAD;
         [imageView.loadingIndicator stopAnimating];
         imageView.loadingIndicator.activityIndicatorViewStyle = oldStyle;
         

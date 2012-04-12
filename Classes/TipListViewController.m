@@ -194,13 +194,16 @@ rightButton = _rightButton;
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
         
         [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+            ASSERT_MAIN_THREAD;
             if (error) {
+                [self.items removeAllObjects];
                 [self dataSourceDidError];
             } else {
                 [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
                     id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
                     if (!apiResponse) {
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            [self.items removeAllObjects];
                             [self dataSourceDidError];
                         }];
                     } else {
@@ -212,7 +215,8 @@ rightButton = _rightButton;
                             [items addObjectsFromArray:tips];
                             
                             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                self.items = items;
+                                [self.items removeAllObjects];
+                                [self.items addObjectsFromArray:items];
                                 [self dataSourceDidLoad];
                                 
                                 // If this is the first load and we loaded cached data, we should refreh from remote now
@@ -224,7 +228,8 @@ rightButton = _rightButton;
                             }];
                         } else {
                             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                NSLog(@"# ERROR with apiResponse: %@", apiResponse);
+                                // No tips found
+                                [self.items removeAllObjects];
                                 [self dataSourceDidError];
                             }];
                         }

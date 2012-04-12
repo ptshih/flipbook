@@ -81,6 +81,7 @@ loadingLabel = _loadingLabel;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
     
     [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession usingCache:YES completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+        ASSERT_MAIN_THREAD;
         if (error) {
             [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
             [self dataSourceDidError];

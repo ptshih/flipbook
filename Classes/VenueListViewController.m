@@ -335,13 +335,16 @@ hasLoadedOnce = _hasLoadedOnce;
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
         
         [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+            ASSERT_MAIN_THREAD;
             if (error) {
+                [self.items removeAllObjects];
                 [self dataSourceDidError];
             } else {
                 [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
                     id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
                     if (!apiResponse) {
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            [self.items removeAllObjects];
                             [self dataSourceDidError];
                         }];
                     } else {
@@ -355,49 +358,67 @@ hasLoadedOnce = _hasLoadedOnce;
                             // Format the response for our consumption
                             NSMutableArray *items = [NSMutableArray array];
                             for (NSDictionary *dict in [[groups objectAtIndex:0] objectForKey:@"items"]) {
+                                // Venue Dict
+                                NSMutableDictionary *item = [NSMutableDictionary dictionary];
+                                
+                                // Read out the API
+                                BOOL hasTip = NO;
+                                BOOL hasPhoto = NO;
+                                
                                 NSDictionary *venue = [dict objectForKey:@"venue"];
                                 NSArray *tips = [dict objectForKey:@"tips"];
                                 NSDictionary *stats = [venue objectForKey:@"stats"];
                                 NSDictionary *location = [venue objectForKey:@"location"];
-                                NSDictionary *category = [[venue objectForKey:@"categories"] lastObject];
-                                NSDictionary *featuredPhoto = [[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] lastObject];
-                                
-                                NSMutableDictionary *item = [NSMutableDictionary dictionary];
-                                
-                                BOOL hasTip = NO;
-                                BOOL hasPhoto = NO;
+                                NSDictionary *category = nil;
+                                if (NOT_NULL([venue objectForKey:@"categories"])) {
+                                    if ([[venue objectForKey:@"categories"] isKindOfClass:[NSArray class]]) {
+                                        category = [[venue objectForKey:@"categories"] lastObject];
+                                    }
+                                }
+                                NSDictionary *featuredPhoto = nil;
+                                if (NOT_NULL([venue objectForKey:@"featuredPhotos"]) && NOT_NULL([[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"])) {
+                                    if ([[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] isKindOfClass:[NSArray class]]) {
+                                        featuredPhoto = [[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] lastObject];
+                                    }
+                                }
                                 
                                 // Basic Info
                                 [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
                                 [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
-                                [item setObject:[category objectForKey:@"name"] forKey:@"category"];
+                                if (NOT_NULL(category)) {
+                                    [item setObject:[category objectForKey:@"name"] forKey:@"category"];
+                                }
+                                
                                 
                                 // Contact
-                                if ([venue objectForKey:@"contact"]) {
+                                if (NOT_NULL([venue objectForKey:@"contact"])) {
                                     [item setObject:[venue objectForKey:@"contact"] forKey:@"contact"];
                                 }
                                 
-                                if ([venue objectForKey:@"url"]) {
+                                if (NOT_NULL([venue objectForKey:@"url"])) {
                                     [item setObject:[venue objectForKey:@"url"] forKey:@"url"];
                                 }
                                 
                                 // Location
-                                if ([location objectForKey:@"address"]) {
+                                if (NOT_NULL([location objectForKey:@"address"])) {
                                     [item setObject:[location objectForKey:@"address"] forKey:@"address"];
                                 } else {
                                     continue;
                                 }
                                 
-                                if ([location objectForKey:@"address"] && [location objectForKey:@"city"] && [location objectForKey:@"state"] && [location objectForKey:@"postalCode"]) {
+                                if (NOT_NULL([location objectForKey:@"address"]) && NOT_NULL([location objectForKey:@"city"]) && NOT_NULL([location objectForKey:@"state"]) && NOT_NULL([location objectForKey:@"postalCode"])) {
                                     [item setObject:[NSString stringWithFormat:@"%@ %@, %@ %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"], [location objectForKey:@"postalCode"]] forKey:@"formattedAddress"];
-                                } else if ([location objectForKey:@"address"]) {
+                                } else if (NOT_NULL([location objectForKey:@"address"])) {
                                     [item setObject:[location objectForKey:@"address"] forKey:@"formattedAddress"];
                                 } else {
                                     continue;
                                 }
                                 
-                                [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
-                                if ([location objectForKey:@"lat"] && [location objectForKey:@"lng"]) {
+                                if (NOT_NULL([location objectForKey:@"distance"])) {
+                                    [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
+                                }
+                                
+                                if (NOT_NULL([location objectForKey:@"lat"]) && NOT_NULL([location objectForKey:@"lng"])) {
                                     [item setObject:[location objectForKey:@"lat"] forKey:@"lat"];
                                     [item setObject:[location objectForKey:@"lng"] forKey:@"lng"];
                                 } else {
@@ -440,7 +461,8 @@ hasLoadedOnce = _hasLoadedOnce;
                             }
                             
                             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                self.items = items;
+                                [self.items removeAllObjects];
+                                [self.items addObjectsFromArray:items];
                                 [self dataSourceDidLoad];
                                 
                                 // If this is the first load and we loaded cached data, we should refreh from remote now
@@ -452,6 +474,7 @@ hasLoadedOnce = _hasLoadedOnce;
                             }];
                         } else {
                             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                [self.items removeAllObjects];
                                 [self dataSourceDidError];
                             }];
                         }

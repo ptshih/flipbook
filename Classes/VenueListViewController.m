@@ -139,7 +139,7 @@ hasLoadedOnce = _hasLoadedOnce;
     [pb4sq addGradientLayerWithFrame:CGRectMake(0, 0, pb4sq.width, 8.0) colors:[NSArray arrayWithObjects:(id)RGBACOLOR(0, 0, 0, 0.3).CGColor, (id)RGBACOLOR(0, 0, 0, 0.2).CGColor, (id)RGBACOLOR(0, 0, 0, 0.1).CGColor, (id)RGBACOLOR(0, 0, 0, 0.0).CGColor, nil] locations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.1], [NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:1.0], nil] startPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 1.0)];
     self.collectionView.footerView = pb4sq;
     
-    UILabel *emptyLabel = [UILabel labelWithText:@"No Venues Found\r\nTry Searching Again" style:@"emptyLabel"];
+    UILabel *emptyLabel = [UILabel labelWithText:@"No Places Found\r\nTry Searching Again" style:@"emptyLabel"];
     emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.collectionView.emptyView = emptyLabel;
     
@@ -365,36 +365,28 @@ hasLoadedOnce = _hasLoadedOnce;
                                 BOOL hasTip = NO;
                                 BOOL hasPhoto = NO;
                                 
-                                NSDictionary *venue = [dict objectForKey:@"venue"];
-                                NSArray *tips = [dict objectForKey:@"tips"];
-                                NSDictionary *stats = [venue objectForKey:@"stats"];
-                                NSDictionary *location = [venue objectForKey:@"location"];
-                                NSDictionary *category = nil;
-                                if (NOT_NULL([venue objectForKey:@"categories"])) {
-                                    if ([[venue objectForKey:@"categories"] isKindOfClass:[NSArray class]]) {
-                                        category = [[venue objectForKey:@"categories"] lastObject];
-                                    }
+                                NSDictionary *venue = OBJ_NOT_NULL([dict objectForKey:@"venue"]);
+                                if (!venue) {
+                                    continue;
                                 }
-                                NSDictionary *featuredPhoto = nil;
-                                if (NOT_NULL([venue objectForKey:@"featuredPhotos"]) && NOT_NULL([[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"])) {
-                                    if ([[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] isKindOfClass:[NSArray class]]) {
-                                        featuredPhoto = [[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] lastObject];
-                                    }
-                                }
+                                
+                                NSArray *tips = OBJ_NOT_NULL([dict objectForKey:@"tips"]);
+                                NSDictionary *stats = OBJ_NOT_NULL([venue objectForKey:@"stats"]);
+                                NSDictionary *location = OBJ_NOT_NULL([venue objectForKey:@"location"]);
+                                NSDictionary *category = OBJ_NOT_NULL([venue objectForKey:@"categories"]) ? [[venue objectForKey:@"categories"] lastObject] : nil;
+                                NSDictionary *featuredPhoto = OBJ_NOT_NULL([venue objectForKey:@"featuredPhotos"]) ? [[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] lastObject] : nil;
                                 
                                 // Basic Info
                                 [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
                                 [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
-                                if (NOT_NULL(category)) {
+                                if (category) {
                                     [item setObject:[category objectForKey:@"name"] forKey:@"category"];
                                 }
-                                
                                 
                                 // Contact
                                 if (NOT_NULL([venue objectForKey:@"contact"])) {
                                     [item setObject:[venue objectForKey:@"contact"] forKey:@"contact"];
                                 }
-                                
                                 if (NOT_NULL([venue objectForKey:@"url"])) {
                                     [item setObject:[venue objectForKey:@"url"] forKey:@"url"];
                                 }

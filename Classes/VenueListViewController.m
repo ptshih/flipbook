@@ -64,7 +64,7 @@ hasLoadedOnce = _hasLoadedOnce;
         self.hasLoadedOnce = NO;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidUpdate) name:kPSLocationCenterDidUpdate object:nil];
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDataSource) name:UIApplicationWillEnterForegroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidFail) name:kPSLocationCenterDidFail object:nil];
     }
     return self;
 }
@@ -75,7 +75,7 @@ hasLoadedOnce = _hasLoadedOnce;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSLocationCenterDidUpdate object:nil];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSLocationCenterDidFail object:nil];
 
     self.category = nil;
     self.query = nil;
@@ -234,6 +234,12 @@ hasLoadedOnce = _hasLoadedOnce;
     
     if (!self.hasLoadedOnce) {
         [self loadDataSource];
+    }
+}
+
+- (void)locationDidFail {
+    if (!self.hasLoadedOnce) {
+        [self dataSourceDidError];
     }
 }
 

@@ -13,6 +13,7 @@
 
 @interface TipView ()
 
+@property (nonatomic, retain) PSCachedImageView *imageView;
 @property (nonatomic, retain) UILabel *tipLabel;
 @property (nonatomic, retain) UILabel *nameLabel;
 @property (nonatomic, retain) UILabel *homeCityLabel;
@@ -23,6 +24,7 @@
 @implementation TipView
 
 @synthesize
+imageView = _imageView,
 tipLabel = _tipLabel,
 nameLabel = _nameLabel,
 homeCityLabel = _homeCityLabel,
@@ -37,15 +39,20 @@ divider = _divider;
         shadowView.frame = CGRectInset(self.bounds, -1, -2);
         [self addSubview:shadowView];
         
+        self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
+        self.imageView.shouldAnimate = NO;
+        self.imageView.clipsToBounds = YES;
+        [self addSubview:self.imageView];
+        
         self.tipLabel = [UILabel labelWithStyle:@"bodyLabel"];
         self.tipLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.tipLabel];
         
-        self.nameLabel = [UILabel labelWithStyle:@"titleLabel"];
+        self.nameLabel = [UILabel labelWithStyle:@"h4Label"];
         self.nameLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.nameLabel];
         
-        self.homeCityLabel = [UILabel labelWithStyle:@"subtitleLabel"];
+        self.homeCityLabel = [UILabel labelWithStyle:@"bodyLabel"];
         self.homeCityLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.homeCityLabel];
         
@@ -56,6 +63,7 @@ divider = _divider;
 }
 
 - (void)dealloc {
+    self.imageView = nil;
     self.tipLabel = nil;
     self.nameLabel = nil;
     self.homeCityLabel = nil;
@@ -66,6 +74,7 @@ divider = _divider;
 - (void)prepareForReuse {
     [super prepareForReuse];
     
+    [self.imageView prepareForReuse];
     self.tipLabel.text = nil;
     self.nameLabel.text = nil;
     self.homeCityLabel.text = nil;
@@ -90,7 +99,12 @@ divider = _divider;
     self.divider.frame = CGRectMake(left, top, width, 1.0);
     top = self.divider.bottom + MARGIN;
     
-    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"titleLabel"];
+    self.imageView.frame = CGRectMake(left, top, 30, 30);
+    
+    left += self.imageView.width + MARGIN;
+    width -= self.imageView.width + MARGIN;
+    
+    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"h4Label"];
     self.nameLabel.top = top;
     self.nameLabel.left = left;
     self.nameLabel.width = labelSize.width;
@@ -98,7 +112,7 @@ divider = _divider;
     
     top = self.nameLabel.bottom;
     
-    labelSize = [PSStyleSheet sizeForText:self.homeCityLabel.text width:width style:@"subtitleLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.homeCityLabel.text width:width style:@"bodyLabel"];
     self.homeCityLabel.top = top;
     self.homeCityLabel.left = left;
     self.homeCityLabel.width = labelSize.width;
@@ -112,9 +126,11 @@ divider = _divider;
     NSString *name = [user objectForKey:@"firstName"];
     name = [user objectForKey:@"lastName"] ? [name stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : name;
     
-    self.tipLabel.text = [NSString stringWithFormat:@"\"%@\"", [object objectForKey:@"text"]];
+    self.tipLabel.text = [NSString stringWithFormat:@"%@", [object objectForKey:@"text"]];
     self.nameLabel.text = name;
     self.homeCityLabel.text = [user objectForKey:@"homeCity"];
+    
+    [self.imageView loadImageWithURL:[NSURL URLWithString:[user objectForKey:@"photo"]] cacheType:PSURLCacheTypeSession];
 }
 
 + (CGFloat)heightForViewWithObject:(id)object inColumnWidth:(CGFloat)columnWidth {
@@ -124,7 +140,7 @@ divider = _divider;
     
     height += MARGIN;
     
-    NSString *tipText = [NSString stringWithFormat:@"\"%@\"", [object objectForKey:@"text"]];
+    NSString *tipText = [NSString stringWithFormat:@"%@", [object objectForKey:@"text"]];
     labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"bodyLabel"];
     height += labelSize.height;
     
@@ -132,14 +148,20 @@ divider = _divider;
     height += 1.0;
     height += MARGIN;
     
+    width -= 30 + MARGIN;
+    
+    CGFloat footerHeight = 0.0;
+    
     NSDictionary *user = [object objectForKey:@"user"];
     NSString *name = [user objectForKey:@"firstName"];
     name = [user objectForKey:@"lastName"] ? [name stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : name;
-    labelSize = [PSStyleSheet sizeForText:name width:width style:@"titleLabel"];
-    height += labelSize.height;
+    labelSize = [PSStyleSheet sizeForText:name width:width style:@"h4Label"];
+    footerHeight += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[user objectForKey:@"homeCity"] width:width style:@"subtitleLabel"];
-    height += labelSize.height;
+    labelSize = [PSStyleSheet sizeForText:[user objectForKey:@"homeCity"] width:width style:@"bodyLabel"];
+    footerHeight += labelSize.height;
+    
+    height += MAX(footerHeight, 30.0);
     
     height += MARGIN;
     

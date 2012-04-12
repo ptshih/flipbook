@@ -107,7 +107,7 @@ shouldReloadInterface = _shouldReloadInterface;
     [PSReachabilityCenter defaultCenter];
     
     // PSLocationCenter set default behavior
-    [[PSLocationCenter defaultCenter] updateMyLocation]; // start it
+    [[PSLocationCenter defaultCenter] resumeUpdates]; // start it
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     [self.window makeKeyAndVisible];

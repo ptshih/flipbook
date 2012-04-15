@@ -123,11 +123,11 @@
         case kTopViewTag:
             category = @"food";
             
-            [PSAlertView showWithTitle:@"Groupon: The Linc" message:@"Four-Course Contemporary Dinner for Two or Four (Up to 53% Off)" buttonTitles:[NSArray arrayWithObjects:@"Skip", @"View", nil] emailText:@"[ save for later ]" completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue) {
+            [PSAlertView showWithTitle:@"Groupon: " message:@"$10 for $20 Worth of Ice Cream, Cakes, and Frozen Treats" buttonTitles:[NSArray arrayWithObjects:@"Skip", @"View", nil] emailText:@"[ save for later ]" completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue) {
                 if (!textFieldValue) {
                     // on demand
                     if (buttonIndex == 1) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://touch.groupon.com/deals/the-linc-1"]];
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://touch.groupon.com/deals/baskin-robbins-mountain-view"]];
                         return;
                     }
                 } else {
@@ -153,11 +153,11 @@
         case kBotViewTag:
             category = @"drinks";
             
-            [PSAlertView showWithTitle:@"Gilt City: King’s Cross" message:@"Up to 87% Off Drinks & More" buttonTitles:[NSArray arrayWithObjects:@"Skip", @"View", nil] emailText:@"[ save for later ]" completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue) {
+            [PSAlertView showWithTitle:@"Kingdoms of Camelot" message:@"Unleash the power of the Throne! Download Now!" buttonTitles:[NSArray arrayWithObjects:@"Skip", @"Download", nil] emailText:@"[ save for later ]" completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue) {
                 if (!textFieldValue) {
                     // on demand
                     if (buttonIndex == 1) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://m.giltcity.com/mobile/newyork/kingscrossnyc"]];
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/us/app/kingdoms-camelot-battle-for/id476546099?mt=8"]];
                         return;
                     }
                 } else {

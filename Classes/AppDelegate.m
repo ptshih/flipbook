@@ -72,18 +72,34 @@ shouldReloadInterface = _shouldReloadInterface;
     return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //    NSLog(@"Fonts: %@", [UIFont familyNames]);
     
     self.shouldReloadInterface = NO;
     
+    // HOCKEY
 #ifdef RELEASE
+    
+#ifdef BETA
+    [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"113eebcc5c0fdfb14a3508233c3d2a4b"];
+#elsif PRO
+    [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"b238fc47fd27c516ed929710209f3f91"];
+#else
     [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];
+#endif
+    
     [[BWHockeyManager sharedHockeyManager] setAlwaysShowUpdateReminder:YES];
     [[BWHockeyManager sharedHockeyManager] setDelegate:self];
 #endif
+    
+    // QUINCY
+#ifdef BETA
+    [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"113eebcc5c0fdfb14a3508233c3d2a4b"];
+#elseif PRO
+    [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"b238fc47fd27c516ed929710209f3f91"];
+#else
     [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];
+#endif
     
     // Vendor analytics
     [[LocalyticsSession sharedLocalyticsSession] startSession:@"84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc"];

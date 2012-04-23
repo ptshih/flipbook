@@ -20,11 +20,14 @@
 @synthesize
 queryField = _queryField,
 mapView = _mapView,
-query = _query;
+query = _query,
+locationDidChange = _locationDidChange;
 
 - (id)initWithFrame:(CGRect)frame mapRegion:(MKCoordinateRegion)mapRegion {
     self = [super initWithFrame:frame];
     if (self) {
+        self.locationDidChange = NO;
+        
         self.mapView = [[[MKMapView alloc] initWithFrame:self.bounds] autorelease];
         self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.mapView.delegate = self;
@@ -119,6 +122,8 @@ query = _query;
 }
 
 - (void)redoSearch {
+    self.locationDidChange = YES;
+    
     if ([self.nextResponder.nextResponder isKindOfClass:[PSPopoverView class]]) {
         [(PSPopoverView *)self.nextResponder.nextResponder dismiss];
     }

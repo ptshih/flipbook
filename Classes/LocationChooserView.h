@@ -12,6 +12,7 @@
 
 @property (nonatomic, retain) MKMapView *mapView;
 @property (nonatomic, copy) NSString *query;
+@property (nonatomic, assign) BOOL locationDidChange;
 
 - (id)initWithFrame:(CGRect)frame mapRegion:(MKCoordinateRegion)mapRegion;
 

@@ -183,7 +183,6 @@ hasLoadedOnce = _hasLoadedOnce;
     
 //    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Send Love" message:@"Your love makes us work harder. Rate our app now?" delegate:self cancelButtonTitle:@"No, Thanks" otherButtonTitles:@"Okay", nil] autorelease];
 //    [av show];
-//    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#sendLove"];
     
 //    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
 //    LocationChooserView *cv = [[[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion] autorelease];
@@ -191,8 +190,6 @@ hasLoadedOnce = _hasLoadedOnce;
 //    popoverView.tag = kPopoverLocation;
 //    popoverView.delegate = self;
 //    [popoverView showWithSize:cv.frame.size inView:self.view];
-//    
-//    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#locationChooser"];
 }
 
 - (void)centerAction {
@@ -202,8 +199,6 @@ hasLoadedOnce = _hasLoadedOnce;
     popoverView.tag = kPopoverLocation;
     popoverView.delegate = self;
     [popoverView showWithSize:cv.frame.size inView:self.view];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#locationChooser"];
 }
 
 - (void)rightAction {
@@ -214,8 +209,6 @@ hasLoadedOnce = _hasLoadedOnce;
     popoverView.delegate = self;
     [popoverView showWithSize:cv.frame.size inView:self.view];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#locationChooser"];
-    
     return;
     
 //    CategoryChooserView *cv = [[[CategoryChooserView alloc] initWithFrame:CGRectMake(0, 0, 288, 152)] autorelease];
@@ -224,7 +217,6 @@ hasLoadedOnce = _hasLoadedOnce;
 //    popoverView.delegate = self;
 //    
 //    [popoverView showWithSize:cv.frame.size inView:self.view];
-//    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#categoryChooser"];
 }
 
 #pragma mark - Location Notification
@@ -248,16 +240,12 @@ hasLoadedOnce = _hasLoadedOnce;
     [super loadDataSource];
     
     [self loadDataSourceFromRemoteUsingCache:NO];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#load"];
 }
 
 - (void)reloadDataSource {
     [super reloadDataSource];
 
     [self loadDataSourceFromRemoteUsingCache:NO];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#reload"];
 }
 
 - (void)dataSourceDidLoad {
@@ -516,12 +504,8 @@ hasLoadedOnce = _hasLoadedOnce;
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    [AirWomp presentAlertWithBlock:^{
-        VenueDetailViewController *vc = [[[VenueDetailViewController alloc] initWithDictionary:item] autorelease];
-        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-    }];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueList#venue"];
+    VenueDetailViewController *vc = [[[VenueDetailViewController alloc] initWithDictionary:item] autorelease];
+    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 }
 
 #pragma mark - PSErrorViewDelegate
@@ -550,24 +534,26 @@ hasLoadedOnce = _hasLoadedOnce;
 //            [self reloadDataSource];
 //        }
     } else if (popoverView.tag = kPopoverLocation) {
-        MKMapView *mapView = [(LocationChooserView *)popoverView.contentView mapView];
-        MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mapView.visibleMapRect), MKMapRectGetMidY(mapView.visibleMapRect));
-        MKMapPoint westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mapView.visibleMapRect), MKMapRectGetMidY(mapView.visibleMapRect));
+        LocationChooserView *cv = (LocationChooserView *)popoverView.contentView;
         
-        CGFloat span = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint);
-        
-        self.radius = ceilf(span / 2.0);
-        self.centerCoordinate = mapView.centerCoordinate;
-        self.query = [(LocationChooserView *)popoverView.contentView query];
-        
-        [self reloadDataSource];
+        if (cv.locationDidChange) {
+            MKMapView *mapView = cv.mapView;
+            MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mapView.visibleMapRect), MKMapRectGetMidY(mapView.visibleMapRect));
+            MKMapPoint westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mapView.visibleMapRect), MKMapRectGetMidY(mapView.visibleMapRect));
+            
+            CGFloat span = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint);
+            
+            self.radius = ceilf(span / 2.0);
+            self.centerCoordinate = mapView.centerCoordinate;
+            self.query = [cv query];
+            
+            [self reloadDataSource];
+        }
     }
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (alertView.cancelButtonIndex == buttonIndex) return;
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"timelineConfig#loveSent"];
     
     [Appirater rateApp];
 }

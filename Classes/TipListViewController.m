@@ -149,16 +149,12 @@ rightButton = _rightButton;
     [super loadDataSource];
     
     [self loadDataSourceFromRemoteUsingCache:YES];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"tips#load"];
 }
 
 - (void)reloadDataSource {
     [super reloadDataSource];
     
     [self loadDataSourceFromRemoteUsingCache:NO];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"tips#reload"];
 }
 
 - (void)dataSourceDidLoad {

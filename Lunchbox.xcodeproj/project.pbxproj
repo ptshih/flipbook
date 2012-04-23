@@ -118,7 +118,6 @@
 		281F49DF1545BCC10066DD70 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284ABDAC150E987F0040B250 /* PreviewViewController.m */; };
 		281F49E01545BCC10066DD70 /* PSDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 283F89301515DCFF003C1D63 /* PSDateFormatter.m */; };
 		281F49E11545BCC10066DD70 /* PSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 282E821E1515F0E8000B8566 /* PSCollectionViewCell.m */; };
-		281F49E21545BCC10066DD70 /* AirWomp.m in Sources */ = {isa = PBXBuildFile; fileRef = 288348EE151C17940039DD6C /* AirWomp.m */; };
 		281F49E31545BCC10066DD70 /* TTTArrayFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3CC151D33A300763095 /* TTTArrayFormatter.m */; };
 		281F49E41545BCC10066DD70 /* TTTHoursOfOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3CF151D33A300763095 /* TTTHoursOfOperation.m */; };
 		281F49E51545BCC10066DD70 /* TTTLocationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3D2151D33A300763095 /* TTTLocationFormatter.m */; };
@@ -439,7 +438,6 @@
 		2843A6271545B9510089FC73 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284ABDAC150E987F0040B250 /* PreviewViewController.m */; };
 		2843A6281545B9510089FC73 /* PSDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 283F89301515DCFF003C1D63 /* PSDateFormatter.m */; };
 		2843A6291545B9510089FC73 /* PSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 282E821E1515F0E8000B8566 /* PSCollectionViewCell.m */; };
-		2843A62A1545B9510089FC73 /* AirWomp.m in Sources */ = {isa = PBXBuildFile; fileRef = 288348EE151C17940039DD6C /* AirWomp.m */; };
 		2843A62B1545B9510089FC73 /* TTTArrayFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3CC151D33A300763095 /* TTTArrayFormatter.m */; };
 		2843A62C1545B9510089FC73 /* TTTHoursOfOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3CF151D33A300763095 /* TTTHoursOfOperation.m */; };
 		2843A62D1545B9510089FC73 /* TTTLocationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3D2151D33A300763095 /* TTTLocationFormatter.m */; };
@@ -723,7 +721,6 @@
 		2869885C1475CEEC00B40860 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 286988051475CEEC00B40860 /* SVProgressHUD.m */; };
 		2869885D1475CEEC00B40860 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 286988081475CEEC00B40860 /* TTTAttributedLabel.m */; };
 		286988621475CF3500B40860 /* InitialDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 286988611475CF3500B40860 /* InitialDefaults.plist */; };
-		288348EF151C17940039DD6C /* AirWomp.m in Sources */ = {isa = PBXBuildFile; fileRef = 288348EE151C17940039DD6C /* AirWomp.m */; };
 		28888CFD15356EBA001743CA /* IconCheckBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 28888CF915356EBA001743CA /* IconCheckBlack.png */; };
 		28888CFE15356EBA001743CA /* IconCheckBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28888CFA15356EBA001743CA /* IconCheckBlack@2x.png */; };
 		28888CFF15356EBA001743CA /* IconCheckWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 28888CFB15356EBA001743CA /* IconCheckWhite.png */; };
@@ -1128,8 +1125,6 @@
 		286988071475CEEC00B40860 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		286988081475CEEC00B40860 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		286988611475CF3500B40860 /* InitialDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InitialDefaults.plist; sourceTree = "<group>"; };
-		288348ED151C17940039DD6C /* AirWomp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirWomp.h; sourceTree = "<group>"; };
-		288348EE151C17940039DD6C /* AirWomp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirWomp.m; sourceTree = "<group>"; };
 		28888CF915356EBA001743CA /* IconCheckBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconCheckBlack.png; sourceTree = "<group>"; };
 		28888CFA15356EBA001743CA /* IconCheckBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconCheckBlack@2x.png"; sourceTree = "<group>"; };
 		28888CFB15356EBA001743CA /* IconCheckWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconCheckWhite.png; sourceTree = "<group>"; };
@@ -2020,15 +2015,6 @@
 			path = TTTAttributedLabel;
 			sourceTree = "<group>";
 		};
-		288348EC151C17940039DD6C /* AirWomp */ = {
-			isa = PBXGroup;
-			children = (
-				288348ED151C17940039DD6C /* AirWomp.h */,
-				288348EE151C17940039DD6C /* AirWomp.m */,
-			);
-			path = AirWomp;
-			sourceTree = "<group>";
-		};
 		28888D2015358071001743CA /* PSAlertView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2237,7 +2223,6 @@
 		D031D2E814F84B6B00DEB789 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
-				288348EC151C17940039DD6C /* AirWomp */,
 				D031D49214F84CDA00DEB789 /* HockeyKit */,
 				D031D47E14F84CC300DEB789 /* QuincyKit */,
 				D031D2E914F84B8700DEB789 /* PSStyleSheet */,
@@ -3242,7 +3227,6 @@
 				281F49DF1545BCC10066DD70 /* PreviewViewController.m in Sources */,
 				281F49E01545BCC10066DD70 /* PSDateFormatter.m in Sources */,
 				281F49E11545BCC10066DD70 /* PSCollectionViewCell.m in Sources */,
-				281F49E21545BCC10066DD70 /* AirWomp.m in Sources */,
 				281F49E31545BCC10066DD70 /* TTTArrayFormatter.m in Sources */,
 				281F49E41545BCC10066DD70 /* TTTHoursOfOperation.m in Sources */,
 				281F49E51545BCC10066DD70 /* TTTLocationFormatter.m in Sources */,
@@ -3357,7 +3341,6 @@
 				284ABDAD150E98800040B250 /* PreviewViewController.m in Sources */,
 				283F89311515DCFF003C1D63 /* PSDateFormatter.m in Sources */,
 				282E821F1515F0E8000B8566 /* PSCollectionViewCell.m in Sources */,
-				288348EF151C17940039DD6C /* AirWomp.m in Sources */,
 				2808C3DF151D33A300763095 /* TTTArrayFormatter.m in Sources */,
 				2808C3E0151D33A300763095 /* TTTHoursOfOperation.m in Sources */,
 				2808C3E1151D33A300763095 /* TTTLocationFormatter.m in Sources */,
@@ -3472,7 +3455,6 @@
 				2843A6271545B9510089FC73 /* PreviewViewController.m in Sources */,
 				2843A6281545B9510089FC73 /* PSDateFormatter.m in Sources */,
 				2843A6291545B9510089FC73 /* PSCollectionViewCell.m in Sources */,
-				2843A62A1545B9510089FC73 /* AirWomp.m in Sources */,
 				2843A62B1545B9510089FC73 /* TTTArrayFormatter.m in Sources */,
 				2843A62C1545B9510089FC73 /* TTTHoursOfOperation.m in Sources */,
 				2843A62D1545B9510089FC73 /* TTTLocationFormatter.m in Sources */,

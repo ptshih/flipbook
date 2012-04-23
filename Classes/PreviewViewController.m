@@ -70,8 +70,6 @@ imageView = _imageView;
     [super viewDidLoad];
     
     [self setupSubviews];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"preview#load"];
 }
 
 #pragma mark - View Config
@@ -141,9 +139,7 @@ imageView = _imageView;
 
 - (void)rightAction {
     if (!self.image) return;
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"preview#uploadPhoto"];
-    
+
     // Upload this photo to 4sq
     // https://api.foursquare.com/v2/photos/add
     

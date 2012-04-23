@@ -12,8 +12,6 @@
 #import "PSLocationCenter.h"
 #import "TTTAttributedLabel.h"
 
-#import "AirWomp.h"
-
 #define CORE_DATA_MOM @"Lunchbox"
 #define CORE_DATA_SQL_FILE @"Lunchbox.sqlite"
 

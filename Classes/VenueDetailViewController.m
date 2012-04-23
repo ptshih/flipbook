@@ -352,8 +352,6 @@ mapView = _mapView;
 }
 
 - (void)centerAction {
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#yelp"];
-    
     YelpPopoverView *v = [[[YelpPopoverView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, 288, 154)] autorelease]; // 218
     PSPopoverView *pv = [[[PSPopoverView alloc] initWithTitle:@"Powered by Yelp" contentView:v] autorelease];
     pv.delegate = self;
@@ -366,8 +364,6 @@ mapView = _mapView;
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     
     return;
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#checkin"];
     
     UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
     av.tag = kAlertTagFoursquare;
@@ -393,15 +389,11 @@ mapView = _mapView;
     [PSZoomView showMapView:v withFrame:convertedFrame inView:self.view.window fullscreen:YES];
     
     [self.mapView selectAnnotation:[[self.mapView annotations] lastObject] animated:YES];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#zoomMap"];
 }
 
 - (void)pushTips:(UITapGestureRecognizer *)gr {
     TipListViewController *vc = [[[TipListViewController alloc] initWithDictionary:self.venueDict] autorelease];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#tips"];
 }
 
 #pragma mark - State Machine
@@ -409,16 +401,12 @@ mapView = _mapView;
     [super loadDataSource];
     
     [self loadDataSourceFromRemoteUsingCache:YES];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#load"];
 }
 
 - (void)reloadDataSource {
     [super reloadDataSource];
     
     [self loadDataSourceFromRemoteUsingCache:NO];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#reload"];
 }
 
 - (void)dataSourceDidLoad {
@@ -560,7 +548,6 @@ mapView = _mapView;
                 
                 if ([PSZoomView prepareToZoom]) {
                     [PSZoomView showImage:imageView.image withFrame:convertedFrame inView:self.view.window];
-                    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#zoom"];
                 }
             }
         }

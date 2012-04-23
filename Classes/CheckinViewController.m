@@ -247,8 +247,6 @@ hasPhoto = _hasPhoto;
 }
 
 - (void)addPhoto:(id)sender {
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"venueDetail#addphoto"];
-    
     UIActionSheet *as = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil] autorelease];
     
     // Only show "Take Photo" option if device supports it

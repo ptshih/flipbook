@@ -68,7 +68,7 @@ loadingLabel = _loadingLabel;
 }
 
 - (void)loadDataSource {
-    NSString *URLPath = [NSString stringWithFormat:@"http://initech.herokuapp.com/yelp"];
+    NSString *URLPath = [NSString stringWithFormat:@"%@/yelp", API_BASE_URL];
     
     NSString *ll = [NSString stringWithFormat:@"%@,%@", [self.venueDict objectForKey:@"lat"], [self.venueDict objectForKey:@"lng"]];
     NSString *q = [self.venueDict objectForKey:@"name"];

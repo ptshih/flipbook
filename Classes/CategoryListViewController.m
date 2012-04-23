@@ -115,7 +115,7 @@
     botLabel.frame = CGRectMake(MARGIN, botView.height - LABEL_HEIGHT - MARGIN, labelSize.width, LABEL_HEIGHT);
 }
 
-#ifndef DISTRIBUTION
+#ifdef BETA
 - (void)pushCategory:(UITapGestureRecognizer *)gestureRecognizer {
     NSString *category = nil;
     UIView *view = gestureRecognizer.view;

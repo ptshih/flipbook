@@ -367,12 +367,10 @@ hasLoadedOnce = _hasLoadedOnce;
                                 // Venue Dict
                                 NSMutableDictionary *item = [NSMutableDictionary dictionary];
                                 
-                                // Read out the API
-                                BOOL hasTip = NO;
-                                BOOL hasPhoto = NO;
-                                
+                                // Read out the API                                
                                 NSDictionary *venue = OBJ_NOT_NULL([dict objectForKey:@"venue"]);
                                 if (!venue) {
+                                    // no venue at all
                                     continue;
                                 }
                                 
@@ -385,16 +383,23 @@ hasLoadedOnce = _hasLoadedOnce;
                                 // Basic Info
                                 [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
                                 [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
-                                if (category) {
-                                    [item setObject:[category objectForKey:@"name"] forKey:@"category"];
+                                
+                                
+                                if (!location || !category) {
+                                    // no location or no category
+                                    continue;
                                 }
                                 
-                                // Contact
-                                if (NOT_NULL([venue objectForKey:@"contact"])) {
-                                    [item setObject:[venue objectForKey:@"contact"] forKey:@"contact"];
+                                if (!tips && !featuredPhoto) {
+                                    // no tips and no photo
+                                    continue;
                                 }
-                                if (NOT_NULL([venue objectForKey:@"url"])) {
-                                    [item setObject:[venue objectForKey:@"url"] forKey:@"url"];
+                                
+                                if (category) {
+                                    [item setObject:[category objectForKey:@"name"] forKey:@"category"];
+                                } else {
+                                    // no category
+                                    continue;
                                 }
                                 
                                 // Location
@@ -414,6 +419,8 @@ hasLoadedOnce = _hasLoadedOnce;
                                 
                                 if (NOT_NULL([location objectForKey:@"distance"])) {
                                     [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
+                                } else {
+                                    [item setObject:[NSNumber numberWithInteger:0] forKey:@"distance"];
                                 }
                                 
                                 if (NOT_NULL([location objectForKey:@"lat"]) && NOT_NULL([location objectForKey:@"lng"])) {
@@ -425,8 +432,15 @@ hasLoadedOnce = _hasLoadedOnce;
                                 
                                 // Tip
                                 if (tips && [tips count] > 0) {
-                                    hasTip = YES;
                                     [item setObject:[tips objectAtIndex:0] forKey:@"tip"];
+                                }
+                                
+                                // Contact
+                                if (NOT_NULL([venue objectForKey:@"contact"])) {
+                                    [item setObject:[venue objectForKey:@"contact"] forKey:@"contact"];
+                                }
+                                if (NOT_NULL([venue objectForKey:@"url"])) {
+                                    [item setObject:[venue objectForKey:@"url"] forKey:@"url"];
                                 }
                                 
                                 // Stats
@@ -444,15 +458,10 @@ hasLoadedOnce = _hasLoadedOnce;
                                     [item setObject:[NSNumber numberWithInteger:256] forKey:@"width"];
                                     [item setObject:[NSNumber numberWithInteger:256] forKey:@"height"];
                                 } else {
-                                    hasPhoto = YES;
                                     NSDictionary *featuredPhotoItem = [[[featuredPhoto objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0];
                                     [item setObject:[featuredPhotoItem objectForKey:@"width"] forKey:@"width"];
                                     [item setObject:[featuredPhotoItem objectForKey:@"height"] forKey:@"height"];
                                     [item setObject:[featuredPhotoItem objectForKey:@"url"] forKey:@"source"];
-                                }
-                                
-                                if (!hasTip && !hasPhoto) {
-                                    continue;
                                 }
                                 
                                 [items addObject:item];

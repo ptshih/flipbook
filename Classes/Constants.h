@@ -30,10 +30,10 @@
 /**
  Constants
  */
-#ifdef DISTRIBUTION
-    #define kSecondsBackgroundedUntilStale 300
-#else
+#ifdef DEBUG
     #define kSecondsBackgroundedUntilStale 5
+#else
+    #define kSecondsBackgroundedUntilStale 300
 
 #endif
 

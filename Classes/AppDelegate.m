@@ -82,7 +82,7 @@ shouldReloadInterface = _shouldReloadInterface;
     
 #ifdef BETA
     [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"113eebcc5c0fdfb14a3508233c3d2a4b"];
-#elsif PRO
+#elif PRO
     [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"b238fc47fd27c516ed929710209f3f91"];
 #else
     [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];
@@ -95,7 +95,7 @@ shouldReloadInterface = _shouldReloadInterface;
     // QUINCY
 #ifdef BETA
     [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"113eebcc5c0fdfb14a3508233c3d2a4b"];
-#elseif PRO
+#elif PRO
     [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"b238fc47fd27c516ed929710209f3f91"];
 #else
     [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];

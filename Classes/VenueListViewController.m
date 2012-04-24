@@ -116,6 +116,11 @@ hasLoadedOnce = _hasLoadedOnce;
 - (void)setupSubviews {
     [super setupSubviews];
     
+    // Empty Label
+    UILabel *emptyLabel = [UILabel labelWithText:@"No Places Found\r\nTry Searching Again" style:@"emptyLabel"];
+    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.collectionView.emptyView = emptyLabel;
+    
     // 4sq attribution
     UIImageView *pb4sq = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]] autorelease];
     pb4sq.contentMode = UIViewContentModeCenter;
@@ -123,12 +128,6 @@ hasLoadedOnce = _hasLoadedOnce;
     // Add gradient
     [pb4sq addGradientLayerWithFrame:CGRectMake(0, 0, pb4sq.width, 8.0) colors:[NSArray arrayWithObjects:(id)RGBACOLOR(0, 0, 0, 0.3).CGColor, (id)RGBACOLOR(0, 0, 0, 0.2).CGColor, (id)RGBACOLOR(0, 0, 0, 0.1).CGColor, (id)RGBACOLOR(0, 0, 0, 0.0).CGColor, nil] locations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.1], [NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:1.0], nil] startPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 1.0)];
     self.collectionView.footerView = pb4sq;
-    
-    UILabel *emptyLabel = [UILabel labelWithText:@"No Places Found\r\nTry Searching Again" style:@"emptyLabel"];
-    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.collectionView.emptyView = emptyLabel;
-    
-    [self.view addSubview:self.collectionView];
     
     [self addRoundedCorners];
 }
@@ -466,7 +465,7 @@ hasLoadedOnce = _hasLoadedOnce;
 }
 
 #pragma mark - PSCollectionViewDelegate
-- (UIView *)collectionView:(PSCollectionView *)collectionView viewAtIndex:(NSInteger)index {
+- (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView viewAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
     VenueView *v = (VenueView *)[self.collectionView dequeueReusableView];
@@ -477,7 +476,6 @@ hasLoadedOnce = _hasLoadedOnce;
     [v fillViewWithObject:item];
     
     return v;
-
 }
 
 - (CGFloat)heightForViewAtIndex:(NSInteger)index {
@@ -486,7 +484,7 @@ hasLoadedOnce = _hasLoadedOnce;
     return [VenueView heightForViewWithObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
-- (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {
+- (void)collectionView:(PSCollectionView *)collectionView didSelectView:(PSCollectionViewCell *)view atIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
     VenueDetailViewController *vc = [[[VenueDetailViewController alloc] initWithDictionary:item] autorelease];

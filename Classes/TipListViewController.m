@@ -69,6 +69,11 @@ rightButton = _rightButton;
 - (void)setupSubviews {
     [super setupSubviews];
     
+    // Empty Label
+    UILabel *emptyLabel = [UILabel labelWithText:@"No Tips Found" style:@"emptyLabel"];
+    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.collectionView.emptyView = emptyLabel;
+    
     // 4sq attribution
     UIImageView *pb4sq = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]] autorelease];
     pb4sq.contentMode = UIViewContentModeCenter;
@@ -76,12 +81,6 @@ rightButton = _rightButton;
     // Add gradient
     [pb4sq addGradientLayerWithFrame:CGRectMake(0, 0, pb4sq.width, 8.0) colors:[NSArray arrayWithObjects:(id)RGBACOLOR(0, 0, 0, 0.3).CGColor, (id)RGBACOLOR(0, 0, 0, 0.2).CGColor, (id)RGBACOLOR(0, 0, 0, 0.1).CGColor, (id)RGBACOLOR(0, 0, 0, 0.0).CGColor, nil] locations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.1], [NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:1.0], nil] startPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 1.0)];
     self.collectionView.footerView = pb4sq;
-    
-    UILabel *emptyLabel = [UILabel labelWithText:@"No Tips Found" style:@"emptyLabel"];
-    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.collectionView.emptyView = emptyLabel;
-    
-    [self.view addSubview:self.collectionView];
     
     [self addRoundedCorners];
 }
@@ -222,7 +221,7 @@ rightButton = _rightButton;
 }
 
 #pragma mark - PSCollectionViewDelegate
-- (UIView *)collectionView:(PSCollectionView *)collectionView viewAtIndex:(NSInteger)index {
+- (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView viewAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
     TipView *v = (TipView *)[self.collectionView dequeueReusableView];
@@ -233,7 +232,6 @@ rightButton = _rightButton;
     [v fillViewWithObject:item];
     
     return v;
-    
 }
 
 - (CGFloat)heightForViewAtIndex:(NSInteger)index {
@@ -241,7 +239,7 @@ rightButton = _rightButton;
     return [TipView heightForViewWithObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
-- (void)collectionView:(PSCollectionView *)collectionView didSelectView:(UIView *)view atIndex:(NSInteger)index {    
+- (void)collectionView:(PSCollectionView *)collectionView didSelectView:(PSCollectionViewCell *)view atIndex:(NSInteger)index {    
 }
 
 @end

@@ -90,7 +90,6 @@
 		281F49C31545BCC10066DD70 /* NSMutableArray+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D048787114EF193A00DE6AC8 /* NSMutableArray+PSKit.m */; };
 		281F49C41545BCC10066DD70 /* PSURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A3AC8714F42A8900748CE7 /* PSURLCache.m */; };
 		281F49C51545BCC10066DD70 /* PSCachedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A3AC8A14F42AA300748CE7 /* PSCachedImageView.m */; };
-		281F49C61545BCC10066DD70 /* PSGalleryView.m in Sources */ = {isa = PBXBuildFile; fileRef = D054E97114F6C41F00B03306 /* PSGalleryView.m */; };
 		281F49C71545BCC10066DD70 /* PSPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D054E98C14F6EE5F00B03306 /* PSPopoverView.m */; };
 		281F49C81545BCC10066DD70 /* Appirater.m in Sources */ = {isa = PBXBuildFile; fileRef = D07B2DC014F750F500304E62 /* Appirater.m */; };
 		281F49C91545BCC10066DD70 /* PSStyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D2EB14F84B8700DEB789 /* PSStyleSheet.m */; };
@@ -410,7 +409,6 @@
 		2843A60B1545B9510089FC73 /* NSMutableArray+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D048787114EF193A00DE6AC8 /* NSMutableArray+PSKit.m */; };
 		2843A60C1545B9510089FC73 /* PSURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A3AC8714F42A8900748CE7 /* PSURLCache.m */; };
 		2843A60D1545B9510089FC73 /* PSCachedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A3AC8A14F42AA300748CE7 /* PSCachedImageView.m */; };
-		2843A60E1545B9510089FC73 /* PSGalleryView.m in Sources */ = {isa = PBXBuildFile; fileRef = D054E97114F6C41F00B03306 /* PSGalleryView.m */; };
 		2843A60F1545B9510089FC73 /* PSPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D054E98C14F6EE5F00B03306 /* PSPopoverView.m */; };
 		2843A6101545B9510089FC73 /* Appirater.m in Sources */ = {isa = PBXBuildFile; fileRef = D07B2DC014F750F500304E62 /* Appirater.m */; };
 		2843A6111545B9510089FC73 /* PSStyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D2EB14F84B8700DEB789 /* PSStyleSheet.m */; };
@@ -833,7 +831,6 @@
 		D03447CE14F7250D00CE226A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D03447CD14F7250D00CE226A /* Icon.png */; };
 		D03447D014F7251000CE226A /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03447CF14F7251000CE226A /* Icon@2x.png */; };
 		D048787214EF193B00DE6AC8 /* NSMutableArray+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D048787114EF193A00DE6AC8 /* NSMutableArray+PSKit.m */; };
-		D054E97214F6C41F00B03306 /* PSGalleryView.m in Sources */ = {isa = PBXBuildFile; fileRef = D054E97114F6C41F00B03306 /* PSGalleryView.m */; };
 		D054E98D14F6EE5F00B03306 /* PSPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D054E98C14F6EE5F00B03306 /* PSPopoverView.m */; };
 		D054E99314F7001D00B03306 /* ButtonBlue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D054E99114F7001D00B03306 /* ButtonBlue@2x.png */; };
 		D054E99414F7001D00B03306 /* ButtonWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D054E99214F7001D00B03306 /* ButtonWhite@2x.png */; };
@@ -1265,8 +1262,6 @@
 		D03447CF14F7251000CE226A /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		D048787014EF193A00DE6AC8 /* NSMutableArray+PSKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+PSKit.h"; sourceTree = "<group>"; };
 		D048787114EF193A00DE6AC8 /* NSMutableArray+PSKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+PSKit.m"; sourceTree = "<group>"; };
-		D054E97014F6C41F00B03306 /* PSGalleryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSGalleryView.h; sourceTree = "<group>"; };
-		D054E97114F6C41F00B03306 /* PSGalleryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSGalleryView.m; sourceTree = "<group>"; };
 		D054E98B14F6EE5E00B03306 /* PSPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPopoverView.h; sourceTree = "<group>"; };
 		D054E98C14F6EE5F00B03306 /* PSPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPopoverView.m; sourceTree = "<group>"; };
 		D054E99114F7001D00B03306 /* ButtonBlue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonBlue@2x.png"; sourceTree = "<group>"; };
@@ -2212,8 +2207,6 @@
 			children = (
 				D031558814E5AB8B00CC8572 /* PSCollectionView.h */,
 				D031558914E5AB8B00CC8572 /* PSCollectionView.m */,
-				D054E97014F6C41F00B03306 /* PSGalleryView.h */,
-				D054E97114F6C41F00B03306 /* PSGalleryView.m */,
 				282E821D1515F0E8000B8566 /* PSCollectionViewCell.h */,
 				282E821E1515F0E8000B8566 /* PSCollectionViewCell.m */,
 			);
@@ -3199,7 +3192,6 @@
 				281F49C31545BCC10066DD70 /* NSMutableArray+PSKit.m in Sources */,
 				281F49C41545BCC10066DD70 /* PSURLCache.m in Sources */,
 				281F49C51545BCC10066DD70 /* PSCachedImageView.m in Sources */,
-				281F49C61545BCC10066DD70 /* PSGalleryView.m in Sources */,
 				281F49C71545BCC10066DD70 /* PSPopoverView.m in Sources */,
 				281F49C81545BCC10066DD70 /* Appirater.m in Sources */,
 				281F49C91545BCC10066DD70 /* PSStyleSheet.m in Sources */,
@@ -3313,7 +3305,6 @@
 				D048787214EF193B00DE6AC8 /* NSMutableArray+PSKit.m in Sources */,
 				D0A3AC8814F42A8900748CE7 /* PSURLCache.m in Sources */,
 				D0A3AC8B14F42AA300748CE7 /* PSCachedImageView.m in Sources */,
-				D054E97214F6C41F00B03306 /* PSGalleryView.m in Sources */,
 				D054E98D14F6EE5F00B03306 /* PSPopoverView.m in Sources */,
 				D07B2DC114F750F500304E62 /* Appirater.m in Sources */,
 				D031D2ED14F84B8700DEB789 /* PSStyleSheet.m in Sources */,
@@ -3427,7 +3418,6 @@
 				2843A60B1545B9510089FC73 /* NSMutableArray+PSKit.m in Sources */,
 				2843A60C1545B9510089FC73 /* PSURLCache.m in Sources */,
 				2843A60D1545B9510089FC73 /* PSCachedImageView.m in Sources */,
-				2843A60E1545B9510089FC73 /* PSGalleryView.m in Sources */,
 				2843A60F1545B9510089FC73 /* PSPopoverView.m in Sources */,
 				2843A6101545B9510089FC73 /* Appirater.m in Sources */,
 				2843A6111545B9510089FC73 /* PSStyleSheet.m in Sources */,

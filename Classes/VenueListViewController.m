@@ -114,22 +114,7 @@ hasLoadedOnce = _hasLoadedOnce;
 
 #pragma mark - Config Subviews
 - (void)setupSubviews {
-    [self setupHeader];
-    
-    self.collectionView = [[[PSCollectionView alloc] initWithFrame:CGRectMake(0, self.headerView.bottom, self.view.width, self.view.height - self.headerView.height)] autorelease];
-    self.collectionView.delegate = self;
-    self.collectionView.collectionViewDelegate = self;
-    self.collectionView.collectionViewDataSource = self;
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  
-    if (isDeviceIPad()) {
-        self.collectionView.numColsPortrait = 4;
-        self.collectionView.numColsLandscape = 5;
-    } else {
-        self.collectionView.numColsPortrait = 2;
-        self.collectionView.numColsLandscape = 3;
-    }
+    [super setupSubviews];
     
     // 4sq attribution
     UIImageView *pb4sq = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]] autorelease];

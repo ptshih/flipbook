@@ -21,6 +21,8 @@ homeCityLabel = _homeCityLabel;
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
+        
         UIImage *shadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
         UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
         shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

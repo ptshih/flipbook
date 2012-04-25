@@ -214,6 +214,7 @@ loadingLabel = _loadingLabel;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         if ([[item objectForKey:@"title"] isEqualToString:@"Rating"]) {
             PSCachedImageView *iv = [[[PSCachedImageView alloc] initWithFrame:CGRectMake(0, 0, 111, 20)] autorelease];
+            iv.backgroundColor = [UIColor clearColor];
             [iv loadImageWithURL:[NSURL URLWithString:[item objectForKey:@"subtitle"]] cacheType:PSURLCacheTypePermanent];
             
             cell.textLabel.text = [NSString stringWithFormat:@"%@", [item objectForKey:@"title"]];

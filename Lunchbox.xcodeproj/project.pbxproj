@@ -882,6 +882,12 @@
 		D0ACA545150043FF00681176 /* NavButtonRightBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ACA539150043FF00681176 /* NavButtonRightBlack@2x.png */; };
 		D0ACA546150043FF00681176 /* NavButtonRightWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ACA53A150043FF00681176 /* NavButtonRightWhite.png */; };
 		D0ACA547150043FF00681176 /* NavButtonRightWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ACA53B150043FF00681176 /* NavButtonRightWhite@2x.png */; };
+		D0BBA7AF1548819D006CD0B7 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; };
+		D0BBA7B01548819D006CD0B7 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; };
+		D0BBA7B11548819D006CD0B7 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; };
+		D0BBA7B21548819D006CD0B7 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */; };
+		D0BBA7B31548819D006CD0B7 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */; };
+		D0BBA7B41548819D006CD0B7 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */; };
 		D0C5BFE814F75B960041A364 /* ButtonFacebookHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFE614F75B960041A364 /* ButtonFacebookHighlighted@2x.png */; };
 		D0C5BFE914F75B960041A364 /* ButtonFacebookHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFE714F75B960041A364 /* ButtonFacebookHighlighted.png */; };
 		D0C5BFED14F75C4B0041A364 /* ButtonFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFEB14F75C4B0041A364 /* ButtonFacebook.png */; };
@@ -1336,6 +1342,12 @@
 		D0ACA539150043FF00681176 /* NavButtonRightBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavButtonRightBlack@2x.png"; sourceTree = "<group>"; };
 		D0ACA53A150043FF00681176 /* NavButtonRightWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavButtonRightWhite.png; sourceTree = "<group>"; };
 		D0ACA53B150043FF00681176 /* NavButtonRightWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavButtonRightWhite@2x.png"; sourceTree = "<group>"; };
+		D0BBA7A91548819D006CD0B7 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
+		D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
+		D0BBA7AB1548819D006CD0B7 /* TapjoyConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapjoyConnect.h; sourceTree = "<group>"; };
+		D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapjoyConnect.m; sourceTree = "<group>"; };
+		D0BBA7AD1548819D006CD0B7 /* TapjoyConnectConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapjoyConnectConstants.h; sourceTree = "<group>"; };
+		D0BBA7AE1548819D006CD0B7 /* TJCConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJCConfig.h; sourceTree = "<group>"; };
 		D0C5BFE614F75B960041A364 /* ButtonFacebookHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonFacebookHighlighted@2x.png"; sourceTree = "<group>"; };
 		D0C5BFE714F75B960041A364 /* ButtonFacebookHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonFacebookHighlighted.png; sourceTree = "<group>"; };
 		D0C5BFEB14F75C4B0041A364 /* ButtonFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonFacebook.png; sourceTree = "<group>"; };
@@ -2344,6 +2356,7 @@
 		D07B2DBD14F750F400304E62 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				D0BBA7A61548819D006CD0B7 /* TapjoyConnect */,
 				28F84E7D1534FC13003F698F /* FlurryAnalytics */,
 				28F84E801534FC13003F698F /* FlurryAppCircle */,
 				D0C5C00914F76E520041A364 /* Localytics */,
@@ -2387,6 +2400,35 @@
 				D0ACA53B150043FF00681176 /* NavButtonRightWhite@2x.png */,
 			);
 			name = Nav;
+			sourceTree = "<group>";
+		};
+		D0BBA7A61548819D006CD0B7 /* TapjoyConnect */ = {
+			isa = PBXGroup;
+			children = (
+				D0BBA7A71548819D006CD0B7 /* Components */,
+				D0BBA7AB1548819D006CD0B7 /* TapjoyConnect.h */,
+				D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */,
+				D0BBA7AD1548819D006CD0B7 /* TapjoyConnectConstants.h */,
+				D0BBA7AE1548819D006CD0B7 /* TJCConfig.h */,
+			);
+			path = TapjoyConnect;
+			sourceTree = "<group>";
+		};
+		D0BBA7A71548819D006CD0B7 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D0BBA7A81548819D006CD0B7 /* TJCExtensions */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		D0BBA7A81548819D006CD0B7 /* TJCExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				D0BBA7A91548819D006CD0B7 /* OpenUDID.h */,
+				D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */,
+			);
+			path = TJCExtensions;
 			sourceTree = "<group>";
 		};
 		D0C5C00914F76E520041A364 /* Localytics */ = {
@@ -3232,6 +3274,8 @@
 				281F49ED1545BCC10066DD70 /* CategoryListViewController.m in Sources */,
 				281F49EE1545BCC10066DD70 /* YelpPopoverView.m in Sources */,
 				281F49EF1545BCC10066DD70 /* PSAlertView.m in Sources */,
+				D0BBA7B11548819D006CD0B7 /* OpenUDID.m in Sources */,
+				D0BBA7B41548819D006CD0B7 /* TapjoyConnect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3345,6 +3389,8 @@
 				284B1DBE152F6296000F2BAE /* CategoryListViewController.m in Sources */,
 				28DEE593152FA06500458D8D /* YelpPopoverView.m in Sources */,
 				28888D2515358071001743CA /* PSAlertView.m in Sources */,
+				D0BBA7AF1548819D006CD0B7 /* OpenUDID.m in Sources */,
+				D0BBA7B21548819D006CD0B7 /* TapjoyConnect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3458,6 +3504,8 @@
 				2843A6351545B9510089FC73 /* CategoryListViewController.m in Sources */,
 				2843A6361545B9510089FC73 /* YelpPopoverView.m in Sources */,
 				2843A6371545B9510089FC73 /* PSAlertView.m in Sources */,
+				D0BBA7B01548819D006CD0B7 /* OpenUDID.m in Sources */,
+				D0BBA7B31548819D006CD0B7 /* TapjoyConnect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

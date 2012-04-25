@@ -19,6 +19,8 @@
 #import "FlurryAnalytics.h"
 #import "FlurryAppCircle.h"
 
+#import "TapjoyConnect.h"
+
 @interface AppDelegate () <BWHockeyManagerDelegate, BWQuincyManagerDelegate>
 
 @property (nonatomic, retain) UIImageView *splashImage;
@@ -106,6 +108,9 @@ shouldReloadInterface = _shouldReloadInterface;
     
     [FlurryAppCircle setAppCircleEnabled:YES];
     [FlurryAnalytics startSession:@"UTWDBDPVIEUCJ9PNBI2H"];
+    
+    // TapJoy
+    [TapjoyConnect requestTapjoyConnect:@"af5f1a49-b4bb-4f7f-8482-01489f1be53b" secretKey:@"1xRqieVumpivrDFdOHrF"];
     
     [Appirater appLaunched:YES];
     

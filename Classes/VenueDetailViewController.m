@@ -9,7 +9,7 @@
 #import "VenueDetailViewController.h"
 #import "TipListViewController.h"
 #import "CheckinViewController.h"
-#import "PhotoCategoryViewController.h"
+#import "PhotoTagsViewController.h"
 
 #import "PhotoView.h"
 #import "PSZoomView.h"
@@ -348,7 +348,7 @@ mapView = _mapView;
 
 - (void)rightAction {
     // Take a photo
-    PhotoCategoryViewController *vc = [[[PhotoCategoryViewController alloc] initWithDictionary:self.venueDict] autorelease];
+    PhotoTagsViewController *vc = [[[PhotoTagsViewController alloc] initWithDictionary:self.venueDict] autorelease];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 
 //    // Checkin

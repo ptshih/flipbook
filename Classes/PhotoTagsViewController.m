@@ -1,16 +1,18 @@
 //
-//  PhotoCategoryViewController.m
+//  PhotoTagsViewController.m
 //  Lunchbox
 //
 //  Created by Peter Shih on 5/1/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "PhotoCategoryViewController.h"
+#import "PhotoTagsViewController.h"
 
-@interface PhotoCategoryViewController ()
+@interface PhotoTagsViewController ()
 
 @property (nonatomic, copy) NSDictionary *venueDict;
+@property (nonatomic, retain) NSMutableArray *tags;
+@property (nonatomic, retain) NSMutableArray *buttons;
 
 @property (nonatomic, assign) UIButton *leftButton;
 @property (nonatomic, assign) UIButton *centerButton;
@@ -18,10 +20,12 @@
 
 @end
 
-@implementation PhotoCategoryViewController
+@implementation PhotoTagsViewController
 
 @synthesize
-venueDict;
+venueDict,
+tags,
+buttons;
 
 @synthesize
 leftButton = _leftButton,
@@ -32,6 +36,8 @@ rightButton = _rightButton;
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
         self.venueDict = dictionary;
+        self.tags = [NSMutableArray array];
+        self.buttons = [NSMutableArray array];
         
         self.shouldAddRoundedCorners = YES;
     }
@@ -44,6 +50,8 @@ rightButton = _rightButton;
 
 - (void)dealloc {
     self.venueDict = nil;
+    self.tags = nil;
+    self.buttons = nil;
     
     [super dealloc];
 }
@@ -64,6 +72,39 @@ rightButton = _rightButton;
     
     [self setupHeader];
     
+    // Grid of 4 categories
+    [self.tags addObject:@"food"];
+    [self.tags addObject:@"drink"];
+    [self.tags addObject:@"ambiance"];
+    [self.tags addObject:@"people"];
+    
+    CGFloat top = self.headerView.bottom + 8.0;
+    CGFloat left = 8.0;
+    CGFloat width = floorf((self.view.width - 24.0) / 2.0);
+    CGFloat height = floorf((self.view.height - self.headerView.height - self.footerView.height - 24.0) / 2.0);
+    
+    UIButton *button = nil;
+    
+    int i = 0;
+    for (NSString *tag in self.tags) {
+        int col = i % 2;
+        int row = i / 2;
+        button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(left + col * 8.0 + col * width, top + row * 8.0 + row * height, width, height);
+        [button setBackgroundImage:[[UIImage imageNamed:@"AddPhotoBackground"] stretchableImageWithLeftCapWidth:17 topCapHeight:17] forState:UIControlStateNormal];
+        [button setTitle:tag forState:UIControlStateNormal];
+//        [button setImage:[UIImage imageNamed:@"AddPhoto"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(selectTag:) forControlEvents:UIControlEventTouchUpInside];
+        
+        button.layer.borderColor = [RGBACOLOR(200, 200, 200, 1.0) CGColor];
+        button.layer.borderWidth = 0.5;
+        button.layer.masksToBounds = YES;
+        [self.view addSubview:button];
+        
+        [self.buttons addObject:button];
+        
+        i++;
+    }
 }
 
 - (void)setupHeader {
@@ -107,6 +148,15 @@ rightButton = _rightButton;
 }
 
 - (void)rightAction {
+}
+
+- (void)selectTag:(UIButton *)button {
+    NSInteger index = [self.buttons indexOfObject:button];
+    NSString *tag = [self.tags objectAtIndex:index];
+    
+    // tag selected, push photo selector
+    NSLog(@"tag: %@", tag);
+    
 }
 
 @end

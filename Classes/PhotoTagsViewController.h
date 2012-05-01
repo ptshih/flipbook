@@ -1,5 +1,5 @@
 //
-//  PhotoCategoryViewController.h
+//  PhotoTagsViewController.h
 //  Lunchbox
 //
 //  Created by Peter Shih on 5/1/12.
@@ -8,7 +8,7 @@
 
 #import "PSViewController.h"
 
-@interface PhotoCategoryViewController : PSViewController
+@interface PhotoTagsViewController : PSViewController
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

@@ -174,7 +174,7 @@ mapView = _mapView;
         [mapView addSubview:addressIcon];
         addressIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
-        addressLabel = [UILabel labelWithStyle:@"attributedLabel"];
+        addressLabel = [UILabel labelWithStyle:@"subtitleLabel"];
         [mapView addSubview:addressLabel];
         addressLabel.backgroundColor = mapView.backgroundColor;
         addressLabel.text = [self.venueDict objectForKey:@"formattedAddress"];

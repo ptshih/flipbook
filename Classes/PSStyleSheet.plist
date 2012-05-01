@@ -280,9 +280,9 @@
 	<key>attributedLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeueLT-MediumCond</string>
+		<string>Gotham-Book</string>
 		<key>fontSize</key>
-		<integer>13</integer>
+		<integer>10</integer>
 		<key>textColor</key>
 		<string>0x4c4c4c</string>
 		<key>highlightedTextColor</key>
@@ -303,7 +303,7 @@
 		<key>fontName</key>
 		<string>HelveticaNeueLT-BoldCond</string>
 		<key>fontSize</key>
-		<integer>13</integer>
+		<integer>12</integer>
 		<key>textColor</key>
 		<string>0x2a2a2a</string>
 		<key>highlightedTextColor</key>
@@ -322,9 +322,9 @@
 	<key>categoryHeadline</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
+		<string>Gotham-Bold</string>
 		<key>fontSize</key>
-		<integer>24</integer>
+		<integer>18</integer>
 		<key>textColor</key>
 		<string>0x2a2a2a</string>
 		<key>highlightedTextColor</key>

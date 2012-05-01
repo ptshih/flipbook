@@ -16,6 +16,105 @@
 		2808C3E5151D33A300763095 /* TTTURLRequestFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3DE151D33A300763095 /* TTTURLRequestFormatter.m */; };
 		2808C3F6151D358400763095 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2808C3E9151D358400763095 /* FBDialog.bundle */; };
 		2808C3F7151D358400763095 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2808C3EF151D358400763095 /* libfacebook_ios_sdk.a */; };
+		280A2802154FAF9E00D1728A /* Gotham-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E0154FAF9E00D1728A /* Gotham-Black.otf */; };
+		280A2803154FAF9E00D1728A /* Gotham-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E0154FAF9E00D1728A /* Gotham-Black.otf */; };
+		280A2804154FAF9E00D1728A /* Gotham-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E0154FAF9E00D1728A /* Gotham-Black.otf */; };
+		280A2805154FAF9E00D1728A /* Gotham-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E1154FAF9E00D1728A /* Gotham-BlackItalic.otf */; };
+		280A2806154FAF9E00D1728A /* Gotham-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E1154FAF9E00D1728A /* Gotham-BlackItalic.otf */; };
+		280A2807154FAF9E00D1728A /* Gotham-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E1154FAF9E00D1728A /* Gotham-BlackItalic.otf */; };
+		280A2808154FAF9E00D1728A /* Gotham-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E2154FAF9E00D1728A /* Gotham-Bold.otf */; };
+		280A2809154FAF9E00D1728A /* Gotham-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E2154FAF9E00D1728A /* Gotham-Bold.otf */; };
+		280A280A154FAF9E00D1728A /* Gotham-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E2154FAF9E00D1728A /* Gotham-Bold.otf */; };
+		280A280B154FAF9E00D1728A /* Gotham-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E3154FAF9E00D1728A /* Gotham-BoldItalic.otf */; };
+		280A280C154FAF9E00D1728A /* Gotham-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E3154FAF9E00D1728A /* Gotham-BoldItalic.otf */; };
+		280A280D154FAF9E00D1728A /* Gotham-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E3154FAF9E00D1728A /* Gotham-BoldItalic.otf */; };
+		280A280E154FAF9E00D1728A /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E4154FAF9E00D1728A /* Gotham-Book.otf */; };
+		280A280F154FAF9E00D1728A /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E4154FAF9E00D1728A /* Gotham-Book.otf */; };
+		280A2810154FAF9E00D1728A /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E4154FAF9E00D1728A /* Gotham-Book.otf */; };
+		280A2811154FAF9E00D1728A /* Gotham-BookItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E5154FAF9E00D1728A /* Gotham-BookItalic.otf */; };
+		280A2812154FAF9E00D1728A /* Gotham-BookItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E5154FAF9E00D1728A /* Gotham-BookItalic.otf */; };
+		280A2813154FAF9E00D1728A /* Gotham-BookItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E5154FAF9E00D1728A /* Gotham-BookItalic.otf */; };
+		280A2814154FAF9E00D1728A /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E6154FAF9E00D1728A /* Gotham-Light.otf */; };
+		280A2815154FAF9E00D1728A /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E6154FAF9E00D1728A /* Gotham-Light.otf */; };
+		280A2816154FAF9E00D1728A /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E6154FAF9E00D1728A /* Gotham-Light.otf */; };
+		280A2817154FAF9E00D1728A /* Gotham-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E7154FAF9E00D1728A /* Gotham-LightItalic.otf */; };
+		280A2818154FAF9E00D1728A /* Gotham-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E7154FAF9E00D1728A /* Gotham-LightItalic.otf */; };
+		280A2819154FAF9E00D1728A /* Gotham-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E7154FAF9E00D1728A /* Gotham-LightItalic.otf */; };
+		280A281A154FAF9E00D1728A /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E8154FAF9E00D1728A /* Gotham-Medium.otf */; };
+		280A281B154FAF9E00D1728A /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E8154FAF9E00D1728A /* Gotham-Medium.otf */; };
+		280A281C154FAF9E00D1728A /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E8154FAF9E00D1728A /* Gotham-Medium.otf */; };
+		280A281D154FAF9E00D1728A /* Gotham-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E9154FAF9E00D1728A /* Gotham-MediumItalic.otf */; };
+		280A281E154FAF9E00D1728A /* Gotham-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E9154FAF9E00D1728A /* Gotham-MediumItalic.otf */; };
+		280A281F154FAF9E00D1728A /* Gotham-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27E9154FAF9E00D1728A /* Gotham-MediumItalic.otf */; };
+		280A2820154FAF9E00D1728A /* Gotham-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EA154FAF9E00D1728A /* Gotham-Thin.otf */; };
+		280A2821154FAF9E00D1728A /* Gotham-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EA154FAF9E00D1728A /* Gotham-Thin.otf */; };
+		280A2822154FAF9E00D1728A /* Gotham-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EA154FAF9E00D1728A /* Gotham-Thin.otf */; };
+		280A2823154FAF9E00D1728A /* Gotham-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EB154FAF9E00D1728A /* Gotham-ThinItalic.otf */; };
+		280A2824154FAF9E00D1728A /* Gotham-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EB154FAF9E00D1728A /* Gotham-ThinItalic.otf */; };
+		280A2825154FAF9E00D1728A /* Gotham-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EB154FAF9E00D1728A /* Gotham-ThinItalic.otf */; };
+		280A2826154FAF9E00D1728A /* Gotham-Ultra.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EC154FAF9E00D1728A /* Gotham-Ultra.otf */; };
+		280A2827154FAF9E00D1728A /* Gotham-Ultra.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EC154FAF9E00D1728A /* Gotham-Ultra.otf */; };
+		280A2828154FAF9E00D1728A /* Gotham-Ultra.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EC154FAF9E00D1728A /* Gotham-Ultra.otf */; };
+		280A2829154FAF9E00D1728A /* Gotham-UltraItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27ED154FAF9E00D1728A /* Gotham-UltraItalic.otf */; };
+		280A282A154FAF9E00D1728A /* Gotham-UltraItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27ED154FAF9E00D1728A /* Gotham-UltraItalic.otf */; };
+		280A282B154FAF9E00D1728A /* Gotham-UltraItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27ED154FAF9E00D1728A /* Gotham-UltraItalic.otf */; };
+		280A282C154FAF9E00D1728A /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EE154FAF9E00D1728A /* Gotham-XLight.otf */; };
+		280A282D154FAF9E00D1728A /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EE154FAF9E00D1728A /* Gotham-XLight.otf */; };
+		280A282E154FAF9E00D1728A /* Gotham-XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EE154FAF9E00D1728A /* Gotham-XLight.otf */; };
+		280A282F154FAF9E00D1728A /* Gotham-XLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EF154FAF9E00D1728A /* Gotham-XLightItalic.otf */; };
+		280A2830154FAF9E00D1728A /* Gotham-XLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EF154FAF9E00D1728A /* Gotham-XLightItalic.otf */; };
+		280A2831154FAF9E00D1728A /* Gotham-XLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27EF154FAF9E00D1728A /* Gotham-XLightItalic.otf */; };
+		280A2832154FAF9E00D1728A /* GothamRnd-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F0154FAF9E00D1728A /* GothamRnd-Bold.otf */; };
+		280A2833154FAF9E00D1728A /* GothamRnd-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F0154FAF9E00D1728A /* GothamRnd-Bold.otf */; };
+		280A2834154FAF9E00D1728A /* GothamRnd-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F0154FAF9E00D1728A /* GothamRnd-Bold.otf */; };
+		280A2835154FAF9E00D1728A /* GothamRnd-BoldIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F1154FAF9E00D1728A /* GothamRnd-BoldIta.otf */; };
+		280A2836154FAF9E00D1728A /* GothamRnd-BoldIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F1154FAF9E00D1728A /* GothamRnd-BoldIta.otf */; };
+		280A2837154FAF9E00D1728A /* GothamRnd-BoldIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F1154FAF9E00D1728A /* GothamRnd-BoldIta.otf */; };
+		280A2838154FAF9E00D1728A /* GothamRnd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F2154FAF9E00D1728A /* GothamRnd-Book.otf */; };
+		280A2839154FAF9E00D1728A /* GothamRnd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F2154FAF9E00D1728A /* GothamRnd-Book.otf */; };
+		280A283A154FAF9E00D1728A /* GothamRnd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F2154FAF9E00D1728A /* GothamRnd-Book.otf */; };
+		280A283B154FAF9E00D1728A /* GothamRnd-BookIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F3154FAF9E00D1728A /* GothamRnd-BookIta.otf */; };
+		280A283C154FAF9E00D1728A /* GothamRnd-BookIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F3154FAF9E00D1728A /* GothamRnd-BookIta.otf */; };
+		280A283D154FAF9E00D1728A /* GothamRnd-BookIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F3154FAF9E00D1728A /* GothamRnd-BookIta.otf */; };
+		280A283E154FAF9E00D1728A /* GothamRnd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F4154FAF9E00D1728A /* GothamRnd-Light.otf */; };
+		280A283F154FAF9E00D1728A /* GothamRnd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F4154FAF9E00D1728A /* GothamRnd-Light.otf */; };
+		280A2840154FAF9E00D1728A /* GothamRnd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F4154FAF9E00D1728A /* GothamRnd-Light.otf */; };
+		280A2841154FAF9E00D1728A /* GothamRnd-LightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F5154FAF9E00D1728A /* GothamRnd-LightIta.otf */; };
+		280A2842154FAF9E00D1728A /* GothamRnd-LightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F5154FAF9E00D1728A /* GothamRnd-LightIta.otf */; };
+		280A2843154FAF9E00D1728A /* GothamRnd-LightIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F5154FAF9E00D1728A /* GothamRnd-LightIta.otf */; };
+		280A2844154FAF9E00D1728A /* GothamRnd-MedIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F6154FAF9E00D1728A /* GothamRnd-MedIta.otf */; };
+		280A2845154FAF9E00D1728A /* GothamRnd-MedIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F6154FAF9E00D1728A /* GothamRnd-MedIta.otf */; };
+		280A2846154FAF9E00D1728A /* GothamRnd-MedIta.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F6154FAF9E00D1728A /* GothamRnd-MedIta.otf */; };
+		280A2847154FAF9E00D1728A /* GothamRnd-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F7154FAF9E00D1728A /* GothamRnd-Medium.otf */; };
+		280A2848154FAF9E00D1728A /* GothamRnd-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F7154FAF9E00D1728A /* GothamRnd-Medium.otf */; };
+		280A2849154FAF9E00D1728A /* GothamRnd-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F7154FAF9E00D1728A /* GothamRnd-Medium.otf */; };
+		280A284A154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F9154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed Oblique.otf */; };
+		280A284B154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F9154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed Oblique.otf */; };
+		280A284C154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27F9154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed Oblique.otf */; };
+		280A284D154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FA154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed.ttf */; };
+		280A284E154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FA154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed.ttf */; };
+		280A284F154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FA154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed.ttf */; };
+		280A2850154FAF9E00D1728A /* Helvetica LT 47 Light Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FB154FAF9E00D1728A /* Helvetica LT 47 Light Condensed.ttf */; };
+		280A2851154FAF9E00D1728A /* Helvetica LT 47 Light Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FB154FAF9E00D1728A /* Helvetica LT 47 Light Condensed.ttf */; };
+		280A2852154FAF9E00D1728A /* Helvetica LT 47 Light Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FB154FAF9E00D1728A /* Helvetica LT 47 Light Condensed.ttf */; };
+		280A2853154FAF9E00D1728A /* Helvetica LT 57 Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FC154FAF9E00D1728A /* Helvetica LT 57 Condensed Oblique.otf */; };
+		280A2854154FAF9E00D1728A /* Helvetica LT 57 Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FC154FAF9E00D1728A /* Helvetica LT 57 Condensed Oblique.otf */; };
+		280A2855154FAF9E00D1728A /* Helvetica LT 57 Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FC154FAF9E00D1728A /* Helvetica LT 57 Condensed Oblique.otf */; };
+		280A2856154FAF9E00D1728A /* Helvetica LT 57 Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FD154FAF9E00D1728A /* Helvetica LT 57 Condensed.ttf */; };
+		280A2857154FAF9E00D1728A /* Helvetica LT 57 Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FD154FAF9E00D1728A /* Helvetica LT 57 Condensed.ttf */; };
+		280A2858154FAF9E00D1728A /* Helvetica LT 57 Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FD154FAF9E00D1728A /* Helvetica LT 57 Condensed.ttf */; };
+		280A2859154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FE154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed Oblique.otf */; };
+		280A285A154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FE154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed Oblique.otf */; };
+		280A285B154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FE154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed Oblique.otf */; };
+		280A285C154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FF154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf */; };
+		280A285D154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FF154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf */; };
+		280A285E154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A27FF154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf */; };
+		280A285F154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A2800154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf */; };
+		280A2860154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A2800154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf */; };
+		280A2861154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 280A2800154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf */; };
+		280A2862154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A2801154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf */; };
+		280A2863154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A2801154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf */; };
+		280A2864154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A2801154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf */; };
 		280F1AFF1535A8F500221ABC /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 280F1AFE1535A8F500221ABC /* Default-Portrait@2x~ipad.png */; };
 		280F5F70154FA2C800DA05AF /* PhotoTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 280F5F6F154FA2C800DA05AF /* PhotoTagsViewController.m */; };
 		280F5F71154FA2C800DA05AF /* PhotoTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 280F5F6F154FA2C800DA05AF /* PhotoTagsViewController.m */; };
@@ -219,15 +318,6 @@
 		281F4A451545BCC10066DD70 /* BackgroundPostIt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFFE14F766C80041A364 /* BackgroundPostIt@2x.png */; };
 		281F4A461545BCC10066DD70 /* Quincy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D031D48314F84CC300DEB789 /* Quincy.bundle */; };
 		281F4A471545BCC10066DD70 /* Hockey.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D031D4AC14F84CDA00DEB789 /* Hockey.bundle */; };
-		281F4A481545BCC10066DD70 /* Helvetica LT 37 Thin Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4CE14F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed Oblique.otf */; };
-		281F4A491545BCC10066DD70 /* Helvetica LT 37 Thin Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4CF14F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed.ttf */; };
-		281F4A4A1545BCC10066DD70 /* Helvetica LT 47 Light Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D014F84D2F00DEB789 /* Helvetica LT 47 Light Condensed.ttf */; };
-		281F4A4B1545BCC10066DD70 /* Helvetica LT 57 Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D114F84D2F00DEB789 /* Helvetica LT 57 Condensed Oblique.otf */; };
-		281F4A4C1545BCC10066DD70 /* Helvetica LT 57 Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D214F84D2F00DEB789 /* Helvetica LT 57 Condensed.ttf */; };
-		281F4A4D1545BCC10066DD70 /* Helvetica LT 67 Medium Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D314F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed Oblique.otf */; };
-		281F4A4E1545BCC10066DD70 /* Helvetica LT 67 Medium Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D414F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed.ttf */; };
-		281F4A4F1545BCC10066DD70 /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D514F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed Oblique.otf */; };
-		281F4A501545BCC10066DD70 /* Helvetica LT 77 Bold Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D614F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed.ttf */; };
 		281F4A511545BCC10066DD70 /* PinVenueBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068314F9C6E400140D9E /* PinVenueBlue.png */; };
 		281F4A521545BCC10066DD70 /* PinVenueBlue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068414F9C6E400140D9E /* PinVenueBlue@2x.png */; };
 		281F4A531545BCC10066DD70 /* IconPinBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068B14F9CE1F00140D9E /* IconPinBlack.png */; };
@@ -538,15 +628,6 @@
 		2843A68D1545B9510089FC73 /* BackgroundPostIt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFFE14F766C80041A364 /* BackgroundPostIt@2x.png */; };
 		2843A68E1545B9510089FC73 /* Quincy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D031D48314F84CC300DEB789 /* Quincy.bundle */; };
 		2843A68F1545B9510089FC73 /* Hockey.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D031D4AC14F84CDA00DEB789 /* Hockey.bundle */; };
-		2843A6901545B9510089FC73 /* Helvetica LT 37 Thin Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4CE14F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed Oblique.otf */; };
-		2843A6911545B9510089FC73 /* Helvetica LT 37 Thin Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4CF14F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed.ttf */; };
-		2843A6921545B9510089FC73 /* Helvetica LT 47 Light Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D014F84D2F00DEB789 /* Helvetica LT 47 Light Condensed.ttf */; };
-		2843A6931545B9510089FC73 /* Helvetica LT 57 Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D114F84D2F00DEB789 /* Helvetica LT 57 Condensed Oblique.otf */; };
-		2843A6941545B9510089FC73 /* Helvetica LT 57 Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D214F84D2F00DEB789 /* Helvetica LT 57 Condensed.ttf */; };
-		2843A6951545B9510089FC73 /* Helvetica LT 67 Medium Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D314F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed Oblique.otf */; };
-		2843A6961545B9510089FC73 /* Helvetica LT 67 Medium Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D414F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed.ttf */; };
-		2843A6971545B9510089FC73 /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D514F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed Oblique.otf */; };
-		2843A6981545B9510089FC73 /* Helvetica LT 77 Bold Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D614F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed.ttf */; };
 		2843A6991545B9510089FC73 /* PinVenueBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068314F9C6E400140D9E /* PinVenueBlue.png */; };
 		2843A69A1545B9510089FC73 /* PinVenueBlue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068414F9C6E400140D9E /* PinVenueBlue@2x.png */; };
 		2843A69B1545B9510089FC73 /* IconPinBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068B14F9CE1F00140D9E /* IconPinBlack.png */; };
@@ -822,15 +903,6 @@
 		D031D4C514F84CDA00DEB789 /* PSWebTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4A914F84CDA00DEB789 /* PSWebTableViewCell.m */; };
 		D031D4C614F84CDA00DEB789 /* UIImage+HockeyAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4AB14F84CDA00DEB789 /* UIImage+HockeyAdditions.m */; };
 		D031D4C714F84CDA00DEB789 /* Hockey.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D031D4AC14F84CDA00DEB789 /* Hockey.bundle */; };
-		D031D4D714F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4CE14F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed Oblique.otf */; };
-		D031D4D814F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4CF14F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed.ttf */; };
-		D031D4D914F84D2F00DEB789 /* Helvetica LT 47 Light Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D014F84D2F00DEB789 /* Helvetica LT 47 Light Condensed.ttf */; };
-		D031D4DA14F84D2F00DEB789 /* Helvetica LT 57 Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D114F84D2F00DEB789 /* Helvetica LT 57 Condensed Oblique.otf */; };
-		D031D4DB14F84D2F00DEB789 /* Helvetica LT 57 Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D214F84D2F00DEB789 /* Helvetica LT 57 Condensed.ttf */; };
-		D031D4DC14F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D314F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed Oblique.otf */; };
-		D031D4DD14F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D414F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed.ttf */; };
-		D031D4DE14F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D514F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed Oblique.otf */; };
-		D031D4DF14F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D031D4D614F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed.ttf */; };
 		D03447CE14F7250D00CE226A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D03447CD14F7250D00CE226A /* Icon.png */; };
 		D03447D014F7251000CE226A /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03447CF14F7251000CE226A /* Icon@2x.png */; };
 		D048787214EF193B00DE6AC8 /* NSMutableArray+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D048787114EF193A00DE6AC8 /* NSMutableArray+PSKit.m */; };
@@ -977,6 +1049,39 @@
 		2808C3F3151D358400763095 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
 		2808C3F4151D358400763095 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		2808C3F5151D358400763095 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		280A27E0154FAF9E00D1728A /* Gotham-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Black.otf"; sourceTree = "<group>"; };
+		280A27E1154FAF9E00D1728A /* Gotham-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-BlackItalic.otf"; sourceTree = "<group>"; };
+		280A27E2154FAF9E00D1728A /* Gotham-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Bold.otf"; sourceTree = "<group>"; };
+		280A27E3154FAF9E00D1728A /* Gotham-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-BoldItalic.otf"; sourceTree = "<group>"; };
+		280A27E4154FAF9E00D1728A /* Gotham-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Book.otf"; sourceTree = "<group>"; };
+		280A27E5154FAF9E00D1728A /* Gotham-BookItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-BookItalic.otf"; sourceTree = "<group>"; };
+		280A27E6154FAF9E00D1728A /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
+		280A27E7154FAF9E00D1728A /* Gotham-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-LightItalic.otf"; sourceTree = "<group>"; };
+		280A27E8154FAF9E00D1728A /* Gotham-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Medium.otf"; sourceTree = "<group>"; };
+		280A27E9154FAF9E00D1728A /* Gotham-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-MediumItalic.otf"; sourceTree = "<group>"; };
+		280A27EA154FAF9E00D1728A /* Gotham-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Thin.otf"; sourceTree = "<group>"; };
+		280A27EB154FAF9E00D1728A /* Gotham-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-ThinItalic.otf"; sourceTree = "<group>"; };
+		280A27EC154FAF9E00D1728A /* Gotham-Ultra.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Ultra.otf"; sourceTree = "<group>"; };
+		280A27ED154FAF9E00D1728A /* Gotham-UltraItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-UltraItalic.otf"; sourceTree = "<group>"; };
+		280A27EE154FAF9E00D1728A /* Gotham-XLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLight.otf"; sourceTree = "<group>"; };
+		280A27EF154FAF9E00D1728A /* Gotham-XLightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-XLightItalic.otf"; sourceTree = "<group>"; };
+		280A27F0154FAF9E00D1728A /* GothamRnd-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamRnd-Bold.otf"; sourceTree = "<group>"; };
+		280A27F1154FAF9E00D1728A /* GothamRnd-BoldIta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamRnd-BoldIta.otf"; sourceTree = "<group>"; };
+		280A27F2154FAF9E00D1728A /* GothamRnd-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamRnd-Book.otf"; sourceTree = "<group>"; };
+		280A27F3154FAF9E00D1728A /* GothamRnd-BookIta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamRnd-BookIta.otf"; sourceTree = "<group>"; };
+		280A27F4154FAF9E00D1728A /* GothamRnd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamRnd-Light.otf"; sourceTree = "<group>"; };
+		280A27F5154FAF9E00D1728A /* GothamRnd-LightIta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamRnd-LightIta.otf"; sourceTree = "<group>"; };
+		280A27F6154FAF9E00D1728A /* GothamRnd-MedIta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamRnd-MedIta.otf"; sourceTree = "<group>"; };
+		280A27F7154FAF9E00D1728A /* GothamRnd-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamRnd-Medium.otf"; sourceTree = "<group>"; };
+		280A27F9154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed Oblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica LT 37 Thin Condensed Oblique.otf"; sourceTree = "<group>"; };
+		280A27FA154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica LT 37 Thin Condensed.ttf"; sourceTree = "<group>"; };
+		280A27FB154FAF9E00D1728A /* Helvetica LT 47 Light Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica LT 47 Light Condensed.ttf"; sourceTree = "<group>"; };
+		280A27FC154FAF9E00D1728A /* Helvetica LT 57 Condensed Oblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica LT 57 Condensed Oblique.otf"; sourceTree = "<group>"; };
+		280A27FD154FAF9E00D1728A /* Helvetica LT 57 Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica LT 57 Condensed.ttf"; sourceTree = "<group>"; };
+		280A27FE154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed Oblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica LT 67 Medium Condensed Oblique.otf"; sourceTree = "<group>"; };
+		280A27FF154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica LT 67 Medium Condensed.ttf"; sourceTree = "<group>"; };
+		280A2800154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica LT 77 Bold Condensed Oblique.otf"; sourceTree = "<group>"; };
+		280A2801154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica LT 77 Bold Condensed.ttf"; sourceTree = "<group>"; };
 		280F1AFE1535A8F500221ABC /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
 		280F5F6E154FA2C800DA05AF /* PhotoTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoTagsViewController.h; sourceTree = "<group>"; };
 		280F5F6F154FA2C800DA05AF /* PhotoTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoTagsViewController.m; sourceTree = "<group>"; };
@@ -1260,15 +1365,6 @@
 		D031D4AC14F84CDA00DEB789 /* Hockey.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Hockey.bundle; sourceTree = "<group>"; };
 		D031D4AE14F84CDA00DEB789 /* HockeyLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = HockeyLib.xcodeproj; sourceTree = "<group>"; };
 		D031D4B114F84CDA00DEB789 /* HockeyLib_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HockeyLib_Prefix.pch; sourceTree = "<group>"; };
-		D031D4CE14F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed Oblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Helvetica LT 37 Thin Condensed Oblique.otf"; path = "Submodules/PSKit/src/Fonts/Helvetica LT 37 Thin Condensed Oblique.otf"; sourceTree = SOURCE_ROOT; };
-		D031D4CF14F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Helvetica LT 37 Thin Condensed.ttf"; path = "Submodules/PSKit/src/Fonts/Helvetica LT 37 Thin Condensed.ttf"; sourceTree = SOURCE_ROOT; };
-		D031D4D014F84D2F00DEB789 /* Helvetica LT 47 Light Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Helvetica LT 47 Light Condensed.ttf"; path = "Submodules/PSKit/src/Fonts/Helvetica LT 47 Light Condensed.ttf"; sourceTree = SOURCE_ROOT; };
-		D031D4D114F84D2F00DEB789 /* Helvetica LT 57 Condensed Oblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Helvetica LT 57 Condensed Oblique.otf"; path = "Submodules/PSKit/src/Fonts/Helvetica LT 57 Condensed Oblique.otf"; sourceTree = SOURCE_ROOT; };
-		D031D4D214F84D2F00DEB789 /* Helvetica LT 57 Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Helvetica LT 57 Condensed.ttf"; path = "Submodules/PSKit/src/Fonts/Helvetica LT 57 Condensed.ttf"; sourceTree = SOURCE_ROOT; };
-		D031D4D314F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed Oblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Helvetica LT 67 Medium Condensed Oblique.otf"; path = "Submodules/PSKit/src/Fonts/Helvetica LT 67 Medium Condensed Oblique.otf"; sourceTree = SOURCE_ROOT; };
-		D031D4D414F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Helvetica LT 67 Medium Condensed.ttf"; path = "Submodules/PSKit/src/Fonts/Helvetica LT 67 Medium Condensed.ttf"; sourceTree = SOURCE_ROOT; };
-		D031D4D514F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed Oblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Helvetica LT 77 Bold Condensed Oblique.otf"; path = "Submodules/PSKit/src/Fonts/Helvetica LT 77 Bold Condensed Oblique.otf"; sourceTree = SOURCE_ROOT; };
-		D031D4D614F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Helvetica LT 77 Bold Condensed.ttf"; path = "Submodules/PSKit/src/Fonts/Helvetica LT 77 Bold Condensed.ttf"; sourceTree = SOURCE_ROOT; };
 		D03447CD14F7250D00CE226A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		D03447CF14F7251000CE226A /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		D048787014EF193A00DE6AC8 /* NSMutableArray+PSKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+PSKit.h"; sourceTree = "<group>"; };
@@ -1596,6 +1692,55 @@
 			);
 			path = Facebook;
 			sourceTree = "<group>";
+		};
+		280A27DF154FAF9E00D1728A /* Gotham */ = {
+			isa = PBXGroup;
+			children = (
+				280A27E0154FAF9E00D1728A /* Gotham-Black.otf */,
+				280A27E1154FAF9E00D1728A /* Gotham-BlackItalic.otf */,
+				280A27E2154FAF9E00D1728A /* Gotham-Bold.otf */,
+				280A27E3154FAF9E00D1728A /* Gotham-BoldItalic.otf */,
+				280A27E4154FAF9E00D1728A /* Gotham-Book.otf */,
+				280A27E5154FAF9E00D1728A /* Gotham-BookItalic.otf */,
+				280A27E6154FAF9E00D1728A /* Gotham-Light.otf */,
+				280A27E7154FAF9E00D1728A /* Gotham-LightItalic.otf */,
+				280A27E8154FAF9E00D1728A /* Gotham-Medium.otf */,
+				280A27E9154FAF9E00D1728A /* Gotham-MediumItalic.otf */,
+				280A27EA154FAF9E00D1728A /* Gotham-Thin.otf */,
+				280A27EB154FAF9E00D1728A /* Gotham-ThinItalic.otf */,
+				280A27EC154FAF9E00D1728A /* Gotham-Ultra.otf */,
+				280A27ED154FAF9E00D1728A /* Gotham-UltraItalic.otf */,
+				280A27EE154FAF9E00D1728A /* Gotham-XLight.otf */,
+				280A27EF154FAF9E00D1728A /* Gotham-XLightItalic.otf */,
+				280A27F0154FAF9E00D1728A /* GothamRnd-Bold.otf */,
+				280A27F1154FAF9E00D1728A /* GothamRnd-BoldIta.otf */,
+				280A27F2154FAF9E00D1728A /* GothamRnd-Book.otf */,
+				280A27F3154FAF9E00D1728A /* GothamRnd-BookIta.otf */,
+				280A27F4154FAF9E00D1728A /* GothamRnd-Light.otf */,
+				280A27F5154FAF9E00D1728A /* GothamRnd-LightIta.otf */,
+				280A27F6154FAF9E00D1728A /* GothamRnd-MedIta.otf */,
+				280A27F7154FAF9E00D1728A /* GothamRnd-Medium.otf */,
+			);
+			name = Gotham;
+			path = Submodules/PSKit/src/Fonts/Gotham;
+			sourceTree = SOURCE_ROOT;
+		};
+		280A27F8154FAF9E00D1728A /* Helvetica */ = {
+			isa = PBXGroup;
+			children = (
+				280A27F9154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed Oblique.otf */,
+				280A27FA154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed.ttf */,
+				280A27FB154FAF9E00D1728A /* Helvetica LT 47 Light Condensed.ttf */,
+				280A27FC154FAF9E00D1728A /* Helvetica LT 57 Condensed Oblique.otf */,
+				280A27FD154FAF9E00D1728A /* Helvetica LT 57 Condensed.ttf */,
+				280A27FE154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed Oblique.otf */,
+				280A27FF154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf */,
+				280A2800154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf */,
+				280A2801154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf */,
+			);
+			name = Helvetica;
+			path = Submodules/PSKit/src/Fonts/Helvetica;
+			sourceTree = SOURCE_ROOT;
 		};
 		283818B314723F1C007E4827 = {
 			isa = PBXGroup;
@@ -2070,15 +2215,8 @@
 		28CDD8BD14887A3400306FF2 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				D031D4CE14F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed Oblique.otf */,
-				D031D4CF14F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed.ttf */,
-				D031D4D014F84D2F00DEB789 /* Helvetica LT 47 Light Condensed.ttf */,
-				D031D4D114F84D2F00DEB789 /* Helvetica LT 57 Condensed Oblique.otf */,
-				D031D4D214F84D2F00DEB789 /* Helvetica LT 57 Condensed.ttf */,
-				D031D4D314F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed Oblique.otf */,
-				D031D4D414F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed.ttf */,
-				D031D4D514F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed Oblique.otf */,
-				D031D4D614F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed.ttf */,
+				280A27DF154FAF9E00D1728A /* Gotham */,
+				280A27F8154FAF9E00D1728A /* Helvetica */,
 			);
 			name = Fonts;
 			path = PSKit/src/Fonts;
@@ -2649,15 +2787,6 @@
 				281F4A451545BCC10066DD70 /* BackgroundPostIt@2x.png in Resources */,
 				281F4A461545BCC10066DD70 /* Quincy.bundle in Resources */,
 				281F4A471545BCC10066DD70 /* Hockey.bundle in Resources */,
-				281F4A481545BCC10066DD70 /* Helvetica LT 37 Thin Condensed Oblique.otf in Resources */,
-				281F4A491545BCC10066DD70 /* Helvetica LT 37 Thin Condensed.ttf in Resources */,
-				281F4A4A1545BCC10066DD70 /* Helvetica LT 47 Light Condensed.ttf in Resources */,
-				281F4A4B1545BCC10066DD70 /* Helvetica LT 57 Condensed Oblique.otf in Resources */,
-				281F4A4C1545BCC10066DD70 /* Helvetica LT 57 Condensed.ttf in Resources */,
-				281F4A4D1545BCC10066DD70 /* Helvetica LT 67 Medium Condensed Oblique.otf in Resources */,
-				281F4A4E1545BCC10066DD70 /* Helvetica LT 67 Medium Condensed.ttf in Resources */,
-				281F4A4F1545BCC10066DD70 /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */,
-				281F4A501545BCC10066DD70 /* Helvetica LT 77 Bold Condensed.ttf in Resources */,
 				281F4A511545BCC10066DD70 /* PinVenueBlue.png in Resources */,
 				281F4A521545BCC10066DD70 /* PinVenueBlue@2x.png in Resources */,
 				281F4A531545BCC10066DD70 /* IconPinBlack.png in Resources */,
@@ -2761,6 +2890,39 @@
 				281F4AB51545BCC10066DD70 /* Default-Portrait@2x~ipad.png in Resources */,
 				281F4AB61545BCC10066DD70 /* Default.png in Resources */,
 				281F4AB71545BCC10066DD70 /* Default@2x.png in Resources */,
+				280A2804154FAF9E00D1728A /* Gotham-Black.otf in Resources */,
+				280A2807154FAF9E00D1728A /* Gotham-BlackItalic.otf in Resources */,
+				280A280A154FAF9E00D1728A /* Gotham-Bold.otf in Resources */,
+				280A280D154FAF9E00D1728A /* Gotham-BoldItalic.otf in Resources */,
+				280A2810154FAF9E00D1728A /* Gotham-Book.otf in Resources */,
+				280A2813154FAF9E00D1728A /* Gotham-BookItalic.otf in Resources */,
+				280A2816154FAF9E00D1728A /* Gotham-Light.otf in Resources */,
+				280A2819154FAF9E00D1728A /* Gotham-LightItalic.otf in Resources */,
+				280A281C154FAF9E00D1728A /* Gotham-Medium.otf in Resources */,
+				280A281F154FAF9E00D1728A /* Gotham-MediumItalic.otf in Resources */,
+				280A2822154FAF9E00D1728A /* Gotham-Thin.otf in Resources */,
+				280A2825154FAF9E00D1728A /* Gotham-ThinItalic.otf in Resources */,
+				280A2828154FAF9E00D1728A /* Gotham-Ultra.otf in Resources */,
+				280A282B154FAF9E00D1728A /* Gotham-UltraItalic.otf in Resources */,
+				280A282E154FAF9E00D1728A /* Gotham-XLight.otf in Resources */,
+				280A2831154FAF9E00D1728A /* Gotham-XLightItalic.otf in Resources */,
+				280A2834154FAF9E00D1728A /* GothamRnd-Bold.otf in Resources */,
+				280A2837154FAF9E00D1728A /* GothamRnd-BoldIta.otf in Resources */,
+				280A283A154FAF9E00D1728A /* GothamRnd-Book.otf in Resources */,
+				280A283D154FAF9E00D1728A /* GothamRnd-BookIta.otf in Resources */,
+				280A2840154FAF9E00D1728A /* GothamRnd-Light.otf in Resources */,
+				280A2843154FAF9E00D1728A /* GothamRnd-LightIta.otf in Resources */,
+				280A2846154FAF9E00D1728A /* GothamRnd-MedIta.otf in Resources */,
+				280A2849154FAF9E00D1728A /* GothamRnd-Medium.otf in Resources */,
+				280A284C154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed Oblique.otf in Resources */,
+				280A284F154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed.ttf in Resources */,
+				280A2852154FAF9E00D1728A /* Helvetica LT 47 Light Condensed.ttf in Resources */,
+				280A2855154FAF9E00D1728A /* Helvetica LT 57 Condensed Oblique.otf in Resources */,
+				280A2858154FAF9E00D1728A /* Helvetica LT 57 Condensed.ttf in Resources */,
+				280A285B154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed Oblique.otf in Resources */,
+				280A285E154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf in Resources */,
+				280A2861154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */,
+				280A2864154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2830,15 +2992,6 @@
 				D0C5C00014F766C90041A364 /* BackgroundPostIt@2x.png in Resources */,
 				D031D48E14F84CC300DEB789 /* Quincy.bundle in Resources */,
 				D031D4C714F84CDA00DEB789 /* Hockey.bundle in Resources */,
-				D031D4D714F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed Oblique.otf in Resources */,
-				D031D4D814F84D2F00DEB789 /* Helvetica LT 37 Thin Condensed.ttf in Resources */,
-				D031D4D914F84D2F00DEB789 /* Helvetica LT 47 Light Condensed.ttf in Resources */,
-				D031D4DA14F84D2F00DEB789 /* Helvetica LT 57 Condensed Oblique.otf in Resources */,
-				D031D4DB14F84D2F00DEB789 /* Helvetica LT 57 Condensed.ttf in Resources */,
-				D031D4DC14F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed Oblique.otf in Resources */,
-				D031D4DD14F84D2F00DEB789 /* Helvetica LT 67 Medium Condensed.ttf in Resources */,
-				D031D4DE14F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */,
-				D031D4DF14F84D2F00DEB789 /* Helvetica LT 77 Bold Condensed.ttf in Resources */,
 				D0FE068514F9C6E400140D9E /* PinVenueBlue.png in Resources */,
 				D0FE068614F9C6E400140D9E /* PinVenueBlue@2x.png in Resources */,
 				D0FE068F14F9CE1F00140D9E /* IconPinBlack.png in Resources */,
@@ -2942,6 +3095,39 @@
 				280F1AFF1535A8F500221ABC /* Default-Portrait@2x~ipad.png in Resources */,
 				28FD08961535AE1000E28634 /* Default.png in Resources */,
 				28FD08971535AE1800E28634 /* Default@2x.png in Resources */,
+				280A2802154FAF9E00D1728A /* Gotham-Black.otf in Resources */,
+				280A2805154FAF9E00D1728A /* Gotham-BlackItalic.otf in Resources */,
+				280A2808154FAF9E00D1728A /* Gotham-Bold.otf in Resources */,
+				280A280B154FAF9E00D1728A /* Gotham-BoldItalic.otf in Resources */,
+				280A280E154FAF9E00D1728A /* Gotham-Book.otf in Resources */,
+				280A2811154FAF9E00D1728A /* Gotham-BookItalic.otf in Resources */,
+				280A2814154FAF9E00D1728A /* Gotham-Light.otf in Resources */,
+				280A2817154FAF9E00D1728A /* Gotham-LightItalic.otf in Resources */,
+				280A281A154FAF9E00D1728A /* Gotham-Medium.otf in Resources */,
+				280A281D154FAF9E00D1728A /* Gotham-MediumItalic.otf in Resources */,
+				280A2820154FAF9E00D1728A /* Gotham-Thin.otf in Resources */,
+				280A2823154FAF9E00D1728A /* Gotham-ThinItalic.otf in Resources */,
+				280A2826154FAF9E00D1728A /* Gotham-Ultra.otf in Resources */,
+				280A2829154FAF9E00D1728A /* Gotham-UltraItalic.otf in Resources */,
+				280A282C154FAF9E00D1728A /* Gotham-XLight.otf in Resources */,
+				280A282F154FAF9E00D1728A /* Gotham-XLightItalic.otf in Resources */,
+				280A2832154FAF9E00D1728A /* GothamRnd-Bold.otf in Resources */,
+				280A2835154FAF9E00D1728A /* GothamRnd-BoldIta.otf in Resources */,
+				280A2838154FAF9E00D1728A /* GothamRnd-Book.otf in Resources */,
+				280A283B154FAF9E00D1728A /* GothamRnd-BookIta.otf in Resources */,
+				280A283E154FAF9E00D1728A /* GothamRnd-Light.otf in Resources */,
+				280A2841154FAF9E00D1728A /* GothamRnd-LightIta.otf in Resources */,
+				280A2844154FAF9E00D1728A /* GothamRnd-MedIta.otf in Resources */,
+				280A2847154FAF9E00D1728A /* GothamRnd-Medium.otf in Resources */,
+				280A284A154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed Oblique.otf in Resources */,
+				280A284D154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed.ttf in Resources */,
+				280A2850154FAF9E00D1728A /* Helvetica LT 47 Light Condensed.ttf in Resources */,
+				280A2853154FAF9E00D1728A /* Helvetica LT 57 Condensed Oblique.otf in Resources */,
+				280A2856154FAF9E00D1728A /* Helvetica LT 57 Condensed.ttf in Resources */,
+				280A2859154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed Oblique.otf in Resources */,
+				280A285C154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf in Resources */,
+				280A285F154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */,
+				280A2862154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3011,15 +3197,6 @@
 				2843A68D1545B9510089FC73 /* BackgroundPostIt@2x.png in Resources */,
 				2843A68E1545B9510089FC73 /* Quincy.bundle in Resources */,
 				2843A68F1545B9510089FC73 /* Hockey.bundle in Resources */,
-				2843A6901545B9510089FC73 /* Helvetica LT 37 Thin Condensed Oblique.otf in Resources */,
-				2843A6911545B9510089FC73 /* Helvetica LT 37 Thin Condensed.ttf in Resources */,
-				2843A6921545B9510089FC73 /* Helvetica LT 47 Light Condensed.ttf in Resources */,
-				2843A6931545B9510089FC73 /* Helvetica LT 57 Condensed Oblique.otf in Resources */,
-				2843A6941545B9510089FC73 /* Helvetica LT 57 Condensed.ttf in Resources */,
-				2843A6951545B9510089FC73 /* Helvetica LT 67 Medium Condensed Oblique.otf in Resources */,
-				2843A6961545B9510089FC73 /* Helvetica LT 67 Medium Condensed.ttf in Resources */,
-				2843A6971545B9510089FC73 /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */,
-				2843A6981545B9510089FC73 /* Helvetica LT 77 Bold Condensed.ttf in Resources */,
 				2843A6991545B9510089FC73 /* PinVenueBlue.png in Resources */,
 				2843A69A1545B9510089FC73 /* PinVenueBlue@2x.png in Resources */,
 				2843A69B1545B9510089FC73 /* IconPinBlack.png in Resources */,
@@ -3123,6 +3300,39 @@
 				2843A6FD1545B9510089FC73 /* Default-Portrait@2x~ipad.png in Resources */,
 				2843A6FE1545B9510089FC73 /* Default.png in Resources */,
 				2843A6FF1545B9510089FC73 /* Default@2x.png in Resources */,
+				280A2803154FAF9E00D1728A /* Gotham-Black.otf in Resources */,
+				280A2806154FAF9E00D1728A /* Gotham-BlackItalic.otf in Resources */,
+				280A2809154FAF9E00D1728A /* Gotham-Bold.otf in Resources */,
+				280A280C154FAF9E00D1728A /* Gotham-BoldItalic.otf in Resources */,
+				280A280F154FAF9E00D1728A /* Gotham-Book.otf in Resources */,
+				280A2812154FAF9E00D1728A /* Gotham-BookItalic.otf in Resources */,
+				280A2815154FAF9E00D1728A /* Gotham-Light.otf in Resources */,
+				280A2818154FAF9E00D1728A /* Gotham-LightItalic.otf in Resources */,
+				280A281B154FAF9E00D1728A /* Gotham-Medium.otf in Resources */,
+				280A281E154FAF9E00D1728A /* Gotham-MediumItalic.otf in Resources */,
+				280A2821154FAF9E00D1728A /* Gotham-Thin.otf in Resources */,
+				280A2824154FAF9E00D1728A /* Gotham-ThinItalic.otf in Resources */,
+				280A2827154FAF9E00D1728A /* Gotham-Ultra.otf in Resources */,
+				280A282A154FAF9E00D1728A /* Gotham-UltraItalic.otf in Resources */,
+				280A282D154FAF9E00D1728A /* Gotham-XLight.otf in Resources */,
+				280A2830154FAF9E00D1728A /* Gotham-XLightItalic.otf in Resources */,
+				280A2833154FAF9E00D1728A /* GothamRnd-Bold.otf in Resources */,
+				280A2836154FAF9E00D1728A /* GothamRnd-BoldIta.otf in Resources */,
+				280A2839154FAF9E00D1728A /* GothamRnd-Book.otf in Resources */,
+				280A283C154FAF9E00D1728A /* GothamRnd-BookIta.otf in Resources */,
+				280A283F154FAF9E00D1728A /* GothamRnd-Light.otf in Resources */,
+				280A2842154FAF9E00D1728A /* GothamRnd-LightIta.otf in Resources */,
+				280A2845154FAF9E00D1728A /* GothamRnd-MedIta.otf in Resources */,
+				280A2848154FAF9E00D1728A /* GothamRnd-Medium.otf in Resources */,
+				280A284B154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed Oblique.otf in Resources */,
+				280A284E154FAF9E00D1728A /* Helvetica LT 37 Thin Condensed.ttf in Resources */,
+				280A2851154FAF9E00D1728A /* Helvetica LT 47 Light Condensed.ttf in Resources */,
+				280A2854154FAF9E00D1728A /* Helvetica LT 57 Condensed Oblique.otf in Resources */,
+				280A2857154FAF9E00D1728A /* Helvetica LT 57 Condensed.ttf in Resources */,
+				280A285A154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed Oblique.otf in Resources */,
+				280A285D154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf in Resources */,
+				280A2860154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */,
+				280A2863154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

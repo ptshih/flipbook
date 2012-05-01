@@ -26,6 +26,7 @@ rightButton = _rightButton;
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
         self.venueDict = dictionary; 
+        self.shouldAddRoundedCorners = YES;
     }
     return self;
 }
@@ -55,8 +56,6 @@ rightButton = _rightButton;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupSubviews];
-    
     // Load
     [self loadDataSource];
 }
@@ -81,8 +80,6 @@ rightButton = _rightButton;
     // Add gradient
     [pb4sq addGradientLayerWithFrame:CGRectMake(0, 0, pb4sq.width, 8.0) colors:[NSArray arrayWithObjects:(id)RGBACOLOR(0, 0, 0, 0.3).CGColor, (id)RGBACOLOR(0, 0, 0, 0.2).CGColor, (id)RGBACOLOR(0, 0, 0, 0.1).CGColor, (id)RGBACOLOR(0, 0, 0, 0.0).CGColor, nil] locations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.1], [NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:1.0], nil] startPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 1.0)];
     self.collectionView.footerView = pb4sq;
-    
-    [self addRoundedCorners];
 }
 
 - (void)setupHeader {

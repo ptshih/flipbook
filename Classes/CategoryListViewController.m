@@ -26,6 +26,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.shouldAddRoundedCorners = YES;
     }
     return self;
 }
@@ -46,10 +47,6 @@
 #pragma mark - View
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self setupSubviews];
-    
-    [self addRoundedCorners];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -57,6 +54,8 @@
 }
 
 - (void)setupSubviews {
+    [super setupSubviews];
+    
     // Images
     UIImageView *topView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CategoryFood.jpg"]] autorelease];
     [self.view addSubview:topView];

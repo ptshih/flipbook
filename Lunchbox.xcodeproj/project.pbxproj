@@ -17,6 +17,9 @@
 		2808C3F6151D358400763095 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2808C3E9151D358400763095 /* FBDialog.bundle */; };
 		2808C3F7151D358400763095 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2808C3EF151D358400763095 /* libfacebook_ios_sdk.a */; };
 		280F1AFF1535A8F500221ABC /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 280F1AFE1535A8F500221ABC /* Default-Portrait@2x~ipad.png */; };
+		280F5F70154FA2C800DA05AF /* PhotoCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 280F5F6F154FA2C800DA05AF /* PhotoCategoryViewController.m */; };
+		280F5F71154FA2C800DA05AF /* PhotoCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 280F5F6F154FA2C800DA05AF /* PhotoCategoryViewController.m */; };
+		280F5F72154FA2C800DA05AF /* PhotoCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 280F5F6F154FA2C800DA05AF /* PhotoCategoryViewController.m */; };
 		2810F578149202DF0028BCFE /* HorizontalLine.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F576149202DE0028BCFE /* HorizontalLine.png */; };
 		2810F579149202DF0028BCFE /* HorizontalLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F577149202DE0028BCFE /* HorizontalLine@2x.png */; };
 		2810F59B14921C340028BCFE /* BackgroundToolbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F59914921C330028BCFE /* BackgroundToolbar.png */; };
@@ -975,6 +978,8 @@
 		2808C3F4151D358400763095 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		2808C3F5151D358400763095 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		280F1AFE1535A8F500221ABC /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
+		280F5F6E154FA2C800DA05AF /* PhotoCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCategoryViewController.h; sourceTree = "<group>"; };
+		280F5F6F154FA2C800DA05AF /* PhotoCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCategoryViewController.m; sourceTree = "<group>"; };
 		2810F576149202DE0028BCFE /* HorizontalLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HorizontalLine.png; sourceTree = "<group>"; };
 		2810F577149202DE0028BCFE /* HorizontalLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalLine@2x.png"; sourceTree = "<group>"; };
 		2810F59914921C330028BCFE /* BackgroundToolbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundToolbar.png; sourceTree = "<group>"; };
@@ -2056,6 +2061,8 @@
 				284ABD96150E8FAF0040B250 /* CheckinViewController.m */,
 				284B1DBC152F6296000F2BAE /* CategoryListViewController.h */,
 				284B1DBD152F6296000F2BAE /* CategoryListViewController.m */,
+				280F5F6E154FA2C800DA05AF /* PhotoCategoryViewController.h */,
+				280F5F6F154FA2C800DA05AF /* PhotoCategoryViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -3276,6 +3283,7 @@
 				281F49EF1545BCC10066DD70 /* PSAlertView.m in Sources */,
 				D0BBA7B11548819D006CD0B7 /* OpenUDID.m in Sources */,
 				D0BBA7B41548819D006CD0B7 /* TapjoyConnect.m in Sources */,
+				280F5F72154FA2C800DA05AF /* PhotoCategoryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3391,6 +3399,7 @@
 				28888D2515358071001743CA /* PSAlertView.m in Sources */,
 				D0BBA7AF1548819D006CD0B7 /* OpenUDID.m in Sources */,
 				D0BBA7B21548819D006CD0B7 /* TapjoyConnect.m in Sources */,
+				280F5F70154FA2C800DA05AF /* PhotoCategoryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3506,6 +3515,7 @@
 				2843A6371545B9510089FC73 /* PSAlertView.m in Sources */,
 				D0BBA7B01548819D006CD0B7 /* OpenUDID.m in Sources */,
 				D0BBA7B31548819D006CD0B7 /* TapjoyConnect.m in Sources */,
+				280F5F71154FA2C800DA05AF /* PhotoCategoryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

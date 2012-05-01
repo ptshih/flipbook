@@ -9,6 +9,8 @@
 #import "VenueDetailViewController.h"
 #import "TipListViewController.h"
 #import "CheckinViewController.h"
+#import "PhotoCategoryViewController.h"
+
 #import "PhotoView.h"
 #import "PSZoomView.h"
 #import "PSPopoverView.h"
@@ -49,6 +51,7 @@ mapView = _mapView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.shouldAddRoundedCorners = YES;
     }
     return self;
 }
@@ -74,9 +77,6 @@ mapView = _mapView;
 #pragma mark - View
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self setupSubviews];
-    [self setupPullRefresh];
     
     // Load
     [self loadDataSource];
@@ -302,8 +302,6 @@ mapView = _mapView;
     headerView.height = top;
     
     self.collectionView.headerView = headerView;
-    
-    [self addRoundedCorners];
 }
 
 - (void)setupHeader {
@@ -327,7 +325,7 @@ mapView = _mapView;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.rightButton setImage:[UIImage imageNamed:@"IconFoursquare"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconCameraWhite"] forState:UIControlStateNormal];
     self.rightButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     
     [self.headerView addSubview:self.leftButton];
@@ -349,23 +347,27 @@ mapView = _mapView;
 }
 
 - (void)rightAction {
-    
-    CheckinViewController *vc = [[[CheckinViewController alloc] initWithDictionary:self.venueDict] autorelease];
+    // Take a photo
+    PhotoCategoryViewController *vc = [[[PhotoCategoryViewController alloc] initWithDictionary:self.venueDict] autorelease];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-    
-    return;
-    
-    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
-    av.tag = kAlertTagFoursquare;
-    [av show];
-    
-    return;
-    
-    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [self.venueDict objectForKey:@"id"]]]];
-    } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
-    }
+
+//    // Checkin
+//    CheckinViewController *vc = [[[CheckinViewController alloc] initWithDictionary:self.venueDict] autorelease];
+//    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+//    
+//    return;
+//    
+//    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+//    av.tag = kAlertTagFoursquare;
+//    [av show];
+//    
+//    return;
+//    
+//    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [self.venueDict objectForKey:@"id"]]]];
+//    } else {
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
+//    }
 }
 
 - (void)zoomMap:(UITapGestureRecognizer *)gr {

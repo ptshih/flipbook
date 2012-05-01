@@ -58,6 +58,8 @@ hasPhoto = _hasPhoto;
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
         self.venueDict = dictionary; 
+        
+        self.shouldAddRoundedCorners = YES;
     }
     return self;
 }
@@ -107,8 +109,6 @@ hasPhoto = _hasPhoto;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupSubviews];
-    
     // Check 4sq token
     NSString *fsAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fsAccessToken"];
     
@@ -127,8 +127,6 @@ hasPhoto = _hasPhoto;
     } else {
         // don't show webview
     }
-    
-    [self addRoundedCorners];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -146,6 +144,8 @@ hasPhoto = _hasPhoto;
 }
 
 - (void)setupSubviews {
+    [super setupSubviews];
+    
     [self setupHeader];
     
     UIView *composeView = [[[UIView alloc] initWithFrame:CGRectMake(0, self.headerView.bottom, self.view.width, 200)] autorelease];

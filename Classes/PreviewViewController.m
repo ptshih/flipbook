@@ -42,6 +42,8 @@ imageView = _imageView;
     if (self) {
         self.image = image;
         self.venueDict = dictionary;
+        
+        self.shouldAddRoundedCorners = YES;
     }
     return self;
 }
@@ -68,8 +70,6 @@ imageView = _imageView;
 #pragma mark - View
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self setupSubviews];
 }
 
 #pragma mark - View Config
@@ -79,6 +79,8 @@ imageView = _imageView;
 
 #pragma mark - Config Subviews
 - (void)setupSubviews {
+    [super setupSubviews];
+    
     [self setupHeader];
     
     self.containerView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8 + self.headerView.height, self.view.width - 16, self.view.height - 16 - self.headerView.height)] autorelease];
@@ -97,8 +99,6 @@ imageView = _imageView;
     self.imageView.backgroundColor = RGBCOLOR(200, 200, 200);
     [self.imageView setImage:self.image];
     [self.containerView addSubview:self.imageView];
-    
-    [self addRoundedCorners];
 }
 
 - (void)setupHeader {

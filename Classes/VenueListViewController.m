@@ -58,6 +58,9 @@ hasLoadedOnce = _hasLoadedOnce;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.shouldAddRoundedCorners = YES;
+        self.shouldPullRefresh = YES;
+
         self.shouldRefreshOnAppear = NO;
         self.radius = 0;
         self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
@@ -95,10 +98,6 @@ hasLoadedOnce = _hasLoadedOnce;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Setup Views
-    [self setupSubviews];
-    [self setupPullRefresh];
-    
     // Load
     [self loadDataSource];
 }
@@ -128,8 +127,6 @@ hasLoadedOnce = _hasLoadedOnce;
     // Add gradient
     [pb4sq addGradientLayerWithFrame:CGRectMake(0, 0, pb4sq.width, 8.0) colors:[NSArray arrayWithObjects:(id)RGBACOLOR(0, 0, 0, 0.3).CGColor, (id)RGBACOLOR(0, 0, 0, 0.2).CGColor, (id)RGBACOLOR(0, 0, 0, 0.1).CGColor, (id)RGBACOLOR(0, 0, 0, 0.0).CGColor, nil] locations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.1], [NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:1.0], nil] startPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 1.0)];
     self.collectionView.footerView = pb4sq;
-    
-    [self addRoundedCorners];
 }
 
 - (void)setupHeader {

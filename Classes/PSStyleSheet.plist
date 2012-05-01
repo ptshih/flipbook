@@ -284,9 +284,9 @@
 		<key>fontSize</key>
 		<integer>10</integer>
 		<key>textColor</key>
-		<string>0x4c4c4c</string>
+		<string>0x2a2a2a</string>
 		<key>highlightedTextColor</key>
-		<string>0x4c4c4c</string>
+		<string>0x2a2a2a</string>
 		<key>textAlignment</key>
 		<string>left</string>
 		<key>lineBreakMode</key>

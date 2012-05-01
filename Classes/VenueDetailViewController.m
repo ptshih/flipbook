@@ -112,10 +112,14 @@ mapView = _mapView;
     
     // Setup collectionView header
     // 2 part collection header
-    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, mapHeight)] autorelease];
+    CGFloat top = 0.0;
+    
+    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, 0.0)] autorelease];
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     // Map
+    CGFloat mapTop = 4.0;
+    
     UIView *mapView = [[[UIView alloc] initWithFrame:CGRectMake(8, 0, headerView.width - 16, mapHeight - 8)] autorelease];
     mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     mapView.backgroundColor = [UIColor whiteColor];
@@ -126,7 +130,7 @@ mapView = _mapView;
     [mapView addSubview:mapShadowView];
     [headerView addSubview:mapView];
     
-    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, 4, headerView.width - 24, mapHeight - 16)] autorelease];
+    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, mapTop, headerView.width - 24, mapHeight - 16)] autorelease];
     self.mapView.layer.borderWidth = 0.5;
     self.mapView.layer.borderColor = [RGBACOLOR(200, 200, 200, 1.0) CGColor];
     self.mapView.layer.masksToBounds = YES;
@@ -143,14 +147,14 @@ mapView = _mapView;
     [self.mapView addGestureRecognizer:gr];
     [mapView addSubview:self.mapView];
     
-    CGFloat top = self.mapView.bottom + 4.0;
+    mapTop += self.mapView.height + 4.0;
     
     // Stats
     UILabel *statsLabel = nil;
     if ([self.venueDict objectForKey:@"stats"]) {
         UIImageView *peopleIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPersonMiniBlack"]] autorelease];
         [mapView addSubview:peopleIcon];
-        peopleIcon.frame = CGRectMake(8, top + 2, 11, 11);
+        peopleIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         statsLabel = [UILabel labelWithStyle:@"titleLabel"];
         [mapView addSubview:statsLabel];
@@ -158,9 +162,9 @@ mapView = _mapView;
         statsLabel.text = [NSString stringWithFormat:@"%@ people checked in here", [__numberFormatter stringFromNumber:[[self.venueDict objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
         
         CGSize statsLabelSize = [PSStyleSheet sizeForText:statsLabel.text width:self.mapView.width - 16 style:@"titleLabel"];
-        statsLabel.frame = CGRectMake(8 + 16, top, statsLabelSize.width, 16.0);
+        statsLabel.frame = CGRectMake(8 + 16, mapTop, statsLabelSize.width, 16.0);
         
-        top += statsLabel.height + 2.0;
+        mapTop += statsLabel.height + 2.0;
     }
     
     // Address
@@ -168,7 +172,7 @@ mapView = _mapView;
     if ([self.venueDict objectForKey:@"formattedAddress"]) {
         UIImageView *addressIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPinMiniBlack"]] autorelease];
         [mapView addSubview:addressIcon];
-        addressIcon.frame = CGRectMake(8, top + 2, 11, 11);
+        addressIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         addressLabel = [UILabel labelWithStyle:@"attributedLabel"];
         [mapView addSubview:addressLabel];
@@ -176,9 +180,9 @@ mapView = _mapView;
         addressLabel.text = [self.venueDict objectForKey:@"formattedAddress"];
         
         CGSize addressLabelSize = [PSStyleSheet sizeForText:addressLabel.text width:self.mapView.width - 16 style:@"attributedLabel"];
-        addressLabel.frame = CGRectMake(8 + 16, top, addressLabelSize.width, 16.0);
+        addressLabel.frame = CGRectMake(8 + 16, mapTop, addressLabelSize.width, 16.0);
         
-        top += addressLabel.height + 2.0;
+        mapTop += addressLabel.height + 2.0;
     }
     
     // Phone
@@ -186,7 +190,7 @@ mapView = _mapView;
     if ([self.venueDict objectForKey:@"contact"] && [[self.venueDict objectForKey:@"contact"] objectForKey:@"formattedPhone"]) {
         UIImageView *phoneIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPhoneBlack"]] autorelease];
         [mapView addSubview:phoneIcon];
-        phoneIcon.frame = CGRectMake(8, top + 2, 11, 11);
+        phoneIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [mapView addSubview:phoneButton];
@@ -195,9 +199,9 @@ mapView = _mapView;
         [phoneButton setTitle:[NSString stringWithFormat:@"%@", [[self.venueDict objectForKey:@"contact"] objectForKey:@"formattedPhone"]] forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:phoneButton];
         
-        phoneButton.frame = CGRectMake(8 + 16, top, self.mapView.width - 16, 16);
+        phoneButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
         
-        top += phoneButton.height + 2.0;
+        mapTop += phoneButton.height + 2.0;
     }
     
     // Website
@@ -205,7 +209,7 @@ mapView = _mapView;
     if ([self.venueDict objectForKey:@"url"]) {
         UIImageView *websiteIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPlanetBlack"]] autorelease];
         [mapView addSubview:websiteIcon];
-        websiteIcon.frame = CGRectMake(8, top + 2, 11, 11);
+        websiteIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         websiteButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [mapView addSubview:websiteButton];
@@ -214,20 +218,19 @@ mapView = _mapView;
         [websiteButton setTitle:[NSString stringWithFormat:@"%@", [self.venueDict objectForKey:@"url"]] forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:websiteButton];
         
-        websiteButton.frame = CGRectMake(8 + 16, top, self.mapView.width - 16, 16);
+        websiteButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
         
-        top += websiteButton.height + 2.0;
+        mapTop += websiteButton.height + 2.0;
     }
     
-    if (addressLabel || statsLabel || phoneButton || websiteButton) {
-        mapView.height += top - self.mapView.bottom;
-        headerView.height += top - self.mapView.bottom;
-    }
+    mapView.height = mapTop + 4.0;
+    
+    top += mapView.height + 8.0;
     
     // Tip
     // Don't show if no tips
     if ([self.venueDict objectForKey:@"tip"]) {
-        UIView *tipView = [[[UIView alloc] initWithFrame:CGRectMake(8, mapView.bottom + 8.0, headerView.width - 16, 148)] autorelease];
+        UIView *tipView = [[[UIView alloc] initWithFrame:CGRectMake(8, top, headerView.width - 16, 0.0)] autorelease];
         tipView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         tipView.backgroundColor = [UIColor whiteColor];
         UIImage *tipShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
@@ -291,8 +294,12 @@ mapView = _mapView;
         disclosure.contentMode = UIViewContentModeCenter;
         disclosure.frame = CGRectMake(tipView.width - 20, 0, 20, tipView.height);
         [tipView addSubview:disclosure];
-        headerView.height += tipView.height;
+
+        
+        top += tipView.height;
     }
+    
+    headerView.height = top;
     
     self.collectionView.headerView = headerView;
     

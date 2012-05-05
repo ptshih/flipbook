@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>Helvetica</string>
+	<key>CFBundleDisplayName</key>
+	<string>Lunchbeta</string>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>Icon.png</string>
+				<string>Icon@2x.png</string>
+				<string>Default.png</string>
+				<string>Default@2x.png</string>
+				<string>Default-Portrait~ipad.png</string>
+				<string>Icon-72.png</string>
+				<string>Icon-72@2x.png</string>
+				<string>Default-Portrait@2x~ipad.png</string>
+			</array>
+			<key>UIPrerenderedIcon</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.petershih.lunchbox</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Lunchbox</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.4.1</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb262079367168011lunchboxbeta</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>BUILD_VERSION_LONG</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Helvetica LT 37 Thin Condensed Oblique.otf</string>
+		<string>Helvetica LT 37 Thin Condensed.ttf</string>
+		<string>Helvetica LT 47 Light Condensed.ttf</string>
+		<string>Helvetica LT 57 Condensed Oblique.otf</string>
+		<string>Helvetica LT 57 Condensed.ttf</string>
+		<string>Helvetica LT 67 Medium Condensed Oblique.otf</string>
+		<string>Helvetica LT 67 Medium Condensed.ttf</string>
+		<string>Helvetica LT 77 Bold Condensed Oblique.otf</string>
+		<string>Helvetica LT 77 Bold Condensed.ttf</string>
+		<string>Gotham-Bold.otf</string>
+		<string>Gotham-Book.otf</string>
+	</array>
+	<key>UIPrerenderedIcon</key>
+	<true/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleBlackOpaque</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+</dict>
+</plist>

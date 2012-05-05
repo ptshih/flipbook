@@ -345,7 +345,7 @@
 		<key>fontName</key>
 		<string>HelveticaNeueLT-BoldCond</string>
 		<key>fontSize</key>
-		<integer>14</integer>
+		<integer>13</integer>
 		<key>textColor</key>
 		<string>0x3B5998</string>
 		<key>highlightedTextColor</key>

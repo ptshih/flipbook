@@ -162,21 +162,22 @@ mapView = _mapView;
     }
     
     // Address
-    UILabel *addressLabel = nil;
+    UIButton *addressButton = nil;
     if ([self.venueDict objectForKey:@"formattedAddress"]) {
         UIImageView *addressIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPinMiniBlack"]];
         [mapView addSubview:addressIcon];
         addressIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
-        addressLabel = [UILabel labelWithStyle:@"subtitleLabel"];
-        [mapView addSubview:addressLabel];
-        addressLabel.backgroundColor = mapView.backgroundColor;
-        addressLabel.text = [self.venueDict objectForKey:@"formattedAddress"];
+        addressButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [mapView addSubview:addressButton];
+        addressButton.backgroundColor = mapView.backgroundColor;
+        [addressButton addTarget:self action:@selector(openAddress:) forControlEvents:UIControlEventTouchUpInside];
+        [addressButton setTitle:[self.venueDict objectForKey:@"formattedAddress"] forState:UIControlStateNormal];
+        [PSStyleSheet applyStyle:@"linkButton" forButton:addressButton];
         
-        CGSize addressLabelSize = [PSStyleSheet sizeForText:addressLabel.text width:self.mapView.width - 16 style:@"textLabel"];
-        addressLabel.frame = CGRectMake(8 + 16, mapTop, addressLabelSize.width, 16.0);
+        addressButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
         
-        mapTop += addressLabel.height + 2.0;
+        mapTop += addressButton.height + 2.0;
     }
     
     // Phone
@@ -215,6 +216,44 @@ mapView = _mapView;
         websiteButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
         
         mapTop += websiteButton.height + 2.0;
+    }
+    
+    // Menu
+    UIButton *menuButton = nil;
+    if ([self.venueDict objectForKey:@"menu"]) {
+        UIImageView *menuIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconFoodBlack"]];
+        [mapView addSubview:menuIcon];
+        menuIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
+        
+        menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [mapView addSubview:menuButton];
+        menuButton.backgroundColor = mapView.backgroundColor;
+        [menuButton addTarget:self action:@selector(openMenu:) forControlEvents:UIControlEventTouchUpInside];
+        [menuButton setTitle:[NSString stringWithFormat:@"%@", @"See the menu"] forState:UIControlStateNormal];
+        [PSStyleSheet applyStyle:@"linkButton" forButton:menuButton];
+        
+        menuButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
+        
+        mapTop += menuButton.height + 2.0;
+    }
+    
+    // Reservations
+    UIButton *reservationsButton = nil;
+    if ([self.venueDict objectForKey:@"reservations"]) {
+        UIImageView *reservationsIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconReservationsBlack"]];
+        [mapView addSubview:reservationsIcon];
+        reservationsIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
+        
+        reservationsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [mapView addSubview:reservationsButton];
+        reservationsButton.backgroundColor = mapView.backgroundColor;
+        [reservationsButton addTarget:self action:@selector(openReservations:) forControlEvents:UIControlEventTouchUpInside];
+        [reservationsButton setTitle:[NSString stringWithFormat:@"%@", @"Make reservations on OpenTable"] forState:UIControlStateNormal];
+        [PSStyleSheet applyStyle:@"linkButton" forButton:reservationsButton];
+        
+        reservationsButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
+        
+        mapTop += reservationsButton.height + 2.0;
     }
     
     mapView.height = mapTop + 4.0;
@@ -579,12 +618,27 @@ mapView = _mapView;
 }
 
 #pragma mark - Button Actions
+- (void)openAddress:(id)sender {
+    NSString *urlString = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", [[self.venueDict objectForKey:@"formattedAddress"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+}
+
 - (void)openPhone:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", [[self.venueDict objectForKey:@"contact"] objectForKey:@"phone"]]]];
 }
 
 - (void)openWebsite:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self.venueDict objectForKey:@"url"]]];
+}
+
+- (void)openMenu:(id)sender {
+    NSString *urlString = [NSString stringWithFormat:@"%@", [[self.venueDict objectForKey:@"menu"] objectForKey:@"mobileUrl"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+}
+
+- (void)openReservations:(id)sender {
+    NSString *urlString = [NSString stringWithFormat:@"%@", [[self.venueDict objectForKey:@"reservations"] objectForKey:@"url"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
 @end

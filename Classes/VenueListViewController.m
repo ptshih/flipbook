@@ -340,6 +340,8 @@ hasLoadedOnce = _hasLoadedOnce;
                             
                             NSArray *tips = OBJ_NOT_NULL([dict objectForKey:@"tips"]);
                             NSDictionary *stats = OBJ_NOT_NULL([venue objectForKey:@"stats"]);
+                            NSDictionary *menu = OBJ_NOT_NULL([venue objectForKey:@"menu"]);
+                            NSDictionary *reservations = OBJ_NOT_NULL([venue objectForKey:@"reservations"]);
                             NSDictionary *location = OBJ_NOT_NULL([venue objectForKey:@"location"]);
                             NSDictionary *category = OBJ_NOT_NULL([venue objectForKey:@"categories"]) ? [[venue objectForKey:@"categories"] lastObject] : nil;
                             NSDictionary *featuredPhoto = OBJ_NOT_NULL([venue objectForKey:@"featuredPhotos"]) ? [[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] lastObject] : nil;
@@ -410,6 +412,16 @@ hasLoadedOnce = _hasLoadedOnce;
                             // Stats
                             if (stats) {
                                 [item setObject:stats forKey:@"stats"];
+                            }
+                            
+                            // Menu
+                            if (menu) {
+                                [item setObject:menu forKey:@"menu"];
+                            }
+                            
+                            // Reservations
+                            if (reservations) {
+                                [item setObject:reservations forKey:@"reservations"];
                             }
                                                             
                             // Photo

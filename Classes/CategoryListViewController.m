@@ -111,7 +111,7 @@
     botLabel.frame = CGRectMake(MARGIN, botView.height - LABEL_HEIGHT - MARGIN, labelSize.width, LABEL_HEIGHT);
 }
 
-#ifdef BETA
+#if 0
 - (void)pushCategory:(UITapGestureRecognizer *)gestureRecognizer {
     NSString *category = nil;
     UIView *view = gestureRecognizer.view;
@@ -199,7 +199,7 @@
             break;
     }
     
-    id vc = [[[VenueListViewController alloc] initWithCategory:category] autorelease];
+    id vc = [[VenueListViewController alloc] initWithCategory:category];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 }
 #endif

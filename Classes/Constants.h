@@ -31,7 +31,7 @@
 #ifdef DEBUG
     #define kSecondsBackgroundedUntilStale 5
 #else
-    #define kSecondsBackgroundedUntilStale 300
+    #define kSecondsBackgroundedUntilStale 600
 
 #endif
 

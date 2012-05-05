@@ -183,6 +183,9 @@ shouldReloadInterface = _shouldReloadInterface;
     // 5 min threshold
     if (secondsBackgrounded > kSecondsBackgroundedUntilStale) {
         self.shouldReloadInterface = YES;
+        
+        // Purge session cache
+        [[PSURLCache sharedCache] purgeCacheWithCacheType:PSURLCacheTypeSession];
     }
     
     [[LocalyticsSession sharedLocalyticsSession] resume];
@@ -197,7 +200,7 @@ shouldReloadInterface = _shouldReloadInterface;
             [[PSZoomView sharedView] reset];
         }
         
-        [self.navigationController popToRootViewControllerAnimated:NO];
+//        [self.navigationController popToRootViewControllerAnimated:NO];
     }
 }
 

@@ -56,7 +56,7 @@ hasLoadedOnce = _hasLoadedOnce;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.shouldAddRoundedCorners = YES;
-        self.shouldPullRefresh = YES;
+        self.shouldPullRefresh = NO;
 
         self.shouldRefreshOnAppear = NO;
         self.radius = 0;
@@ -303,9 +303,10 @@ hasLoadedOnce = _hasLoadedOnce;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
     
     BLOCK_SELF;
-    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
         ASSERT_MAIN_THREAD;
         if (error) {
+            [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
             [blockSelf.items removeAllObjects];
             [blockSelf dataSourceDidError];
         } else {
@@ -434,13 +435,6 @@ hasLoadedOnce = _hasLoadedOnce;
                             [blockSelf.items removeAllObjects];
                             [blockSelf.items addObjectsFromArray:items];
                             [blockSelf dataSourceDidLoad];
-                            
-                            // If this is the first load and we loaded cached data, we should refreh from remote now
-//                                if (!self.hasLoadedOnce && isCached) {
-//                                    self.hasLoadedOnce = YES;
-//                                    [self reloadDataSource];
-//                                    NSLog(@"first load, stale cache");
-//                                }
                         }];
                     } else {
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{

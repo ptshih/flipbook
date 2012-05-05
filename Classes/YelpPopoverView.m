@@ -75,6 +75,7 @@ loadingLabel = _loadingLabel;
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
     
+    BLOCK_SELF;
     [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession usingCache:YES completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
         ASSERT_MAIN_THREAD;
         if (error) {
@@ -85,15 +86,15 @@ loadingLabel = _loadingLabel;
             id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
             if (!apiResponse) {
                 [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
-                [self dataSourceDidError];
+                [blockSelf dataSourceDidError];
             } else {
                 if ([apiResponse objectForKey:@"data"] && [[[apiResponse objectForKey:@"data"] objectForKey:@"businesses"] count] > 0) {
-                    self.yelpDict = [[[apiResponse objectForKey:@"data"] objectForKey:@"businesses"] lastObject];
+                    blockSelf.yelpDict = [[[apiResponse objectForKey:@"data"] objectForKey:@"businesses"] lastObject];
                     
-                    [self dataSourceDidLoad];
+                    [blockSelf dataSourceDidLoad];
                 } else {
                     [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
-                    [self dataSourceDidError];
+                    [blockSelf dataSourceDidError];
                 }
             }
         }

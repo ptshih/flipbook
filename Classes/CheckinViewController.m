@@ -163,30 +163,6 @@ hasPhoto = _hasPhoto;
     UILabel *disclaimerLabel = [UILabel labelWithText:@"Note: Checkins and photos are public on Foursquare." style:@"metaCenteredLabel"];
     [composeView addSubview:disclaimerLabel];
     disclaimerLabel.frame = CGRectMake(8, self.textView.bottom + 8, self.view.width - 16, 14.0);
-
-    
-//    self.checkinButton = [UIButton buttonWithFrame:CGRectMake(8, 8 + 96 + 8, self.view.width - 16, 31) andStyle:@"checkinButton" target:self action:@selector(checkin:)];
-//    [composeView addSubview:self.checkinButton];
-//    [self.checkinButton setBackgroundImage:[[UIImage imageNamed:@"ButtonBlue"] stretchableImageWithLeftCapWidth:5 topCapHeight:0] forState:UIControlStateNormal];
-//    [self.checkinButton setTitle:@"Check In" forState:UIControlStateNormal];
-    
-//    
-//    
-//    UIView *containerView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8 + self.headerView.height, self.view.width - 16, self.view.width - 16)] autorelease];
-//    [self.view addSubview:containerView];
-//    
-//    UIImage *shadowImage = [[UIImage imageNamed:@"Shadow"] stretchableImageWithLeftCapWidth:3 topCapHeight:3];
-//    UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
-//    shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//    shadowView.frame = CGRectInset(containerView.bounds, -1, -2);
-//    shadowView.opaque = YES;
-//    shadowView.backgroundColor = [UIColor whiteColor];
-//    [containerView addSubview:shadowView];
-//    
-//    self.addPhotoButton = [UIButton buttonWithFrame:CGRectInset(containerView.bounds, 8, 8) andStyle:nil target:self action:@selector(addPhoto)];
-//    self.addPhotoButton.backgroundColor = RGBCOLOR(200, 200, 200);
-//    self.addPhotoButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
-//    [containerView addSubview:self.addPhotoButton];
 }
 
 - (void)setupHeader {
@@ -279,22 +255,23 @@ hasPhoto = _hasPhoto;
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
     
+    BLOCK_SELF;
     AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON){
         if ([response statusCode] != 200) {
             // Handle server status codes?
-            [self checkinSucceeded:NO];
+            [blockSelf checkinSucceeded:NO];
         } else {
             // Success
             NSDictionary *checkin = (NSDictionary *)JSON;
             
-            if (self.hasPhoto) {
-                [self addCheckinPhoto:checkin];
+            if (blockSelf.hasPhoto) {
+                [blockSelf addCheckinPhoto:checkin];
             } else {
-                [self checkinSucceeded:YES];
+                [blockSelf checkinSucceeded:YES];
             }
         }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        [self checkinSucceeded:NO];
+        [blockSelf checkinSucceeded:NO];
     }];
     [op start];
 }
@@ -337,6 +314,7 @@ hasPhoto = _hasPhoto;
         [formData appendPartWithFileData:imageData name:@"photo" fileName:@"photo.jpg" mimeType:@"image/jpeg"];
     }];
     
+    BLOCK_SELF;
     AFJSONRequestOperation *op = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON){
         if ([response statusCode] != 200) {
             // Handle server status codes?
@@ -344,11 +322,11 @@ hasPhoto = _hasPhoto;
             // Success
             NSDictionary *photo = (NSDictionary *)JSON;
             NSLog(@"photo added: %@", photo);
-            [self checkinSucceeded:YES];
+            [blockSelf checkinSucceeded:YES];
         }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"photo not added: %@", JSON);
-        [self checkinSucceeded:NO];
+        [blockSelf checkinSucceeded:NO];
     }];
     [op start];
 }
@@ -446,11 +424,12 @@ hasPhoto = _hasPhoto;
             [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:@"fsAccessToken"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
+            BLOCK_SELF;
             [UIView animateWithDuration:0.3 animations:^{
                 webView.alpha = 0.0;
             } completion:^(BOOL finished){
                 [webView removeFromSuperview];
-                [self.textView becomeFirstResponder];
+                [blockSelf.textView becomeFirstResponder];
             }];
         }
     }

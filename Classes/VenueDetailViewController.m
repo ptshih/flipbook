@@ -427,9 +427,10 @@ mapView = _mapView;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
     
     BLOCK_SELF;
-    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
         ASSERT_MAIN_THREAD;
         if (error) {
+            [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
             [blockSelf.items removeAllObjects];
             [blockSelf dataSourceDidError];
         } else {
@@ -473,13 +474,6 @@ mapView = _mapView;
                         [blockSelf.items removeAllObjects];
                         [blockSelf.items addObjectsFromArray:items];
                         [blockSelf dataSourceDidLoad];
-                        
-                        // If this is the first load and we loaded cached data, we should refreh from remote now
-                        if (!blockSelf.hasLoadedOnce && isCached) {
-                            blockSelf.hasLoadedOnce = YES;
-                            [blockSelf reloadDataSource];
-                            NSLog(@"first load, stale cache");
-                        }
                     }];
                 }
             }];

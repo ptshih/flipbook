@@ -124,7 +124,7 @@ divider = _divider;
     self.nameLabel.text = name;
     self.homeCityLabel.text = [user objectForKey:@"homeCity"];
     
-    [self.imageView loadImageWithURL:[NSURL URLWithString:[user objectForKey:@"photo"]] cacheType:PSURLCacheTypeSession];
+    [self.imageView loadImageWithURL:[NSURL URLWithString:[user objectForKey:@"photo"]] cacheType:PSURLCacheTypePermanent];
 }
 
 + (CGFloat)heightForViewWithObject:(id)object inColumnWidth:(CGFloat)columnWidth {

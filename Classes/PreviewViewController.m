@@ -144,8 +144,8 @@ imageView = _imageView;
     
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
-    [op setUploadProgressBlock:^(NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite) {
-        NSLog(@"Sent %d of %d bytes", totalBytesWritten, totalBytesExpectedToWrite);
+    [op setUploadProgressBlock:^(NSInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+//        NSLog(@"Sent %g of %g bytes", totalBytesWritten, totalBytesExpectedToWrite);
     }];
     
     [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -29,9 +29,6 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 @synthesize
 venueDict = _venueDict,
-leftButton = _leftButton,
-centerButton = _centerButton,
-rightButton = _rightButton,
 mapView = _mapView;
 
 + (void)initialize {
@@ -64,9 +61,6 @@ mapView = _mapView;
 
 - (void)dealloc {
     self.mapView.delegate = nil;
-    self.mapView = nil;
-    self.venueDict = nil;
-    [super dealloc];
 }
 
 #pragma mark - View Config
@@ -96,7 +90,7 @@ mapView = _mapView;
     self.collectionView.emptyView = emptyLabel;
     
     // 4sq attribution
-    UIImageView *pb4sq = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]] autorelease];
+    UIImageView *pb4sq = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]];
     pb4sq.contentMode = UIViewContentModeCenter;
     pb4sq.frame = CGRectMake(0, 0, self.collectionView.width, pb4sq.height);
     // Add gradient
@@ -114,23 +108,23 @@ mapView = _mapView;
     // 2 part collection header
     CGFloat top = 0.0;
     
-    UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, 0.0)] autorelease];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, 0.0)];
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     // Map
     CGFloat mapTop = 4.0;
     
-    UIView *mapView = [[[UIView alloc] initWithFrame:CGRectMake(8, 0, headerView.width - 16, mapHeight - 8)] autorelease];
+    UIView *mapView = [[UIView alloc] initWithFrame:CGRectMake(8, 0, headerView.width - 16, mapHeight - 8)];
     mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     mapView.backgroundColor = [UIColor whiteColor];
     UIImage *mapShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
-    UIImageView *mapShadowView = [[[UIImageView alloc] initWithImage:mapShadowImage] autorelease];
+    UIImageView *mapShadowView = [[UIImageView alloc] initWithImage:mapShadowImage];
     mapShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     mapShadowView.frame = CGRectInset(mapView.bounds, -1, -2);
     [mapView addSubview:mapShadowView];
     [headerView addSubview:mapView];
     
-    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(4, mapTop, headerView.width - 24, mapHeight - 16)] autorelease];
+    self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(4, mapTop, headerView.width - 24, mapHeight - 16)];
     self.mapView.layer.borderWidth = 0.5;
     self.mapView.layer.borderColor = [RGBACOLOR(200, 200, 200, 1.0) CGColor];
     self.mapView.layer.masksToBounds = YES;
@@ -143,7 +137,7 @@ mapView = _mapView;
     [self.mapView removeAnnotations:[self.mapView annotations]];
     VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:self.venueDict];
     [self.mapView addAnnotation:annotation];
-    UITapGestureRecognizer *gr = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(zoomMap:)] autorelease];
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(zoomMap:)];
     [self.mapView addGestureRecognizer:gr];
     [mapView addSubview:self.mapView];
     
@@ -152,7 +146,7 @@ mapView = _mapView;
     // Stats
     UILabel *statsLabel = nil;
     if ([self.venueDict objectForKey:@"stats"]) {
-        UIImageView *peopleIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPersonMiniBlack"]] autorelease];
+        UIImageView *peopleIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPersonMiniBlack"]];
         [mapView addSubview:peopleIcon];
         peopleIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
@@ -170,7 +164,7 @@ mapView = _mapView;
     // Address
     UILabel *addressLabel = nil;
     if ([self.venueDict objectForKey:@"formattedAddress"]) {
-        UIImageView *addressIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPinMiniBlack"]] autorelease];
+        UIImageView *addressIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPinMiniBlack"]];
         [mapView addSubview:addressIcon];
         addressIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
@@ -179,7 +173,7 @@ mapView = _mapView;
         addressLabel.backgroundColor = mapView.backgroundColor;
         addressLabel.text = [self.venueDict objectForKey:@"formattedAddress"];
         
-        CGSize addressLabelSize = [PSStyleSheet sizeForText:addressLabel.text width:self.mapView.width - 16 style:@"attributedLabel"];
+        CGSize addressLabelSize = [PSStyleSheet sizeForText:addressLabel.text width:self.mapView.width - 16 style:@"textLabel"];
         addressLabel.frame = CGRectMake(8 + 16, mapTop, addressLabelSize.width, 16.0);
         
         mapTop += addressLabel.height + 2.0;
@@ -188,7 +182,7 @@ mapView = _mapView;
     // Phone
     UIButton *phoneButton = nil;
     if ([self.venueDict objectForKey:@"contact"] && [[self.venueDict objectForKey:@"contact"] objectForKey:@"formattedPhone"]) {
-        UIImageView *phoneIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPhoneBlack"]] autorelease];
+        UIImageView *phoneIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPhoneBlack"]];
         [mapView addSubview:phoneIcon];
         phoneIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
@@ -207,7 +201,7 @@ mapView = _mapView;
     // Website
     UIButton *websiteButton = nil;
     if ([self.venueDict objectForKey:@"url"]) {
-        UIImageView *websiteIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPlanetBlack"]] autorelease];
+        UIImageView *websiteIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPlanetBlack"]];
         [mapView addSubview:websiteIcon];
         websiteIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
@@ -230,15 +224,15 @@ mapView = _mapView;
     // Tip
     // Don't show if no tips
     if ([self.venueDict objectForKey:@"tip"]) {
-        UIView *tipView = [[[UIView alloc] initWithFrame:CGRectMake(8, top, headerView.width - 16, 0.0)] autorelease];
+        UIView *tipView = [[UIView alloc] initWithFrame:CGRectMake(8, top, headerView.width - 16, 0.0)];
         tipView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         tipView.backgroundColor = [UIColor whiteColor];
         UIImage *tipShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
-        UIImageView *tipShadowView = [[[UIImageView alloc] initWithImage:tipShadowImage] autorelease];
+        UIImageView *tipShadowView = [[UIImageView alloc] initWithImage:tipShadowImage];
         tipShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         tipShadowView.frame = CGRectInset(tipView.bounds, -1, -2);
         [tipView addSubview:tipShadowView];
-        UITapGestureRecognizer *tipGR = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushTips:)] autorelease];
+        UITapGestureRecognizer *tipGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushTips:)];
         [tipView addGestureRecognizer:tipGR];
         [headerView addSubview:tipView];
         
@@ -246,11 +240,11 @@ mapView = _mapView;
         CGSize labelSize = CGSizeZero;
         CGFloat tipWidth = tipView.width - 16 - 20;
         
-        UILabel *tipUserLabel = [UILabel labelWithStyle:@"attributedBoldLabel"];
+        UILabel *tipUserLabel = [UILabel labelWithStyle:@"boldLabel"];
         tipUserLabel.backgroundColor = tipView.backgroundColor;
         [tipView addSubview:tipUserLabel];
         
-        UILabel *tipLabel = [UILabel labelWithStyle:@"attributedLabel"];
+        UILabel *tipLabel = [UILabel labelWithStyle:@"textLabel"];
         tipLabel.backgroundColor = tipView.backgroundColor;
         [tipView addSubview:tipLabel];
         
@@ -263,14 +257,14 @@ mapView = _mapView;
         NSString *tipText = [[tip objectForKey:@"text"] capitalizedString];
         
         tipUserLabel.text = tipUserText;
-        labelSize = [PSStyleSheet sizeForText:tipUserLabel.text width:(tipView.width - 16.0) style:@"attributedBoldLabel"];
+        labelSize = [PSStyleSheet sizeForText:tipUserLabel.text width:(tipView.width - 16.0) style:@"boldLabel"];
         tipUserLabel.frame = CGRectMake(8, 4, tipWidth, labelSize.height);
         
         tipLabel.text = tipText;
-        labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"attributedLabel"];
+        labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"textLabel"];
         tipLabel.frame = CGRectMake(8, tipUserLabel.bottom, tipWidth, labelSize.height);
         
-        divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
+        divider = [[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]];
         divider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         divider.frame = CGRectMake(8, tipLabel.bottom + 4, tipWidth, 1.0);
         [tipView addSubview:divider];
@@ -289,7 +283,7 @@ mapView = _mapView;
         CGFloat tipHeight = countLabel.bottom + 4;
         tipView.height = tipHeight;
         
-        UIImageView *disclosure = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureIndicatorWhiteBordered"]] autorelease];
+        UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureIndicatorWhiteBordered"]];
         disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         disclosure.contentMode = UIViewContentModeCenter;
         disclosure.frame = CGRectMake(tipView.width - 20, 0, 20, tipView.height);
@@ -306,7 +300,7 @@ mapView = _mapView;
 
 - (void)setupHeader {
     // Setup perma header
-    self.headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)] autorelease];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
     self.headerView.backgroundColor = [UIColor blackColor];
     self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
@@ -340,15 +334,15 @@ mapView = _mapView;
 }
 
 - (void)centerAction {
-    YelpPopoverView *v = [[[YelpPopoverView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, 288, 154)] autorelease]; // 218
-    PSPopoverView *pv = [[[PSPopoverView alloc] initWithTitle:@"Powered by Yelp" contentView:v] autorelease];
+    YelpPopoverView *v = [[YelpPopoverView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, 288, 154)]; // 218
+    PSPopoverView *pv = [[PSPopoverView alloc] initWithTitle:@"Powered by Yelp" contentView:v];
     pv.delegate = self;
     [pv showWithSize:v.frame.size inView:self.view];
 }
 
 - (void)rightAction {
     // Take a photo
-    PhotoTagsViewController *vc = [[[PhotoTagsViewController alloc] initWithDictionary:self.venueDict] autorelease];
+    PhotoTagsViewController *vc = [[PhotoTagsViewController alloc] initWithDictionary:self.venueDict];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 
 //    // Checkin
@@ -384,7 +378,7 @@ mapView = _mapView;
 }
 
 - (void)pushTips:(UITapGestureRecognizer *)gr {
-    TipListViewController *vc = [[[TipListViewController alloc] initWithDictionary:self.venueDict] autorelease];
+    TipListViewController *vc = [[TipListViewController alloc] initWithDictionary:self.venueDict];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 }
 
@@ -420,77 +414,76 @@ mapView = _mapView;
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    [self.requestQueue addOperationWithBlock:^{
-        NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/photos", [self.venueDict objectForKey:@"id"]];
-        
-        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:FS_API_VERSION forKey:@"v"];
-        [parameters setObject:@"venue" forKey:@"group"];
-        [parameters setObject:[NSNumber numberWithInteger:500] forKey:@"limit"];
-        [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
-        [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
-        
-        NSURL *URL = [NSURL URLWithString:URLPath];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
-        
-        [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
-            ASSERT_MAIN_THREAD;
-            if (error) {
-                [self.items removeAllObjects];
-                [self dataSourceDidError];
-            } else {
-                [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
-                    id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-                    if (!apiResponse) {
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            [self.items removeAllObjects];
-                            [self dataSourceDidError];
-                        }];
-                    } else {
-                        // Process 4sq response
-                        NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
-                        NSDictionary *response = [apiResponse objectForKey:@"response"];
-                        NSArray *photos = [[response objectForKey:@"photos"] objectForKey:@"items"];
-                        if (photos && [photos count] > 0) {
-                            for (NSDictionary *photo in photos) {
-                                NSDictionary *user = [photo objectForKey:@"user"];
-                                NSString *firstName = [NSString stringWithFormat:@"%@", [user objectForKey:@"firstName"]];
-                                NSString *name = ([user objectForKey:@"lastName"]) ? [firstName stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : firstName;
-                                NSDictionary *sizes = [photo objectForKey:@"sizes"];
-                                NSDictionary *fullSize = [[sizes objectForKey:@"items"] objectAtIndex:0];
-                                
-                                NSMutableDictionary *item = [NSMutableDictionary dictionary];
-                                [item setObject:[fullSize objectForKey:@"url"] forKey:@"source"];
-                                [item setObject:[fullSize objectForKey:@"width"] forKey:@"width"];
-                                [item setObject:[fullSize objectForKey:@"height"] forKey:@"height"];
-                                [item setObject:name forKey:@"name"];
-                                [item setObject:[user objectForKey:@"homeCity"] forKey:@"homeCity"];
-                                [items addObject:item];
-                            }
-                        } else {
-                            // No photos found
-                            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                [self.items removeAllObjects];
-                                [self dataSourceDidError];
-                            }];
-                        }
-                        
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            [self.items removeAllObjects];
-                            [self.items addObjectsFromArray:items];
-                            [self dataSourceDidLoad];
+    NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/photos", [self.venueDict objectForKey:@"id"]];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:FS_API_VERSION forKey:@"v"];
+    [parameters setObject:@"venue" forKey:@"group"];
+    [parameters setObject:[NSNumber numberWithInteger:500] forKey:@"limit"];
+    [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
+    [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
+    
+    NSURL *URL = [NSURL URLWithString:URLPath];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
+    
+    BLOCK_SELF;
+    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+        ASSERT_MAIN_THREAD;
+        if (error) {
+            [blockSelf.items removeAllObjects];
+            [blockSelf dataSourceDidError];
+        } else {
+            [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
+                id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+                if (!apiResponse) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        [blockSelf.items removeAllObjects];
+                        [blockSelf dataSourceDidError];
+                    }];
+                } else {
+                    // Process 4sq response
+                    NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
+                    NSDictionary *response = [apiResponse objectForKey:@"response"];
+                    NSArray *photos = [[response objectForKey:@"photos"] objectForKey:@"items"];
+                    if (photos && [photos count] > 0) {
+                        for (NSDictionary *photo in photos) {
+                            NSDictionary *user = [photo objectForKey:@"user"];
+                            NSString *firstName = [NSString stringWithFormat:@"%@", [user objectForKey:@"firstName"]];
+                            NSString *name = ([user objectForKey:@"lastName"]) ? [firstName stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : firstName;
+                            NSDictionary *sizes = [photo objectForKey:@"sizes"];
+                            NSDictionary *fullSize = [[sizes objectForKey:@"items"] objectAtIndex:0];
                             
-                            // If this is the first load and we loaded cached data, we should refreh from remote now
-                            if (!self.hasLoadedOnce && isCached) {
-                                self.hasLoadedOnce = YES;
-                                [self reloadDataSource];
-                                NSLog(@"first load, stale cache");
-                            }
+                            NSMutableDictionary *item = [NSMutableDictionary dictionary];
+                            [item setObject:[fullSize objectForKey:@"url"] forKey:@"source"];
+                            [item setObject:[fullSize objectForKey:@"width"] forKey:@"width"];
+                            [item setObject:[fullSize objectForKey:@"height"] forKey:@"height"];
+                            [item setObject:name forKey:@"name"];
+                            [item setObject:[user objectForKey:@"homeCity"] forKey:@"homeCity"];
+                            [items addObject:item];
+                        }
+                    } else {
+                        // No photos found
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            [blockSelf.items removeAllObjects];
+                            [blockSelf dataSourceDidError];
                         }];
                     }
-                }];
-            }
-        }];
+                    
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        [blockSelf.items removeAllObjects];
+                        [blockSelf.items addObjectsFromArray:items];
+                        [blockSelf dataSourceDidLoad];
+                        
+                        // If this is the first load and we loaded cached data, we should refreh from remote now
+                        if (!blockSelf.hasLoadedOnce && isCached) {
+                            blockSelf.hasLoadedOnce = YES;
+                            [blockSelf reloadDataSource];
+                            NSLog(@"first load, stale cache");
+                        }
+                    }];
+                }
+            }];
+        }
     }];
 }
 
@@ -500,7 +493,7 @@ mapView = _mapView;
     
     PhotoView *v = (PhotoView *)[self.collectionView dequeueReusableView];
     if (!v) {
-        v = [[[PhotoView alloc] initWithFrame:CGRectZero] autorelease];
+        v = [[PhotoView alloc] initWithFrame:CGRectZero];
     }
     
     [v fillViewWithObject:item];
@@ -551,7 +544,7 @@ mapView = _mapView;
     VenueAnnotationView *v = (VenueAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:reuseIdentifier];
     
     if (!v) {
-        v = [[[VenueAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIdentifier] autorelease];
+        v = [[VenueAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
         v.canShowCallout = YES;
         v.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     }
@@ -563,7 +556,7 @@ mapView = _mapView;
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"View Directions" message:[NSString stringWithFormat:@"Open %@ in Google Maps?", [view.annotation title]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"View Directions" message:[NSString stringWithFormat:@"Open %@ in Google Maps?", [view.annotation title]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     av.tag = kAlertTagDirections;
     [av show];
 }

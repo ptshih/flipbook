@@ -19,7 +19,7 @@ tableView = _tableView;
     if (self) {
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
         
-        self.tableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height) style:UITableViewStyleGrouped] autorelease];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height) style:UITableViewStyleGrouped];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.scrollEnabled = NO;
@@ -36,8 +36,6 @@ tableView = _tableView;
     self.tableView.delegate = nil;
     self.tableView.dataSource = nil;
     
-    self.tableView = nil;
-    [super dealloc];
 }
 
 #pragma mark - UITableView
@@ -60,7 +58,7 @@ tableView = _tableView;
     
     cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if(cell == nil) { 
-        cell = [[[cellClass alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+        cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
         cell.textLabel.backgroundColor = [UIColor clearColor];
     }
     

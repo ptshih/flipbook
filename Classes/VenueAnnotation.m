@@ -14,7 +14,7 @@
 venueDict = _venueDict;
 
 + (VenueAnnotation *)venueAnnotationWithDictionary:(NSDictionary *)dictionary {
-    return [[[[self class] alloc] initWithDictionary:dictionary] autorelease];
+    return [[[self class] alloc] initWithDictionary:dictionary];
 }
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
@@ -25,10 +25,6 @@ venueDict = _venueDict;
     return self;
 }
 
-- (void)dealloc {
-    self.venueDict = nil;
-    [super dealloc];
-}
 
 #pragma mark - MKAnnotation
 - (CLLocationCoordinate2D)coordinate {

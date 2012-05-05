@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		280186441554A36E005E6324 /* IconClear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 280186421554A36E005E6324 /* IconClear@2x.png */; };
+		280186451554A36E005E6324 /* IconClear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 280186421554A36E005E6324 /* IconClear@2x.png */; };
+		280186461554A36E005E6324 /* IconClear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 280186421554A36E005E6324 /* IconClear@2x.png */; };
+		280186471554A36E005E6324 /* IconClear.png in Resources */ = {isa = PBXBuildFile; fileRef = 280186431554A36E005E6324 /* IconClear.png */; };
+		280186481554A36E005E6324 /* IconClear.png in Resources */ = {isa = PBXBuildFile; fileRef = 280186431554A36E005E6324 /* IconClear.png */; };
+		280186491554A36E005E6324 /* IconClear.png in Resources */ = {isa = PBXBuildFile; fileRef = 280186431554A36E005E6324 /* IconClear.png */; };
 		2808C3DF151D33A300763095 /* TTTArrayFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3CC151D33A300763095 /* TTTArrayFormatter.m */; };
 		2808C3E0151D33A300763095 /* TTTHoursOfOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3CF151D33A300763095 /* TTTHoursOfOperation.m */; };
 		2808C3E1151D33A300763095 /* TTTLocationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3D2151D33A300763095 /* TTTLocationFormatter.m */; };
@@ -148,25 +154,22 @@
 		281F49971545BCC10066DD70 /* PSMailCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987711475CEEC00B40860 /* PSMailCenter.m */; };
 		281F49981545BCC10066DD70 /* PSReachabilityCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987741475CEEC00B40860 /* PSReachabilityCenter.m */; };
 		281F49991545BCC10066DD70 /* PSSearchCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987771475CEEC00B40860 /* PSSearchCenter.m */; };
-		281F499A1545BCC10066DD70 /* PSToastCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869877C1475CEEC00B40860 /* PSToastCenter.m */; };
 		281F499B1545BCC10066DD70 /* PSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987851475CEEC00B40860 /* PSBaseViewController.m */; };
 		281F499C1545BCC10066DD70 /* PSCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987871475CEEC00B40860 /* PSCell.m */; };
 		281F499D1545BCC10066DD70 /* PSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869878D1475CEEC00B40860 /* PSImageView.m */; };
 		281F499E1545BCC10066DD70 /* PSErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987901475CEEC00B40860 /* PSErrorView.m */; };
 		281F499F1545BCC10066DD70 /* PSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987921475CEEC00B40860 /* PSObject.m */; };
 		281F49A01545BCC10066DD70 /* PSRandomSortDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987961475CEEC00B40860 /* PSRandomSortDescriptor.m */; };
-		281F49A11545BCC10066DD70 /* PSRollupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987981475CEEC00B40860 /* PSRollupView.m */; };
 		281F49A21545BCC10066DD70 /* PSSearchField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869879A1475CEEC00B40860 /* PSSearchField.m */; };
 		281F49A31545BCC10066DD70 /* PSStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869879C1475CEEC00B40860 /* PSStarView.m */; };
 		281F49A41545BCC10066DD70 /* PSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869879F1475CEEC00B40860 /* PSTableViewController.m */; };
 		281F49A51545BCC10066DD70 /* PSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987A11475CEEC00B40860 /* PSTextField.m */; };
 		281F49A61545BCC10066DD70 /* PSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987A31475CEEC00B40860 /* PSTextView.m */; };
-		281F49A71545BCC10066DD70 /* PSTutorialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987A51475CEEC00B40860 /* PSTutorialView.m */; };
 		281F49A81545BCC10066DD70 /* PSView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987A91475CEEC00B40860 /* PSView.m */; };
 		281F49A91545BCC10066DD70 /* PSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987AB1475CEEC00B40860 /* PSViewController.m */; };
-		281F49AA1545BCC10066DD70 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 286988011475CEEC00B40860 /* Reachability.m */; };
-		281F49AB1545BCC10066DD70 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 286988051475CEEC00B40860 /* SVProgressHUD.m */; };
-		281F49AC1545BCC10066DD70 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 286988081475CEEC00B40860 /* TTTAttributedLabel.m */; };
+		281F49AA1545BCC10066DD70 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 286988011475CEEC00B40860 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49AB1545BCC10066DD70 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 286988051475CEEC00B40860 /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49AC1545BCC10066DD70 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 286988081475CEEC00B40860 /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		281F49AD1545BCC10066DD70 /* PSWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A19CF614A018FD0043F7BB /* PSWindow.m */; };
 		281F49AE1545BCC10066DD70 /* PSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A19CFE14A023520043F7BB /* PSNavigationController.m */; };
 		281F49AF1545BCC10066DD70 /* PSZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B4314AA860700541BB1 /* PSZoomView.m */; };
@@ -178,34 +181,34 @@
 		281F49B51545BCC10066DD70 /* PSCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = D031558914E5AB8B00CC8572 /* PSCollectionView.m */; };
 		281F49B61545BCC10066DD70 /* PSPullRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DDA67A14E85DC1001FD463 /* PSPullRefreshView.m */; };
 		281F49B71545BCC10066DD70 /* VenueDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E516F14E8ABB400B5CCCD /* VenueDetailViewController.m */; };
-		281F49B81545BCC10066DD70 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C547614E973F800F1DD5C /* AFHTTPClient.m */; };
-		281F49B91545BCC10066DD70 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C547814E973F800F1DD5C /* AFHTTPRequestOperation.m */; };
-		281F49BA1545BCC10066DD70 /* AFImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C547A14E973F800F1DD5C /* AFImageCache.m */; };
-		281F49BB1545BCC10066DD70 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C547C14E973F800F1DD5C /* AFImageRequestOperation.m */; };
-		281F49BC1545BCC10066DD70 /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C547E14E973F800F1DD5C /* AFJSONRequestOperation.m */; };
-		281F49BD1545BCC10066DD70 /* AFJSONUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C548014E973F800F1DD5C /* AFJSONUtilities.m */; };
-		281F49BE1545BCC10066DD70 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C548214E973F800F1DD5C /* AFNetworkActivityIndicatorManager.m */; };
-		281F49BF1545BCC10066DD70 /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C548514E973F800F1DD5C /* AFPropertyListRequestOperation.m */; };
-		281F49C01545BCC10066DD70 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C548714E973F800F1DD5C /* AFURLConnectionOperation.m */; };
-		281F49C11545BCC10066DD70 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C548914E973F800F1DD5C /* AFXMLRequestOperation.m */; };
+		281F49B81545BCC10066DD70 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C547614E973F800F1DD5C /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49B91545BCC10066DD70 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C547814E973F800F1DD5C /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49BA1545BCC10066DD70 /* AFImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C547A14E973F800F1DD5C /* AFImageCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49BB1545BCC10066DD70 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C547C14E973F800F1DD5C /* AFImageRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49BC1545BCC10066DD70 /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C547E14E973F800F1DD5C /* AFJSONRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49BD1545BCC10066DD70 /* AFJSONUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C548014E973F800F1DD5C /* AFJSONUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49BE1545BCC10066DD70 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C548214E973F800F1DD5C /* AFNetworkActivityIndicatorManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49BF1545BCC10066DD70 /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C548514E973F800F1DD5C /* AFPropertyListRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49C01545BCC10066DD70 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C548714E973F800F1DD5C /* AFURLConnectionOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49C11545BCC10066DD70 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D08C548914E973F800F1DD5C /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		281F49C21545BCC10066DD70 /* NSJSONSerialization+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D05B5F9214EB068200970969 /* NSJSONSerialization+PSKit.m */; };
 		281F49C31545BCC10066DD70 /* NSMutableArray+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D048787114EF193A00DE6AC8 /* NSMutableArray+PSKit.m */; };
 		281F49C41545BCC10066DD70 /* PSURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A3AC8714F42A8900748CE7 /* PSURLCache.m */; };
 		281F49C51545BCC10066DD70 /* PSCachedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A3AC8A14F42AA300748CE7 /* PSCachedImageView.m */; };
 		281F49C71545BCC10066DD70 /* PSPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D054E98C14F6EE5F00B03306 /* PSPopoverView.m */; };
-		281F49C81545BCC10066DD70 /* Appirater.m in Sources */ = {isa = PBXBuildFile; fileRef = D07B2DC014F750F500304E62 /* Appirater.m */; };
+		281F49C81545BCC10066DD70 /* Appirater.m in Sources */ = {isa = PBXBuildFile; fileRef = D07B2DC014F750F500304E62 /* Appirater.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		281F49C91545BCC10066DD70 /* PSStyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D2EB14F84B8700DEB789 /* PSStyleSheet.m */; };
-		281F49CA1545BCC10066DD70 /* BWQuincyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D48014F84CC300DEB789 /* BWQuincyManager.m */; };
-		281F49CB1545BCC10066DD70 /* BWApp.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D49814F84CDA00DEB789 /* BWApp.m */; };
-		281F49CC1545BCC10066DD70 /* BWGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D49A14F84CDA00DEB789 /* BWGlobal.m */; };
-		281F49CD1545BCC10066DD70 /* BWHockeyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D49C14F84CDA00DEB789 /* BWHockeyManager.m */; };
-		281F49CE1545BCC10066DD70 /* BWHockeySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D49E14F84CDA00DEB789 /* BWHockeySettingsViewController.m */; };
-		281F49CF1545BCC10066DD70 /* BWHockeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4A014F84CDA00DEB789 /* BWHockeyViewController.m */; };
-		281F49D01545BCC10066DD70 /* NSString+HockeyAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4A314F84CDA00DEB789 /* NSString+HockeyAdditions.m */; };
-		281F49D11545BCC10066DD70 /* PSAppStoreHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4A514F84CDA00DEB789 /* PSAppStoreHeader.m */; };
-		281F49D21545BCC10066DD70 /* PSStoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4A714F84CDA00DEB789 /* PSStoreButton.m */; };
-		281F49D31545BCC10066DD70 /* PSWebTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4A914F84CDA00DEB789 /* PSWebTableViewCell.m */; };
-		281F49D41545BCC10066DD70 /* UIImage+HockeyAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4AB14F84CDA00DEB789 /* UIImage+HockeyAdditions.m */; };
+		281F49CA1545BCC10066DD70 /* BWQuincyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D48014F84CC300DEB789 /* BWQuincyManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49CB1545BCC10066DD70 /* BWApp.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D49814F84CDA00DEB789 /* BWApp.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49CC1545BCC10066DD70 /* BWGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D49A14F84CDA00DEB789 /* BWGlobal.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49CD1545BCC10066DD70 /* BWHockeyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D49C14F84CDA00DEB789 /* BWHockeyManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49CE1545BCC10066DD70 /* BWHockeySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D49E14F84CDA00DEB789 /* BWHockeySettingsViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49CF1545BCC10066DD70 /* BWHockeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4A014F84CDA00DEB789 /* BWHockeyViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49D01545BCC10066DD70 /* NSString+HockeyAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4A314F84CDA00DEB789 /* NSString+HockeyAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49D11545BCC10066DD70 /* PSAppStoreHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4A514F84CDA00DEB789 /* PSAppStoreHeader.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49D21545BCC10066DD70 /* PSStoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4A714F84CDA00DEB789 /* PSStoreButton.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49D31545BCC10066DD70 /* PSWebTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4A914F84CDA00DEB789 /* PSWebTableViewCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49D41545BCC10066DD70 /* UIImage+HockeyAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D4AB14F84CDA00DEB789 /* UIImage+HockeyAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		281F49D51545BCC10066DD70 /* PSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F4CB4714F996F70001FD7E /* PSCollectionViewController.m */; };
 		281F49D61545BCC10066DD70 /* PhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = D088EFCF14F99912006F7675 /* PhotoView.m */; };
 		281F49D71545BCC10066DD70 /* VenueAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FE068114F9C64B00140D9E /* VenueAnnotationView.m */; };
@@ -219,16 +222,16 @@
 		281F49DF1545BCC10066DD70 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284ABDAC150E987F0040B250 /* PreviewViewController.m */; };
 		281F49E01545BCC10066DD70 /* PSDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 283F89301515DCFF003C1D63 /* PSDateFormatter.m */; };
 		281F49E11545BCC10066DD70 /* PSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 282E821E1515F0E8000B8566 /* PSCollectionViewCell.m */; };
-		281F49E31545BCC10066DD70 /* TTTArrayFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3CC151D33A300763095 /* TTTArrayFormatter.m */; };
-		281F49E41545BCC10066DD70 /* TTTHoursOfOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3CF151D33A300763095 /* TTTHoursOfOperation.m */; };
-		281F49E51545BCC10066DD70 /* TTTLocationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3D2151D33A300763095 /* TTTLocationFormatter.m */; };
-		281F49E61545BCC10066DD70 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3D5151D33A300763095 /* TTTOrdinalNumberFormatter.m */; };
-		281F49E71545BCC10066DD70 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3D8151D33A300763095 /* TTTTimeIntervalFormatter.m */; };
-		281F49E81545BCC10066DD70 /* TTTUnitOfInformationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3DB151D33A300763095 /* TTTUnitOfInformationFormatter.m */; };
-		281F49E91545BCC10066DD70 /* TTTURLRequestFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3DE151D33A300763095 /* TTTURLRequestFormatter.m */; };
-		281F49EA1545BCC10066DD70 /* LocalyticsDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 289733FD1521A8CE004BE577 /* LocalyticsDatabase.m */; };
-		281F49EB1545BCC10066DD70 /* LocalyticsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 289733FF1521A8CE004BE577 /* LocalyticsSession.m */; };
-		281F49EC1545BCC10066DD70 /* LocalyticsUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 289734011521A8CE004BE577 /* LocalyticsUploader.m */; };
+		281F49E31545BCC10066DD70 /* TTTArrayFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3CC151D33A300763095 /* TTTArrayFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49E41545BCC10066DD70 /* TTTHoursOfOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3CF151D33A300763095 /* TTTHoursOfOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49E51545BCC10066DD70 /* TTTLocationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3D2151D33A300763095 /* TTTLocationFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49E61545BCC10066DD70 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3D5151D33A300763095 /* TTTOrdinalNumberFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49E71545BCC10066DD70 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3D8151D33A300763095 /* TTTTimeIntervalFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49E81545BCC10066DD70 /* TTTUnitOfInformationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3DB151D33A300763095 /* TTTUnitOfInformationFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49E91545BCC10066DD70 /* TTTURLRequestFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2808C3DE151D33A300763095 /* TTTURLRequestFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49EA1545BCC10066DD70 /* LocalyticsDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 289733FD1521A8CE004BE577 /* LocalyticsDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49EB1545BCC10066DD70 /* LocalyticsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 289733FF1521A8CE004BE577 /* LocalyticsSession.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281F49EC1545BCC10066DD70 /* LocalyticsUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 289734011521A8CE004BE577 /* LocalyticsUploader.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		281F49ED1545BCC10066DD70 /* CategoryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284B1DBD152F6296000F2BAE /* CategoryListViewController.m */; };
 		281F49EE1545BCC10066DD70 /* YelpPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28DEE592152FA06500458D8D /* YelpPopoverView.m */; };
 		281F49EF1545BCC10066DD70 /* PSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28888D2315358071001743CA /* PSAlertView.m */; };
@@ -458,20 +461,17 @@
 		2843A5DF1545B9510089FC73 /* PSMailCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987711475CEEC00B40860 /* PSMailCenter.m */; };
 		2843A5E01545B9510089FC73 /* PSReachabilityCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987741475CEEC00B40860 /* PSReachabilityCenter.m */; };
 		2843A5E11545B9510089FC73 /* PSSearchCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987771475CEEC00B40860 /* PSSearchCenter.m */; };
-		2843A5E21545B9510089FC73 /* PSToastCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869877C1475CEEC00B40860 /* PSToastCenter.m */; };
 		2843A5E31545B9510089FC73 /* PSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987851475CEEC00B40860 /* PSBaseViewController.m */; };
 		2843A5E41545B9510089FC73 /* PSCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987871475CEEC00B40860 /* PSCell.m */; };
 		2843A5E51545B9510089FC73 /* PSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869878D1475CEEC00B40860 /* PSImageView.m */; };
 		2843A5E61545B9510089FC73 /* PSErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987901475CEEC00B40860 /* PSErrorView.m */; };
 		2843A5E71545B9510089FC73 /* PSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987921475CEEC00B40860 /* PSObject.m */; };
 		2843A5E81545B9510089FC73 /* PSRandomSortDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987961475CEEC00B40860 /* PSRandomSortDescriptor.m */; };
-		2843A5E91545B9510089FC73 /* PSRollupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987981475CEEC00B40860 /* PSRollupView.m */; };
 		2843A5EA1545B9510089FC73 /* PSSearchField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869879A1475CEEC00B40860 /* PSSearchField.m */; };
 		2843A5EB1545B9510089FC73 /* PSStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869879C1475CEEC00B40860 /* PSStarView.m */; };
 		2843A5EC1545B9510089FC73 /* PSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869879F1475CEEC00B40860 /* PSTableViewController.m */; };
 		2843A5ED1545B9510089FC73 /* PSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987A11475CEEC00B40860 /* PSTextField.m */; };
 		2843A5EE1545B9510089FC73 /* PSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987A31475CEEC00B40860 /* PSTextView.m */; };
-		2843A5EF1545B9510089FC73 /* PSTutorialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987A51475CEEC00B40860 /* PSTutorialView.m */; };
 		2843A5F01545B9510089FC73 /* PSView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987A91475CEEC00B40860 /* PSView.m */; };
 		2843A5F11545B9510089FC73 /* PSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987AB1475CEEC00B40860 /* PSViewController.m */; };
 		2843A5F21545B9510089FC73 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 286988011475CEEC00B40860 /* Reachability.m */; };
@@ -781,20 +781,17 @@
 		2869881D1475CEEC00B40860 /* PSMailCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987711475CEEC00B40860 /* PSMailCenter.m */; };
 		2869881E1475CEEC00B40860 /* PSReachabilityCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987741475CEEC00B40860 /* PSReachabilityCenter.m */; };
 		2869881F1475CEEC00B40860 /* PSSearchCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987771475CEEC00B40860 /* PSSearchCenter.m */; };
-		286988221475CEEC00B40860 /* PSToastCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869877C1475CEEC00B40860 /* PSToastCenter.m */; };
 		286988241475CEEC00B40860 /* PSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987851475CEEC00B40860 /* PSBaseViewController.m */; };
 		286988251475CEEC00B40860 /* PSCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987871475CEEC00B40860 /* PSCell.m */; };
 		286988281475CEEC00B40860 /* PSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869878D1475CEEC00B40860 /* PSImageView.m */; };
 		286988291475CEEC00B40860 /* PSErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987901475CEEC00B40860 /* PSErrorView.m */; };
 		2869882A1475CEEC00B40860 /* PSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987921475CEEC00B40860 /* PSObject.m */; };
 		2869882C1475CEEC00B40860 /* PSRandomSortDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987961475CEEC00B40860 /* PSRandomSortDescriptor.m */; };
-		2869882D1475CEEC00B40860 /* PSRollupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987981475CEEC00B40860 /* PSRollupView.m */; };
 		2869882E1475CEEC00B40860 /* PSSearchField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869879A1475CEEC00B40860 /* PSSearchField.m */; };
 		2869882F1475CEEC00B40860 /* PSStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869879C1475CEEC00B40860 /* PSStarView.m */; };
 		286988301475CEEC00B40860 /* PSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869879F1475CEEC00B40860 /* PSTableViewController.m */; };
 		286988311475CEEC00B40860 /* PSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987A11475CEEC00B40860 /* PSTextField.m */; };
 		286988321475CEEC00B40860 /* PSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987A31475CEEC00B40860 /* PSTextView.m */; };
-		286988331475CEEC00B40860 /* PSTutorialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987A51475CEEC00B40860 /* PSTutorialView.m */; };
 		286988351475CEEC00B40860 /* PSView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987A91475CEEC00B40860 /* PSView.m */; };
 		286988361475CEEC00B40860 /* PSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987AB1475CEEC00B40860 /* PSViewController.m */; };
 		286988371475CEEC00B40860 /* PSKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 286987AC1475CEEC00B40860 /* PSKit.bundle */; };
@@ -959,10 +956,10 @@
 		D0ACA547150043FF00681176 /* NavButtonRightWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ACA53B150043FF00681176 /* NavButtonRightWhite@2x.png */; };
 		D0BBA7AF1548819D006CD0B7 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; };
 		D0BBA7B01548819D006CD0B7 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; };
-		D0BBA7B11548819D006CD0B7 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; };
+		D0BBA7B11548819D006CD0B7 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D0BBA7B21548819D006CD0B7 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */; };
 		D0BBA7B31548819D006CD0B7 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */; };
-		D0BBA7B41548819D006CD0B7 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */; };
+		D0BBA7B41548819D006CD0B7 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D0C5BFE814F75B960041A364 /* ButtonFacebookHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFE614F75B960041A364 /* ButtonFacebookHighlighted@2x.png */; };
 		D0C5BFE914F75B960041A364 /* ButtonFacebookHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFE714F75B960041A364 /* ButtonFacebookHighlighted.png */; };
 		D0C5BFED14F75C4B0041A364 /* ButtonFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFEB14F75C4B0041A364 /* ButtonFacebook.png */; };
@@ -1020,6 +1017,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		280186421554A36E005E6324 /* IconClear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconClear@2x.png"; sourceTree = "<group>"; };
+		280186431554A36E005E6324 /* IconClear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconClear.png; sourceTree = "<group>"; };
 		2808C3CB151D33A300763095 /* TTTArrayFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTArrayFormatter.h; sourceTree = "<group>"; };
 		2808C3CC151D33A300763095 /* TTTArrayFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTArrayFormatter.m; sourceTree = "<group>"; };
 		2808C3CE151D33A300763095 /* TTTHoursOfOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTHoursOfOperation.h; sourceTree = "<group>"; };
@@ -1194,8 +1193,6 @@
 		286987741475CEEC00B40860 /* PSReachabilityCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSReachabilityCenter.m; sourceTree = "<group>"; };
 		286987761475CEEC00B40860 /* PSSearchCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSSearchCenter.h; sourceTree = "<group>"; };
 		286987771475CEEC00B40860 /* PSSearchCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSSearchCenter.m; sourceTree = "<group>"; };
-		2869877B1475CEEC00B40860 /* PSToastCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSToastCenter.h; sourceTree = "<group>"; };
-		2869877C1475CEEC00B40860 /* PSToastCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSToastCenter.m; sourceTree = "<group>"; };
 		286987811475CEEC00B40860 /* PSCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCategories.h; sourceTree = "<group>"; };
 		286987821475CEEC00B40860 /* PSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSConstants.h; sourceTree = "<group>"; };
 		286987841475CEEC00B40860 /* PSBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBaseViewController.h; sourceTree = "<group>"; };
@@ -1210,8 +1207,6 @@
 		286987921475CEEC00B40860 /* PSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSObject.m; sourceTree = "<group>"; };
 		286987951475CEEC00B40860 /* PSRandomSortDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRandomSortDescriptor.h; sourceTree = "<group>"; };
 		286987961475CEEC00B40860 /* PSRandomSortDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRandomSortDescriptor.m; sourceTree = "<group>"; };
-		286987971475CEEC00B40860 /* PSRollupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRollupView.h; sourceTree = "<group>"; };
-		286987981475CEEC00B40860 /* PSRollupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRollupView.m; sourceTree = "<group>"; };
 		286987991475CEEC00B40860 /* PSSearchField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSSearchField.h; sourceTree = "<group>"; };
 		2869879A1475CEEC00B40860 /* PSSearchField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSSearchField.m; sourceTree = "<group>"; };
 		2869879B1475CEEC00B40860 /* PSStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSStarView.h; sourceTree = "<group>"; };
@@ -1223,8 +1218,6 @@
 		286987A11475CEEC00B40860 /* PSTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTextField.m; sourceTree = "<group>"; };
 		286987A21475CEEC00B40860 /* PSTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTextView.h; sourceTree = "<group>"; };
 		286987A31475CEEC00B40860 /* PSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTextView.m; sourceTree = "<group>"; };
-		286987A41475CEEC00B40860 /* PSTutorialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTutorialView.h; sourceTree = "<group>"; };
-		286987A51475CEEC00B40860 /* PSTutorialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTutorialView.m; sourceTree = "<group>"; };
 		286987A81475CEEC00B40860 /* PSView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSView.h; sourceTree = "<group>"; };
 		286987A91475CEEC00B40860 /* PSView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSView.m; sourceTree = "<group>"; };
 		286987AA1475CEEC00B40860 /* PSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSViewController.h; sourceTree = "<group>"; };
@@ -1985,7 +1978,6 @@
 				2869876F1475CEEC00B40860 /* PSMailCenter */,
 				286987721475CEEC00B40860 /* PSReachabilityCenter */,
 				286987751475CEEC00B40860 /* PSSearchCenter */,
-				286987781475CEEC00B40860 /* PSToastCenter */,
 			);
 			path = Centers;
 			sourceTree = "<group>";
@@ -2035,15 +2027,6 @@
 			path = PSSearchCenter;
 			sourceTree = "<group>";
 		};
-		286987781475CEEC00B40860 /* PSToastCenter */ = {
-			isa = PBXGroup;
-			children = (
-				2869877B1475CEEC00B40860 /* PSToastCenter.h */,
-				2869877C1475CEEC00B40860 /* PSToastCenter.m */,
-			);
-			path = PSToastCenter;
-			sourceTree = "<group>";
-		};
 		286987801475CEEC00B40860 /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -2078,8 +2061,6 @@
 				286987921475CEEC00B40860 /* PSObject.m */,
 				286987951475CEEC00B40860 /* PSRandomSortDescriptor.h */,
 				286987961475CEEC00B40860 /* PSRandomSortDescriptor.m */,
-				286987971475CEEC00B40860 /* PSRollupView.h */,
-				286987981475CEEC00B40860 /* PSRollupView.m */,
 				286987991475CEEC00B40860 /* PSSearchField.h */,
 				2869879A1475CEEC00B40860 /* PSSearchField.m */,
 				2869879B1475CEEC00B40860 /* PSStarView.h */,
@@ -2089,8 +2070,6 @@
 				286987A11475CEEC00B40860 /* PSTextField.m */,
 				286987A21475CEEC00B40860 /* PSTextView.h */,
 				286987A31475CEEC00B40860 /* PSTextView.m */,
-				286987A41475CEEC00B40860 /* PSTutorialView.h */,
-				286987A51475CEEC00B40860 /* PSTutorialView.m */,
 				286987A81475CEEC00B40860 /* PSView.h */,
 				286987A91475CEEC00B40860 /* PSView.m */,
 				28A19CF514A018FD0043F7BB /* PSWindow.h */,
@@ -2248,6 +2227,8 @@
 		28F38D4A149839B9009D58BA /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				280186421554A36E005E6324 /* IconClear@2x.png */,
+				280186431554A36E005E6324 /* IconClear.png */,
 				28888CF915356EBA001743CA /* IconCheckBlack.png */,
 				28888CFA15356EBA001743CA /* IconCheckBlack@2x.png */,
 				28888CFB15356EBA001743CA /* IconCheckWhite.png */,
@@ -2923,6 +2904,8 @@
 				280A285E154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf in Resources */,
 				280A2861154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */,
 				280A2864154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf in Resources */,
+				280186461554A36E005E6324 /* IconClear@2x.png in Resources */,
+				280186491554A36E005E6324 /* IconClear.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3128,6 +3111,8 @@
 				280A285C154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf in Resources */,
 				280A285F154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */,
 				280A2862154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf in Resources */,
+				280186441554A36E005E6324 /* IconClear@2x.png in Resources */,
+				280186471554A36E005E6324 /* IconClear.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3333,6 +3318,8 @@
 				280A285D154FAF9E00D1728A /* Helvetica LT 67 Medium Condensed.ttf in Resources */,
 				280A2860154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */,
 				280A2863154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf in Resources */,
+				280186451554A36E005E6324 /* IconClear@2x.png in Resources */,
+				280186481554A36E005E6324 /* IconClear.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3407,20 +3394,17 @@
 				281F49971545BCC10066DD70 /* PSMailCenter.m in Sources */,
 				281F49981545BCC10066DD70 /* PSReachabilityCenter.m in Sources */,
 				281F49991545BCC10066DD70 /* PSSearchCenter.m in Sources */,
-				281F499A1545BCC10066DD70 /* PSToastCenter.m in Sources */,
 				281F499B1545BCC10066DD70 /* PSBaseViewController.m in Sources */,
 				281F499C1545BCC10066DD70 /* PSCell.m in Sources */,
 				281F499D1545BCC10066DD70 /* PSImageView.m in Sources */,
 				281F499E1545BCC10066DD70 /* PSErrorView.m in Sources */,
 				281F499F1545BCC10066DD70 /* PSObject.m in Sources */,
 				281F49A01545BCC10066DD70 /* PSRandomSortDescriptor.m in Sources */,
-				281F49A11545BCC10066DD70 /* PSRollupView.m in Sources */,
 				281F49A21545BCC10066DD70 /* PSSearchField.m in Sources */,
 				281F49A31545BCC10066DD70 /* PSStarView.m in Sources */,
 				281F49A41545BCC10066DD70 /* PSTableViewController.m in Sources */,
 				281F49A51545BCC10066DD70 /* PSTextField.m in Sources */,
 				281F49A61545BCC10066DD70 /* PSTextView.m in Sources */,
-				281F49A71545BCC10066DD70 /* PSTutorialView.m in Sources */,
 				281F49A81545BCC10066DD70 /* PSView.m in Sources */,
 				281F49A91545BCC10066DD70 /* PSViewController.m in Sources */,
 				281F49AA1545BCC10066DD70 /* Reachability.m in Sources */,
@@ -3523,20 +3507,17 @@
 				2869881D1475CEEC00B40860 /* PSMailCenter.m in Sources */,
 				2869881E1475CEEC00B40860 /* PSReachabilityCenter.m in Sources */,
 				2869881F1475CEEC00B40860 /* PSSearchCenter.m in Sources */,
-				286988221475CEEC00B40860 /* PSToastCenter.m in Sources */,
 				286988241475CEEC00B40860 /* PSBaseViewController.m in Sources */,
 				286988251475CEEC00B40860 /* PSCell.m in Sources */,
 				286988281475CEEC00B40860 /* PSImageView.m in Sources */,
 				286988291475CEEC00B40860 /* PSErrorView.m in Sources */,
 				2869882A1475CEEC00B40860 /* PSObject.m in Sources */,
 				2869882C1475CEEC00B40860 /* PSRandomSortDescriptor.m in Sources */,
-				2869882D1475CEEC00B40860 /* PSRollupView.m in Sources */,
 				2869882E1475CEEC00B40860 /* PSSearchField.m in Sources */,
 				2869882F1475CEEC00B40860 /* PSStarView.m in Sources */,
 				286988301475CEEC00B40860 /* PSTableViewController.m in Sources */,
 				286988311475CEEC00B40860 /* PSTextField.m in Sources */,
 				286988321475CEEC00B40860 /* PSTextView.m in Sources */,
-				286988331475CEEC00B40860 /* PSTutorialView.m in Sources */,
 				286988351475CEEC00B40860 /* PSView.m in Sources */,
 				286988361475CEEC00B40860 /* PSViewController.m in Sources */,
 				2869885A1475CEEC00B40860 /* Reachability.m in Sources */,
@@ -3639,20 +3620,17 @@
 				2843A5DF1545B9510089FC73 /* PSMailCenter.m in Sources */,
 				2843A5E01545B9510089FC73 /* PSReachabilityCenter.m in Sources */,
 				2843A5E11545B9510089FC73 /* PSSearchCenter.m in Sources */,
-				2843A5E21545B9510089FC73 /* PSToastCenter.m in Sources */,
 				2843A5E31545B9510089FC73 /* PSBaseViewController.m in Sources */,
 				2843A5E41545B9510089FC73 /* PSCell.m in Sources */,
 				2843A5E51545B9510089FC73 /* PSImageView.m in Sources */,
 				2843A5E61545B9510089FC73 /* PSErrorView.m in Sources */,
 				2843A5E71545B9510089FC73 /* PSObject.m in Sources */,
 				2843A5E81545B9510089FC73 /* PSRandomSortDescriptor.m in Sources */,
-				2843A5E91545B9510089FC73 /* PSRollupView.m in Sources */,
 				2843A5EA1545B9510089FC73 /* PSSearchField.m in Sources */,
 				2843A5EB1545B9510089FC73 /* PSStarView.m in Sources */,
 				2843A5EC1545B9510089FC73 /* PSTableViewController.m in Sources */,
 				2843A5ED1545B9510089FC73 /* PSTextField.m in Sources */,
 				2843A5EE1545B9510089FC73 /* PSTextView.m in Sources */,
-				2843A5EF1545B9510089FC73 /* PSTutorialView.m in Sources */,
 				2843A5F01545B9510089FC73 /* PSView.m in Sources */,
 				2843A5F11545B9510089FC73 /* PSViewController.m in Sources */,
 				2843A5F21545B9510089FC73 /* Reachability.m in Sources */,
@@ -3746,6 +3724,7 @@
 		281F4AB91545BCC10066DD70 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3776,6 +3755,7 @@
 		281F4ABA1545BCC10066DD70 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

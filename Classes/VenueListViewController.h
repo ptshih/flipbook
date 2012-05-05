@@ -11,9 +11,6 @@
 
 @interface VenueListViewController : PSCollectionViewController <PSPopoverViewDelegate, UIAlertViewDelegate>
 
-@property (nonatomic, assign) UIButton *leftButton;
-@property (nonatomic, assign) UIButton *centerButton;
-@property (nonatomic, assign) UIButton *rightButton;
 @property (nonatomic, assign) BOOL shouldRefreshOnAppear;
 
 - (id)initWithCategory:(NSString *)category;

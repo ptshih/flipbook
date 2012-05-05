@@ -11,9 +11,6 @@
 @interface TipListViewController : PSCollectionViewController
 
 @property (nonatomic, copy) NSDictionary *venueDict;
-@property (nonatomic, assign) UIButton *leftButton;
-@property (nonatomic, assign) UIButton *centerButton;
-@property (nonatomic, assign) UIButton *rightButton;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

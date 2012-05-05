@@ -35,9 +35,6 @@
     [super viewDidUnload];
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 #pragma mark - View Config
 - (UIColor *)baseBackgroundColor {
@@ -57,32 +54,32 @@
     [super setupSubviews];
     
     // Images
-    UIImageView *topView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CategoryFood.jpg"]] autorelease];
+    UIImageView *topView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CategoryFood.jpg"]];
     [self.view addSubview:topView];
     topView.tag = kTopViewTag;
     topView.contentScaleFactor = [UIScreen mainScreen].scale;
     topView.contentMode = UIViewContentModeScaleAspectFill;
     topView.clipsToBounds = YES;
     topView.userInteractionEnabled = YES;
-    [topView addGestureRecognizer:[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushCategory:)] autorelease]];
+    [topView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushCategory:)]];
     
-    UIImageView *midView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CategoryCafe.jpg"]] autorelease];
+    UIImageView *midView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CategoryCafe.jpg"]];
     [self.view addSubview:midView];
     midView.tag = kMidViewTag;
     midView.contentScaleFactor = [UIScreen mainScreen].scale;
     midView.contentMode = UIViewContentModeScaleAspectFill;
     midView.clipsToBounds = YES;
     midView.userInteractionEnabled = YES;
-    [midView addGestureRecognizer:[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushCategory:)] autorelease]];
+    [midView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushCategory:)]];
     
-    UIImageView *botView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CategoryNightlife.jpg"]] autorelease];
+    UIImageView *botView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CategoryNightlife.jpg"]];
     [self.view addSubview:botView];
     botView.tag = kBotViewTag;
     botView.contentScaleFactor = [UIScreen mainScreen].scale;
     botView.contentMode = UIViewContentModeScaleAspectFill;
     botView.clipsToBounds = YES;
     botView.userInteractionEnabled = YES;
-    [botView addGestureRecognizer:[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushCategory:)] autorelease]];
+    [botView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushCategory:)]];
     
     CGFloat height = ceilf(self.view.height / 3.0);
     CGFloat botHeight = self.view.height - (height * 2.0);
@@ -95,21 +92,21 @@
     CGSize labelSize = CGSizeZero;
     CGFloat width = topView.width - MARGIN * 2;
     
-    UILabel *topLabel = [UILabel labelWithText:@"  Food and Restaurants  " style:@"categoryHeadline"];
+    UILabel *topLabel = [UILabel labelWithText:@"  Food and Restaurants  " style:@"h1Label"];
     [topView addSubview:topLabel];
-    labelSize = [PSStyleSheet sizeForText:topLabel.text width:width style:@"categoryHeadline"];
+    labelSize = [PSStyleSheet sizeForText:topLabel.text width:width style:@"h1Label"];
     topLabel.backgroundColor = RGBACOLOR(255, 255, 255, 0.75);
     topLabel.frame = CGRectMake(MARGIN, topView.height - LABEL_HEIGHT - MARGIN, labelSize.width, LABEL_HEIGHT);
     
-    UILabel *midLabel = [UILabel labelWithText:@"  Coffee and Tea  " style:@"categoryHeadline"];
+    UILabel *midLabel = [UILabel labelWithText:@"  Coffee and Tea  " style:@"h1Label"];
     [midView addSubview:midLabel];
-    labelSize = [PSStyleSheet sizeForText:midLabel.text width:width style:@"categoryHeadline"];
+    labelSize = [PSStyleSheet sizeForText:midLabel.text width:width style:@"h1Label"];
     midLabel.backgroundColor = RGBACOLOR(255, 255, 255, 0.75);
     midLabel.frame = CGRectMake(MARGIN, midView.height - LABEL_HEIGHT - MARGIN, labelSize.width, LABEL_HEIGHT);
     
-    UILabel *botLabel = [UILabel labelWithText:@"  Bars and Nightclubs  " style:@"categoryHeadline"];
+    UILabel *botLabel = [UILabel labelWithText:@"  Bars and Nightclubs  " style:@"h1Label"];
     [botView addSubview:botLabel];
-    labelSize = [PSStyleSheet sizeForText:botLabel.text width:width style:@"categoryHeadline"];
+    labelSize = [PSStyleSheet sizeForText:botLabel.text width:width style:@"h1Label"];
     botLabel.backgroundColor = RGBACOLOR(255, 255, 255, 0.75);
     botLabel.frame = CGRectMake(MARGIN, botView.height - LABEL_HEIGHT - MARGIN, labelSize.width, LABEL_HEIGHT);
 }
@@ -120,6 +117,7 @@
     UIView *view = gestureRecognizer.view;
     switch (view.tag) {
         case kTopViewTag:
+        {
             category = @"food";
             
             [PSAlertView showWithTitle:@"Groupon: " message:@"$10 for $20 Worth of Ice Cream, Cakes, and Frozen Treats" buttonTitles:[NSArray arrayWithObjects:@"Skip", @"View", nil] emailText:@"[ save for later ]" completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue) {
@@ -133,11 +131,13 @@
                     // save for later
                 }
                 NSLog(@"alert finished: %d, %@", buttonIndex, textFieldValue);
-                id vc = [[[VenueListViewController alloc] initWithCategory:category] autorelease];
+                id vc = [[VenueListViewController alloc] initWithCategory:category];
                 [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
             }]; 
             break;
+        }
         case kMidViewTag:
+        {
             category = @"coffee";
             
             [PSAlertView showWithTitle:@"Urban Outfitters Survey" message:@"Have you visited an Urban Outfitters retail store in the past month?" buttonTitles:[NSArray arrayWithObjects:@"No", @"Yes", nil] textFieldPlaceholder:nil completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue) {
@@ -145,11 +145,13 @@
                 } else {
                 }
                 NSLog(@"alert finished: %d, %@", buttonIndex, textFieldValue);
-                id vc = [[[VenueListViewController alloc] initWithCategory:category] autorelease];
+                id vc = [[VenueListViewController alloc] initWithCategory:category];
                 [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
             }];
             break;
+        }
         case kBotViewTag:
+        {
             category = @"drinks";
             
             [PSAlertView showWithTitle:@"Kingdoms of Camelot" message:@"Unleash the power of the Throne! Download Now!" buttonTitles:[NSArray arrayWithObjects:@"Skip", @"Download", nil] emailText:@"[ save for later ]" completionBlock:^(NSUInteger buttonIndex, NSString *textFieldValue) {
@@ -163,14 +165,16 @@
                     // save for later
                 }
                 NSLog(@"alert finished: %d, %@", buttonIndex, textFieldValue);
-                id vc = [[[VenueListViewController alloc] initWithCategory:category] autorelease];
+                id vc = [[VenueListViewController alloc] initWithCategory:category];
                 [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
             }];
             break;
-        default: {
+        }
+        default:
+        {
             category = @"food";
             
-            id vc = [[[VenueListViewController alloc] initWithCategory:category] autorelease];
+            id vc = [[VenueListViewController alloc] initWithCategory:category];
             [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
             break;
         }

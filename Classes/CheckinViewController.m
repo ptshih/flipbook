@@ -12,19 +12,15 @@
 
 @interface CheckinViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
 
-@property (nonatomic, retain) UIPopoverController *popover;
+@property (nonatomic, strong) UIPopoverController *popover;
 
-@property (nonatomic, assign) UIButton *leftButton;
-@property (nonatomic, assign) UIButton *centerButton;
-@property (nonatomic, assign) UIButton *rightButton;
-
-@property (nonatomic, retain) PSTextView *textView;
-@property (nonatomic, assign) UIButton *addPhotoButton;
-@property (nonatomic, assign) UIButton *checkinButton;
-@property (nonatomic, retain) UIImage *selectedImage;
+@property (nonatomic, strong) PSTextView *textView;
+@property (nonatomic, strong) UIButton *addPhotoButton;
+@property (nonatomic, strong) UIButton *checkinButton;
+@property (nonatomic, strong) UIImage *selectedImage;
 
 @property (nonatomic, copy) NSDictionary *venueDict;
-@property (nonatomic, retain) UIWebView *webView;
+@property (nonatomic, strong) UIWebView *webView;
 
 @property (nonatomic, assign) BOOL hasPhoto;
 
@@ -39,10 +35,6 @@
 popover = _popover;
 
 @synthesize
-leftButton = _leftButton,
-centerButton = _centerButton,
-rightButton = _rightButton,
-
 textView = _textView,
 addPhotoButton = _addPhotoButton,
 checkinButton = _checkinButton,
@@ -88,16 +80,10 @@ hasPhoto = _hasPhoto;
 - (void)dealloc {
     if (self.webView) {    
         self.webView.delegate = nil;
-        self.webView = nil;
     }
     if (self.popover) {
         self.popover.delegate = nil;
-        self.popover = nil;
     }
-    self.textView = nil;
-    self.venueDict = nil;
-    self.selectedImage = nil;
-    [super dealloc];
 }
 
 #pragma mark - View Config
@@ -114,7 +100,7 @@ hasPhoto = _hasPhoto;
     
     if (!fsAccessToken) {
         // show webview
-        self.webView = [[[UIWebView alloc] initWithFrame:self.view.bounds] autorelease];
+        self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
         self.webView.top = self.headerView.bottom;
         self.webView.height -= self.headerView.height;
         self.webView.delegate = self;
@@ -148,11 +134,11 @@ hasPhoto = _hasPhoto;
     
     [self setupHeader];
     
-    UIView *composeView = [[[UIView alloc] initWithFrame:CGRectMake(0, self.headerView.bottom, self.view.width, 200)] autorelease];
+    UIView *composeView = [[UIView alloc] initWithFrame:CGRectMake(0, self.headerView.bottom, self.view.width, 200)];
     [self.view addSubview:composeView];
     composeView.backgroundColor = self.view.backgroundColor;
     
-    self.textView = [[[PSTextView alloc] initWithFrame:CGRectMake(8, 8, self.view.width - 96 - 24, 96.0)] autorelease];
+    self.textView = [[PSTextView alloc] initWithFrame:CGRectMake(8, 8, self.view.width - 96 - 24, 96.0)];
     [composeView addSubview:self.textView];
     self.textView.backgroundColor = composeView.backgroundColor;
     self.textView.font = [UIFont fontWithName:@"HelveticaNeueLT-MediumCond" size:16.0];
@@ -205,7 +191,7 @@ hasPhoto = _hasPhoto;
 
 - (void)setupHeader {
     // Setup perma header
-    self.headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)] autorelease];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
     self.headerView.backgroundColor = [UIColor blackColor];
     self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
@@ -247,7 +233,7 @@ hasPhoto = _hasPhoto;
 }
 
 - (void)addPhoto:(id)sender {
-    UIActionSheet *as = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil] autorelease];
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
     // Only show "Take Photo" option if device supports it
     BOOL canTakePicture = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
@@ -345,7 +331,7 @@ hasPhoto = _hasPhoto;
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     
-    AFHTTPClient *httpClient = [[[AFHTTPClient alloc] initWithBaseURL:URL] autorelease];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:URL];
     NSData *imageData = UIImageJPEGRepresentation(self.selectedImage, 0.8);
     NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:@"/v2/photos/add" parameters:parameters constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
         [formData appendPartWithFileData:imageData name:@"photo" fileName:@"photo.jpg" mimeType:@"image/jpeg"];
@@ -391,7 +377,7 @@ hasPhoto = _hasPhoto;
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     
     // Handle a still image capture
-    if (CFStringCompare((CFStringRef)mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
+    if (CFStringCompare((__bridge CFStringRef)mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
         UIImage *originalImage = (UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage];
         UIImage *scaledImage = [originalImage imageScaledAndRotated];
         
@@ -427,7 +413,7 @@ hasPhoto = _hasPhoto;
     }
     
     if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
-        UIImagePickerController *vc = [[[UIImagePickerController alloc] init] autorelease];
+        UIImagePickerController *vc = [[UIImagePickerController alloc] init];
         vc.delegate = self;
         vc.sourceType = sourceType;
         
@@ -437,7 +423,7 @@ hasPhoto = _hasPhoto;
         }
         
         if (isDeviceIPad()) {
-            self.popover = [[[UIPopoverController alloc] initWithContentViewController:vc] autorelease];
+            self.popover = [[UIPopoverController alloc] initWithContentViewController:vc];
             self.popover.delegate = self;
             [self.popover presentPopoverFromRect:self.headerView.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         } else {

@@ -15,17 +15,17 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 @interface VenueView ()
 
-@property (nonatomic, retain) PSCachedImageView *imageView;
-@property (nonatomic, retain) UILabel *nameLabel;
-@property (nonatomic, retain) UILabel *addressLabel;
-@property (nonatomic, retain) UILabel *categoryLabel;
-@property (nonatomic, retain) UILabel *distanceLabel;
-@property (nonatomic, retain) UILabel *tipUserLabel;
-@property (nonatomic, retain) UILabel *tipLabel;
-@property (nonatomic, retain) UILabel *statsLabel;
-@property (nonatomic, retain) UIImageView *topDivider;
-@property (nonatomic, retain) UIImageView *divider;
-@property (nonatomic, retain) UIImageView *peopleIcon;
+@property (nonatomic, strong) PSCachedImageView *imageView;
+@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *addressLabel;
+@property (nonatomic, strong) UILabel *categoryLabel;
+@property (nonatomic, strong) UILabel *distanceLabel;
+@property (nonatomic, strong) UILabel *tipUserLabel;
+@property (nonatomic, strong) UILabel *tipLabel;
+@property (nonatomic, strong) UILabel *statsLabel;
+@property (nonatomic, strong) UIImageView *topDivider;
+@property (nonatomic, strong) UIImageView *divider;
+@property (nonatomic, strong) UIImageView *peopleIcon;
 
 @end
 
@@ -55,12 +55,12 @@ peopleIcon = _peopleIcon;
         self.backgroundColor = [UIColor whiteColor];
         
         UIImage *shadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
-        UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
+        UIImageView *shadowView = [[UIImageView alloc] initWithImage:shadowImage];
         shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         shadowView.frame = CGRectInset(self.bounds, -1, -2);
         [self addSubview:shadowView];
         
-        self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
+        self.imageView = [[PSCachedImageView alloc] initWithFrame:CGRectZero];
         self.imageView.shouldAnimate = NO;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
@@ -85,12 +85,12 @@ peopleIcon = _peopleIcon;
         self.statsLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.statsLabel];
         
-        self.tipUserLabel = [UILabel labelWithStyle:@"attributedBoldLabel"];
+        self.tipUserLabel = [UILabel labelWithStyle:@"boldLabel"];
         self.tipUserLabel.backgroundColor = self.backgroundColor;
         self.tipUserLabel.hidden = YES;
         [self addSubview:self.tipUserLabel];
         
-        self.tipLabel = [UILabel labelWithStyle:@"attributedLabel"];
+        self.tipLabel = [UILabel labelWithStyle:@"textLabel"];
         self.tipLabel.backgroundColor = self.backgroundColor;
         self.tipLabel.hidden = YES;
         [self addSubview:self.tipLabel];
@@ -99,38 +99,24 @@ peopleIcon = _peopleIcon;
 //        self.tipLabel = [[[TTTAttributedLabel alloc] initWithFrame:CGRectZero] autorelease];
 //        self.tipLabel.backgroundColor = self.backgroundColor;
 //        self.tipLabel.userInteractionEnabled = NO;
-//        [PSStyleSheet applyStyle:@"attributedLabel" forLabel:self.tipLabel];
+//        [PSStyleSheet applyStyle:@"textLabel" forLabel:self.tipLabel];
 //        [self addSubview:self.tipLabel];
         
-        self.topDivider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
+        self.topDivider = [[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]];
         self.topDivider.hidden = YES;
         [self addSubview:self.topDivider];
         
-        self.divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
+        self.divider = [[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]];
         self.divider.hidden = YES;
         [self addSubview:self.divider];
         
-        self.peopleIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPersonMiniBlack"]] autorelease];
+        self.peopleIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPersonMiniBlack"]];
         self.peopleIcon.contentMode = UIViewContentModeScaleToFill;
         [self addSubview:self.peopleIcon];
     }
     return self;
 }
 
-- (void)dealloc {
-    self.imageView = nil;
-    self.nameLabel = nil;
-    self.addressLabel = nil;
-    self.categoryLabel = nil;
-    self.distanceLabel = nil;
-    self.tipUserLabel = nil;
-    self.tipLabel = nil;
-    self.statsLabel = nil;
-    self.topDivider = nil;
-    self.divider = nil;
-    self.peopleIcon = nil;
-    [super dealloc];
-}
 
 - (void)prepareForReuse {
     [super prepareForReuse];
@@ -184,13 +170,13 @@ peopleIcon = _peopleIcon;
     top = self.topDivider.bottom + MARGIN;
     
     if ([self.tipLabel.text length] > 0) {
-        labelSize = [PSStyleSheet sizeForText:self.tipUserLabel.text width:width style:@"attributedBoldLabel"];
+        labelSize = [PSStyleSheet sizeForText:self.tipUserLabel.text width:width style:@"boldLabel"];
         self.tipUserLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
         self.tipUserLabel.hidden = NO;
         
         top = self.tipUserLabel.bottom;
         
-        labelSize = [PSStyleSheet sizeForText:self.tipLabel.text width:width style:@"attributedLabel"];
+        labelSize = [PSStyleSheet sizeForText:self.tipLabel.text width:width style:@"textLabel"];
         self.tipLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
         self.tipLabel.hidden = NO;
         
@@ -283,10 +269,10 @@ peopleIcon = _peopleIcon;
         NSString *tipUserText = [NSString stringWithFormat:@"%@ says:", tipUserName];
         NSString *tipText = [[tip objectForKey:@"text"] capitalizedString];
         
-        labelSize = [PSStyleSheet sizeForText:tipUserText width:width style:@"attributedBoldLabel"];
+        labelSize = [PSStyleSheet sizeForText:tipUserText width:width style:@"boldLabel"];
         height += labelSize.height;
         
-        labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"attributedLabel"];
+        labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"textLabel"];
         height += labelSize.height;
         
         height += MARGIN;

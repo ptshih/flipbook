@@ -24,12 +24,12 @@ homeCityLabel = _homeCityLabel;
         self.backgroundColor = [UIColor whiteColor];
         
         UIImage *shadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
-        UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
+        UIImageView *shadowView = [[UIImageView alloc] initWithImage:shadowImage];
         shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         shadowView.frame = CGRectInset(self.bounds, -1, -2);
         [self addSubview:shadowView];
         
-        self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
+        self.imageView = [[PSCachedImageView alloc] initWithFrame:CGRectZero];
         self.imageView.shouldAnimate = NO;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
@@ -45,13 +45,6 @@ homeCityLabel = _homeCityLabel;
     return self;
 }
 
-- (void)dealloc {
-    self.imageView = nil;
-    
-    self.nameLabel = nil;
-    self.homeCityLabel = nil;
-    [super dealloc];
-}
 
 - (void)prepareForReuse {
     [super prepareForReuse];

@@ -277,16 +277,16 @@
 		<key>textAlignment</key>
 		<string>left</string>
 	</dict>
-	<key>attributedLabel</key>
+	<key>textLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>Gotham-Book</string>
+		<string>HelveticaNeueLT-MediumCond</string>
 		<key>fontSize</key>
-		<integer>10</integer>
+		<integer>12</integer>
 		<key>textColor</key>
-		<string>0x2a2a2a</string>
+		<string>0x4c4c4c</string>
 		<key>highlightedTextColor</key>
-		<string>0x2a2a2a</string>
+		<string>0x4c4c4c</string>
 		<key>textAlignment</key>
 		<string>left</string>
 		<key>lineBreakMode</key>
@@ -298,7 +298,7 @@
 		<key>numberOfLines</key>
 		<integer>0</integer>
 	</dict>
-	<key>attributedBoldLabel</key>
+	<key>boldLabel</key>
 	<dict>
 		<key>fontName</key>
 		<string>HelveticaNeueLT-BoldCond</string>
@@ -319,12 +319,12 @@
 		<key>numberOfLines</key>
 		<integer>0</integer>
 	</dict>
-	<key>categoryHeadline</key>
+	<key>h1Label</key>
 	<dict>
 		<key>fontName</key>
-		<string>Gotham-Bold</string>
+		<string>HelveticaNeueLT-BoldCond</string>
 		<key>fontSize</key>
-		<integer>18</integer>
+		<integer>24</integer>
 		<key>textColor</key>
 		<string>0x2a2a2a</string>
 		<key>highlightedTextColor</key>

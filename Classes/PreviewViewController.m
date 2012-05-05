@@ -12,15 +12,11 @@
 
 @interface PreviewViewController ()
 
-@property (nonatomic, retain) UIImage *image;
+@property (nonatomic, strong) UIImage *image;
 @property (nonatomic, copy) NSDictionary *venueDict;
 
-@property (nonatomic, assign) UIButton *leftButton;
-@property (nonatomic, assign) UIButton *centerButton;
-@property (nonatomic, assign) UIButton *rightButton;
-
-@property (nonatomic, assign) UIView *containerView;
-@property (nonatomic, assign) UIImageView *imageView;
+@property (nonatomic, strong) UIView *containerView;
+@property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
@@ -29,10 +25,6 @@
 @synthesize
 image = _image,
 venueDict = _venueDict,
-
-leftButton = _leftButton,
-centerButton = _centerButton,
-rightButton = _rightButton,
 
 containerView = _containerView,
 imageView = _imageView;
@@ -60,12 +52,6 @@ imageView = _imageView;
     [super viewDidUnload];
 }
 
-- (void)dealloc {
-    self.venueDict = nil;
-    self.image = nil;
-
-    [super dealloc];
-}
 
 #pragma mark - View
 - (void)viewDidLoad {
@@ -83,7 +69,7 @@ imageView = _imageView;
     
     [self setupHeader];
     
-    self.containerView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8 + self.headerView.height, self.view.width - 16, self.view.height - 16 - self.headerView.height)] autorelease];
+    self.containerView = [[UIView alloc] initWithFrame:CGRectMake(8, 8 + self.headerView.height, self.view.width - 16, self.view.height - 16 - self.headerView.height)];
     self.containerView.layer.shadowColor = [[UIColor blackColor] CGColor];
     self.containerView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
     self.containerView.layer.shadowRadius = 3;
@@ -91,7 +77,7 @@ imageView = _imageView;
     self.containerView.layer.masksToBounds = NO;
     [self.view addSubview:self.containerView];
     
-    self.imageView = [[[UIImageView alloc] initWithFrame:CGRectInset(self.containerView.bounds, 8, 8)] autorelease];
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectInset(self.containerView.bounds, 8, 8)];
     CGFloat photoWidth = self.image.size.width;
     CGFloat photoHeight = self.image.size.height;
     CGFloat scaledHeight = floorf(photoHeight / (photoWidth / self.imageView.width));
@@ -103,7 +89,7 @@ imageView = _imageView;
 
 - (void)setupHeader {
     // Setup perma header
-    self.headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)] autorelease];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
     self.headerView.backgroundColor = [UIColor blackColor];
     self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
@@ -150,13 +136,13 @@ imageView = _imageView;
     [params setObject:FS_ACCESS_TOKEN forKey:@"oauth_token"];
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.foursquare.com"]];
-    AFHTTPClient *httpClient = [[[AFHTTPClient alloc] initWithBaseURL:url] autorelease];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
     NSData *uploadData = UIImageJPEGRepresentation(self.image, 0.75);
     NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:@"/v2/photos/add" parameters:params constructingBodyWithBlock:^(id <AFMultipartFormData>formData) {
         [formData appendPartWithFileData:uploadData name:@"photo" fileName:@"photo.jpg" mimeType:@"image/jpeg"];
     }];
     
-    AFHTTPRequestOperation *op = [[[AFHTTPRequestOperation alloc] initWithRequest:request] autorelease];
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
     [op setUploadProgressBlock:^(NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite) {
         NSLog(@"Sent %d of %d bytes", totalBytesWritten, totalBytesExpectedToWrite);
@@ -173,7 +159,7 @@ imageView = _imageView;
         // Something bad happened
     }];
     
-    NSOperationQueue *queue = [[[NSOperationQueue alloc] init] autorelease];
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     [queue addOperation:op];
     
     [(PSNavigationController *)self.parentViewController popViewControllerAnimated:YES];

@@ -11,12 +11,8 @@
 @interface PhotoTagsViewController ()
 
 @property (nonatomic, copy) NSDictionary *venueDict;
-@property (nonatomic, retain) NSMutableArray *tags;
-@property (nonatomic, retain) NSMutableArray *buttons;
-
-@property (nonatomic, assign) UIButton *leftButton;
-@property (nonatomic, assign) UIButton *centerButton;
-@property (nonatomic, assign) UIButton *rightButton;
+@property (nonatomic, strong) NSMutableArray *tags;
+@property (nonatomic, strong) NSMutableArray *buttons;
 
 @end
 
@@ -48,13 +44,6 @@ rightButton = _rightButton;
     [super viewDidUnload];
 }
 
-- (void)dealloc {
-    self.venueDict = nil;
-    self.tags = nil;
-    self.buttons = nil;
-    
-    [super dealloc];
-}
 
 #pragma mark - View
 - (void)viewDidLoad {
@@ -109,7 +98,7 @@ rightButton = _rightButton;
 
 - (void)setupHeader {
     // Setup perma header
-    self.headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)] autorelease];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
     self.headerView.backgroundColor = [UIColor blackColor];
     self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     

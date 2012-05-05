@@ -11,7 +11,7 @@
 
 @interface LocationChooserView ()
 
-@property (nonatomic, assign) PSTextField *queryField;
+@property (nonatomic, strong) PSTextField *queryField;
 
 @end
 
@@ -28,7 +28,7 @@ locationDidChange = _locationDidChange;
     if (self) {
         self.locationDidChange = NO;
         
-        self.mapView = [[[MKMapView alloc] initWithFrame:self.bounds] autorelease];
+        self.mapView = [[MKMapView alloc] initWithFrame:self.bounds];
         self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.mapView.delegate = self;
         self.mapView.zoomEnabled = YES;
@@ -37,7 +37,7 @@ locationDidChange = _locationDidChange;
         [self.mapView setRegion:mapRegion animated:NO];
         [self addSubview:self.mapView];
         
-        UIView *queryView = [[[UIView alloc] initWithFrame:CGRectMake(8, 8, self.mapView.width - 16 - 36 - 8, 36)] autorelease];
+        UIView *queryView = [[UIView alloc] initWithFrame:CGRectMake(8, 8, self.mapView.width - 16 - 36 - 8, 36)];
         queryView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         queryView.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
         queryView.layer.cornerRadius = 4.0;
@@ -45,16 +45,27 @@ locationDidChange = _locationDidChange;
         queryView.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
         queryView.layer.borderWidth = 1.0;
         
-        PSTextField *queryField = [[[PSTextField alloc] initWithFrame:queryView.bounds withInset:UIEdgeInsetsMake(8, 8, 8, 8)] autorelease];
+        PSTextField *queryField = [[PSTextField alloc] initWithFrame:queryView.bounds withInset:UIEdgeInsetsMake(8, 8, 8, 8)];
         [PSStyleSheet applyStyle:@"queryField" forTextField:queryField];
+        
+        queryField.clearButtonMode = UITextFieldViewModeNever;
+        
         queryField.leftViewMode = UITextFieldViewModeAlways;
-        UIImageView *searchImageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconSearchMiniWhite"]] autorelease];
+        UIImageView *searchImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconSearchMiniWhite"]];
         searchImageView.contentMode = UIViewContentModeLeft;
         queryField.leftView = searchImageView;
+        
+        // WTF BUG?
+        queryField.rightViewMode = UITextFieldViewModeAlways;
+        UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        clearButton.frame = CGRectMake(0, 0, 16, 16);
+        [clearButton setImage:[UIImage imageNamed:@"IconClear"] forState:UIControlStateNormal];
+        [clearButton addTarget:self action:@selector(clearField:) forControlEvents:UIControlEventTouchUpInside];
+        queryField.rightView = clearButton;
+        
         queryField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         queryField.delegate = self;
         queryField.returnKeyType = UIReturnKeySearch;
-        queryField.clearButtonMode = UITextFieldViewModeWhileEditing;
         queryField.autocorrectionType = UITextAutocorrectionTypeNo;
         queryField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         queryField.placeholder = @"Search for something...";
@@ -90,7 +101,7 @@ locationDidChange = _locationDidChange;
         redoSearchButton.width = self.mapView.width - 16;
         redoSearchButton.left = 8;
         redoSearchButton.top = self.mapView.height - 8 - 36;
-        [redoSearchButton setTitle:@"Redo Search In This Area" forState:UIControlStateNormal];
+        [redoSearchButton setTitle:@"Search In This Area" forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"popoverTitleLabel" forButton:redoSearchButton];
         [self.mapView addSubview:redoSearchButton];
         
@@ -101,9 +112,10 @@ locationDidChange = _locationDidChange;
 
 - (void)dealloc {
     self.mapView.delegate = nil;
-    self.mapView = nil;
-    self.query = nil;
-    [super dealloc];
+}
+
+- (void)clearField:(UIButton *)button {
+    self.queryField.text = nil;
 }
 
 - (void)centerCurrentLocation {

@@ -13,9 +13,9 @@
 
 @property (nonatomic, copy) NSDictionary *venueDict;
 @property (nonatomic, copy) NSDictionary *yelpDict;
-@property (nonatomic, retain) NSMutableArray *items;
-@property (nonatomic, retain) UITableView *tableView;
-@property (nonatomic, retain) UILabel *loadingLabel;
+@property (nonatomic, strong) NSMutableArray *items;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UILabel *loadingLabel;
 
 - (void)loadDataSource;
 - (void)dataSourceDidLoad;
@@ -41,7 +41,7 @@ loadingLabel = _loadingLabel;
         
         self.items = [NSMutableArray array];
         
-        self.tableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height) style:UITableViewStyleGrouped] autorelease];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height) style:UITableViewStyleGrouped];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         [self addSubview:self.tableView];
@@ -60,11 +60,6 @@ loadingLabel = _loadingLabel;
     self.tableView.delegate = nil;
     self.tableView.dataSource = nil;
     
-    self.tableView = nil;
-    self.venueDict = nil;
-    self.yelpDict = nil;
-    self.items = nil;
-    [super dealloc];
 }
 
 - (void)loadDataSource {
@@ -200,7 +195,7 @@ loadingLabel = _loadingLabel;
     
     cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if(cell == nil) { 
-        cell = [[[cellClass alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+        cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
         cell.textLabel.backgroundColor = [UIColor clearColor];
     }
     
@@ -213,7 +208,7 @@ loadingLabel = _loadingLabel;
     if ([item isKindOfClass:[NSDictionary class]]) {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         if ([[item objectForKey:@"title"] isEqualToString:@"Rating"]) {
-            PSCachedImageView *iv = [[[PSCachedImageView alloc] initWithFrame:CGRectMake(0, 0, 111, 20)] autorelease];
+            PSCachedImageView *iv = [[PSCachedImageView alloc] initWithFrame:CGRectMake(0, 0, 111, 20)];
             iv.backgroundColor = [UIColor clearColor];
             [iv loadImageWithURL:[NSURL URLWithString:[item objectForKey:@"subtitle"]] cacheType:PSURLCacheTypePermanent];
             

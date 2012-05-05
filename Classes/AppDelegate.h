@@ -12,9 +12,9 @@
 }
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, retain) PSNavigationController *navigationController;
-@property (nonatomic, retain) NSDate *backgroundDate;
-@property (nonatomic, retain) NSDate *foregroundDate;
+@property (nonatomic, strong) PSNavigationController *navigationController;
+@property (nonatomic, strong) NSDate *backgroundDate;
+@property (nonatomic, strong) NSDate *foregroundDate;
 @property (nonatomic, assign) BOOL shouldReloadInterface;
 
 @end

@@ -11,10 +11,7 @@
 @interface VenueDetailViewController : PSCollectionViewController <MKMapViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, copy) NSDictionary *venueDict;
-@property (nonatomic, assign) UIButton *leftButton;
-@property (nonatomic, assign) UIButton *centerButton;
-@property (nonatomic, assign) UIButton *rightButton;
-@property (nonatomic, retain) MKMapView *mapView;
+@property (nonatomic, strong) MKMapView *mapView;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

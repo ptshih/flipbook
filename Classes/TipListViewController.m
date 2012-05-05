@@ -42,10 +42,6 @@ rightButton = _rightButton;
     [super viewDidUnload];
 }
 
-- (void)dealloc {
-    self.venueDict = nil;
-    [super dealloc];
-}
 
 #pragma mark - View Config
 - (UIColor *)baseBackgroundColor {
@@ -74,7 +70,7 @@ rightButton = _rightButton;
     self.collectionView.emptyView = emptyLabel;
     
     // 4sq attribution
-    UIImageView *pb4sq = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]] autorelease];
+    UIImageView *pb4sq = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]];
     pb4sq.contentMode = UIViewContentModeCenter;
     pb4sq.frame = CGRectMake(0, 0, self.collectionView.width, pb4sq.height);
     // Add gradient
@@ -84,7 +80,7 @@ rightButton = _rightButton;
 
 - (void)setupHeader {
     // Setup perma header
-    self.headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)] autorelease];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
     self.headerView.backgroundColor = [UIColor blackColor];
     self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
@@ -157,63 +153,62 @@ rightButton = _rightButton;
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    [self.requestQueue addOperationWithBlock:^{
-        NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/tips", [self.venueDict objectForKey:@"id"]];
-        
-        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:FS_API_VERSION forKey:@"v"];
-        [parameters setObject:@"popular" forKey:@"sort"];
-        [parameters setObject:[NSNumber numberWithInteger:500] forKey:@"limit"];
-        [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
-        [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
-        
-        NSURL *URL = [NSURL URLWithString:URLPath];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
-        
-        [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
-            ASSERT_MAIN_THREAD;
-            if (error) {
-                [self.items removeAllObjects];
-                [self dataSourceDidError];
-            } else {
-                [[[[NSOperationQueue alloc] init] autorelease] addOperationWithBlock:^{
-                    id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-                    if (!apiResponse) {
+    NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/tips", [self.venueDict objectForKey:@"id"]];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:FS_API_VERSION forKey:@"v"];
+    [parameters setObject:@"popular" forKey:@"sort"];
+    [parameters setObject:[NSNumber numberWithInteger:500] forKey:@"limit"];
+    [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
+    [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
+    
+    NSURL *URL = [NSURL URLWithString:URLPath];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
+    
+    BLOCK_SELF;
+    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypePermanent usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+        ASSERT_MAIN_THREAD;
+        if (error) {
+            [blockSelf.items removeAllObjects];
+            [blockSelf dataSourceDidError];
+        } else {
+            [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
+                id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+                if (!apiResponse) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        [blockSelf.items removeAllObjects];
+                        [blockSelf dataSourceDidError];
+                    }];
+                } else {
+                    // Process 4sq response
+                    NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
+                    NSDictionary *response = [apiResponse objectForKey:@"response"];
+                    NSArray *tips = [[response objectForKey:@"tips"] objectForKey:@"items"];
+                    if (tips && [tips count] > 0) {
+                        [items addObjectsFromArray:tips];
+                        
                         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            [self.items removeAllObjects];
-                            [self dataSourceDidError];
+                            [blockSelf.items removeAllObjects];
+                            [blockSelf.items addObjectsFromArray:items];
+                            [blockSelf dataSourceDidLoad];
+                            
+                            // If this is the first load and we loaded cached data, we should refreh from remote now
+                            if (!blockSelf.hasLoadedOnce && isCached) {
+                                blockSelf.hasLoadedOnce = YES;
+                                [blockSelf reloadDataSource];
+                                NSLog(@"first load, stale cache");
+                            }
                         }];
                     } else {
-                        // Process 4sq response
-                        NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
-                        NSDictionary *response = [apiResponse objectForKey:@"response"];
-                        NSArray *tips = [[response objectForKey:@"tips"] objectForKey:@"items"];
-                        if (tips && [tips count] > 0) {
-                            [items addObjectsFromArray:tips];
-                            
-                            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                [self.items removeAllObjects];
-                                [self.items addObjectsFromArray:items];
-                                [self dataSourceDidLoad];
-                                
-                                // If this is the first load and we loaded cached data, we should refreh from remote now
-                                if (!self.hasLoadedOnce && isCached) {
-                                    self.hasLoadedOnce = YES;
-                                    [self reloadDataSource];
-                                    NSLog(@"first load, stale cache");
-                                }
-                            }];
-                        } else {
-                            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                // No tips found
-                                [self.items removeAllObjects];
-                                [self dataSourceDidError];
-                            }];
-                        }
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            // No tips found
+                            [blockSelf.items removeAllObjects];
+                            [blockSelf dataSourceDidError];
+                        }];
                     }
-                }];
-            }
-        }];
+                }
+            }];
+        }
     }];
 }
 
@@ -223,7 +218,7 @@ rightButton = _rightButton;
     
     TipView *v = (TipView *)[self.collectionView dequeueReusableView];
     if (!v) {
-        v = [[[TipView alloc] initWithFrame:CGRectZero] autorelease];
+        v = [[TipView alloc] initWithFrame:CGRectZero];
     }
     
     [v fillViewWithObject:item];

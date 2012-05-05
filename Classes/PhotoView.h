@@ -12,8 +12,8 @@
 
 @interface PhotoView : PSCollectionViewCell
 
-@property (nonatomic, retain) PSCachedImageView *imageView;
-@property (nonatomic, retain) UILabel *nameLabel;
-@property (nonatomic, retain) UILabel *homeCityLabel;
+@property (nonatomic, strong) PSCachedImageView *imageView;
+@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *homeCityLabel;
 
 @end

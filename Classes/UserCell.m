@@ -13,7 +13,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.psImageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
+        self.psImageView = [[PSCachedImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:self.psImageView];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;

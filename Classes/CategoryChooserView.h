@@ -10,6 +10,6 @@
 
 @interface CategoryChooserView : PSView <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end

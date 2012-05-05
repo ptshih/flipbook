@@ -10,7 +10,7 @@
 
 @interface LocationChooserView : PSView <MKMapViewDelegate, UITextFieldDelegate>
 
-@property (nonatomic, retain) MKMapView *mapView;
+@property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, copy) NSString *query;
 @property (nonatomic, assign) BOOL locationDidChange;
 

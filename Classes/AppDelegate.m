@@ -23,7 +23,7 @@
 
 @interface AppDelegate () <BWHockeyManagerDelegate, BWQuincyManagerDelegate>
 
-@property (nonatomic, retain) UIImageView *splashImage;
+@property (nonatomic, strong) UIImageView *splashImage;
 
 + (void)setupDefaults;
 
@@ -128,16 +128,16 @@ shouldReloadInterface = _shouldReloadInterface;
     // PSLocationCenter set default behavior
     [[PSLocationCenter defaultCenter] resumeUpdates]; // start it
     
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window makeKeyAndVisible];
     self.window.backgroundColor = [UIColor blackColor];
 //    self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLeather.jpg"]];
     
     // Root view controller
     id controller = nil;
-    controller = [[[CategoryListViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+    controller = [[CategoryListViewController alloc] initWithNibName:nil bundle:nil];
     
-    self.navigationController = [[[PSNavigationController alloc] initWithRootViewController:controller] autorelease];
+    self.navigationController = [[PSNavigationController alloc] initWithRootViewController:controller];
     self.window.rootViewController = self.navigationController;
     
     // Splash Image
@@ -150,15 +150,16 @@ shouldReloadInterface = _shouldReloadInterface;
         splashImageName = @"Default";
         splashTop = 0.0;
     }
-    self.splashImage = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:splashImageName]] autorelease];
+    self.splashImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:splashImageName]];
     self.splashImage.top = splashTop;
     [self.window addSubview:self.splashImage];
     
+    BLOCK_SELF;
     [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.splashImage.alpha = 0.0;
+        blockSelf.splashImage.alpha = 0.0;
     } completion:^(BOOL finished) {
-        [self.splashImage removeFromSuperview];
-        self.splashImage = nil;
+        [blockSelf.splashImage removeFromSuperview];
+        blockSelf.splashImage = nil;
     }];
     
     return YES;
@@ -214,14 +215,8 @@ shouldReloadInterface = _shouldReloadInterface;
 }
 
 - (void)dealloc {
-    self.splashImage = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.backgroundDate = nil;
-    self.foregroundDate = nil;
-    self.navigationController = nil;
-    [_window release];
-    [super dealloc];
 }
 
 @end

@@ -13,11 +13,11 @@
 
 @interface TipView ()
 
-@property (nonatomic, retain) PSCachedImageView *imageView;
-@property (nonatomic, retain) UILabel *tipLabel;
-@property (nonatomic, retain) UILabel *nameLabel;
-@property (nonatomic, retain) UILabel *homeCityLabel;
-@property (nonatomic, retain) UIImageView *divider;
+@property (nonatomic, strong) PSCachedImageView *imageView;
+@property (nonatomic, strong) UILabel *tipLabel;
+@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *homeCityLabel;
+@property (nonatomic, strong) UIImageView *divider;
 
 @end
 
@@ -36,17 +36,17 @@ divider = _divider;
         self.backgroundColor = [UIColor whiteColor];
         
         UIImage *shadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
-        UIImageView *shadowView = [[[UIImageView alloc] initWithImage:shadowImage] autorelease];
+        UIImageView *shadowView = [[UIImageView alloc] initWithImage:shadowImage];
         shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         shadowView.frame = CGRectInset(self.bounds, -1, -2);
         [self addSubview:shadowView];
         
-        self.imageView = [[[PSCachedImageView alloc] initWithFrame:CGRectZero] autorelease];
+        self.imageView = [[PSCachedImageView alloc] initWithFrame:CGRectZero];
         self.imageView.shouldAnimate = NO;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.tipLabel = [UILabel labelWithStyle:@"attributedLabel"];
+        self.tipLabel = [UILabel labelWithStyle:@"textLabel"];
         self.tipLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.tipLabel];
         
@@ -58,20 +58,12 @@ divider = _divider;
         self.homeCityLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.homeCityLabel];
         
-        self.divider = [[[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]] autorelease];
+        self.divider = [[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]];
         [self addSubview:self.divider];
     }
     return self;
 }
 
-- (void)dealloc {
-    self.imageView = nil;
-    self.tipLabel = nil;
-    self.nameLabel = nil;
-    self.homeCityLabel = nil;
-    self.divider = nil;
-    [super dealloc];
-}
 
 - (void)prepareForReuse {
     [super prepareForReuse];
@@ -91,7 +83,7 @@ divider = _divider;
     
     CGSize labelSize = CGSizeZero;
     
-    labelSize = [PSStyleSheet sizeForText:self.tipLabel.text width:width style:@"attributedLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.tipLabel.text width:width style:@"textLabel"];
     self.tipLabel.top = top;
     self.tipLabel.left = left;
     self.tipLabel.width = labelSize.width;
@@ -143,7 +135,7 @@ divider = _divider;
     height += MARGIN;
     
     NSString *tipText = [NSString stringWithFormat:@"%@", [object objectForKey:@"text"]];
-    labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"attributedLabel"];
+    labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"textLabel"];
     height += labelSize.height;
     
     height += MARGIN;

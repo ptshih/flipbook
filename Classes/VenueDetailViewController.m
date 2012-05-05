@@ -342,14 +342,14 @@ mapView = _mapView;
 
 - (void)rightAction {
     // Take a photo
-    PhotoTagsViewController *vc = [[PhotoTagsViewController alloc] initWithDictionary:self.venueDict];
-    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-
-//    // Checkin
-//    CheckinViewController *vc = [[[CheckinViewController alloc] initWithDictionary:self.venueDict] autorelease];
+//    PhotoTagsViewController *vc = [[PhotoTagsViewController alloc] initWithDictionary:self.venueDict];
 //    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-//    
-//    return;
+
+    // Checkin
+    CheckinViewController *vc = [[CheckinViewController alloc] initWithDictionary:self.venueDict];
+    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    
+    return;
 //    
 //    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
 //    av.tag = kAlertTagFoursquare;

@@ -238,6 +238,9 @@ hasPhoto = _hasPhoto;
     }
     
     NSString *shout = nil;
+    if (self.textView.text.length > 0) {
+        shout = self.textView.text;
+    }
     
     // Setup the network request
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];

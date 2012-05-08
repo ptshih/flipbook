@@ -221,8 +221,6 @@
 		281F4A1A1545BCC10066DD70 /* HorizontalLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F577149202DE0028BCFE /* HorizontalLine@2x.png */; };
 		281F4A1B1545BCC10066DD70 /* BackgroundToolbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F59914921C330028BCFE /* BackgroundToolbar.png */; };
 		281F4A1C1545BCC10066DD70 /* BackgroundToolbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F59A14921C330028BCFE /* BackgroundToolbar@2x.png */; };
-		281F4A1D1545BCC10066DD70 /* IconCaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D5C14983E75009D58BA /* IconCaption.png */; };
-		281F4A1E1545BCC10066DD70 /* IconCaption@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D5D14983E75009D58BA /* IconCaption@2x.png */; };
 		281F4A1F1545BCC10066DD70 /* IconMore.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D601498442E009D58BA /* IconMore.png */; };
 		281F4A201545BCC10066DD70 /* IconMore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D611498442E009D58BA /* IconMore@2x.png */; };
 		281F4A211545BCC10066DD70 /* IconBackBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28633AA914A30E910074A674 /* IconBackBlack@2x.png */; };
@@ -241,8 +239,6 @@
 		281F4A2E1545BCC10066DD70 /* IconGearBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0269E3D14E1B2F300B690A2 /* IconGearBlack@2x.png */; };
 		281F4A2F1545BCC10066DD70 /* IconFriendsBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D03155D314E5B90E00CC8572 /* IconFriendsBlack.png */; };
 		281F4A301545BCC10066DD70 /* IconFriendsBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03155D414E5B90E00CC8572 /* IconFriendsBlack@2x.png */; };
-		281F4A311545BCC10066DD70 /* IconMinusBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D080F6C014E5D10B0061A38B /* IconMinusBlack.png */; };
-		281F4A321545BCC10066DD70 /* IconMinusBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D080F6C114E5D10B0061A38B /* IconMinusBlack@2x.png */; };
 		281F4A351545BCC10066DD70 /* PSPullRefreshView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D08E516114E8A54800B5CCCD /* PSPullRefreshView.bundle */; };
 		281F4A361545BCC10066DD70 /* IconCalendarBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D060639C14E90CA800150193 /* IconCalendarBlack.png */; };
 		281F4A371545BCC10066DD70 /* IconCalendarBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D060639D14E90CA800150193 /* IconCalendarBlack@2x.png */; };
@@ -258,8 +254,6 @@
 		281F4A411545BCC10066DD70 /* ButtonFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFEC14F75C4B0041A364 /* ButtonFacebook@2x.png */; };
 		281F4A421545BCC10066DD70 /* BackgroundPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFF514F764290041A364 /* BackgroundPaper.png */; };
 		281F4A431545BCC10066DD70 /* BackgroundPaper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFF614F764290041A364 /* BackgroundPaper@2x.png */; };
-		281F4A441545BCC10066DD70 /* BackgroundPostIt.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFFD14F766C80041A364 /* BackgroundPostIt.png */; };
-		281F4A451545BCC10066DD70 /* BackgroundPostIt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFFE14F766C80041A364 /* BackgroundPostIt@2x.png */; };
 		281F4A461545BCC10066DD70 /* Quincy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D031D48314F84CC300DEB789 /* Quincy.bundle */; };
 		281F4A471545BCC10066DD70 /* Hockey.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D031D4AC14F84CDA00DEB789 /* Hockey.bundle */; };
 		281F4A531545BCC10066DD70 /* IconPinBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068B14F9CE1F00140D9E /* IconPinBlack.png */; };
@@ -505,8 +499,6 @@
 		2843A6621545B9510089FC73 /* HorizontalLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F577149202DE0028BCFE /* HorizontalLine@2x.png */; };
 		2843A6631545B9510089FC73 /* BackgroundToolbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F59914921C330028BCFE /* BackgroundToolbar.png */; };
 		2843A6641545B9510089FC73 /* BackgroundToolbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F59A14921C330028BCFE /* BackgroundToolbar@2x.png */; };
-		2843A6651545B9510089FC73 /* IconCaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D5C14983E75009D58BA /* IconCaption.png */; };
-		2843A6661545B9510089FC73 /* IconCaption@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D5D14983E75009D58BA /* IconCaption@2x.png */; };
 		2843A6671545B9510089FC73 /* IconMore.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D601498442E009D58BA /* IconMore.png */; };
 		2843A6681545B9510089FC73 /* IconMore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D611498442E009D58BA /* IconMore@2x.png */; };
 		2843A6691545B9510089FC73 /* IconBackBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28633AA914A30E910074A674 /* IconBackBlack@2x.png */; };
@@ -525,8 +517,6 @@
 		2843A6761545B9510089FC73 /* IconGearBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0269E3D14E1B2F300B690A2 /* IconGearBlack@2x.png */; };
 		2843A6771545B9510089FC73 /* IconFriendsBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D03155D314E5B90E00CC8572 /* IconFriendsBlack.png */; };
 		2843A6781545B9510089FC73 /* IconFriendsBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03155D414E5B90E00CC8572 /* IconFriendsBlack@2x.png */; };
-		2843A6791545B9510089FC73 /* IconMinusBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D080F6C014E5D10B0061A38B /* IconMinusBlack.png */; };
-		2843A67A1545B9510089FC73 /* IconMinusBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D080F6C114E5D10B0061A38B /* IconMinusBlack@2x.png */; };
 		2843A67D1545B9510089FC73 /* PSPullRefreshView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D08E516114E8A54800B5CCCD /* PSPullRefreshView.bundle */; };
 		2843A67E1545B9510089FC73 /* IconCalendarBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D060639C14E90CA800150193 /* IconCalendarBlack.png */; };
 		2843A67F1545B9510089FC73 /* IconCalendarBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D060639D14E90CA800150193 /* IconCalendarBlack@2x.png */; };
@@ -542,8 +532,6 @@
 		2843A6891545B9510089FC73 /* ButtonFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFEC14F75C4B0041A364 /* ButtonFacebook@2x.png */; };
 		2843A68A1545B9510089FC73 /* BackgroundPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFF514F764290041A364 /* BackgroundPaper.png */; };
 		2843A68B1545B9510089FC73 /* BackgroundPaper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFF614F764290041A364 /* BackgroundPaper@2x.png */; };
-		2843A68C1545B9510089FC73 /* BackgroundPostIt.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFFD14F766C80041A364 /* BackgroundPostIt.png */; };
-		2843A68D1545B9510089FC73 /* BackgroundPostIt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFFE14F766C80041A364 /* BackgroundPostIt@2x.png */; };
 		2843A68E1545B9510089FC73 /* Quincy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D031D48314F84CC300DEB789 /* Quincy.bundle */; };
 		2843A68F1545B9510089FC73 /* Hockey.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D031D4AC14F84CDA00DEB789 /* Hockey.bundle */; };
 		2843A69B1545B9510089FC73 /* IconPinBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068B14F9CE1F00140D9E /* IconPinBlack.png */; };
@@ -792,8 +780,6 @@
 		28A391651554DA37002696FD /* HorizontalLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F577149202DE0028BCFE /* HorizontalLine@2x.png */; };
 		28A391661554DA37002696FD /* BackgroundToolbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F59914921C330028BCFE /* BackgroundToolbar.png */; };
 		28A391671554DA37002696FD /* BackgroundToolbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2810F59A14921C330028BCFE /* BackgroundToolbar@2x.png */; };
-		28A391681554DA37002696FD /* IconCaption.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D5C14983E75009D58BA /* IconCaption.png */; };
-		28A391691554DA37002696FD /* IconCaption@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D5D14983E75009D58BA /* IconCaption@2x.png */; };
 		28A3916A1554DA37002696FD /* IconMore.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D601498442E009D58BA /* IconMore.png */; };
 		28A3916B1554DA37002696FD /* IconMore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F38D611498442E009D58BA /* IconMore@2x.png */; };
 		28A3916C1554DA37002696FD /* IconBackBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28633AA914A30E910074A674 /* IconBackBlack@2x.png */; };
@@ -812,8 +798,6 @@
 		28A391791554DA37002696FD /* IconGearBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0269E3D14E1B2F300B690A2 /* IconGearBlack@2x.png */; };
 		28A3917A1554DA37002696FD /* IconFriendsBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D03155D314E5B90E00CC8572 /* IconFriendsBlack.png */; };
 		28A3917B1554DA37002696FD /* IconFriendsBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03155D414E5B90E00CC8572 /* IconFriendsBlack@2x.png */; };
-		28A3917C1554DA37002696FD /* IconMinusBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D080F6C014E5D10B0061A38B /* IconMinusBlack.png */; };
-		28A3917D1554DA37002696FD /* IconMinusBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D080F6C114E5D10B0061A38B /* IconMinusBlack@2x.png */; };
 		28A391801554DA37002696FD /* PSPullRefreshView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D08E516114E8A54800B5CCCD /* PSPullRefreshView.bundle */; };
 		28A391811554DA37002696FD /* IconCalendarBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D060639C14E90CA800150193 /* IconCalendarBlack.png */; };
 		28A391821554DA37002696FD /* IconCalendarBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D060639D14E90CA800150193 /* IconCalendarBlack@2x.png */; };
@@ -829,8 +813,6 @@
 		28A3918C1554DA37002696FD /* ButtonFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFEC14F75C4B0041A364 /* ButtonFacebook@2x.png */; };
 		28A3918D1554DA37002696FD /* BackgroundPaper.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFF514F764290041A364 /* BackgroundPaper.png */; };
 		28A3918E1554DA37002696FD /* BackgroundPaper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFF614F764290041A364 /* BackgroundPaper@2x.png */; };
-		28A3918F1554DA37002696FD /* BackgroundPostIt.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFFD14F766C80041A364 /* BackgroundPostIt.png */; };
-		28A391901554DA37002696FD /* BackgroundPostIt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0C5BFFE14F766C80041A364 /* BackgroundPostIt@2x.png */; };
 		28A391911554DA37002696FD /* Quincy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D031D48314F84CC300DEB789 /* Quincy.bundle */; };
 		28A391921554DA37002696FD /* Hockey.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D031D4AC14F84CDA00DEB789 /* Hockey.bundle */; };
 		28A391951554DA37002696FD /* IconPinBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = D0FE068B14F9CE1F00140D9E /* IconPinBlack.png */; };
@@ -1267,8 +1249,6 @@
 		28EDA6C815354130001BF4D1 /* AddPhotoBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddPhotoBackground.png; sourceTree = "<group>"; };
 		28EDA6D7153549F5001BF4D1 /* ButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonBlue.png; sourceTree = "<group>"; };
 		28EDA6D8153549F5001BF4D1 /* ButtonWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonWhite.png; sourceTree = "<group>"; };
-		28F38D5C14983E75009D58BA /* IconCaption.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconCaption.png; sourceTree = "<group>"; };
-		28F38D5D14983E75009D58BA /* IconCaption@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconCaption@2x.png"; sourceTree = "<group>"; };
 		28F38D601498442E009D58BA /* IconMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMore.png; sourceTree = "<group>"; };
 		28F38D611498442E009D58BA /* IconMore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMore@2x.png"; sourceTree = "<group>"; };
 		28F49074151EA9540050A423 /* ShadowFlattened.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShadowFlattened.png; sourceTree = "<group>"; };
@@ -1368,8 +1348,6 @@
 		D07B2DB614F74DD400304E62 /* IconHeartBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconHeartBlack@2x.png"; sourceTree = "<group>"; };
 		D07B2DBF14F750F500304E62 /* Appirater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Appirater.h; sourceTree = "<group>"; };
 		D07B2DC014F750F500304E62 /* Appirater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Appirater.m; sourceTree = "<group>"; };
-		D080F6C014E5D10B0061A38B /* IconMinusBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMinusBlack.png; sourceTree = "<group>"; };
-		D080F6C114E5D10B0061A38B /* IconMinusBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMinusBlack@2x.png"; sourceTree = "<group>"; };
 		D088EFCE14F99912006F7675 /* PhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoView.h; sourceTree = "<group>"; };
 		D088EFCF14F99912006F7675 /* PhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoView.m; sourceTree = "<group>"; };
 		D08C547514E973F800F1DD5C /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
@@ -1434,8 +1412,6 @@
 		D0C5BFEC14F75C4B0041A364 /* ButtonFacebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonFacebook@2x.png"; sourceTree = "<group>"; };
 		D0C5BFF514F764290041A364 /* BackgroundPaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundPaper.png; sourceTree = "<group>"; };
 		D0C5BFF614F764290041A364 /* BackgroundPaper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackgroundPaper@2x.png"; sourceTree = "<group>"; };
-		D0C5BFFD14F766C80041A364 /* BackgroundPostIt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundPostIt.png; sourceTree = "<group>"; };
-		D0C5BFFE14F766C80041A364 /* BackgroundPostIt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackgroundPostIt@2x.png"; sourceTree = "<group>"; };
 		D0C5C01414F76F910041A364 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D0DDA67914E85DC1001FD463 /* PSPullRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPullRefreshView.h; sourceTree = "<group>"; };
 		D0DDA67A14E85DC1001FD463 /* PSPullRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPullRefreshView.m; sourceTree = "<group>"; };
@@ -2257,8 +2233,6 @@
 				D0F6CADB14FDA6BA00CCF2B4 /* IconLocationArrowWhite@2x.png */,
 				D060639C14E90CA800150193 /* IconCalendarBlack.png */,
 				D060639D14E90CA800150193 /* IconCalendarBlack@2x.png */,
-				D080F6C014E5D10B0061A38B /* IconMinusBlack.png */,
-				D080F6C114E5D10B0061A38B /* IconMinusBlack@2x.png */,
 				D03155D314E5B90E00CC8572 /* IconFriendsBlack.png */,
 				D03155D414E5B90E00CC8572 /* IconFriendsBlack@2x.png */,
 				D0269E3A14E1B2F200B690A2 /* IconClockBlack.png */,
@@ -2277,8 +2251,6 @@
 				28603B2E14A7B20A00541BB1 /* IconNextBlack@2x.png */,
 				28F38D601498442E009D58BA /* IconMore.png */,
 				28F38D611498442E009D58BA /* IconMore@2x.png */,
-				28F38D5C14983E75009D58BA /* IconCaption.png */,
-				28F38D5D14983E75009D58BA /* IconCaption@2x.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -2286,8 +2258,6 @@
 		28F38D4C149839C2009D58BA /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
-				D0C5BFFD14F766C80041A364 /* BackgroundPostIt.png */,
-				D0C5BFFE14F766C80041A364 /* BackgroundPostIt@2x.png */,
 				D0C5BFF514F764290041A364 /* BackgroundPaper.png */,
 				D0C5BFF614F764290041A364 /* BackgroundPaper@2x.png */,
 				2810F59914921C330028BCFE /* BackgroundToolbar.png */,
@@ -2701,8 +2671,6 @@
 				281F4A1A1545BCC10066DD70 /* HorizontalLine@2x.png in Resources */,
 				281F4A1B1545BCC10066DD70 /* BackgroundToolbar.png in Resources */,
 				281F4A1C1545BCC10066DD70 /* BackgroundToolbar@2x.png in Resources */,
-				281F4A1D1545BCC10066DD70 /* IconCaption.png in Resources */,
-				281F4A1E1545BCC10066DD70 /* IconCaption@2x.png in Resources */,
 				281F4A1F1545BCC10066DD70 /* IconMore.png in Resources */,
 				281F4A201545BCC10066DD70 /* IconMore@2x.png in Resources */,
 				281F4A211545BCC10066DD70 /* IconBackBlack@2x.png in Resources */,
@@ -2721,8 +2689,6 @@
 				281F4A2E1545BCC10066DD70 /* IconGearBlack@2x.png in Resources */,
 				281F4A2F1545BCC10066DD70 /* IconFriendsBlack.png in Resources */,
 				281F4A301545BCC10066DD70 /* IconFriendsBlack@2x.png in Resources */,
-				281F4A311545BCC10066DD70 /* IconMinusBlack.png in Resources */,
-				281F4A321545BCC10066DD70 /* IconMinusBlack@2x.png in Resources */,
 				281F4A351545BCC10066DD70 /* PSPullRefreshView.bundle in Resources */,
 				281F4A361545BCC10066DD70 /* IconCalendarBlack.png in Resources */,
 				281F4A371545BCC10066DD70 /* IconCalendarBlack@2x.png in Resources */,
@@ -2738,8 +2704,6 @@
 				281F4A411545BCC10066DD70 /* ButtonFacebook@2x.png in Resources */,
 				281F4A421545BCC10066DD70 /* BackgroundPaper.png in Resources */,
 				281F4A431545BCC10066DD70 /* BackgroundPaper@2x.png in Resources */,
-				281F4A441545BCC10066DD70 /* BackgroundPostIt.png in Resources */,
-				281F4A451545BCC10066DD70 /* BackgroundPostIt@2x.png in Resources */,
 				281F4A461545BCC10066DD70 /* Quincy.bundle in Resources */,
 				281F4A471545BCC10066DD70 /* Hockey.bundle in Resources */,
 				281F4A531545BCC10066DD70 /* IconPinBlack.png in Resources */,
@@ -2904,8 +2868,6 @@
 				2843A6621545B9510089FC73 /* HorizontalLine@2x.png in Resources */,
 				2843A6631545B9510089FC73 /* BackgroundToolbar.png in Resources */,
 				2843A6641545B9510089FC73 /* BackgroundToolbar@2x.png in Resources */,
-				2843A6651545B9510089FC73 /* IconCaption.png in Resources */,
-				2843A6661545B9510089FC73 /* IconCaption@2x.png in Resources */,
 				2843A6671545B9510089FC73 /* IconMore.png in Resources */,
 				2843A6681545B9510089FC73 /* IconMore@2x.png in Resources */,
 				2843A6691545B9510089FC73 /* IconBackBlack@2x.png in Resources */,
@@ -2924,8 +2886,6 @@
 				2843A6761545B9510089FC73 /* IconGearBlack@2x.png in Resources */,
 				2843A6771545B9510089FC73 /* IconFriendsBlack.png in Resources */,
 				2843A6781545B9510089FC73 /* IconFriendsBlack@2x.png in Resources */,
-				2843A6791545B9510089FC73 /* IconMinusBlack.png in Resources */,
-				2843A67A1545B9510089FC73 /* IconMinusBlack@2x.png in Resources */,
 				2843A67D1545B9510089FC73 /* PSPullRefreshView.bundle in Resources */,
 				2843A67E1545B9510089FC73 /* IconCalendarBlack.png in Resources */,
 				2843A67F1545B9510089FC73 /* IconCalendarBlack@2x.png in Resources */,
@@ -2941,8 +2901,6 @@
 				2843A6891545B9510089FC73 /* ButtonFacebook@2x.png in Resources */,
 				2843A68A1545B9510089FC73 /* BackgroundPaper.png in Resources */,
 				2843A68B1545B9510089FC73 /* BackgroundPaper@2x.png in Resources */,
-				2843A68C1545B9510089FC73 /* BackgroundPostIt.png in Resources */,
-				2843A68D1545B9510089FC73 /* BackgroundPostIt@2x.png in Resources */,
 				2843A68E1545B9510089FC73 /* Quincy.bundle in Resources */,
 				2843A68F1545B9510089FC73 /* Hockey.bundle in Resources */,
 				2843A69B1545B9510089FC73 /* IconPinBlack.png in Resources */,
@@ -3107,8 +3065,6 @@
 				28A391651554DA37002696FD /* HorizontalLine@2x.png in Resources */,
 				28A391661554DA37002696FD /* BackgroundToolbar.png in Resources */,
 				28A391671554DA37002696FD /* BackgroundToolbar@2x.png in Resources */,
-				28A391681554DA37002696FD /* IconCaption.png in Resources */,
-				28A391691554DA37002696FD /* IconCaption@2x.png in Resources */,
 				28A3916A1554DA37002696FD /* IconMore.png in Resources */,
 				28A3916B1554DA37002696FD /* IconMore@2x.png in Resources */,
 				28A3916C1554DA37002696FD /* IconBackBlack@2x.png in Resources */,
@@ -3127,8 +3083,6 @@
 				28A391791554DA37002696FD /* IconGearBlack@2x.png in Resources */,
 				28A3917A1554DA37002696FD /* IconFriendsBlack.png in Resources */,
 				28A3917B1554DA37002696FD /* IconFriendsBlack@2x.png in Resources */,
-				28A3917C1554DA37002696FD /* IconMinusBlack.png in Resources */,
-				28A3917D1554DA37002696FD /* IconMinusBlack@2x.png in Resources */,
 				28A391801554DA37002696FD /* PSPullRefreshView.bundle in Resources */,
 				28A391811554DA37002696FD /* IconCalendarBlack.png in Resources */,
 				28A391821554DA37002696FD /* IconCalendarBlack@2x.png in Resources */,
@@ -3144,8 +3098,6 @@
 				28A3918C1554DA37002696FD /* ButtonFacebook@2x.png in Resources */,
 				28A3918D1554DA37002696FD /* BackgroundPaper.png in Resources */,
 				28A3918E1554DA37002696FD /* BackgroundPaper@2x.png in Resources */,
-				28A3918F1554DA37002696FD /* BackgroundPostIt.png in Resources */,
-				28A391901554DA37002696FD /* BackgroundPostIt@2x.png in Resources */,
 				28A391911554DA37002696FD /* Quincy.bundle in Resources */,
 				28A391921554DA37002696FD /* Hockey.bundle in Resources */,
 				28A391951554DA37002696FD /* IconPinBlack.png in Resources */,

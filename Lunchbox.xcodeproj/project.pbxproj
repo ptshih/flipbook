@@ -1695,6 +1695,21 @@
 			path = Submodules/PSKit/src/Fonts/Helvetica;
 			sourceTree = SOURCE_ROOT;
 		};
+		281BC3A81558CF3F00574284 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				D0C5BFEB14F75C4B0041A364 /* ButtonFacebook.png */,
+				D0C5BFEC14F75C4B0041A364 /* ButtonFacebook@2x.png */,
+				D0C5BFE714F75B960041A364 /* ButtonFacebookHighlighted.png */,
+				D0C5BFE614F75B960041A364 /* ButtonFacebookHighlighted@2x.png */,
+				28EDA6D7153549F5001BF4D1 /* ButtonBlue.png */,
+				28EDA6D8153549F5001BF4D1 /* ButtonWhite.png */,
+				D054E99114F7001D00B03306 /* ButtonBlue@2x.png */,
+				D054E99214F7001D00B03306 /* ButtonWhite@2x.png */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
 		283818B314723F1C007E4827 = {
 			isa = PBXGroup;
 			children = (
@@ -1805,50 +1820,23 @@
 		28698713147312EC00B40860 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				284B1DC5152F75AD000F2BAE /* Category */,
+				28F38D4C149839C2009D58BA /* Backgrounds */,
+				28F38D4A149839B9009D58BA /* Icons */,
+				281BC3A81558CF3F00574284 /* Buttons */,
+				D0ACA5481500440200681176 /* Nav */,
 				28EDA6C815354130001BF4D1 /* AddPhotoBackground.png */,
 				28888D1A153576DE001743CA /* AddPhotoBackground@2x.png */,
 				28F84EBB15353F20003F698F /* AddPhoto.png */,
 				28F84EBC15353F20003F698F /* AddPhoto@2x.png */,
-				284B1DC5152F75AD000F2BAE /* Category */,
-				D0ACA5481500440200681176 /* Nav */,
 				D07032C014FFCD8C002DA895 /* Shadow.png */,
 				28F49074151EA9540050A423 /* ShadowFlattened.png */,
 				28601FDC15355E63003AC7D4 /* Shadow@2x.png */,
 				28601FDD15355E63003AC7D4 /* ShadowFlattened@2x.png */,
 				D0F6CA9714FD638700CCF2B4 /* DisclosureIndicatorWhiteBordered.png */,
 				D0F6CA9814FD638700CCF2B4 /* DisclosureIndicatorWhiteBordered@2x.png */,
-				D0F6CAB414FD761500CCF2B4 /* IconSliderBlack.png */,
-				D0F6CAB514FD761500CCF2B4 /* IconSliderBlack@2x.png */,
-				D0F6CAB614FD761500CCF2B4 /* IconSliderWhite.png */,
-				D0F6CAB714FD761500CCF2B4 /* IconSliderWhite@2x.png */,
-				D0FE068B14F9CE1F00140D9E /* IconPinBlack.png */,
-				D0FE068C14F9CE1F00140D9E /* IconPinBlack@2x.png */,
-				D0FE068D14F9CE1F00140D9E /* IconPinWhite.png */,
-				D0FE068E14F9CE1F00140D9E /* IconPinWhite@2x.png */,
 				281CFC85151EB64C003DABCD /* PinVenueRed.png */,
 				281CFC86151EB64C003DABCD /* PinVenueRed@2x.png */,
-				D0C5BFEB14F75C4B0041A364 /* ButtonFacebook.png */,
-				D0C5BFEC14F75C4B0041A364 /* ButtonFacebook@2x.png */,
-				D0C5BFE714F75B960041A364 /* ButtonFacebookHighlighted.png */,
-				D0C5BFE614F75B960041A364 /* ButtonFacebookHighlighted@2x.png */,
-				D07B2DB514F74DD400304E62 /* IconHeartBlack.png */,
-				D07B2DB614F74DD400304E62 /* IconHeartBlack@2x.png */,
-				28EDA6D7153549F5001BF4D1 /* ButtonBlue.png */,
-				28EDA6D8153549F5001BF4D1 /* ButtonWhite.png */,
-				D054E99114F7001D00B03306 /* ButtonBlue@2x.png */,
-				D054E99214F7001D00B03306 /* ButtonWhite@2x.png */,
-				D0ACA5011500400700681176 /* IconBackWhite.png */,
-				D0ACA5021500400700681176 /* IconBackWhite@2x.png */,
-				D0ACA5031500400700681176 /* IconCameraWhite.png */,
-				D0ACA5041500400700681176 /* IconCameraWhite@2x.png */,
-				D0ACA5051500400700681176 /* IconNextWhite.png */,
-				D0ACA5061500400700681176 /* IconNextWhite@2x.png */,
-				D0ACA5131500403500681176 /* IconHeartWhite.png */,
-				D0ACA5141500403500681176 /* IconHeartWhite@2x.png */,
-				284B1DC6152F803B000F2BAE /* IconSearchWhite.png */,
-				284B1DC7152F803B000F2BAE /* IconSearchWhite@2x.png */,
-				28F38D4C149839C2009D58BA /* Backgrounds */,
-				28F38D4A149839B9009D58BA /* Icons */,
 				2810F576149202DE0028BCFE /* HorizontalLine.png */,
 				2810F577149202DE0028BCFE /* HorizontalLine@2x.png */,
 				288F571D14808609000EEC90 /* PhotoFrame.png */,
@@ -2183,6 +2171,26 @@
 		28F38D4A149839B9009D58BA /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				D07B2DB514F74DD400304E62 /* IconHeartBlack.png */,
+				D07B2DB614F74DD400304E62 /* IconHeartBlack@2x.png */,
+				D0ACA5011500400700681176 /* IconBackWhite.png */,
+				D0ACA5021500400700681176 /* IconBackWhite@2x.png */,
+				D0ACA5031500400700681176 /* IconCameraWhite.png */,
+				D0ACA5041500400700681176 /* IconCameraWhite@2x.png */,
+				D0ACA5051500400700681176 /* IconNextWhite.png */,
+				D0ACA5061500400700681176 /* IconNextWhite@2x.png */,
+				D0ACA5131500403500681176 /* IconHeartWhite.png */,
+				D0ACA5141500403500681176 /* IconHeartWhite@2x.png */,
+				284B1DC6152F803B000F2BAE /* IconSearchWhite.png */,
+				284B1DC7152F803B000F2BAE /* IconSearchWhite@2x.png */,
+				D0F6CAB414FD761500CCF2B4 /* IconSliderBlack.png */,
+				D0F6CAB514FD761500CCF2B4 /* IconSliderBlack@2x.png */,
+				D0F6CAB614FD761500CCF2B4 /* IconSliderWhite.png */,
+				D0F6CAB714FD761500CCF2B4 /* IconSliderWhite@2x.png */,
+				D0FE068B14F9CE1F00140D9E /* IconPinBlack.png */,
+				D0FE068C14F9CE1F00140D9E /* IconPinBlack@2x.png */,
+				D0FE068D14F9CE1F00140D9E /* IconPinWhite.png */,
+				D0FE068E14F9CE1F00140D9E /* IconPinWhite@2x.png */,
 				28DA3CE51554E47F0050D215 /* IconReservationsBlack.png */,
 				28DA3CE61554E47F0050D215 /* IconReservationsBlack@2x.png */,
 				28DA3CD51554E2330050D215 /* IconFoodBlack.png */,

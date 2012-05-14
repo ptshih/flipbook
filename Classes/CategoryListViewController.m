@@ -31,10 +31,6 @@
     return self;
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
-
 
 #pragma mark - View Config
 - (UIColor *)baseBackgroundColor {

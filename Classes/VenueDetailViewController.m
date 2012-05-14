@@ -53,16 +53,6 @@ mapView = _mapView;
     return self;
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    self.mapView.delegate = nil;
-    self.mapView = nil;
-}
-
-- (void)dealloc {
-    self.mapView.delegate = nil;
-}
-
 #pragma mark - View Config
 - (UIColor *)baseBackgroundColor {
     return [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];

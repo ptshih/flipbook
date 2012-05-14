@@ -64,28 +64,6 @@ hasPhoto = _hasPhoto;
     return self;
 }
 
-- (void)viewDidUnload {
-    if (self.webView) {
-        self.webView.delegate = nil;
-        self.webView = nil;
-    }
-    if (self.popover) {
-        self.popover.delegate = nil;
-        self.popover = nil;
-    }
-    self.textView = nil;
-    [super viewDidUnload];
-}
-
-- (void)dealloc {
-    if (self.webView) {    
-        self.webView.delegate = nil;
-    }
-    if (self.popover) {
-        self.popover.delegate = nil;
-    }
-}
-
 #pragma mark - View Config
 - (UIColor *)baseBackgroundColor {
     return [UIColor whiteColor];

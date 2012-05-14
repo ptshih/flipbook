@@ -40,11 +40,6 @@ rightButton = _rightButton;
     return self;
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
-
-
 #pragma mark - View
 - (void)viewDidLoad {
     [super viewDidLoad];

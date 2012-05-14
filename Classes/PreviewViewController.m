@@ -48,11 +48,6 @@ imageView = _imageView;
     return self;
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
-
-
 #pragma mark - View
 - (void)viewDidLoad {
     [super viewDidLoad];

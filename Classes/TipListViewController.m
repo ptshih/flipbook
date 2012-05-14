@@ -38,11 +38,6 @@ rightButton = _rightButton;
     return self;
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
-
-
 #pragma mark - View Config
 - (UIColor *)baseBackgroundColor {
     return [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];

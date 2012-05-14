@@ -69,14 +69,9 @@ hasLoadedOnce = _hasLoadedOnce;
     return self;
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSLocationCenterDidUpdate object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSLocationCenterDidFail object:nil];
-
 }
 
 - (void)refreshOnAppear {

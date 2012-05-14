@@ -176,12 +176,12 @@ eventButton = _eventButton;
         [mapView addSubview:peopleIcon];
         peopleIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
-        statsLabel = [UILabel labelWithStyle:@"titleLabel"];
+        statsLabel = [UILabel labelWithStyle:@"h3Label"];
         [mapView addSubview:statsLabel];
         statsLabel.backgroundColor = mapView.backgroundColor;
         statsLabel.text = [NSString stringWithFormat:@"%@ people checked in here", [__numberFormatter stringFromNumber:[[self.venueDict objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
         
-        CGSize statsLabelSize = [PSStyleSheet sizeForText:statsLabel.text width:self.mapView.width - 16 style:@"titleLabel"];
+        CGSize statsLabelSize = [PSStyleSheet sizeForText:statsLabel.text width:self.mapView.width - 16 style:@"h3Label"];
         statsLabel.frame = CGRectMake(8 + 16, mapTop, statsLabelSize.width, 16.0);
         
         mapTop += statsLabel.height + 2.0;
@@ -376,11 +376,11 @@ eventButton = _eventButton;
         // Stats
         NSDictionary *stats = [self.venueDict objectForKey:@"stats"];
         
-        UILabel *countLabel = [UILabel labelWithStyle:@"subtitleLabel"];
+        UILabel *countLabel = [UILabel labelWithStyle:@"boldLabel"];
         countLabel.backgroundColor = tipView.backgroundColor;
         countLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         countLabel.text = [NSString stringWithFormat:@"View All %@ Tips", [stats objectForKey:@"tipCount"]];
-        labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"subtitleLabel"];
+        labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"boldLabel"];
         countLabel.frame = CGRectMake(8, divider.bottom + 4, tipWidth, labelSize.height);
         [tipView addSubview:countLabel];
         

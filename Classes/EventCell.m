@@ -30,7 +30,7 @@ messageLabel = _messageLabel;
         self.messageLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         self.messageLabel.backgroundColor = [UIColor clearColor];
         self.messageLabel.userInteractionEnabled = NO;
-        [PSStyleSheet applyStyle:@"bodyLabel" forLabel:self.messageLabel];
+        [PSStyleSheet applyStyle:@"eventMessageLabel" forLabel:self.messageLabel];
         [self.contentView addSubview:self.messageLabel];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -53,7 +53,7 @@ messageLabel = _messageLabel;
     left = self.psImageView.right + MARGIN;
     width -= self.psImageView.width + MARGIN;
     
-    labelSize = [PSStyleSheet sizeForText:self.messageLabel.text width:width style:@"bodyLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.messageLabel.text width:width style:@"eventMessageLabel"];
     self.messageLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
 //    top = self.textLabel.bottom;
@@ -103,7 +103,7 @@ messageLabel = _messageLabel;
     
     
     NSString *message = [NSString stringWithFormat:@"%@ is going to %@ for %@", [dict objectForKey:@"fbName"], [dict objectForKey:@"venueName"], [dict objectForKey:@"reason"]];
-    CGSize labelSize = [PSStyleSheet sizeForText:message width:width style:@"bodyLabel"];
+    CGSize labelSize = [PSStyleSheet sizeForText:message width:width style:@"eventMessageLabel"];
     height += labelSize.height;
     
     height = MAX(32.0, height);

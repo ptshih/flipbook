@@ -27,6 +27,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 @interface VenueDetailViewController () <PSPopoverViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, copy) NSString *venueId;
+@property (nonatomic, copy) NSString *eventId;
 @property (nonatomic, copy) NSDictionary *venueDict;
 @property (nonatomic, copy) NSDictionary *eventDict;
 @property (nonatomic, strong) MKMapView *mapView;
@@ -43,6 +44,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 @synthesize
 venueId = _venueId,
+eventId = _eventId,
 venueDict = _venueDict,
 eventDict = _eventDict,
 mapView = _mapView;
@@ -56,10 +58,11 @@ eventButton = _eventButton;
 }
 
 #pragma mark - Init
-- (id)initWithVenueId:(NSString *)venueId {
+- (id)initWithVenueId:(NSString *)venueId eventId:(NSString *)eventId {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
         self.venueId = venueId;
+        self.eventId = eventId;
     }
     return self;
 }
@@ -815,6 +818,10 @@ eventButton = _eventButton;
 }
 
 #pragma mark - Pre-load
+- (void)preloadEventWithId:(NSString *)eventId {
+    
+}
+
 - (void)preloadVenueWithId:(NSString *)venueId {
     // Need to retrieve:
     // id, name, lat, lng, stats, tip, formattedAddress, contact, menu, url, reservations

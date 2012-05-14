@@ -10,7 +10,7 @@
 
 @interface VenueDetailViewController : PSCollectionViewController <MKMapViewDelegate, UIAlertViewDelegate>
 
-- (id)initWithVenueId:(NSString *)venueId;
+- (id)initWithVenueId:(NSString *)venueId eventId:(NSString *)eventId;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

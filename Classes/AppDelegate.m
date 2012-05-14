@@ -68,8 +68,8 @@ shouldReloadInterface = _shouldReloadInterface;
 
 #pragma mark - Push Controller
 
-- (void)pushVenueWithId:(NSString *)venueId {
-    VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:venueId];
+- (void)pushVenueWithId:(NSString *)venueId eventId:(NSString *)eventId {
+    VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:venueId eventId:eventId];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -102,7 +102,7 @@ shouldReloadInterface = _shouldReloadInterface;
             NSString *venueId = [targetURL lastPathComponent];
             if (venueId) {
                 // Push venue
-                [self pushVenueWithId:venueId];
+                [self pushVenueWithId:venueId eventId:nil];
                 return YES;
             } else {
                 return [[PSFacebookCenter defaultCenter] handleOpenURL:url];

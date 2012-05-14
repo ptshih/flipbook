@@ -8,6 +8,7 @@
 
 #import "VenueListViewController.h"
 #import "VenueDetailViewController.h"
+#import "EventViewController.h"
 #import "PSPopoverView.h"
 #import "VenueView.h"
 #import "CategoryChooserView.h"
@@ -15,6 +16,7 @@
 
 #define kPopoverLocation 7001
 #define kPopoverCategory 7002
+#define kPopoverEvent 7003
 
 @interface VenueListViewController ()
 
@@ -163,12 +165,22 @@ hasLoadedOnce = _hasLoadedOnce;
 }
 
 - (void)centerAction {
-    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
-    LocationChooserView *cv = [[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion];
-    PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv];
-    popoverView.tag = kPopoverLocation;
+    EventViewController *vc = [[EventViewController alloc] initWithNibName:nil bundle:nil];
+    vc.view.frame = CGRectMake(0, 0, 288, 356);
+    PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Notifications" contentController:vc];
+    popoverView.tag = kPopoverEvent;
     popoverView.delegate = self;
-    [popoverView showWithSize:cv.frame.size inView:self.view];
+    [popoverView showWithSize:vc.view.bounds.size inView:self.view];
+    
+    
+    return;
+    
+//    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
+//    LocationChooserView *cv = [[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion];
+//    PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv];
+//    popoverView.tag = kPopoverLocation;
+//    popoverView.delegate = self;
+//    [popoverView showWithSize:cv.frame.size inView:self.view];
 }
 
 - (void)rightAction {
@@ -507,7 +519,7 @@ hasLoadedOnce = _hasLoadedOnce;
 //            self.categoryIndex = newCategoryIndex;
 //            [self reloadDataSource];
 //        }
-    } else if (popoverView.tag = kPopoverLocation) {
+    } else if (popoverView.tag == kPopoverLocation) {
         LocationChooserView *cv = (LocationChooserView *)popoverView.contentView;
         
         if (cv.locationDidChange) {

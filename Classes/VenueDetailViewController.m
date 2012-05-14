@@ -31,6 +31,8 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 @property (nonatomic, weak) UIButton *eventButton;
 
+// Event
+- (void)createEventWithReason:(NSString *)reason;
 - (void)updateEventButtonReason:(NSString *)reason;
 
 @end
@@ -495,6 +497,42 @@ eventButton = _eventButton;
     [self updateEventButtonReason:reason];
 }
 
+- (void)createEventWithReason:(NSString *)reason {
+    self.eventButton.enabled = NO;
+    
+    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events", API_BASE_URL];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@"548430564" forKey:@"fbId"];
+    [parameters setObject:@"Peter Shih" forKey:@"fbName"];
+    [parameters setObject:[self.venueDict objectForKey:@"id"] forKey:@"venueId"];
+    [parameters setObject:[self.venueDict objectForKey:@"name"] forKey:@"venueName"];
+    [parameters setObject:reason forKey:@"reason"];
+    
+    NSURL *URL = [NSURL URLWithString:URLPath];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
+    
+    BLOCK_SELF;
+    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
+        
+        NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
+        
+        if (!error && responseCode == 200) {
+            id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            //        NSLog(@"res: %@", res);
+            
+            self.eventDict = (NSDictionary *)res;
+            if (self.eventDict) {
+                [self updateEventButtonReason:[self.eventDict objectForKey:@"reason"]];
+            }
+        } else {
+            self.eventButton.enabled = YES;
+        }
+    }];
+}
+
 - (void)updateEventButtonReason:(NSString *)reason {
     // TODO: move this to an updateWithReason method
     if (self.eventButton) {
@@ -729,7 +767,7 @@ eventButton = _eventButton;
     
     NSString *reason = [actionSheet buttonTitleAtIndex:buttonIndex];
     
-    [self updateEventButtonReason:reason];
+    [self createEventWithReason:reason];
 }
 
 @end

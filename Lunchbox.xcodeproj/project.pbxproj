@@ -124,7 +124,7 @@
 		281F49B11545BCC10066DD70 /* VenueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5E14AC4D9300541BB1 /* VenueView.m */; };
 		281F49B21545BCC10066DD70 /* CoreGraphics-PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 288CB07014B2D72700233B45 /* CoreGraphics-PSKit.m */; };
 		281F49B31545BCC10066DD70 /* NSMutableURLRequest+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D092D2C214DC4837001108A0 /* NSMutableURLRequest+PSKit.m */; };
-		281F49B41545BCC10066DD70 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0269E4314E1B5E100B690A2 /* UserCell.m */; };
+		281F49B41545BCC10066DD70 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0269E4314E1B5E100B690A2 /* EventCell.m */; };
 		281F49B51545BCC10066DD70 /* PSCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = D031558914E5AB8B00CC8572 /* PSCollectionView.m */; };
 		281F49B61545BCC10066DD70 /* PSPullRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DDA67A14E85DC1001FD463 /* PSPullRefreshView.m */; };
 		281F49B71545BCC10066DD70 /* VenueDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E516F14E8ABB400B5CCCD /* VenueDetailViewController.m */; };
@@ -386,7 +386,7 @@
 		2843A5F91545B9510089FC73 /* VenueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5E14AC4D9300541BB1 /* VenueView.m */; };
 		2843A5FA1545B9510089FC73 /* CoreGraphics-PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 288CB07014B2D72700233B45 /* CoreGraphics-PSKit.m */; };
 		2843A5FB1545B9510089FC73 /* NSMutableURLRequest+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D092D2C214DC4837001108A0 /* NSMutableURLRequest+PSKit.m */; };
-		2843A5FC1545B9510089FC73 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0269E4314E1B5E100B690A2 /* UserCell.m */; };
+		2843A5FC1545B9510089FC73 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0269E4314E1B5E100B690A2 /* EventCell.m */; };
 		2843A5FD1545B9510089FC73 /* PSCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = D031558914E5AB8B00CC8572 /* PSCollectionView.m */; };
 		2843A5FE1545B9510089FC73 /* PSPullRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DDA67A14E85DC1001FD463 /* PSPullRefreshView.m */; };
 		2843A5FF1545B9510089FC73 /* VenueDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E516F14E8ABB400B5CCCD /* VenueDetailViewController.m */; };
@@ -603,6 +603,9 @@
 		2843A6FD1545B9510089FC73 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 280F1AFE1535A8F500221ABC /* Default-Portrait@2x~ipad.png */; };
 		2843A6FE1545B9510089FC73 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 284ABDC115100AB10040B250 /* Default.png */; };
 		2843A6FF1545B9510089FC73 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F6CAEE14FDB7AF00CCF2B4 /* Default@2x.png */; };
+		28488ECF1560EF260012C7D0 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28488ECE1560EF260012C7D0 /* EventViewController.m */; };
+		28488ED01560EF260012C7D0 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28488ECE1560EF260012C7D0 /* EventViewController.m */; };
+		28488ED11560EF260012C7D0 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28488ECE1560EF260012C7D0 /* EventViewController.m */; };
 		2874F48A1560C1230059E916 /* ButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2874F4881560C1230059E916 /* ButtonWhite.png */; };
 		2874F48B1560C1230059E916 /* ButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2874F4881560C1230059E916 /* ButtonWhite.png */; };
 		2874F48C1560C1230059E916 /* ButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2874F4881560C1230059E916 /* ButtonWhite.png */; };
@@ -669,7 +672,7 @@
 		28A390FB1554DA37002696FD /* VenueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5E14AC4D9300541BB1 /* VenueView.m */; };
 		28A390FC1554DA37002696FD /* CoreGraphics-PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 288CB07014B2D72700233B45 /* CoreGraphics-PSKit.m */; };
 		28A390FD1554DA37002696FD /* NSMutableURLRequest+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D092D2C214DC4837001108A0 /* NSMutableURLRequest+PSKit.m */; };
-		28A390FE1554DA37002696FD /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0269E4314E1B5E100B690A2 /* UserCell.m */; };
+		28A390FE1554DA37002696FD /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0269E4314E1B5E100B690A2 /* EventCell.m */; };
 		28A390FF1554DA37002696FD /* PSCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = D031558914E5AB8B00CC8572 /* PSCollectionView.m */; };
 		28A391001554DA37002696FD /* PSPullRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DDA67A14E85DC1001FD463 /* PSPullRefreshView.m */; };
 		28A391011554DA37002696FD /* VenueDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E516F14E8ABB400B5CCCD /* VenueDetailViewController.m */; };
@@ -1039,6 +1042,8 @@
 		283F89301515DCFF003C1D63 /* PSDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDateFormatter.m; sourceTree = "<group>"; };
 		2843A7041545B9510089FC73 /* Lunchbox Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lunchbox Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2843A7071545B9920089FC73 /* Info-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Pro.plist"; sourceTree = SOURCE_ROOT; };
+		28488ECD1560EF260012C7D0 /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
+		28488ECE1560EF260012C7D0 /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
 		284ABD95150E8FAF0040B250 /* CheckinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinViewController.h; sourceTree = "<group>"; };
 		284ABD96150E8FAF0040B250 /* CheckinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinViewController.m; sourceTree = "<group>"; };
 		284ABDAB150E987F0040B250 /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
@@ -1261,8 +1266,8 @@
 		D0269E3B14E1B2F200B690A2 /* IconClockBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconClockBlack@2x.png"; sourceTree = "<group>"; };
 		D0269E3C14E1B2F200B690A2 /* IconGearBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconGearBlack.png; sourceTree = "<group>"; };
 		D0269E3D14E1B2F300B690A2 /* IconGearBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconGearBlack@2x.png"; sourceTree = "<group>"; };
-		D0269E4214E1B5E100B690A2 /* UserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCell.h; sourceTree = "<group>"; };
-		D0269E4314E1B5E100B690A2 /* UserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
+		D0269E4214E1B5E100B690A2 /* EventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = EventCell.h; sourceTree = "<group>"; };
+		D0269E4314E1B5E100B690A2 /* EventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
 		D031558814E5AB8B00CC8572 /* PSCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCollectionView.h; sourceTree = "<group>"; };
 		D031558914E5AB8B00CC8572 /* PSCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCollectionView.m; sourceTree = "<group>"; };
 		D03155D314E5B90E00CC8572 /* IconFriendsBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconFriendsBlack.png; sourceTree = "<group>"; };
@@ -2093,6 +2098,8 @@
 				284B1DBD152F6296000F2BAE /* CategoryListViewController.m */,
 				280F5F6E154FA2C800DA05AF /* PhotoTagsViewController.h */,
 				280F5F6F154FA2C800DA05AF /* PhotoTagsViewController.m */,
+				28488ECD1560EF260012C7D0 /* EventViewController.h */,
+				28488ECE1560EF260012C7D0 /* EventViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2116,8 +2123,8 @@
 				D088EFCF14F99912006F7675 /* PhotoView.m */,
 				D0F6CA9E14FD675E00CCF2B4 /* TipView.h */,
 				D0F6CA9F14FD675E00CCF2B4 /* TipView.m */,
-				D0269E4214E1B5E100B690A2 /* UserCell.h */,
-				D0269E4314E1B5E100B690A2 /* UserCell.m */,
+				D0269E4214E1B5E100B690A2 /* EventCell.h */,
+				D0269E4314E1B5E100B690A2 /* EventCell.m */,
 				D0FE068014F9C64B00140D9E /* VenueAnnotationView.h */,
 				D0FE068114F9C64B00140D9E /* VenueAnnotationView.m */,
 				D0F6CABC14FD772900CCF2B4 /* CategoryChooserView.h */,
@@ -3272,7 +3279,7 @@
 				281F49B11545BCC10066DD70 /* VenueView.m in Sources */,
 				281F49B21545BCC10066DD70 /* CoreGraphics-PSKit.m in Sources */,
 				281F49B31545BCC10066DD70 /* NSMutableURLRequest+PSKit.m in Sources */,
-				281F49B41545BCC10066DD70 /* UserCell.m in Sources */,
+				281F49B41545BCC10066DD70 /* EventCell.m in Sources */,
 				281F49B51545BCC10066DD70 /* PSCollectionView.m in Sources */,
 				281F49B61545BCC10066DD70 /* PSPullRefreshView.m in Sources */,
 				281F49B71545BCC10066DD70 /* VenueDetailViewController.m in Sources */,
@@ -3334,6 +3341,7 @@
 				D0BBA7B41548819D006CD0B7 /* TapjoyConnect.m in Sources */,
 				280F5F72154FA2C800DA05AF /* PhotoTagsViewController.m in Sources */,
 				2874F49D1560C7760059E916 /* EventManager.m in Sources */,
+				28488ED11560EF260012C7D0 /* EventViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3386,7 +3394,7 @@
 				2843A5F91545B9510089FC73 /* VenueView.m in Sources */,
 				2843A5FA1545B9510089FC73 /* CoreGraphics-PSKit.m in Sources */,
 				2843A5FB1545B9510089FC73 /* NSMutableURLRequest+PSKit.m in Sources */,
-				2843A5FC1545B9510089FC73 /* UserCell.m in Sources */,
+				2843A5FC1545B9510089FC73 /* EventCell.m in Sources */,
 				2843A5FD1545B9510089FC73 /* PSCollectionView.m in Sources */,
 				2843A5FE1545B9510089FC73 /* PSPullRefreshView.m in Sources */,
 				2843A5FF1545B9510089FC73 /* VenueDetailViewController.m in Sources */,
@@ -3448,6 +3456,7 @@
 				D0BBA7B31548819D006CD0B7 /* TapjoyConnect.m in Sources */,
 				280F5F71154FA2C800DA05AF /* PhotoTagsViewController.m in Sources */,
 				2874F49C1560C7760059E916 /* EventManager.m in Sources */,
+				28488ED01560EF260012C7D0 /* EventViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3500,7 +3509,7 @@
 				28A390FB1554DA37002696FD /* VenueView.m in Sources */,
 				28A390FC1554DA37002696FD /* CoreGraphics-PSKit.m in Sources */,
 				28A390FD1554DA37002696FD /* NSMutableURLRequest+PSKit.m in Sources */,
-				28A390FE1554DA37002696FD /* UserCell.m in Sources */,
+				28A390FE1554DA37002696FD /* EventCell.m in Sources */,
 				28A390FF1554DA37002696FD /* PSCollectionView.m in Sources */,
 				28A391001554DA37002696FD /* PSPullRefreshView.m in Sources */,
 				28A391011554DA37002696FD /* VenueDetailViewController.m in Sources */,
@@ -3562,6 +3571,7 @@
 				28A391391554DA37002696FD /* TapjoyConnect.m in Sources */,
 				28A3913A1554DA37002696FD /* PhotoTagsViewController.m in Sources */,
 				2874F49B1560C7760059E916 /* EventManager.m in Sources */,
+				28488ECF1560EF260012C7D0 /* EventViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,4 +10,8 @@
 
 @interface EventManager : NSObject
 
++ (id)sharedManager;
+
+- (NSArray *)events;
+
 @end

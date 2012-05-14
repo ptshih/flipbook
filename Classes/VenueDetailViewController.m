@@ -19,9 +19,19 @@
 #import "VenueAnnotation.h"
 #import "VenueAnnotationView.h"
 
+#import "EventManager.h"
+
 static NSNumberFormatter *__numberFormatter = nil;
 
-@interface VenueDetailViewController () <PSPopoverViewDelegate>
+@interface VenueDetailViewController () <PSPopoverViewDelegate, UIActionSheetDelegate>
+
+@property (nonatomic, copy) NSDictionary *venueDict;
+@property (nonatomic, copy) NSDictionary *eventDict;
+@property (nonatomic, strong) MKMapView *mapView;
+
+@property (nonatomic, weak) UIButton *eventButton;
+
+- (void)updateEventButtonReason:(NSString *)reason;
 
 @end
 
@@ -29,7 +39,11 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 @synthesize
 venueDict = _venueDict,
+eventDict = _eventDict,
 mapView = _mapView;
+
+@synthesize
+eventButton = _eventButton;
 
 + (void)initialize {
     __numberFormatter = [[NSNumberFormatter alloc] init];
@@ -40,7 +54,27 @@ mapView = _mapView;
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
+        self.venueDict = dictionary;
+        
+        // Load event cache
+        NSArray *events = [[EventManager sharedManager] events];
+        
+        // Find the event
+        for (NSDictionary *event in events) {
+            if ([[event objectForKey:@"venueId"] isEqualToString:[self.venueDict objectForKey:@"id"]]) {
+                self.eventDict = event;
+            }
+        }
+    }
+    
+    return self;
+}
+
+- (id)initWithDictionary:(NSDictionary *)dictionary event:(NSDictionary *)event {
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
         self.venueDict = dictionary; 
+        self.eventDict = event;
     }
     return self;
 }
@@ -250,6 +284,45 @@ mapView = _mapView;
     
     top += mapView.height + 8.0;
     
+    // Event
+    UIView *eventView = [[UIView alloc] initWithFrame:CGRectMake(8, top, headerView.width - 16, 0.0)];
+    eventView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    eventView.backgroundColor = [UIColor whiteColor];
+    UIImage *eventShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
+    UIImageView *eventShadowView = [[UIImageView alloc] initWithImage:eventShadowImage];
+    eventShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    eventShadowView.frame = CGRectInset(eventView.bounds, -1, -2);
+    [eventView addSubview:eventShadowView];
+    [headerView addSubview:eventView];
+    
+    UIButton *eventButton = [UIButton buttonWithFrame:CGRectMake(8, 4, eventView.width - 16, 44) andStyle:@"checkinButton" target:nil action:nil];
+    self.eventButton = eventButton;
+    [eventView addSubview:eventButton];
+    [eventButton setBackgroundImage:[[UIImage imageNamed:@"ButtonBlue"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
+    
+    if (self.eventDict) {
+        // Join existing event OR if creator, show message
+        
+        if (0) {
+            eventButton.enabled = NO;
+            [eventButton setTitle:[NSString stringWithFormat:@"I'm going here for %@", [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
+        } else {
+            [eventButton setTitle:[NSString stringWithFormat:@"Join %@ for %@", [self.eventDict objectForKey:@"fbName"], [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
+            [eventButton addTarget:self action:@selector(joinEvent:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        
+    } else {
+        // Create new event
+        [eventButton setTitle:@"Tell my friends I'm going here for..." forState:UIControlStateNormal];
+        [eventButton addTarget:self action:@selector(newEvent:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    
+    eventView.height += eventButton.height + 8.0;
+    
+    top += eventView.height + 8.0;
+    
     // Tip
     // Don't show if no tips
     if ([self.venueDict objectForKey:@"tip"]) {
@@ -409,6 +482,25 @@ mapView = _mapView;
 - (void)pushTips:(UITapGestureRecognizer *)gr {
     TipListViewController *vc = [[TipListViewController alloc] initWithDictionary:self.venueDict];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+}
+
+- (void)newEvent:(UIButton *)button {
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"I'm going here for..." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Brunch", @"Lunch", @"Dinner", @"Dessert", @"Drinks", nil];
+    [as showInView:self.view];
+}
+
+- (void)joinEvent:(UIButton *)button {
+    // Send request to server, update EventManager cache on response
+    NSString *reason = [self.eventDict objectForKey:@"reason"];
+    [self updateEventButtonReason:reason];
+}
+
+- (void)updateEventButtonReason:(NSString *)reason {
+    // TODO: move this to an updateWithReason method
+    if (self.eventButton) {
+        self.eventButton.enabled = NO;
+        [self.eventButton setTitle:[NSString stringWithFormat:@"I'm going here for %@", reason] forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - State Machine
@@ -629,6 +721,15 @@ mapView = _mapView;
 - (void)openReservations:(id)sender {
     NSString *urlString = [NSString stringWithFormat:@"%@", [[self.venueDict objectForKey:@"reservations"] objectForKey:@"url"]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == actionSheet.cancelButtonIndex) return;
+    
+    NSString *reason = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    [self updateEventButtonReason:reason];
 }
 
 @end

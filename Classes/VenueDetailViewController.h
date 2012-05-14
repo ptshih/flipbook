@@ -10,9 +10,8 @@
 
 @interface VenueDetailViewController : PSCollectionViewController <MKMapViewDelegate, UIAlertViewDelegate>
 
-@property (nonatomic, copy) NSDictionary *venueDict;
-@property (nonatomic, strong) MKMapView *mapView;
-
 - (id)initWithDictionary:(NSDictionary *)dictionary;
+
+- (id)initWithDictionary:(NSDictionary *)dictionary event:(NSDictionary *)event;
 
 @end

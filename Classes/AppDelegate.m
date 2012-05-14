@@ -10,6 +10,7 @@
 #import "PSReachabilityCenter.h"
 #import "PSLocationCenter.h"
 #import "CategoryListViewController.h"
+#import "VenueDetailViewController.h"
 
 #import "PSZoomView.h"
 
@@ -65,14 +66,179 @@ shouldReloadInterface = _shouldReloadInterface;
 
 #pragma mark - Global Statics
 
+#pragma mark - Push Controller
+
+- (void)pushVenueWithId:(NSString *)venueId {
+    // Need to retrieve:
+    // id, name, lat, lng, stats, tip, formattedAddress, contact, menu, url, reservations
+    NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@", venueId];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:FS_API_VERSION forKey:@"v"];
+    [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
+    [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
+    
+    NSURL *URL = [NSURL URLWithString:URLPath];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
+    
+    BLOCK_SELF;
+    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:YES completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+        ASSERT_MAIN_THREAD;
+        if (error) {
+            [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
+        } else {
+            // Process 4sq response
+            id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+            if (!apiResponse) {
+                [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
+            } else {
+                NSDictionary *response = [apiResponse objectForKey:@"response"];
+                
+                // Venue Dict
+                NSMutableDictionary *item = [NSMutableDictionary dictionary];
+                
+                // Read out the API                                
+                NSDictionary *venue = OBJ_NOT_NULL([response objectForKey:@"venue"]);
+                
+                if (!venueId) return;
+                
+                NSDictionary *tips = OBJ_NOT_NULL([venue objectForKey:@"tips"]);
+                NSDictionary *stats = OBJ_NOT_NULL([venue objectForKey:@"stats"]);
+                NSDictionary *menu = OBJ_NOT_NULL([venue objectForKey:@"menu"]);
+                NSDictionary *reservations = OBJ_NOT_NULL([venue objectForKey:@"reservations"]);
+                NSDictionary *location = OBJ_NOT_NULL([venue objectForKey:@"location"]);
+                NSDictionary *category = OBJ_NOT_NULL([venue objectForKey:@"categories"]) ? [[venue objectForKey:@"categories"] lastObject] : nil;
+                
+                
+                // Basic Info
+                [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
+                [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
+                
+                // Category
+                if (category) {
+                    [item setObject:[category objectForKey:@"name"] forKey:@"category"];
+                }
+                
+                // Location
+                if (NOT_NULL([location objectForKey:@"address"])) {
+                    [item setObject:[location objectForKey:@"address"] forKey:@"address"];
+                } else {
+                    return;
+                }
+                
+                if (NOT_NULL([location objectForKey:@"address"]) && NOT_NULL([location objectForKey:@"city"]) && NOT_NULL([location objectForKey:@"state"]) && NOT_NULL([location objectForKey:@"postalCode"])) {
+                    [item setObject:[NSString stringWithFormat:@"%@ %@, %@ %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"], [location objectForKey:@"postalCode"]] forKey:@"formattedAddress"];
+                } else if (NOT_NULL([location objectForKey:@"address"])) {
+                    [item setObject:[location objectForKey:@"address"] forKey:@"formattedAddress"];
+                } else {
+                    return;
+                }
+                
+                if (NOT_NULL([location objectForKey:@"distance"])) {
+                    [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
+                } else {
+                    [item setObject:[NSNumber numberWithInteger:0] forKey:@"distance"];
+                }
+                
+                if (NOT_NULL([location objectForKey:@"lat"]) && NOT_NULL([location objectForKey:@"lng"])) {
+                    [item setObject:[location objectForKey:@"lat"] forKey:@"lat"];
+                    [item setObject:[location objectForKey:@"lng"] forKey:@"lng"];
+                } else {
+                    return;
+                }
+                
+                // Tip
+                if (tips) {
+                    NSArray *tipGroups = [tips objectForKey:@"groups"];
+                    if (tipGroups && tipGroups.count > 0) {
+                        NSArray *tipItems = [[tipGroups objectAtIndex:0] objectForKey:@"items"];
+                        if (tipItems && tipItems.count > 0) {
+                            [item setObject:[tipItems objectAtIndex:0] forKey:@"tip"];
+                        }
+                    }
+                }
+                
+                // Contact
+                if (NOT_NULL([venue objectForKey:@"contact"])) {
+                    [item setObject:[venue objectForKey:@"contact"] forKey:@"contact"];
+                }
+                if (NOT_NULL([venue objectForKey:@"url"])) {
+                    [item setObject:[venue objectForKey:@"url"] forKey:@"url"];
+                }
+                
+                // Stats
+                if (stats) {
+                    [item setObject:stats forKey:@"stats"];
+                }
+                
+                // Menu
+                if (menu) {
+                    [item setObject:menu forKey:@"menu"];
+                }
+                
+                // Reservations
+                if (reservations) {
+                    [item setObject:reservations forKey:@"reservations"];
+                }
+                
+                VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithDictionary:item];
+                [blockSelf.navigationController pushViewController:vc animated:YES];
+            }
+            
+        }
+    }];
+}
+
 #pragma mark - Application Lifecycle
+
+- (NSDictionary *)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val = [[kv objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [params setObject:val forKey:[kv objectAtIndex:0]];
+    }
+    return params;
+}
+
+
+- (BOOL)handleURL:(NSURL *)url {
+    NSLog(@"app handle open URL: %@", url);
+    
+    // Intercept for FB deep linking
+    NSString *scheme = url.scheme;
+    if ([scheme isEqualToString:@"fb456420417705188live"] || [scheme isEqualToString:@"fb456420417705188beta"] || [scheme isEqualToString:@"fb456420417705188pro"]) {
+        NSString *fragment = url.fragment;
+        NSDictionary *params = [self parseURLParams:fragment];
+        // Check if target URL exists
+        NSString *targetURLString = [params valueForKey:@"target_url"];
+        if (targetURLString) {
+            NSURL *targetURL = [NSURL URLWithString:targetURLString];
+            NSString *venueId = [targetURL lastPathComponent];
+            if (venueId) {
+                // Push venue
+                [self pushVenueWithId:venueId];
+                return YES;
+            } else {
+                return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
+            }
+        } else {
+            return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
+        }
+    } else {
+        return NO;
+    }
+}
+
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
+    return [self handleURL:url];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
+    return [self handleURL:url];
 }
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //    NSLog(@"Fonts: %@", [UIFont familyNames]);

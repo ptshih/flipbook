@@ -12,8 +12,4 @@
 
 - (id)initWithVenueId:(NSString *)venueId eventId:(NSString *)eventId;
 
-- (id)initWithDictionary:(NSDictionary *)dictionary;
-
-- (id)initWithDictionary:(NSDictionary *)dictionary event:(NSDictionary *)event;
-
 @end

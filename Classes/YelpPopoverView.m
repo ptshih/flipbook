@@ -90,7 +90,7 @@ loadingLabel = _loadingLabel;
                 [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
                 [blockSelf dataSourceDidError];
             } else {
-                if ([apiResponse objectForKey:@"data"] && [[[apiResponse objectForKey:@"data"] objectForKey:@"businesses"] count] > 0) {
+                if ([apiResponse objectForKey:@"data"] && [[apiResponse objectForKey:@"data"] isKindOfClass:[NSDictionary class]] && [[apiResponse objectForKey:@"data"] objectForKey:@"businesses"] && [[[apiResponse objectForKey:@"data"] objectForKey:@"businesses"] count] > 0) {
                     blockSelf.yelpDict = [[[apiResponse objectForKey:@"data"] objectForKey:@"businesses"] lastObject];
                     
                     [blockSelf dataSourceDidLoad];

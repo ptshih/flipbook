@@ -256,6 +256,8 @@ hasLoadedOnce = _hasLoadedOnce;
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     if (![[PSLocationCenter defaultCenter] hasAcquiredLocation]) {
         self.hasLoadedOnce = NO;
+#warning location bug
+        // TODO: Show an error saying location undetectable
         return;
     } else {
         self.hasLoadedOnce = YES;
@@ -290,32 +292,27 @@ hasLoadedOnce = _hasLoadedOnce;
 //                    NSLog(@"placemark: %@", placemark);
         }
     }];
-    
-    NSString *ll = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
-    NSNumber *radius = (self.radius > 0) ? [NSNumber numberWithFloat:self.radius] : nil;
-    
-    NSString *URLPath = @"https://api.foursquare.com/v2/venues/explore";
+
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:self.category forKey:@"section"];
+    NSString *ll = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
     [parameters setObject:ll forKey:@"ll"];
+    NSNumber *radius = (self.radius > 0) ? [NSNumber numberWithFloat:self.radius] : nil;
     if (radius) {
         [parameters setObject:radius forKey:@"radius"];
     }
     if (self.query) {
         [parameters setObject:self.query forKey:@"query"];
     }
-    [parameters setObject:FS_API_VERSION forKey:@"v"];
-    [parameters setObject:[NSNumber numberWithInteger:1] forKey:@"venuePhotos"];
-    [parameters setObject:[NSNumber numberWithInteger:50] forKey:@"limit"];
-    [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
-    [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
-    NSString *section = self.category;
-    [parameters setObject:section forKey:@"section"];
+    
+    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/venues", API_BASE_URL];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
-    
+
     BLOCK_SELF;
+    
     [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
         ASSERT_MAIN_THREAD;
         if (error) {
@@ -323,152 +320,91 @@ hasLoadedOnce = _hasLoadedOnce;
             [blockSelf.items removeAllObjects];
             [blockSelf dataSourceDidError];
         } else {
-            [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
-                id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-                if (!apiResponse) {
-                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        [blockSelf.items removeAllObjects];
-                        [blockSelf dataSourceDidError];
-                    }];
-                } else {
-                    // Process 4sq response
-                    NSDictionary *response = [apiResponse objectForKey:@"response"];
-                    if (blockSelf.radius == 0 && [response objectForKey:@"suggestedRadius"]) {
-                        blockSelf.radius = [[response objectForKey:@"suggestedRadius"] integerValue];
-                    }
-                    NSArray *groups = [response objectForKey:@"groups"];
-                    if (groups && [groups count] > 0) {
-                        // Format the response for our consumption
-                        NSMutableArray *items = [NSMutableArray array];
-                        for (NSDictionary *dict in [[groups objectAtIndex:0] objectForKey:@"items"]) {
-                            // Venue Dict
-                            NSMutableDictionary *item = [NSMutableDictionary dictionary];
-                            
-                            // Read out the API                                
-                            NSDictionary *venue = OBJ_NOT_NULL([dict objectForKey:@"venue"]);
-                            if (!venue) {
-                                // no venue at all
-                                continue;
-                            }
-                            
-                            NSArray *tips = OBJ_NOT_NULL([dict objectForKey:@"tips"]);
-                            NSDictionary *stats = OBJ_NOT_NULL([venue objectForKey:@"stats"]);
-                            NSDictionary *menu = OBJ_NOT_NULL([venue objectForKey:@"menu"]);
-                            NSDictionary *reservations = OBJ_NOT_NULL([venue objectForKey:@"reservations"]);
-                            NSDictionary *location = OBJ_NOT_NULL([venue objectForKey:@"location"]);
-                            NSDictionary *category = OBJ_NOT_NULL([venue objectForKey:@"categories"]) ? [[venue objectForKey:@"categories"] lastObject] : nil;
-                            NSDictionary *featuredPhoto = OBJ_NOT_NULL([venue objectForKey:@"featuredPhotos"]) ? [[[venue objectForKey:@"featuredPhotos"] objectForKey:@"items"] lastObject] : nil;
-                            
-                            // Basic Info
-                            [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
-                            [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
-                            
-                            
-                            if (!location || !category) {
-                                // no location or no category
-                                continue;
-                            }
-                            
-                            if (!tips && !featuredPhoto) {
-                                // no tips and no photo
-                                continue;
-                            }
-                            
-                            if (category) {
-                                [item setObject:[category objectForKey:@"name"] forKey:@"category"];
-                            } else {
-                                // no category
-                                continue;
-                            }
-                            
-                            // Location
-                            if (NOT_NULL([location objectForKey:@"address"])) {
-                                [item setObject:[location objectForKey:@"address"] forKey:@"address"];
-                            } else {
-                                continue;
-                            }
-                            
-                            if (NOT_NULL([location objectForKey:@"address"]) && NOT_NULL([location objectForKey:@"city"]) && NOT_NULL([location objectForKey:@"state"]) && NOT_NULL([location objectForKey:@"postalCode"])) {
-                                [item setObject:[NSString stringWithFormat:@"%@ %@, %@ %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"], [location objectForKey:@"postalCode"]] forKey:@"formattedAddress"];
-                            } else if (NOT_NULL([location objectForKey:@"address"])) {
-                                [item setObject:[location objectForKey:@"address"] forKey:@"formattedAddress"];
-                            } else {
-                                continue;
-                            }
-                            
-                            if (NOT_NULL([location objectForKey:@"distance"])) {
-                                [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
-                            } else {
-                                [item setObject:[NSNumber numberWithInteger:0] forKey:@"distance"];
-                            }
-                            
-                            if (NOT_NULL([location objectForKey:@"lat"]) && NOT_NULL([location objectForKey:@"lng"])) {
-                                [item setObject:[location objectForKey:@"lat"] forKey:@"lat"];
-                                [item setObject:[location objectForKey:@"lng"] forKey:@"lng"];
-                            } else {
-                                continue;
-                            }
-                            
-                            // Tip
-                            if (tips && [tips count] > 0) {
-                                [item setObject:[tips objectAtIndex:0] forKey:@"tip"];
-                            }
-                            
-                            // Contact
-                            if (NOT_NULL([venue objectForKey:@"contact"])) {
-                                [item setObject:[venue objectForKey:@"contact"] forKey:@"contact"];
-                            }
-                            if (NOT_NULL([venue objectForKey:@"url"])) {
-                                [item setObject:[venue objectForKey:@"url"] forKey:@"url"];
-                            }
-                            
-                            // Stats
-                            if (stats) {
-                                [item setObject:stats forKey:@"stats"];
-                            }
-                            
-                            // Menu
-                            if (menu) {
-                                [item setObject:menu forKey:@"menu"];
-                            }
-                            
-                            // Reservations
-                            if (reservations) {
-                                [item setObject:reservations forKey:@"reservations"];
-                            }
-                                                            
-                            // Photo
-                            if (!featuredPhoto) {
-                                // Use category icon if no photo
-                                NSDictionary *icon = [category objectForKey:@"icon"];
-                                NSArray *sizes = [icon objectForKey:@"sizes"];
-                                NSString *source = [[icon objectForKey:@"prefix"] stringByAppendingFormat:@"%@%@", [sizes lastObject], [icon objectForKey:@"name"]];
-                                [item setObject:source forKey:@"source"];
-                                [item setObject:[NSNumber numberWithInteger:256] forKey:@"width"];
-                                [item setObject:[NSNumber numberWithInteger:256] forKey:@"height"];
-                            } else {
-                                NSDictionary *featuredPhotoItem = [[[featuredPhoto objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0];
-                                [item setObject:[featuredPhotoItem objectForKey:@"width"] forKey:@"width"];
-                                [item setObject:[featuredPhotoItem objectForKey:@"height"] forKey:@"height"];
-                                [item setObject:[featuredPhotoItem objectForKey:@"url"] forKey:@"source"];
-                            }
-                            
-                            [items addObject:item];
-                        }
-                        
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            [blockSelf.items removeAllObjects];
-                            [blockSelf.items addObjectsFromArray:items];
-                            [blockSelf dataSourceDidLoad];
-                        }];
+            id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+            
+            if (apiResponse && [apiResponse isKindOfClass:[NSArray class]]) {
+                NSMutableArray *items = [NSMutableArray array];
+                for (NSDictionary *venueRec in apiResponse) {
+                    NSMutableDictionary *item = [NSMutableDictionary dictionary];
+                    
+                    NSDictionary *venue = [venueRec objectForKey:@"venue"];
+                    NSArray *tips = [venueRec objectForKey:@"tips"];
+                    
+                    // Name
+                    [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
+                    [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
+                    
+                    // Location
+                    if ([venue objectForKey:@"location"]) {
+                        [item setObject:[venue objectForKey:@"location"] forKey:@"location"];
                     } else {
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            [blockSelf.items removeAllObjects];
-                            [blockSelf dataSourceDidError];
-                        }];
+                        continue;
                     }
+                    
+                    // Categories
+                    if ([venue objectForKey:@"categories"]) {
+                        [item setObject:[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"shortName"] forKey:@"primaryCategory"];
+                    } else {
+                        continue;
+                    }
+                    
+                    // Stats
+                    if ([venue objectForKey:@"stats"]) {
+                        [item setObject:[venue objectForKey:@"stats"] forKey:@"stats"];
+                    }
+                    
+                    // Photo
+                    NSString *photoURLPath = nil;
+                    NSNumber *photoWidth = nil;
+                    NSNumber *photoHeight = nil;
+                    if ([venue objectForKey:@"photos"]) {
+                        photoURLPath = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndex:0] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"url"];
+                        
+                        photoWidth = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndex:0] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"width"];
+                        
+                        photoHeight = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndex:0] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"height"];
+                    } else if ([venue objectForKey:@"categories"]) {
+                        NSDictionary *icon = [[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"icon"];
+                        photoURLPath = [[icon objectForKey:@"prefix"] stringByAppendingFormat:@"%@%@", [[icon objectForKey:@"sizes"] lastObject], [icon objectForKey:@"name"]];
+                        
+                        photoWidth = [NSNumber numberWithInteger:256];
+                        photoHeight = [NSNumber numberWithInteger:256];
+                    } else {
+                        // no photo, no category
+                        continue;
+                    }
+                    
+                    if (photoURLPath) {
+                        [item setObject:photoURLPath forKey:@"photoURLPath"];
+                        [item setObject:photoWidth forKey:@"photoWidth"];
+                        [item setObject:photoHeight forKey:@"photoHeight"];
+                    } else {
+                        continue;
+                    }
+                    
+                    // Tip
+                    if (tips && tips.count > 0 && [tips notNull]) {
+                        NSDictionary *tip = [tips objectAtIndex:0];
+                        
+                        NSDictionary *tipUser = [tip objectForKey:@"user"];
+                        NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
+                        tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
+                        NSString *tipText = [[tip objectForKey:@"text"] capitalizedString];
+                        
+                        [item setObject:tipUserName forKey:@"tipUserName"];
+                        [item setObject:tipText forKey:@"tipText"];
+                    }
+                    
+                    [items addObject:item];
                 }
-            }];
+                
+                [blockSelf.items removeAllObjects];
+                [blockSelf.items addObjectsFromArray:items];
+                [blockSelf dataSourceDidLoad];
+            } else {
+                [blockSelf.items removeAllObjects];
+                [blockSelf dataSourceDidError];
+            }
         }
     }];
 }
@@ -496,7 +432,7 @@ hasLoadedOnce = _hasLoadedOnce;
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(PSCollectionViewCell *)view atIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithDictionary:item];
+    VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:[item objectForKey:@"id"] eventId:nil];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 }
 

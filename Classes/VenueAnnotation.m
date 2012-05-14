@@ -28,8 +28,9 @@ venueDict = _venueDict;
 
 #pragma mark - MKAnnotation
 - (CLLocationCoordinate2D)coordinate {
-    CLLocationDegrees lat = [[self.venueDict objectForKey:@"lat"] floatValue];
-    CLLocationDegrees lng = [[self.venueDict objectForKey:@"lng"] floatValue];
+    NSDictionary *location = [self.venueDict objectForKey:@"location"];
+    CLLocationDegrees lat = [[location objectForKey:@"lat"] floatValue];
+    CLLocationDegrees lng = [[location objectForKey:@"lng"] floatValue];
     return CLLocationCoordinate2DMake(lat, lng);
 }
 
@@ -38,7 +39,8 @@ venueDict = _venueDict;
 }
 
 - (NSString *)subtitle {
-    return [self.venueDict objectForKey:@"address"] ? [self.venueDict objectForKey:@"address"] : nil;
+    NSDictionary *location = [self.venueDict objectForKey:@"location"];
+    return [location objectForKey:@"address"] ? [location objectForKey:@"address"] : nil;
 }
 
 @end

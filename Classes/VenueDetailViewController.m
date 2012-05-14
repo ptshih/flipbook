@@ -28,8 +28,8 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 @property (nonatomic, copy) NSString *venueId;
 @property (nonatomic, copy) NSString *eventId;
-@property (nonatomic, copy) NSDictionary *venueDict;
-@property (nonatomic, copy) NSDictionary *eventDict;
+@property (nonatomic, strong) NSMutableDictionary *venueDict;
+@property (nonatomic, strong) NSMutableDictionary *eventDict;
 @property (nonatomic, strong) MKMapView *mapView;
 
 @property (nonatomic, weak) UIButton *eventButton;
@@ -67,38 +67,11 @@ eventButton = _eventButton;
     return self;
 }
 
-- (id)initWithDictionary:(NSDictionary *)dictionary {
-    self = [self initWithNibName:nil bundle:nil];
-    if (self) {
-        self.venueDict = dictionary;
-        
-        // Load event cache
-        NSArray *events = [[EventManager sharedManager] events];
-        
-        // Find the event
-        for (NSDictionary *event in events) {
-            if ([[event objectForKey:@"venueId"] isEqualToString:[self.venueDict objectForKey:@"id"]]) {
-                self.eventDict = event;
-            }
-        }
-    }
-    
-    return self;
-}
-
-- (id)initWithDictionary:(NSDictionary *)dictionary event:(NSDictionary *)event {
-    self = [self initWithNibName:nil bundle:nil];
-    if (self) {
-        self.venueDict = dictionary; 
-        self.eventDict = event;
-    }
-    return self;
-}
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.shouldAddRoundedCorners = YES;
+        self.shouldPullRefresh = YES;
     }
     return self;
 }
@@ -113,11 +86,7 @@ eventButton = _eventButton;
     [super viewDidLoad];
     
     // Load
-    if (!self.venueDict) {
-        [self preloadVenueWithId:self.venueId];
-    } else {
-        [self loadDataSource];
-    }
+    [self loadDataSource];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -136,6 +105,8 @@ eventButton = _eventButton;
 
 - (void)setupVenueSubviews {
     [self updateHeader];
+    
+    NSDictionary *location = [self.venueDict objectForKey:@"location"];
     
     // Empty Label
     UILabel *emptyLabel = [UILabel labelWithText:@"No Photos Found" style:@"emptyLabel"];
@@ -185,7 +156,8 @@ eventButton = _eventButton;
     self.mapView.delegate = self;
     self.mapView.zoomEnabled = NO;
     self.mapView.scrollEnabled = NO;
-    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([[self.venueDict objectForKey:@"lat"] floatValue], [[self.venueDict objectForKey:@"lng"] floatValue]), 250, 250);
+    
+    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([[location objectForKey:@"lat"] floatValue], [[location objectForKey:@"lng"] floatValue]), 250, 250);
     [self.mapView setRegion:mapRegion animated:NO];
     [self.mapView removeAnnotations:[self.mapView annotations]];
     VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:self.venueDict];
@@ -198,7 +170,7 @@ eventButton = _eventButton;
     
     // Stats
     UILabel *statsLabel = nil;
-    if ([self.venueDict objectForKey:@"stats"]) {
+    if (OBJ_NOT_NULL([self.venueDict objectForKey:@"stats"])) {
         UIImageView *peopleIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPersonMiniBlack"]];
         [mapView addSubview:peopleIcon];
         peopleIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
@@ -216,7 +188,9 @@ eventButton = _eventButton;
     
     // Address
     UIButton *addressButton = nil;
-    if ([self.venueDict objectForKey:@"formattedAddress"]) {
+    NSString *formattedAddress = [NSString stringWithFormat:@"%@ %@, %@ %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"], [location objectForKey:@"postalCode"]];
+    
+    if (formattedAddress) {
         UIImageView *addressIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPinMiniBlack"]];
         [mapView addSubview:addressIcon];
         addressIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
@@ -225,7 +199,7 @@ eventButton = _eventButton;
         [mapView addSubview:addressButton];
         addressButton.backgroundColor = mapView.backgroundColor;
         [addressButton addTarget:self action:@selector(openAddress:) forControlEvents:UIControlEventTouchUpInside];
-        [addressButton setTitle:[self.venueDict objectForKey:@"formattedAddress"] forState:UIControlStateNormal];
+        [addressButton setTitle:formattedAddress forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:addressButton];
         
         addressButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
@@ -235,7 +209,7 @@ eventButton = _eventButton;
     
     // Phone
     UIButton *phoneButton = nil;
-    if ([self.venueDict objectForKey:@"contact"] && [[self.venueDict objectForKey:@"contact"] objectForKey:@"formattedPhone"]) {
+    if (OBJ_NOT_NULL([self.venueDict objectForKey:@"contact"]) && [[self.venueDict objectForKey:@"contact"] objectForKey:@"formattedPhone"]) {
         UIImageView *phoneIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPhoneBlack"]];
         [mapView addSubview:phoneIcon];
         phoneIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
@@ -254,7 +228,7 @@ eventButton = _eventButton;
     
     // Website
     UIButton *websiteButton = nil;
-    if ([self.venueDict objectForKey:@"url"]) {
+    if (OBJ_NOT_NULL([self.venueDict objectForKey:@"url"])) {
         UIImageView *websiteIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPlanetBlack"]];
         [mapView addSubview:websiteIcon];
         websiteIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
@@ -273,7 +247,7 @@ eventButton = _eventButton;
     
     // Menu
     UIButton *menuButton = nil;
-    if ([self.venueDict objectForKey:@"menu"]) {
+    if (OBJ_NOT_NULL([self.venueDict objectForKey:@"menu"])) {
         UIImageView *menuIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconFoodBlack"]];
         [mapView addSubview:menuIcon];
         menuIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
@@ -292,7 +266,7 @@ eventButton = _eventButton;
     
     // Reservations
     UIButton *reservationsButton = nil;
-    if ([self.venueDict objectForKey:@"reservations"]) {
+    if (OBJ_NOT_NULL([self.venueDict objectForKey:@"reservations"])) {
         UIImageView *reservationsIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconReservationsBlack"]];
         [mapView addSubview:reservationsIcon];
         reservationsIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
@@ -354,7 +328,7 @@ eventButton = _eventButton;
     
     // Tip
     // Don't show if no tips
-    if ([self.venueDict objectForKey:@"tip"]) {
+    if (OBJ_NOT_NULL([self.venueDict objectForKey:@"tips"]) && [[self.venueDict objectForKey:@"tips"] count] > 0) {
         UIView *tipView = [[UIView alloc] initWithFrame:CGRectMake(8, top, headerView.width - 16, 0.0)];
         tipView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         tipView.backgroundColor = [UIColor whiteColor];
@@ -380,7 +354,7 @@ eventButton = _eventButton;
         [tipView addSubview:tipLabel];
         
         // Tip
-        NSDictionary *tip = [self.venueDict objectForKey:@"tip"];
+        NSDictionary *tip = [[self.venueDict objectForKey:@"tips"] objectAtIndex:0];
         NSDictionary *tipUser = [tip objectForKey:@"user"];
         NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
         tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
@@ -431,11 +405,6 @@ eventButton = _eventButton;
 
 - (void)setupSubviews {
     [super setupSubviews];
-    
-    // If venueDict isn't ready, don't setup the subviews yet
-    if (self.venueDict) {
-        [self setupVenueSubviews];
-    }
 }
 
 - (void)setupHeader {
@@ -484,26 +453,26 @@ eventButton = _eventButton;
 
 - (void)rightAction {
     // Take a photo
-//    PhotoTagsViewController *vc = [[PhotoTagsViewController alloc] initWithDictionary:self.venueDict];
-//    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-
+    //    PhotoTagsViewController *vc = [[PhotoTagsViewController alloc] initWithDictionary:self.venueDict];
+    //    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    
     // Checkin
     CheckinViewController *vc = [[CheckinViewController alloc] initWithDictionary:self.venueDict];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     
     return;
-//    
-//    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
-//    av.tag = kAlertTagFoursquare;
-//    [av show];
-//    
-//    return;
-//    
-//    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [self.venueDict objectForKey:@"id"]]]];
-//    } else {
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
-//    }
+    //    
+    //    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
+    //    av.tag = kAlertTagFoursquare;
+    //    [av show];
+    //    
+    //    return;
+    //    
+    //    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
+    //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [self.venueDict objectForKey:@"id"]]]];
+    //    } else {
+    //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
+    //    }
 }
 
 - (void)zoomMap:(UITapGestureRecognizer *)gr {
@@ -512,7 +481,7 @@ eventButton = _eventButton;
     }
     
     MKMapView *v = (MKMapView *)gr.view;
-
+    
     CGRect convertedFrame = [self.view.window convertRect:v.frame fromView:v.superview];
     [PSZoomView showMapView:v withFrame:convertedFrame inView:self.view.window fullscreen:YES];
     
@@ -544,7 +513,7 @@ eventButton = _eventButton;
     self.eventButton.enabled = NO;
     
     NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events", API_BASE_URL];
-
+    
     NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
     NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
     NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
@@ -570,7 +539,7 @@ eventButton = _eventButton;
             id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             //        NSLog(@"res: %@", res);
             
-            self.eventDict = (NSDictionary *)res;
+            self.eventDict = (NSMutableDictionary *)res;
             if (self.eventDict) {
                 [self updateEventButtonReason:[self.eventDict objectForKey:@"reason"]];
             }
@@ -620,69 +589,89 @@ eventButton = _eventButton;
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/photos", [self.venueDict objectForKey:@"id"]];
-    
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:FS_API_VERSION forKey:@"v"];
-    [parameters setObject:@"venue" forKey:@"group"];
-    [parameters setObject:[NSNumber numberWithInteger:500] forKey:@"limit"];
-    [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
-    [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
+    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/venues/%@", API_BASE_URL, self.venueId];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:nil];
     
     BLOCK_SELF;
+    
     [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
         ASSERT_MAIN_THREAD;
         if (error) {
             [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
+            self.venueDict = nil;
             [blockSelf.items removeAllObjects];
             [blockSelf dataSourceDidError];
         } else {
-            [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
-                id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-                if (!apiResponse) {
-                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        [blockSelf.items removeAllObjects];
-                        [blockSelf dataSourceDidError];
-                    }];
-                } else {
-                    // Process 4sq response
-                    NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
-                    NSDictionary *response = [apiResponse objectForKey:@"response"];
-                    NSArray *photos = [[response objectForKey:@"photos"] objectForKey:@"items"];
-                    if (photos && [photos count] > 0) {
-                        for (NSDictionary *photo in photos) {
-                            NSDictionary *user = [photo objectForKey:@"user"];
-                            NSString *firstName = [NSString stringWithFormat:@"%@", [user objectForKey:@"firstName"]];
-                            NSString *name = ([user objectForKey:@"lastName"]) ? [firstName stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : firstName;
-                            NSDictionary *sizes = [photo objectForKey:@"sizes"];
-                            NSDictionary *fullSize = [[sizes objectForKey:@"items"] objectAtIndex:0];
-                            
-                            NSMutableDictionary *item = [NSMutableDictionary dictionary];
-                            [item setObject:[fullSize objectForKey:@"url"] forKey:@"source"];
-                            [item setObject:[fullSize objectForKey:@"width"] forKey:@"width"];
-                            [item setObject:[fullSize objectForKey:@"height"] forKey:@"height"];
-                            [item setObject:name forKey:@"name"];
-                            [item setObject:[user objectForKey:@"homeCity"] forKey:@"homeCity"];
-                            [items addObject:item];
-                        }
-                    } else {
-                        // No photos found
-                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                            [blockSelf.items removeAllObjects];
-                            [blockSelf dataSourceDidError];
-                        }];
-                    }
+            // Parse apiResponse
+            id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+            
+            if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
+                // Parse out venueDict
+                self.venueDict = [NSMutableDictionary dictionary];
+                
+                // id and name
+                [self.venueDict setObject:[apiResponse objectForKey:@"id"] forKey:@"id"];
+                [self.venueDict setObject:[apiResponse objectForKey:@"name"] forKey:@"name"];
+                
+                // location
+                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"location"]) forKey:@"location"];
+                
+                // contact
+                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"contact"]) forKey:@"contact"];
+                
+                // url
+                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"url"]) forKey:@"url"];
+                
+                // categories
+                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"categories"]) forKey:@"categories"];
+                
+                // stats
+                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"stats"]) forKey:@"stats"];
+                
+                // menu
+                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"menu"]) forKey:@"menu"];
+                
+                // reservations
+                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"reservations"]) forKey:@"reservations"];
+                
+                // tips
+                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"tips"]) forKey:@"tips"];
+                
+                // load/setup the headers
+                [self setupVenueSubviews];
+                
+                // Parse out the photos
+                NSMutableArray *items = [NSMutableArray array];
+                NSArray *photos = [apiResponse objectForKey:@"photos"];
+                for (NSDictionary *photo in photos) {
+                    NSDictionary *user = [photo objectForKey:@"user"];
+                    NSString *firstName = [NSString stringWithFormat:@"%@", [user objectForKey:@"firstName"]];
+                    NSString *name = ([user objectForKey:@"lastName"]) ? [firstName stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : firstName;
+                    NSDictionary *sizes = [photo objectForKey:@"sizes"];
+                    NSDictionary *fullSize = [[sizes objectForKey:@"items"] objectAtIndex:0];
                     
-                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        [blockSelf.items removeAllObjects];
-                        [blockSelf.items addObjectsFromArray:items];
-                        [blockSelf dataSourceDidLoad];
-                    }];
+                    NSMutableDictionary *item = [NSMutableDictionary dictionary];
+                    [item setObject:[fullSize objectForKey:@"url"] forKey:@"source"];
+                    [item setObject:[fullSize objectForKey:@"width"] forKey:@"width"];
+                    [item setObject:[fullSize objectForKey:@"height"] forKey:@"height"];
+                    [item setObject:name forKey:@"name"];
+                    [item setObject:[user objectForKey:@"homeCity"] forKey:@"homeCity"];
+                    [items addObject:item];
                 }
-            }];
+                
+                // Pass photos to collectionView
+                [blockSelf.items removeAllObjects];
+                [blockSelf.items addObjectsFromArray:items];
+                [blockSelf dataSourceDidLoad];
+                
+            } else {
+                // Error in apiResponse
+                self.venueDict = nil;
+                [blockSelf.items removeAllObjects];
+                [blockSelf dataSourceDidError];
+            }
         }
     }];
 }
@@ -786,7 +775,9 @@ eventButton = _eventButton;
 
 #pragma mark - Button Actions
 - (void)openAddress:(id)sender {
-    NSString *urlString = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", [[self.venueDict objectForKey:@"formattedAddress"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSDictionary *location = [self.venueDict objectForKey:@"location"];
+    NSString *formattedAddress = [NSString stringWithFormat:@"%@ %@, %@ %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"], [location objectForKey:@"postalCode"]];
+    NSString *urlString = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", [formattedAddress stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
@@ -840,11 +831,15 @@ eventButton = _eventButton;
         ASSERT_MAIN_THREAD;
         if (error) {
             [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
+            [blockSelf.items removeAllObjects];
+            [blockSelf dataSourceDidError];
         } else {
             // Process 4sq response
             id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
             if (!apiResponse) {
                 [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
+                [blockSelf.items removeAllObjects];
+                [blockSelf dataSourceDidError];
             } else {
                 NSDictionary *response = [apiResponse objectForKey:@"response"];
                 
@@ -942,7 +937,7 @@ eventButton = _eventButton;
             
         }
     }];
-
+    
 }
 
 @end

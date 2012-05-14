@@ -16,9 +16,19 @@
 #define CORE_DATA_SQL_FILE @"Lunchbox.sqlite"
 
 #define FB_APP_ID @"262079367168011"
-#define FB_APP_SUFFIX @"lunchbox"
+
+#ifdef BETA
+    #define FB_APP_SUFFIX @"beta"
+#elif PRO
+    #define FB_APP_SUFFIX @"pro"
+#else
+    #define FB_APP_SUFFIX @"live"
+#endif
+
+
 #define FB_PERMISSIONS_PUBLISH @"publish_stream"
 #define FB_BASIC_PERMISISONS [NSArray arrayWithObjects:@"offline_access", nil]
+#define FB_PERMISSIONS [NSArray arrayWithObjects:@"offline_access", @"publish_stream", nil]
 
 #define FS_ACCESS_TOKEN @"BIHQ3R0JVGSQ4R2BIPMTMTWEHAFICRUF54KQJ0WKTJ404KB3"
 #define FS_CLIENT_ID @"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO"

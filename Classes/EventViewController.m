@@ -86,8 +86,9 @@
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events", API_BASE_URL];
     
+    NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:@"548430564" forKey:@"fbId"];
+    [parameters setObject:fbId forKey:@"fbId"];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];

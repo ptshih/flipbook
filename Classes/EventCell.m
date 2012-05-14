@@ -9,6 +9,7 @@
 #import "EventCell.h"
 
 #define MARGIN 8.0
+#define IMAGE_SIZE 40.0
 
 @interface EventCell ()
 
@@ -49,7 +50,7 @@ messageLabel = _messageLabel;
     CGSize labelSize = CGSizeZero;
     
     // Image
-    self.psImageView.frame = CGRectMake(left, top, 32.0, 32.0);
+    self.psImageView.frame = CGRectMake(left, top, IMAGE_SIZE, IMAGE_SIZE);
     left = self.psImageView.right + MARGIN;
     width -= self.psImageView.width + MARGIN;
     
@@ -99,14 +100,14 @@ messageLabel = _messageLabel;
     
     CGFloat height = 0.0;
     CGFloat width = [[self class] rowWidthForInterfaceOrientation:interfaceOrientation];
-    width -= 32.0 + MARGIN;
+    width -= IMAGE_SIZE + MARGIN;
     
     
     NSString *message = [NSString stringWithFormat:@"%@ is going to %@ for %@", [dict objectForKey:@"fbName"], [dict objectForKey:@"venueName"], [dict objectForKey:@"reason"]];
     CGSize labelSize = [PSStyleSheet sizeForText:message width:width style:@"eventMessageLabel"];
     height += labelSize.height;
     
-    height = MAX(32.0, height);
+    height = MAX(IMAGE_SIZE, height);
     
     height += MARGIN * 2;
     

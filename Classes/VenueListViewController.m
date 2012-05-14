@@ -9,6 +9,8 @@
 #import "VenueListViewController.h"
 #import "VenueDetailViewController.h"
 #import "EventViewController.h"
+#import "FBConnectViewController.h"
+
 #import "PSPopoverView.h"
 #import "VenueView.h"
 #import "CategoryChooserView.h"
@@ -165,13 +167,17 @@ hasLoadedOnce = _hasLoadedOnce;
 }
 
 - (void)centerAction {
-    EventViewController *vc = [[EventViewController alloc] initWithNibName:nil bundle:nil];
-    vc.view.frame = CGRectMake(0, 0, 288, 356);
-    PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Notifications" contentController:vc];
-    popoverView.tag = kPopoverEvent;
-    popoverView.delegate = self;
-    [popoverView showWithSize:vc.view.bounds.size inView:self.view];
-    
+    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
+        EventViewController *vc = [[EventViewController alloc] initWithNibName:nil bundle:nil];
+        vc.view.frame = CGRectMake(0, 0, 288, 356);
+        PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Notifications" contentController:vc];
+        popoverView.tag = kPopoverEvent;
+        popoverView.delegate = self;
+        [popoverView showWithSize:vc.view.bounds.size inView:self.view];
+    } else {
+        FBConnectViewController *vc = [[FBConnectViewController alloc] initWithNibName:nil bundle:nil];
+        [(PSNavigationController *)self.parentViewController pushViewController:vc direction:PSNavigationControllerDirectionUp animated:YES];
+    }
     
     return;
     

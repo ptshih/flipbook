@@ -606,6 +606,21 @@
 		28488ECF1560EF260012C7D0 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28488ECE1560EF260012C7D0 /* EventViewController.m */; };
 		28488ED01560EF260012C7D0 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28488ECE1560EF260012C7D0 /* EventViewController.m */; };
 		28488ED11560EF260012C7D0 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28488ECE1560EF260012C7D0 /* EventViewController.m */; };
+		28488EF715610AC70012C7D0 /* FBConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28488EF615610AC60012C7D0 /* FBConnectViewController.m */; };
+		28488EF815610AC70012C7D0 /* FBConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28488EF615610AC60012C7D0 /* FBConnectViewController.m */; };
+		28488EF915610AC70012C7D0 /* FBConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28488EF615610AC60012C7D0 /* FBConnectViewController.m */; };
+		28488EFE15610FBB0012C7D0 /* ButtonFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 28488EFA15610FBB0012C7D0 /* ButtonFacebook.png */; };
+		28488EFF15610FBB0012C7D0 /* ButtonFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 28488EFA15610FBB0012C7D0 /* ButtonFacebook.png */; };
+		28488F0015610FBB0012C7D0 /* ButtonFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 28488EFA15610FBB0012C7D0 /* ButtonFacebook.png */; };
+		28488F0115610FBB0012C7D0 /* ButtonFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28488EFB15610FBB0012C7D0 /* ButtonFacebook@2x.png */; };
+		28488F0215610FBB0012C7D0 /* ButtonFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28488EFB15610FBB0012C7D0 /* ButtonFacebook@2x.png */; };
+		28488F0315610FBB0012C7D0 /* ButtonFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28488EFB15610FBB0012C7D0 /* ButtonFacebook@2x.png */; };
+		28488F0415610FBB0012C7D0 /* ButtonFacebookHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 28488EFC15610FBB0012C7D0 /* ButtonFacebookHighlighted.png */; };
+		28488F0515610FBB0012C7D0 /* ButtonFacebookHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 28488EFC15610FBB0012C7D0 /* ButtonFacebookHighlighted.png */; };
+		28488F0615610FBB0012C7D0 /* ButtonFacebookHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 28488EFC15610FBB0012C7D0 /* ButtonFacebookHighlighted.png */; };
+		28488F0715610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28488EFD15610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png */; };
+		28488F0815610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28488EFD15610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png */; };
+		28488F0915610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28488EFD15610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png */; };
 		2874F48A1560C1230059E916 /* ButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2874F4881560C1230059E916 /* ButtonWhite.png */; };
 		2874F48B1560C1230059E916 /* ButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2874F4881560C1230059E916 /* ButtonWhite.png */; };
 		2874F48C1560C1230059E916 /* ButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2874F4881560C1230059E916 /* ButtonWhite.png */; };
@@ -1044,6 +1059,12 @@
 		2843A7071545B9920089FC73 /* Info-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Pro.plist"; sourceTree = SOURCE_ROOT; };
 		28488ECD1560EF260012C7D0 /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
 		28488ECE1560EF260012C7D0 /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
+		28488EF515610AC60012C7D0 /* FBConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnectViewController.h; sourceTree = "<group>"; };
+		28488EF615610AC60012C7D0 /* FBConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBConnectViewController.m; sourceTree = "<group>"; };
+		28488EFA15610FBB0012C7D0 /* ButtonFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonFacebook.png; sourceTree = "<group>"; };
+		28488EFB15610FBB0012C7D0 /* ButtonFacebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonFacebook@2x.png"; sourceTree = "<group>"; };
+		28488EFC15610FBB0012C7D0 /* ButtonFacebookHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonFacebookHighlighted.png; sourceTree = "<group>"; };
+		28488EFD15610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonFacebookHighlighted@2x.png"; sourceTree = "<group>"; };
 		284ABD95150E8FAF0040B250 /* CheckinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinViewController.h; sourceTree = "<group>"; };
 		284ABD96150E8FAF0040B250 /* CheckinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinViewController.m; sourceTree = "<group>"; };
 		284ABDAB150E987F0040B250 /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
@@ -1266,7 +1287,7 @@
 		D0269E3B14E1B2F200B690A2 /* IconClockBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconClockBlack@2x.png"; sourceTree = "<group>"; };
 		D0269E3C14E1B2F200B690A2 /* IconGearBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconGearBlack.png; sourceTree = "<group>"; };
 		D0269E3D14E1B2F300B690A2 /* IconGearBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconGearBlack@2x.png"; sourceTree = "<group>"; };
-		D0269E4214E1B5E100B690A2 /* EventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = EventCell.h; sourceTree = "<group>"; };
+		D0269E4214E1B5E100B690A2 /* EventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
 		D0269E4314E1B5E100B690A2 /* EventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
 		D031558814E5AB8B00CC8572 /* PSCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCollectionView.h; sourceTree = "<group>"; };
 		D031558914E5AB8B00CC8572 /* PSCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCollectionView.m; sourceTree = "<group>"; };
@@ -1754,6 +1775,10 @@
 		28698713147312EC00B40860 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				28488EFA15610FBB0012C7D0 /* ButtonFacebook.png */,
+				28488EFB15610FBB0012C7D0 /* ButtonFacebook@2x.png */,
+				28488EFC15610FBB0012C7D0 /* ButtonFacebookHighlighted.png */,
+				28488EFD15610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png */,
 				2874F4881560C1230059E916 /* ButtonWhite.png */,
 				2874F4891560C1230059E916 /* ButtonWhite@2x.png */,
 				2874F4901560C12C0059E916 /* ButtonBlue.png */,
@@ -2100,6 +2125,8 @@
 				280F5F6F154FA2C800DA05AF /* PhotoTagsViewController.m */,
 				28488ECD1560EF260012C7D0 /* EventViewController.h */,
 				28488ECE1560EF260012C7D0 /* EventViewController.m */,
+				28488EF515610AC60012C7D0 /* FBConnectViewController.h */,
+				28488EF615610AC60012C7D0 /* FBConnectViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2808,6 +2835,10 @@
 				2874F4941560C12C0059E916 /* ButtonBlue.png in Resources */,
 				2874F4971560C12C0059E916 /* ButtonBlue@2x.png in Resources */,
 				2874F4B01560CDE20059E916 /* FBDialog.bundle in Resources */,
+				28488F0015610FBB0012C7D0 /* ButtonFacebook.png in Resources */,
+				28488F0315610FBB0012C7D0 /* ButtonFacebook@2x.png in Resources */,
+				28488F0615610FBB0012C7D0 /* ButtonFacebookHighlighted.png in Resources */,
+				28488F0915610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2995,6 +3026,10 @@
 				2874F4931560C12C0059E916 /* ButtonBlue.png in Resources */,
 				2874F4961560C12C0059E916 /* ButtonBlue@2x.png in Resources */,
 				2874F4AF1560CDE20059E916 /* FBDialog.bundle in Resources */,
+				28488EFF15610FBB0012C7D0 /* ButtonFacebook.png in Resources */,
+				28488F0215610FBB0012C7D0 /* ButtonFacebook@2x.png in Resources */,
+				28488F0515610FBB0012C7D0 /* ButtonFacebookHighlighted.png in Resources */,
+				28488F0815610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3182,6 +3217,10 @@
 				2874F4921560C12C0059E916 /* ButtonBlue.png in Resources */,
 				2874F4951560C12C0059E916 /* ButtonBlue@2x.png in Resources */,
 				2874F4AE1560CDE20059E916 /* FBDialog.bundle in Resources */,
+				28488EFE15610FBB0012C7D0 /* ButtonFacebook.png in Resources */,
+				28488F0115610FBB0012C7D0 /* ButtonFacebook@2x.png in Resources */,
+				28488F0415610FBB0012C7D0 /* ButtonFacebookHighlighted.png in Resources */,
+				28488F0715610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3342,6 +3381,7 @@
 				280F5F72154FA2C800DA05AF /* PhotoTagsViewController.m in Sources */,
 				2874F49D1560C7760059E916 /* EventManager.m in Sources */,
 				28488ED11560EF260012C7D0 /* EventViewController.m in Sources */,
+				28488EF915610AC70012C7D0 /* FBConnectViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3457,6 +3497,7 @@
 				280F5F71154FA2C800DA05AF /* PhotoTagsViewController.m in Sources */,
 				2874F49C1560C7760059E916 /* EventManager.m in Sources */,
 				28488ED01560EF260012C7D0 /* EventViewController.m in Sources */,
+				28488EF815610AC70012C7D0 /* FBConnectViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3572,6 +3613,7 @@
 				28A3913A1554DA37002696FD /* PhotoTagsViewController.m in Sources */,
 				2874F49B1560C7760059E916 /* EventManager.m in Sources */,
 				28488ECF1560EF260012C7D0 /* EventViewController.m in Sources */,
+				28488EF715610AC70012C7D0 /* FBConnectViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

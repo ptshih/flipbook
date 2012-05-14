@@ -10,6 +10,7 @@
 #import "TipListViewController.h"
 #import "CheckinViewController.h"
 #import "PhotoTagsViewController.h"
+#import "FBConnectViewController.h"
 
 #import "PhotoView.h"
 #import "PSZoomView.h"
@@ -487,8 +488,13 @@ eventButton = _eventButton;
 }
 
 - (void)newEvent:(UIButton *)button {
-    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"I'm going here for..." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Brunch", @"Lunch", @"Dinner", @"Dessert", @"Drinks", nil];
-    [as showInView:self.view];
+    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
+        UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"I'm going here for..." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Coffee/Tea", @"Lunch", @"Dinner", @"Dessert", @"Drinks", nil];
+        [as showInView:self.view];
+    } else {
+        FBConnectViewController *vc = [[FBConnectViewController alloc] initWithNibName:nil bundle:nil];
+        [(PSNavigationController *)self.parentViewController pushViewController:vc direction:PSNavigationControllerDirectionUp animated:YES];
+    }
 }
 
 - (void)joinEvent:(UIButton *)button {
@@ -502,9 +508,11 @@ eventButton = _eventButton;
     
     NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events", API_BASE_URL];
     
+    NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
+    NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:@"548430564" forKey:@"fbId"];
-    [parameters setObject:@"Peter Shih" forKey:@"fbName"];
+    [parameters setObject:fbId forKey:@"fbId"];
+    [parameters setObject:fbName forKey:@"fbName"];
     [parameters setObject:[self.venueDict objectForKey:@"id"] forKey:@"venueId"];
     [parameters setObject:[self.venueDict objectForKey:@"name"] forKey:@"venueName"];
     [parameters setObject:reason forKey:@"reason"];

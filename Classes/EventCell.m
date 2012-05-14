@@ -68,19 +68,25 @@ messageLabel = _messageLabel;
     NSURL *profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", [dict objectForKey:@"fbId"]]];
     [self.psImageView loadImageWithURL:profileURL];
     
+    NSDate *eventDate = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"timestamp"] doubleValue]];
+    NSString *eventDateString = [eventDate stringWithFormat:@"EEEE, MMMM d"];
+    
     // Attributed message
-    NSString *message = [NSString stringWithFormat:@"%@ is going to %@ for %@", [dict objectForKey:@"fbName"], [dict objectForKey:@"venueName"], [dict objectForKey:@"reason"]];
+    NSString *message = [NSString stringWithFormat:@"%@ is going to %@ for %@ on %@", [dict objectForKey:@"fbName"], [dict objectForKey:@"venueName"], [dict objectForKey:@"reason"], eventDateString];
     
     
     [self.messageLabel setText:message afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange userNameRange = [[mutableAttributedString string] rangeOfString:[dict objectForKey:@"fbName"] options:NSCaseInsensitiveSearch];
         NSRange venueNameRange = [[mutableAttributedString string] rangeOfString:[dict objectForKey:@"venueName"] options:NSCaseInsensitiveSearch];
         NSRange reasonRange = [[mutableAttributedString string] rangeOfString:[dict objectForKey:@"reason"] options:NSCaseInsensitiveSearch];
+        NSRange dateRange = [[mutableAttributedString string] rangeOfString:eventDateString options:NSCaseInsensitiveSearch];
+        
         
         //Color
         [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:userNameRange];
         [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:venueNameRange];
         [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:reasonRange];
+        [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:dateRange];
         
         return mutableAttributedString;
     }];
@@ -102,8 +108,10 @@ messageLabel = _messageLabel;
     CGFloat width = 268.0 - MARGIN * 2;
     width -= IMAGE_SIZE + MARGIN;
     
+    NSDate *eventDate = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"timestamp"] doubleValue]];
+    NSString *eventDateString = [eventDate stringWithFormat:@"EEEE, MMMM d"];
     
-    NSString *message = [NSString stringWithFormat:@"%@ is going to %@ for %@", [dict objectForKey:@"fbName"], [dict objectForKey:@"venueName"], [dict objectForKey:@"reason"]];
+    NSString *message = [NSString stringWithFormat:@"%@ is going to %@ for %@ on %@", [dict objectForKey:@"fbName"], [dict objectForKey:@"venueName"], [dict objectForKey:@"reason"], eventDateString];
     CGSize labelSize = [PSStyleSheet sizeForText:message width:width style:@"eventMessageLabel"];
     height += labelSize.height;
     

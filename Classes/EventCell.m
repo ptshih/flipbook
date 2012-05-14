@@ -99,7 +99,7 @@ messageLabel = _messageLabel;
     NSDictionary *dict = (NSDictionary *)object;
     
     CGFloat height = 0.0;
-    CGFloat width = [[self class] rowWidthForInterfaceOrientation:interfaceOrientation];
+    CGFloat width = 268.0 - MARGIN * 2;
     width -= IMAGE_SIZE + MARGIN;
     
     

@@ -15,7 +15,7 @@
 #define CORE_DATA_MOM @"Lunchbox"
 #define CORE_DATA_SQL_FILE @"Lunchbox.sqlite"
 
-#define FB_APP_ID @"262079367168011"
+#define FB_APP_ID @"456420417705188"
 
 #ifdef BETA
     #define FB_APP_SUFFIX @"beta"

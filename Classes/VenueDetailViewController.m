@@ -507,10 +507,12 @@ eventButton = _eventButton;
     self.eventButton.enabled = NO;
     
     NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events", API_BASE_URL];
-    
+
+    NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
     NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
     NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
     [parameters setObject:fbId forKey:@"fbId"];
     [parameters setObject:fbName forKey:@"fbName"];
     [parameters setObject:[self.venueDict objectForKey:@"id"] forKey:@"venueId"];

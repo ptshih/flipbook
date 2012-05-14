@@ -34,7 +34,7 @@ messageLabel = _messageLabel;
         [PSStyleSheet applyStyle:@"eventMessageLabel" forLabel:self.messageLabel];
         [self.contentView addSubview:self.messageLabel];
         
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.selectionStyle = UITableViewCellSelectionStyleBlue;
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return self;

@@ -8,6 +8,9 @@
 
 #import "EventViewController.h"
 
+#import "PSPopoverView.h"
+#import "AppDelegate.h"
+
 #import "EventCell.h"
 
 @interface EventViewController ()
@@ -141,6 +144,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    id object = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    NSString *venueId = [object objectForKey:@"venueId"];
+    if ([self.nextResponder.nextResponder isKindOfClass:[PSPopoverView class]]) {
+        [(PSPopoverView *)self.nextResponder.nextResponder dismiss];
+        [(AppDelegate *)APP_DELEGATE pushVenueWithId:venueId];
+    }
 }
 
 #pragma mark - Refresh

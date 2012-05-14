@@ -122,12 +122,7 @@ eventButton = _eventButton;
 }
 
 #pragma mark - Config Subviews
-- (void)setupSubviews {
-    // If venueDict isn't ready, don't setup the subviews yet
-    if (!self.venueDict) return;
-    
-    [super setupSubviews];
-    
+- (void)setupVenueSubviews {
     // Empty Label
     UILabel *emptyLabel = [UILabel labelWithText:@"No Photos Found" style:@"emptyLabel"];
     emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -410,7 +405,7 @@ eventButton = _eventButton;
         disclosure.contentMode = UIViewContentModeCenter;
         disclosure.frame = CGRectMake(tipView.width - 20, 0, 20, tipView.height);
         [tipView addSubview:disclosure];
-
+        
         
         top += tipView.height;
     }
@@ -418,6 +413,15 @@ eventButton = _eventButton;
     headerView.height = top;
     
     self.collectionView.headerView = headerView;
+}
+
+- (void)setupSubviews {
+    [super setupSubviews];
+    
+    // If venueDict isn't ready, don't setup the subviews yet
+    if (self.venueDict) {
+        [self setupVenueSubviews];
+    }
 }
 
 - (void)setupHeader {
@@ -912,7 +916,7 @@ eventButton = _eventButton;
                 }
                 
                 blockSelf.venueDict = item;
-                [blockSelf setupSubviews];
+                [blockSelf setupVenueSubviews];
                 [blockSelf loadDataSource];
             }
             

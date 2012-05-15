@@ -394,7 +394,7 @@ eventButton = _eventButton;
     // If no venueDict, don't setup the footer
     if (!self.venueDict) return;
     
-    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height - 44, self.view.width, 44)];
+    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, 44)];
     self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
     self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
@@ -412,7 +412,13 @@ eventButton = _eventButton;
     [self.view addSubview:self.footerView];
     
     [self updateFooter];
-    [self updateSubviews];
+    
+    // animate footer
+    [UIView animateWithDuration:0.4 animations:^{
+        self.footerView.top -= self.footerView.height;
+    } completion:^(BOOL finished) {
+        [self updateSubviews];
+    }];
 }
 
 - (void)updateHeader {
@@ -427,15 +433,22 @@ eventButton = _eventButton;
 - (void)updateFooter {
     if (self.eventDict) {
         // Join existing event OR if creator, show message
-        NSString *fbId = [self.eventDict objectForKey:@"fbId"];
-        if ([fbId isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"]]) {
+        NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
+        if ([[self.eventDict objectForKey:@"fbId"] isEqualToString:fbId]) {
             // is creator
             self.eventButton.enabled = NO;
             [self.eventButton setTitle:[NSString stringWithFormat:@"I'm going here for %@", [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
         } else {
-            self.eventButton.enabled = YES;
-            [self.eventButton setTitle:[NSString stringWithFormat:@"Join %@ for %@", [self.eventDict objectForKey:@"fbName"], [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
-            [self.eventButton addTarget:self action:@selector(joinEvent:) forControlEvents:UIControlEventTouchUpInside];
+            // is not creator
+            NSArray *attendees = [self.eventDict objectForKey:@"attendees"];
+            if (attendees && [attendees containsObject:fbId]) {
+                self.eventButton.enabled = NO;
+                [self.eventButton setTitle:[NSString stringWithFormat:@"I'm going here for %@", [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
+            } else {
+                self.eventButton.enabled = YES;
+                [self.eventButton setTitle:[NSString stringWithFormat:@"Join %@ for %@", [self.eventDict objectForKey:@"fbName"], [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
+                [self.eventButton addTarget:self action:@selector(joinEvent:) forControlEvents:UIControlEventTouchUpInside];
+            }
         }
     } else {
         // Create new event
@@ -511,7 +524,37 @@ eventButton = _eventButton;
 
 - (void)joinEvent:(UIButton *)button {
     // Send request to server, update EventManager cache on response
-    // TODO
+
+    self.eventButton.enabled = NO;
+    
+    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events/%@/join", API_BASE_URL, [self.eventDict objectForKey:@"_id"]];
+    
+    NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
+    NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
+    NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
+    [parameters setObject:fbId forKey:@"fbId"];
+    [parameters setObject:fbName forKey:@"fbName"];
+    
+    NSURL *URL = [NSURL URLWithString:URLPath];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
+    
+    BLOCK_SELF;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
+        
+        NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
+        
+        if (!error && responseCode == 200) {
+            id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            //        NSLog(@"res: %@", res);
+            self.eventDict = (NSMutableDictionary *)res;
+        }
+        [self updateFooter];
+    }];
 }
 
 - (void)createEventWithReason:(NSString *)reason {

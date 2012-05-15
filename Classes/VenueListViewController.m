@@ -26,6 +26,7 @@
 @property (nonatomic, assign) CLLocationCoordinate2D centerCoordinate;
 @property (nonatomic, assign) CGFloat radius;
 @property (nonatomic, copy) NSString *query;
+@property (nonatomic, strong) UILabel *locationLabel;
 
 @property (nonatomic, assign) BOOL hasLoadedOnce;
 
@@ -42,7 +43,8 @@ shouldRefreshOnAppear = _shouldRefreshOnAppear;
 category = _category,
 centerCoordinate = _centerCoordinate,
 radius = _radius,
-query = _query;
+query = _query,
+locationLabel = _locationLabel;
 
 @synthesize
 hasLoadedOnce = _hasLoadedOnce;
@@ -61,7 +63,7 @@ hasLoadedOnce = _hasLoadedOnce;
     if (self) {
         self.shouldAddRoundedCorners = YES;
         self.shouldPullRefresh = NO;
-
+        
         self.shouldRefreshOnAppear = NO;
         self.radius = 0;
         self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
@@ -151,19 +153,38 @@ hasLoadedOnce = _hasLoadedOnce;
     [self.view addSubview:self.headerView];
 }
 
+- (void)setupFooter {
+    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height - 32, self.view.width, 32)];
+    self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
+    self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+    //    UIImageView *footerBg = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"BackgroundToolbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:0]];
+    //    footerBg.autoresizingMask = self.footerView.autoresizingMask;
+    //    [self.footerView addSubview:footerBg];
+    
+    UILabel *locationLabel = [UILabel labelWithStyle:@"locationLabel"];
+    self.locationLabel = locationLabel;
+    locationLabel.frame = self.footerView.bounds;
+    locationLabel.autoresizingMask = self.footerView.autoresizingMask;
+    
+    // Add to subviews
+    [self.footerView addSubview:locationLabel];
+    [self.view addSubview:self.footerView];
+}
+
 #pragma mark - Actions
 - (void)leftAction {
     [(PSNavigationController *)self.parentViewController popViewControllerWithDirection:PSNavigationControllerDirectionRight animated:YES];
     
-//    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Send Love" message:@"Your love makes us work harder. Rate our app now?" delegate:self cancelButtonTitle:@"No, Thanks" otherButtonTitles:@"OK", nil] autorelease];
-//    [av show];
+    //    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Send Love" message:@"Your love makes us work harder. Rate our app now?" delegate:self cancelButtonTitle:@"No, Thanks" otherButtonTitles:@"OK", nil] autorelease];
+    //    [av show];
     
-//    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
-//    LocationChooserView *cv = [[[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion] autorelease];
-//    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv] autorelease];
-//    popoverView.tag = kPopoverLocation;
-//    popoverView.delegate = self;
-//    [popoverView showWithSize:cv.frame.size inView:self.view];
+    //    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
+    //    LocationChooserView *cv = [[[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion] autorelease];
+    //    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv] autorelease];
+    //    popoverView.tag = kPopoverLocation;
+    //    popoverView.delegate = self;
+    //    [popoverView showWithSize:cv.frame.size inView:self.view];
 }
 
 - (void)centerAction {
@@ -181,12 +202,12 @@ hasLoadedOnce = _hasLoadedOnce;
     
     return;
     
-//    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
-//    LocationChooserView *cv = [[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion];
-//    PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv];
-//    popoverView.tag = kPopoverLocation;
-//    popoverView.delegate = self;
-//    [popoverView showWithSize:cv.frame.size inView:self.view];
+    //    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
+    //    LocationChooserView *cv = [[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion];
+    //    PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv];
+    //    popoverView.tag = kPopoverLocation;
+    //    popoverView.delegate = self;
+    //    [popoverView showWithSize:cv.frame.size inView:self.view];
 }
 
 - (void)rightAction {
@@ -199,12 +220,12 @@ hasLoadedOnce = _hasLoadedOnce;
     
     return;
     
-//    CategoryChooserView *cv = [[[CategoryChooserView alloc] initWithFrame:CGRectMake(0, 0, 288, 152)] autorelease];
-//    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Choose a Category" contentView:cv] autorelease];
-//    popoverView.tag = kPopoverCategory;
-//    popoverView.delegate = self;
-//    
-//    [popoverView showWithSize:cv.frame.size inView:self.view];
+    //    CategoryChooserView *cv = [[[CategoryChooserView alloc] initWithFrame:CGRectMake(0, 0, 288, 152)] autorelease];
+    //    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Choose a Category" contentView:cv] autorelease];
+    //    popoverView.tag = kPopoverCategory;
+    //    popoverView.delegate = self;
+    //    
+    //    [popoverView showWithSize:cv.frame.size inView:self.view];
 }
 
 #pragma mark - Location Notification
@@ -231,7 +252,7 @@ hasLoadedOnce = _hasLoadedOnce;
 
 - (void)reloadDataSource {
     [super reloadDataSource];
-
+    
     [self loadDataSourceFromRemoteUsingCache:NO];
 }
 
@@ -274,24 +295,25 @@ hasLoadedOnce = _hasLoadedOnce;
             NSString *locString = nil;
             CLPlacemark *placemark = [placemarks lastObject];
             // Areas of Interest (UNUSED)
-//                    NSArray *areasOfInterest = [placemark areasOfInterest];
-//                    if (areasOfInterest && [areasOfInterest count] > 0) {
-//                        locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [areasOfInterest objectAtIndex:0]];
-//                    } else {
-//                        locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [placemark name]];
-//                    }
+            //                    NSArray *areasOfInterest = [placemark areasOfInterest];
+            //                    if (areasOfInterest && [areasOfInterest count] > 0) {
+            //                        locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [areasOfInterest objectAtIndex:0]];
+            //                    } else {
+            //                        locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [placemark name]];
+            //                    }
             
             if (self.radius == 0) {
-                locString = [NSString stringWithFormat:@"Near %@", [placemark name]];
+                locString = [NSString stringWithFormat:@"Near %@", placemark.name];
             } else {
-                locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], [placemark name]];
+                locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], placemark.name];
             }
             
-            [self.centerButton setTitle:locString forState:UIControlStateNormal];
-//                    NSLog(@"placemark: %@", placemark);
+            self.locationLabel.text = locString;
+            //            [self.centerButton setTitle:locString forState:UIControlStateNormal];
+            //            NSLog(@"placemark: %@", placemark);
         }
     }];
-
+    
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:self.category forKey:@"section"];
@@ -309,7 +331,7 @@ hasLoadedOnce = _hasLoadedOnce;
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
-
+    
     BLOCK_SELF;
     
     [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
@@ -429,7 +451,7 @@ hasLoadedOnce = _hasLoadedOnce;
 
 - (CGFloat)heightForViewAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
-
+    
     return [VenueView heightForViewWithObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
@@ -448,23 +470,23 @@ hasLoadedOnce = _hasLoadedOnce;
 #pragma mark - Refresh
 - (void)beginRefresh {
     [super beginRefresh];
-//    [SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeNone];
+    //    [SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeNone];
 }
 
 - (void)endRefresh {
     [super endRefresh];
-//    [SVProgressHUD dismiss];
+    //    [SVProgressHUD dismiss];
 }
 
 #pragma mark - PSPopoverViewDelegate
 - (void)popoverViewDidDismiss:(PSPopoverView *)popoverView {
     if (popoverView.tag == kPopoverCategory) {
-//        NSInteger newCategoryIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"categoryIndex"];
-//        if (newCategoryIndex != self.categoryIndex) {
-//            self.query = nil; // remove query term when changing categories
-//            self.categoryIndex = newCategoryIndex;
-//            [self reloadDataSource];
-//        }
+        //        NSInteger newCategoryIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"categoryIndex"];
+        //        if (newCategoryIndex != self.categoryIndex) {
+        //            self.query = nil; // remove query term when changing categories
+        //            self.categoryIndex = newCategoryIndex;
+        //            [self reloadDataSource];
+        //        }
     } else if (popoverView.tag == kPopoverLocation) {
         LocationChooserView *cv = (LocationChooserView *)popoverView.contentView;
         

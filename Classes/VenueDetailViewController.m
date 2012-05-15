@@ -94,15 +94,6 @@ eventButton = _eventButton;
 }
 
 #pragma mark - Config Subviews
-- (void)updateHeader {
-    // Call this when venueDict is ready to re-enable header actions
-    
-    [self.centerButton setTitle:[self.venueDict objectForKey:@"name"] forState:UIControlStateNormal];
-    self.centerButton.userInteractionEnabled = YES;
-    
-    self.rightButton.userInteractionEnabled = YES;
-}
-
 - (void)setupVenueSubviews {
     [self updateHeader];
     
@@ -400,6 +391,9 @@ eventButton = _eventButton;
 }
 
 - (void)setupFooter {
+    // If no venueDict, don't setup the footer
+    if (!self.venueDict) return;
+    
     self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height - 44, self.view.width, 44)];
     self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
     self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -413,28 +407,42 @@ eventButton = _eventButton;
     self.eventButton = eventButton;
     [eventButton setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
     
-    if (self.eventDict) {
-        // Join existing event OR if creator, show message
-        
-        if (0) {
-            eventButton.enabled = NO;
-            [eventButton setTitle:[NSString stringWithFormat:@"I'm going here for %@", [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
-        } else {
-            [eventButton setTitle:[NSString stringWithFormat:@"Join %@ for %@", [self.eventDict objectForKey:@"fbName"], [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
-            [eventButton addTarget:self action:@selector(joinEvent:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        
-        
-    } else {
-        // Create new event
-        [eventButton setTitle:@"Tell my friends I'm going here for..." forState:UIControlStateNormal];
-        [eventButton addTarget:self action:@selector(newEvent:) forControlEvents:UIControlEventTouchUpInside];
-        
-    }
-    
     // Add to subviews
     [self.footerView addSubview:eventButton];
     [self.view addSubview:self.footerView];
+    
+    [self updateFooter];
+    [self updateSubviews];
+}
+
+- (void)updateHeader {
+    // Call this when venueDict is ready to re-enable header actions
+    
+    [self.centerButton setTitle:[self.venueDict objectForKey:@"name"] forState:UIControlStateNormal];
+    self.centerButton.userInteractionEnabled = YES;
+    
+    self.rightButton.userInteractionEnabled = YES;
+}
+
+- (void)updateFooter {
+    if (self.eventDict) {
+        // Join existing event OR if creator, show message
+        NSString *fbId = [self.eventDict objectForKey:@"fbId"];
+        if ([fbId isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"]]) {
+            // is creator
+            self.eventButton.enabled = NO;
+            [self.eventButton setTitle:[NSString stringWithFormat:@"I'm going here for %@", [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
+        } else {
+            self.eventButton.enabled = YES;
+            [self.eventButton setTitle:[NSString stringWithFormat:@"Join %@ for %@", [self.eventDict objectForKey:@"fbName"], [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
+            [self.eventButton addTarget:self action:@selector(joinEvent:) forControlEvents:UIControlEventTouchUpInside];
+        }
+    } else {
+        // Create new event
+        self.eventButton.enabled = YES;
+        [self.eventButton setTitle:@"I'm going here for..." forState:UIControlStateNormal];
+        [self.eventButton addTarget:self action:@selector(newEvent:) forControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
 #pragma mark - Actions
@@ -503,8 +511,7 @@ eventButton = _eventButton;
 
 - (void)joinEvent:(UIButton *)button {
     // Send request to server, update EventManager cache on response
-    NSString *reason = [self.eventDict objectForKey:@"reason"];
-    [self updateEventButtonReason:reason];
+    // TODO
 }
 
 - (void)createEventWithReason:(NSString *)reason {
@@ -527,6 +534,7 @@ eventButton = _eventButton;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
     
     BLOCK_SELF;
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
@@ -536,15 +544,14 @@ eventButton = _eventButton;
         if (!error && responseCode == 200) {
             id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             //        NSLog(@"res: %@", res);
-            
             self.eventDict = (NSMutableDictionary *)res;
-            if (self.eventDict) {
-                [self updateEventButtonReason:[self.eventDict objectForKey:@"reason"]];
-            }
-        } else {
-            self.eventButton.enabled = YES;
         }
+        [self updateFooter];
     }];
+}
+
+- (void)updateEventWithDict:(NSDictionary *)eventDict {
+
 }
 
 - (void)updateEventButtonReason:(NSString *)reason {
@@ -571,9 +578,19 @@ eventButton = _eventButton;
 - (void)dataSourceDidLoad {
     [super dataSourceDidLoad];
     
+    
+    // Load event
+    // Don't setup footer yet if an event was passed in
+    // We need to download it to find out what messave to show
+    if (self.eventId) {
+        // Delayed footer setup
+        [self loadEventWithId:self.eventId];
+    } else {
+        [self setupFooter];
+    }
+    
     if ([self dataSourceIsEmpty]) {
         // Show empty view
-        
     }
 }
 
@@ -584,6 +601,30 @@ eventButton = _eventButton;
 
 - (BOOL)dataSourceIsEmpty {
     return ([self.items count] == 0);
+}
+
+- (void)loadEventWithId:(NSString *)eventId {
+    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events/%@", API_BASE_URL, eventId];
+    
+    NSURL *URL = [NSURL URLWithString:URLPath];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:nil];
+    
+    BLOCK_SELF;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
+        
+        NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
+        
+        if (!error && responseCode == 200) {
+            id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            //        NSLog(@"res: %@", res);
+            self.eventDict = (NSMutableDictionary *)res;
+            [self setupFooter]; // delayed footer setup
+        }
+    }];
+
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
@@ -805,138 +846,6 @@ eventButton = _eventButton;
     NSString *reason = [actionSheet buttonTitleAtIndex:buttonIndex];
     
     [self createEventWithReason:reason];
-}
-
-#pragma mark - Pre-load
-- (void)preloadEventWithId:(NSString *)eventId {
-    
-}
-
-- (void)preloadVenueWithId:(NSString *)venueId {
-    // Need to retrieve:
-    // id, name, lat, lng, stats, tip, formattedAddress, contact, menu, url, reservations
-    NSString *URLPath = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@", venueId];
-    
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:FS_API_VERSION forKey:@"v"];
-    [parameters setObject:@"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO" forKey:@"client_id"];
-    [parameters setObject:@"W45013QS5ADELZMVZYIIH3KX44TZQXDN0KQN5XVRN1JPJVGB" forKey:@"client_secret"];
-    
-    NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
-    
-    BLOCK_SELF;
-    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:YES completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
-        ASSERT_MAIN_THREAD;
-        if (error) {
-            [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
-            [blockSelf.items removeAllObjects];
-            [blockSelf dataSourceDidError];
-        } else {
-            // Process 4sq response
-            id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-            if (!apiResponse) {
-                [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
-                [blockSelf.items removeAllObjects];
-                [blockSelf dataSourceDidError];
-            } else {
-                NSDictionary *response = [apiResponse objectForKey:@"response"];
-                
-                // Venue Dict
-                NSMutableDictionary *item = [NSMutableDictionary dictionary];
-                
-                // Read out the API                                
-                NSDictionary *venue = OBJ_NOT_NULL([response objectForKey:@"venue"]);
-                
-                if (!venueId) return;
-                
-                NSDictionary *tips = OBJ_NOT_NULL([venue objectForKey:@"tips"]);
-                NSDictionary *stats = OBJ_NOT_NULL([venue objectForKey:@"stats"]);
-                NSDictionary *menu = OBJ_NOT_NULL([venue objectForKey:@"menu"]);
-                NSDictionary *reservations = OBJ_NOT_NULL([venue objectForKey:@"reservations"]);
-                NSDictionary *location = OBJ_NOT_NULL([venue objectForKey:@"location"]);
-                NSDictionary *category = OBJ_NOT_NULL([venue objectForKey:@"categories"]) ? [[venue objectForKey:@"categories"] lastObject] : nil;
-                
-                
-                // Basic Info
-                [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
-                [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
-                
-                // Category
-                if (category) {
-                    [item setObject:[category objectForKey:@"name"] forKey:@"category"];
-                }
-                
-                // Location
-                if (NOT_NULL([location objectForKey:@"address"])) {
-                    [item setObject:[location objectForKey:@"address"] forKey:@"address"];
-                } else {
-                    return;
-                }
-                
-                if (NOT_NULL([location objectForKey:@"address"]) && NOT_NULL([location objectForKey:@"city"]) && NOT_NULL([location objectForKey:@"state"]) && NOT_NULL([location objectForKey:@"postalCode"])) {
-                    [item setObject:[NSString stringWithFormat:@"%@ %@, %@ %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"], [location objectForKey:@"postalCode"]] forKey:@"formattedAddress"];
-                } else if (NOT_NULL([location objectForKey:@"address"])) {
-                    [item setObject:[location objectForKey:@"address"] forKey:@"formattedAddress"];
-                } else {
-                    return;
-                }
-                
-                if (NOT_NULL([location objectForKey:@"distance"])) {
-                    [item setObject:[location objectForKey:@"distance"] forKey:@"distance"];
-                } else {
-                    [item setObject:[NSNumber numberWithInteger:0] forKey:@"distance"];
-                }
-                
-                if (NOT_NULL([location objectForKey:@"lat"]) && NOT_NULL([location objectForKey:@"lng"])) {
-                    [item setObject:[location objectForKey:@"lat"] forKey:@"lat"];
-                    [item setObject:[location objectForKey:@"lng"] forKey:@"lng"];
-                } else {
-                    return;
-                }
-                
-                // Tip
-                if (tips) {
-                    NSArray *tipGroups = [tips objectForKey:@"groups"];
-                    if (tipGroups && tipGroups.count > 0) {
-                        NSArray *tipItems = [[tipGroups objectAtIndex:0] objectForKey:@"items"];
-                        if (tipItems && tipItems.count > 0) {
-                            [item setObject:[tipItems objectAtIndex:0] forKey:@"tip"];
-                        }
-                    }
-                }
-                
-                // Contact
-                if (NOT_NULL([venue objectForKey:@"contact"])) {
-                    [item setObject:[venue objectForKey:@"contact"] forKey:@"contact"];
-                }
-                if (NOT_NULL([venue objectForKey:@"url"])) {
-                    [item setObject:[venue objectForKey:@"url"] forKey:@"url"];
-                }
-                
-                // Stats
-                if (stats) {
-                    [item setObject:stats forKey:@"stats"];
-                }
-                
-                // Menu
-                if (menu) {
-                    [item setObject:menu forKey:@"menu"];
-                }
-                
-                // Reservations
-                if (reservations) {
-                    [item setObject:reservations forKey:@"reservations"];
-                }
-                
-                blockSelf.venueDict = item;
-                [blockSelf setupVenueSubviews];
-                [blockSelf loadDataSource];
-            }
-            
-        }
-    }];
-    
 }
 
 @end

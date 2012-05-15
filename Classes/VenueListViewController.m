@@ -209,7 +209,6 @@ hasLoadedOnce = _hasLoadedOnce;
 
 #pragma mark - Location Notification
 - (void)locationDidUpdate {
-    self.radius = 0;
     self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
     
     if (!self.hasLoadedOnce) {
@@ -322,9 +321,14 @@ hasLoadedOnce = _hasLoadedOnce;
         } else {
             id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
             
-            if (apiResponse && [apiResponse isKindOfClass:[NSArray class]]) {
+            if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
+                NSNumber *suggestedRadius = [apiResponse objectForKey:@"suggestedRadius"];
+                if (suggestedRadius) {
+                    blockSelf.radius = [suggestedRadius floatValue];
+                }
+                NSArray *venues = [apiResponse objectForKey:@"venues"];
                 NSMutableArray *items = [NSMutableArray array];
-                for (NSDictionary *venueRec in apiResponse) {
+                for (NSDictionary *venueRec in venues) {
                     NSMutableDictionary *item = [NSMutableDictionary dictionary];
                     
                     NSDictionary *venue = [venueRec objectForKey:@"venue"];

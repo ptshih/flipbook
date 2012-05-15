@@ -135,10 +135,8 @@ eventButton = _eventButton;
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.width, 0.0)];
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
-    // Map
-    CGFloat mapTop = 4.0;
-    
-    UIView *mapView = [[UIView alloc] initWithFrame:CGRectMake(8, 0, headerView.width - 16, mapHeight - 8)];
+    // Map    
+    UIView *mapView = [[UIView alloc] initWithFrame:CGRectMake(8, 8, headerView.width - 16, mapHeight - 8)];
     mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     mapView.backgroundColor = [UIColor whiteColor];
     UIImage *mapShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
@@ -148,6 +146,7 @@ eventButton = _eventButton;
     [mapView addSubview:mapShadowView];
     [headerView addSubview:mapView];
     
+    CGFloat mapTop = 4.0;
     self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(4, mapTop, headerView.width - 24, mapHeight - 16)];
     self.mapView.layer.borderWidth = 0.5;
     self.mapView.layer.borderColor = [RGBACOLOR(200, 200, 200, 1.0) CGColor];
@@ -280,51 +279,12 @@ eventButton = _eventButton;
         
         reservationsButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
         
-        mapTop += reservationsButton.height + 2.0;
+        mapTop += reservationsButton.height + 4.0;
     }
     
-    mapView.height = mapTop + 4.0;
+    mapView.height = mapTop;
     
-    top += mapView.height + 8.0;
-    
-    // Event
-    UIView *eventView = [[UIView alloc] initWithFrame:CGRectMake(8, top, headerView.width - 16, 0.0)];
-    eventView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    eventView.backgroundColor = [UIColor whiteColor];
-    UIImage *eventShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
-    UIImageView *eventShadowView = [[UIImageView alloc] initWithImage:eventShadowImage];
-    eventShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    eventShadowView.frame = CGRectInset(eventView.bounds, -1, -2);
-    [eventView addSubview:eventShadowView];
-    [headerView addSubview:eventView];
-    
-    UIButton *eventButton = [UIButton buttonWithFrame:CGRectMake(8, 4, eventView.width - 16, 44) andStyle:@"checkinButton" target:nil action:nil];
-    self.eventButton = eventButton;
-    [eventView addSubview:eventButton];
-    [eventButton setBackgroundImage:[[UIImage imageNamed:@"ButtonBlue"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
-    
-    if (self.eventDict) {
-        // Join existing event OR if creator, show message
-        
-        if (0) {
-            eventButton.enabled = NO;
-            [eventButton setTitle:[NSString stringWithFormat:@"I'm going here for %@", [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
-        } else {
-            [eventButton setTitle:[NSString stringWithFormat:@"Join %@ for %@", [self.eventDict objectForKey:@"fbName"], [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
-            [eventButton addTarget:self action:@selector(joinEvent:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        
-        
-    } else {
-        // Create new event
-        [eventButton setTitle:@"Tell my friends I'm going here for..." forState:UIControlStateNormal];
-        [eventButton addTarget:self action:@selector(newEvent:) forControlEvents:UIControlEventTouchUpInside];
-        
-    }
-    
-    eventView.height += eventButton.height + 8.0;
-    
-    top += eventView.height + 8.0;
+    top = mapView.bottom + 8.0;
     
     // Tip
     // Don't show if no tips
@@ -385,7 +345,7 @@ eventButton = _eventButton;
         countLabel.frame = CGRectMake(8, divider.bottom + 4, tipWidth, labelSize.height);
         [tipView addSubview:countLabel];
         
-        CGFloat tipHeight = countLabel.bottom + 4;
+        CGFloat tipHeight = countLabel.bottom + 4.0;
         tipView.height = tipHeight;
         
         UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureIndicatorWhiteBordered"]];
@@ -395,7 +355,7 @@ eventButton = _eventButton;
         [tipView addSubview:disclosure];
         
         
-        top += tipView.height;
+        top += tipView.height + 8.0;
     }
     
     headerView.height = top;
@@ -437,6 +397,44 @@ eventButton = _eventButton;
     [self.headerView addSubview:self.centerButton];
     [self.headerView addSubview:self.rightButton];
     [self.view addSubview:self.headerView];
+}
+
+- (void)setupFooter {
+    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height - 44, self.view.width, 44)];
+    self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
+    self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+//    UIImageView *footerBg = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"BackgroundToolbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:0]];
+//    footerBg.autoresizingMask = self.footerView.autoresizingMask;
+//    [self.footerView addSubview:footerBg];
+    
+    // Event
+    UIButton *eventButton = [UIButton buttonWithFrame:CGRectMake(8, 7, self.footerView.width - 16, 31) andStyle:@"eventButton" target:nil action:nil];
+    self.eventButton = eventButton;
+    [eventButton setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
+    
+    if (self.eventDict) {
+        // Join existing event OR if creator, show message
+        
+        if (0) {
+            eventButton.enabled = NO;
+            [eventButton setTitle:[NSString stringWithFormat:@"I'm going here for %@", [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
+        } else {
+            [eventButton setTitle:[NSString stringWithFormat:@"Join %@ for %@", [self.eventDict objectForKey:@"fbName"], [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
+            [eventButton addTarget:self action:@selector(joinEvent:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        
+    } else {
+        // Create new event
+        [eventButton setTitle:@"Tell my friends I'm going here for..." forState:UIControlStateNormal];
+        [eventButton addTarget:self action:@selector(newEvent:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    
+    // Add to subviews
+    [self.footerView addSubview:eventButton];
+    [self.view addSubview:self.footerView];
 }
 
 #pragma mark - Actions

@@ -942,6 +942,12 @@
 		28A3921A1554DA37002696FD /* Helvetica LT 77 Bold Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 280A2801154FAF9E00D1728A /* Helvetica LT 77 Bold Condensed.ttf */; };
 		28A3921B1554DA37002696FD /* IconClear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 280186421554A36E005E6324 /* IconClear@2x.png */; };
 		28A3921C1554DA37002696FD /* IconClear.png in Resources */ = {isa = PBXBuildFile; fileRef = 280186431554A36E005E6324 /* IconClear.png */; };
+		28D9232A1561E64E003E43E1 /* BackgroundToolbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 28D923281561E64E003E43E1 /* BackgroundToolbar.png */; };
+		28D9232B1561E64E003E43E1 /* BackgroundToolbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 28D923281561E64E003E43E1 /* BackgroundToolbar.png */; };
+		28D9232C1561E64E003E43E1 /* BackgroundToolbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 28D923281561E64E003E43E1 /* BackgroundToolbar.png */; };
+		28D9232D1561E64E003E43E1 /* BackgroundToolbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28D923291561E64E003E43E1 /* BackgroundToolbar@2x.png */; };
+		28D9232E1561E64E003E43E1 /* BackgroundToolbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28D923291561E64E003E43E1 /* BackgroundToolbar@2x.png */; };
+		28D9232F1561E64E003E43E1 /* BackgroundToolbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28D923291561E64E003E43E1 /* BackgroundToolbar@2x.png */; };
 		28DA3CD91554E2330050D215 /* IconFoodBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 28DA3CD51554E2330050D215 /* IconFoodBlack.png */; };
 		28DA3CDA1554E2330050D215 /* IconFoodBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 28DA3CD51554E2330050D215 /* IconFoodBlack.png */; };
 		28DA3CDB1554E2330050D215 /* IconFoodBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 28DA3CD51554E2330050D215 /* IconFoodBlack.png */; };
@@ -1232,6 +1238,8 @@
 		28A19CFD14A023520043F7BB /* PSNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSNavigationController.h; sourceTree = "<group>"; };
 		28A19CFE14A023520043F7BB /* PSNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSNavigationController.m; sourceTree = "<group>"; };
 		28A392211554DA37002696FD /* Lunchbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lunchbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28D923281561E64E003E43E1 /* BackgroundToolbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundToolbar.png; sourceTree = "<group>"; };
+		28D923291561E64E003E43E1 /* BackgroundToolbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackgroundToolbar@2x.png"; sourceTree = "<group>"; };
 		28DA3CD51554E2330050D215 /* IconFoodBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconFoodBlack.png; sourceTree = "<group>"; };
 		28DA3CD61554E2330050D215 /* IconFoodBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconFoodBlack@2x.png"; sourceTree = "<group>"; };
 		28DA3CE51554E47F0050D215 /* IconReservationsBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconReservationsBlack.png; sourceTree = "<group>"; };
@@ -2262,6 +2270,8 @@
 		28F38D4C149839C2009D58BA /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				28D923281561E64E003E43E1 /* BackgroundToolbar.png */,
+				28D923291561E64E003E43E1 /* BackgroundToolbar@2x.png */,
 				D0C5BFF514F764290041A364 /* BackgroundPaper.png */,
 				D0C5BFF614F764290041A364 /* BackgroundPaper@2x.png */,
 			);
@@ -2839,6 +2849,8 @@
 				28488F0315610FBB0012C7D0 /* ButtonFacebook@2x.png in Resources */,
 				28488F0615610FBB0012C7D0 /* ButtonFacebookHighlighted.png in Resources */,
 				28488F0915610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png in Resources */,
+				28D9232C1561E64E003E43E1 /* BackgroundToolbar.png in Resources */,
+				28D9232F1561E64E003E43E1 /* BackgroundToolbar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3030,6 +3042,8 @@
 				28488F0215610FBB0012C7D0 /* ButtonFacebook@2x.png in Resources */,
 				28488F0515610FBB0012C7D0 /* ButtonFacebookHighlighted.png in Resources */,
 				28488F0815610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png in Resources */,
+				28D9232B1561E64E003E43E1 /* BackgroundToolbar.png in Resources */,
+				28D9232E1561E64E003E43E1 /* BackgroundToolbar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3221,6 +3235,8 @@
 				28488F0115610FBB0012C7D0 /* ButtonFacebook@2x.png in Resources */,
 				28488F0415610FBB0012C7D0 /* ButtonFacebookHighlighted.png in Resources */,
 				28488F0715610FBB0012C7D0 /* ButtonFacebookHighlighted@2x.png in Resources */,
+				28D9232A1561E64E003E43E1 /* BackgroundToolbar.png in Resources */,
+				28D9232D1561E64E003E43E1 /* BackgroundToolbar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

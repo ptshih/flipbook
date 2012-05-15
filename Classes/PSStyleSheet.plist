@@ -416,16 +416,16 @@
 		<key>numberOfLines</key>
 		<integer>1</integer>
 	</dict>
-	<key>checkinButton</key>
+	<key>eventButton</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
+		<string>HelveticaNeue-Bold</string>
 		<key>fontSize</key>
-		<integer>16</integer>
+		<integer>14</integer>
 		<key>textColor</key>
-		<string>0xffffff</string>
+		<string>0x222222</string>
 		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
+		<string>0x000000</string>
 		<key>textAlignment</key>
 		<string>center</string>
 		<key>shadowColor</key>

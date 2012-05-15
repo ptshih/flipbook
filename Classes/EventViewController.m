@@ -29,8 +29,14 @@
         self.tableViewStyle = UITableViewStylePlain;
         self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.separatorColor = [UIColor lightGrayColor];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadDataSource) name:kNotificationManagerDidUpdate object:nil];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - View Config
@@ -44,6 +50,9 @@
     
     // Load
     [self loadDataSource];
+    
+    // Download updates
+    [[NotificationManager sharedManager] downloadNotifications];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -59,13 +68,16 @@
 - (void)loadDataSource {
     [super loadDataSource];
     
-    [self loadDataSourceFromRemoteUsingCache:NO];
+    NSArray *notifications = [[NotificationManager sharedManager] notifications];
+    
+    [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:notifications] animated:NO];
+    [self dataSourceDidLoad];
 }
 
 - (void)reloadDataSource {
     [super reloadDataSource];
     
-    [self loadDataSourceFromRemoteUsingCache:NO];
+    [[NotificationManager sharedManager] downloadNotifications];
 }
 
 - (void)dataSourceDidLoad {
@@ -85,43 +97,6 @@
     return ([self.items count] == 0);
 }
 
-
-- (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events", API_BASE_URL];
-    
-    NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:fbId forKey:@"fbId"];
-    
-    NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
-    
-    BLOCK_SELF;
-    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
-        ASSERT_MAIN_THREAD;
-        if (error) {
-            [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
-            [self dataSourceDidError];
-        } else {
-            // parse the json
-            id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-            if (!apiResponse) {
-                [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
-                [blockSelf dataSourceDidError];
-            } else {
-                if ([apiResponse isKindOfClass:[NSArray class]]) {
-                    NSMutableArray *items = [NSMutableArray arrayWithCapacity:1];
-                    [items addObject:apiResponse];
-                    [blockSelf dataSourceShouldLoadObjects:items animated:NO];
-                    [blockSelf dataSourceDidLoad];
-                } else {
-                    [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
-                    [blockSelf dataSourceDidError];
-                }
-            }
-        }
-    }];
-}
 
 #pragma mark - TableView
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {

@@ -2,6 +2,8 @@
 
 #import "PSConstants.h"
 
+// Notification manager
+#import "NotificationManager.h"
 
 // Vendor imports
 #import "PSFacebookCenter.h"

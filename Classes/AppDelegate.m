@@ -167,7 +167,10 @@ shouldReloadInterface = _shouldReloadInterface;
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     // PSFacebookCenter
-//    [PSFacebookCenter defaultCenter];
+    [PSFacebookCenter defaultCenter];
+    
+    // Prime Notification Manager
+    [NotificationManager sharedManager];
     
     // Set application stylesheet
     [PSStyleSheet setStyleSheet:@"PSStyleSheet"];

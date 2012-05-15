@@ -960,6 +960,9 @@
 		28DA3CEA1554E47F0050D215 /* IconReservationsBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28DA3CE61554E47F0050D215 /* IconReservationsBlack@2x.png */; };
 		28DA3CEB1554E47F0050D215 /* IconReservationsBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28DA3CE61554E47F0050D215 /* IconReservationsBlack@2x.png */; };
 		28DA3CEC1554E47F0050D215 /* IconReservationsBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28DA3CE61554E47F0050D215 /* IconReservationsBlack@2x.png */; };
+		28F1F5D11562D4D100142939 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5D01562D4D100142939 /* NotificationManager.m */; };
+		28F1F5D21562D4D100142939 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5D01562D4D100142939 /* NotificationManager.m */; };
+		28F1F5D31562D4D100142939 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5D01562D4D100142939 /* NotificationManager.m */; };
 		D0BBA7B01548819D006CD0B7 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; };
 		D0BBA7B11548819D006CD0B7 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D0BBA7B31548819D006CD0B7 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */; };
@@ -1254,6 +1257,8 @@
 		28EBFFFD15177BD0004C55DE /* IconSearchMiniWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconSearchMiniWhite.png; sourceTree = "<group>"; };
 		28EBFFFE15177BD0004C55DE /* IconSearchMiniWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconSearchMiniWhite@2x.png"; sourceTree = "<group>"; };
 		28EDA6C815354130001BF4D1 /* AddPhotoBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddPhotoBackground.png; sourceTree = "<group>"; };
+		28F1F5CF1562D4D100142939 /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
+		28F1F5D01562D4D100142939 /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		28F38D601498442E009D58BA /* IconMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMore.png; sourceTree = "<group>"; };
 		28F38D611498442E009D58BA /* IconMore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMore@2x.png"; sourceTree = "<group>"; };
 		28F49074151EA9540050A423 /* ShadowFlattened.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShadowFlattened.png; sourceTree = "<group>"; };
@@ -2069,6 +2074,8 @@
 			children = (
 				2874F4991560C7760059E916 /* EventManager.h */,
 				2874F49A1560C7760059E916 /* EventManager.m */,
+				28F1F5CF1562D4D100142939 /* NotificationManager.h */,
+				28F1F5D01562D4D100142939 /* NotificationManager.m */,
 			);
 			name = Singletons;
 			sourceTree = "<group>";
@@ -3398,6 +3405,7 @@
 				2874F49D1560C7760059E916 /* EventManager.m in Sources */,
 				28488ED11560EF260012C7D0 /* EventViewController.m in Sources */,
 				28488EF915610AC70012C7D0 /* FBConnectViewController.m in Sources */,
+				28F1F5D31562D4D100142939 /* NotificationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3514,6 +3522,7 @@
 				2874F49C1560C7760059E916 /* EventManager.m in Sources */,
 				28488ED01560EF260012C7D0 /* EventViewController.m in Sources */,
 				28488EF815610AC70012C7D0 /* FBConnectViewController.m in Sources */,
+				28F1F5D21562D4D100142939 /* NotificationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3630,6 +3639,7 @@
 				2874F49B1560C7760059E916 /* EventManager.m in Sources */,
 				28488ECF1560EF260012C7D0 /* EventViewController.m in Sources */,
 				28488EF715610AC70012C7D0 /* FBConnectViewController.m in Sources */,
+				28F1F5D11562D4D100142939 /* NotificationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

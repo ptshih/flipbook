@@ -757,8 +757,9 @@ eventButton = _eventButton;
     if (alertView.tag == kAlertTagDirections) {
         // Show directions
         CLLocationCoordinate2D currentLocation = [[PSLocationCenter defaultCenter] locationCoordinate];
-        NSString *lat = [self.venueDict objectForKey:@"lat"];
-        NSString *lng = [self.venueDict objectForKey:@"lng"];
+        NSDictionary *location = [self.venueDict objectForKey:@"location"];
+        NSString *lat = [location objectForKey:@"lat"];
+        NSString *lng = [location objectForKey:@"lng"];
         
         if (lat && lng) {
             NSString *mapsUrl = [NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%@,%@", currentLocation.latitude, currentLocation.longitude, lat, lng];

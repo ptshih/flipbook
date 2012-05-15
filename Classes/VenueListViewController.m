@@ -162,7 +162,7 @@ hasLoadedOnce = _hasLoadedOnce;
     //    footerBg.autoresizingMask = self.footerView.autoresizingMask;
     //    [self.footerView addSubview:footerBg];
     
-    UILabel *locationLabel = [UILabel labelWithStyle:@"locationLabel"];
+    UILabel *locationLabel = [UILabel labelWithText:@"Trying to locate you..." style:@"locationLabel"];
     self.locationLabel = locationLabel;
     locationLabel.frame = self.footerView.bounds;
     locationLabel.autoresizingMask = self.footerView.autoresizingMask;
@@ -278,6 +278,7 @@ hasLoadedOnce = _hasLoadedOnce;
         self.hasLoadedOnce = NO;
 #warning location bug
         // TODO: Show an error saying location undetectable
+        self.locationLabel.text = @"Unable to find your location";
         return;
     } else {
         self.hasLoadedOnce = YES;
@@ -368,7 +369,7 @@ hasLoadedOnce = _hasLoadedOnce;
                     }
                     
                     // Categories
-                    if ([venue objectForKey:@"categories"]) {
+                    if ([venue objectForKey:@"categories"] && [[venue objectForKey:@"categories"] count] > 0) {
                         [item setObject:[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"shortName"] forKey:@"primaryCategory"];
                     } else {
                         continue;

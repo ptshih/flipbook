@@ -605,7 +605,7 @@ eventButton = _eventButton;
             //        NSLog(@"res: %@", res);
             self.eventDict = res;
             
-            [[NotificationManager sharedManager] downloadNotifications];
+            [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:NULL];
         }
         [self updateFooter];
         self.eventButton.enabled = YES;
@@ -646,7 +646,7 @@ eventButton = _eventButton;
             //        NSLog(@"res: %@", res);
             self.eventDict = res;
             
-            [[NotificationManager sharedManager] downloadNotifications];
+            [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:NULL];
         }
         [self updateFooter];
     }];

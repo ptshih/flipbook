@@ -60,8 +60,15 @@
 #define kAlertTagDirections 7001
 #define kAlertTagFoursquare 7002
 
+
+/**
+ Error domains
+ */
+#define kErrorNotificationManager @"com.petershih.lunchbox.notifications"
+
 // Convenience
-#define APP_DRAWER [APP_DELEGATE drawerController]
+#define kTimeInterval1Day 86400
+#define kTimeInterval5Seconds 5
 
 // Colors
 #define CELL_WHITE_COLOR [UIColor whiteColor]

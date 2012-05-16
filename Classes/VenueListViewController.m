@@ -74,7 +74,7 @@ hasLoadedOnce = _hasLoadedOnce;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidUpdate) name:kPSLocationCenterDidUpdate object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidFail) name:kPSLocationCenterDidFail object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotifications) name:kNotificationManagerDidUpdate object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(facebookDidLogin) name:kPSFacebookCenterDialogDidSucceed object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(facebookDidLogin) name:kFacebookLoginSucceeded object:nil];
         
     }
     return self;
@@ -116,7 +116,7 @@ hasLoadedOnce = _hasLoadedOnce;
     NSDate *showDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"showEventPopover"];
     
     if ([[showDate earlierDate:[NSDate date]] isEqualToDate:showDate] && ![[PSFacebookCenter defaultCenter] isLoggedIn]) {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:86400] forKey:@"showEventPopover"];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:kTimeInterval1Day] forKey:@"showEventPopover"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         InfoPopoverView *pv = [[InfoPopoverView alloc] initWithFrame:self.view.bounds];
         pv.alpha = 0.0;
@@ -560,7 +560,7 @@ hasLoadedOnce = _hasLoadedOnce;
 }
 
 - (void)facebookDidLogin {
-    [[NotificationManager sharedManager] downloadNotifications];
+    [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:NULL];
 }
 
 @end

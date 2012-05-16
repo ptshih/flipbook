@@ -27,12 +27,12 @@ notifications = _notifications;
         self.notifications = [NSMutableArray array];
         
         // attempt to download new notifications
-        [self downloadNotifications];
+        [self downloadNotificationsWithCompletionBlock:NULL];
     }
     return self;
 }
 
-- (void)downloadNotifications {
+- (void)downloadNotificationsWithCompletionBlock:(NotificationManagerCompletionBlock)completionBlock {
     NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
     
     // Only download if user has logged in already
@@ -51,18 +51,32 @@ notifications = _notifications;
         ASSERT_MAIN_THREAD;
         if (error) {
             // noop
+            if (completionBlock) {
+                completionBlock(nil, error);
+            }
         } else {
             // parse the json
             id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
             if (!apiResponse) {
                 // noop
+                if (completionBlock) {
+                    NSError *error = [NSError errorWithDomain:kErrorNotificationManager code:500 userInfo:nil];
+                    completionBlock(nil, error);
+                }
             } else {
                 if ([apiResponse isKindOfClass:[NSArray class]]) {
                     [blockSelf.notifications removeAllObjects];
                     [blockSelf.notifications addObjectsFromArray:apiResponse];
+                    if (completionBlock) {
+                        completionBlock(blockSelf.notifications, nil);
+                    }
                     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationManagerDidUpdate object:nil];
                 } else {
                     // noop
+                    if (completionBlock) {
+                        NSError *error = [NSError errorWithDomain:kErrorNotificationManager code:500 userInfo:nil];
+                        completionBlock(nil, error);
+                    }
                 }
             }
         }

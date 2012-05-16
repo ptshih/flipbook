@@ -50,9 +50,6 @@
     
     // Load
     [self loadDataSource];
-    
-    // Download updates
-    [[NotificationManager sharedManager] downloadNotifications];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -69,15 +66,32 @@
     [super loadDataSource];
     
     NSArray *notifications = [[NotificationManager sharedManager] notifications];
-    
     [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:notifications] animated:NO];
     [self dataSourceDidLoad];
+    
+    // Download updates
+    [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:^(NSArray *notifications, NSError *error) {
+        if (!error) {
+            [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:notifications] animated:NO];
+            [self dataSourceDidLoad];
+        } else {
+            [self dataSourceDidError];
+        }
+    }];
 }
 
 - (void)reloadDataSource {
     [super reloadDataSource];
     
-    [[NotificationManager sharedManager] downloadNotifications];
+    // Download updates
+    [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:^(NSArray *notifications, NSError *error) {
+        if (!error) {
+            [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:notifications] animated:NO];
+            [self dataSourceDidLoad];
+        } else {
+            [self dataSourceDidError];
+        }
+    }];
 }
 
 - (void)dataSourceDidLoad {

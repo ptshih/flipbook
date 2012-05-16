@@ -10,12 +10,14 @@
 
 #define kNotificationManagerDidUpdate @"NotificationManagerDidUpdate"
 
+typedef void (^NotificationManagerCompletionBlock)(NSArray *notifications, NSError *error);
+
 @interface NotificationManager : NSObject
 
 @property (nonatomic, strong) NSMutableArray *notifications;
 
 + (id)sharedManager;
 
-- (void)downloadNotifications;
+- (void)downloadNotificationsWithCompletionBlock:(NotificationManagerCompletionBlock)completionBlock;
 
 @end

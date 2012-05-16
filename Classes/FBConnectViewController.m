@@ -65,13 +65,14 @@
     [self.view addSubview:midView];
     
     
-    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"InfoPopover"]];
+    UIImageView *bg = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"InfoPopover"] stretchableImageWithLeftCapWidth:0 topCapHeight:100]];
     bg.top = 10.0;
     bg.left = floorf((midView.width - bg.width) / 2);
+    bg.height = 260;
     [midView addSubview:bg];
     
     UILabel *infoLabel = [UILabel labelWithStyle:@"infoPopoverLabel"];
-    infoLabel.text = @"Sign in with Facebook to Try!\r\n\r\nIn this version of Lunchbox, you can tell your friends that you plan on going somewhere for Coffee/Tea, Lunch, Dinner, Dessert, or Drinks!";
+    infoLabel.text = @"Sign in with Facebook to Start!\r\n\r\nYou can now tell your friends that you plan on going somewhere later.\r\n\r\nYou can also join your friends who have already made plans.\r\n\r\nStart sharing your plans today!";
     infoLabel.frame = UIEdgeInsetsInsetRect(bg.bounds, UIEdgeInsetsMake(30, 30, 42, 30));
     [bg addSubview:infoLabel];
     
@@ -82,7 +83,7 @@
     [self.view addSubview:botView];
     
     // Add disclaimer
-    UILabel *disclaimer = [UILabel labelWithText:@"We use facebook to find your friends." style:@"fbDisclaimerLabel"];
+    UILabel *disclaimer = [UILabel labelWithText:@"We use facebook to find your friends" style:@"fbDisclaimerLabel"];
     disclaimer.textAlignment = UITextAlignmentCenter;
     disclaimer.frame = CGRectMake(0, 10, botView.width, 20.0);
     [botView addSubview:disclaimer];
@@ -152,7 +153,7 @@
 #pragma mark - Login
 - (void)loginDidSucceed:(BOOL)animated {
     [SVProgressHUD dismissWithSuccess:@"Facebook Login Succeeded"];
-    //    [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSucceeded object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFacebookLoginSucceeded object:nil];
     [(PSNavigationController *)self.parentViewController popViewControllerWithDirection:PSNavigationControllerDirectionDown animated:animated];
 }
 

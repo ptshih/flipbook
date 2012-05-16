@@ -8,6 +8,8 @@
 
 #import "PSViewController.h"
 
+#define kFacebookLoginSucceeded @"kFacebookLoginSucceeded"
+
 @interface FBConnectViewController : PSViewController
 
 @end

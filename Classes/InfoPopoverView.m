@@ -32,7 +32,7 @@
         [self addSubview:bg];
         
         UILabel *infoLabel = [UILabel labelWithStyle:@"infoPopoverLabel"];
-        infoLabel.text = @"Tap the Navigation Bar to Try!\r\n\r\nIn this version of Lunchbox, you can tell your friends that you plan on going somewhere for Coffee/Tea, Lunch, Dinner, Dessert, or Drinks!";
+        infoLabel.text = @"Tap the Navigation Bar to Start!\r\n\r\nYou can now tell your friends that you plan on going somewhere later.\r\n\r\nYou can also join your friends who have already made plans.";
         infoLabel.frame = UIEdgeInsetsInsetRect(bg.bounds, UIEdgeInsetsMake(30, 30, 42, 30));
         [bg addSubview:infoLabel];
         

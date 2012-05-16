@@ -32,11 +32,10 @@ static NSNumberFormatter *__numberFormatter = nil;
 @property (nonatomic, strong) NSDictionary *eventDict;
 @property (nonatomic, strong) MKMapView *mapView;
 
-@property (nonatomic, weak) UIButton *eventButton;
-
-// Event
-- (void)createEventWithReason:(NSString *)reason;
-- (void)updateEventButtonReason:(NSString *)reason;
+@property (nonatomic, strong) UIView *eventView;
+@property (nonatomic, strong) UIActivityIndicatorView *eventLoadingView;
+@property (nonatomic, strong) UILabel *eventLabel;
+@property (nonatomic, strong) UIButton *eventButton;
 
 @end
 
@@ -50,6 +49,9 @@ eventDict = _eventDict,
 mapView = _mapView;
 
 @synthesize
+eventView = _eventView,
+eventLoadingView = _eventLoadingView,
+eventLabel = _eventLabel,
 eventButton = _eventButton;
 
 + (void)initialize {
@@ -71,7 +73,7 @@ eventButton = _eventButton;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.shouldAddRoundedCorners = YES;
-//        self.shouldPullRefresh = YES;
+        //        self.shouldPullRefresh = YES;
     }
     return self;
 }
@@ -397,20 +399,33 @@ eventButton = _eventButton;
     self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, 44)];
     self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
     self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    
-//    UIImageView *footerBg = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"BackgroundToolbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:0]];
-//    footerBg.autoresizingMask = self.footerView.autoresizingMask;
-//    [self.footerView addSubview:footerBg];
-    
-    // Event
-    UIButton *eventButton = [UIButton buttonWithFrame:CGRectMake(8, 7, self.footerView.width - 16, 31) andStyle:@"eventButton" target:nil action:nil];
-    self.eventButton = eventButton;
-    [eventButton setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
-    
-    // Add to subviews
-    [self.footerView addSubview:eventButton];
     [self.view addSubview:self.footerView];
     
+    //    UIImageView *footerBg = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"BackgroundToolbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:0]];
+    //    footerBg.autoresizingMask = self.footerView.autoresizingMask;
+    //    [self.footerView addSubview:footerBg];
+    
+    // Event
+    self.eventView = [[UIView alloc] initWithFrame:CGRectInset(self.footerView.bounds, 8, 8)];
+    [self.footerView addSubview:self.eventView];
+    
+    self.eventLabel = [UILabel labelWithStyle:@"eventLabel"];
+    //    self.eventLabel.adjustsFontSizeToFitWidth = YES;
+    //    self.eventLabel.minimumFontSize = 12.0;
+    self.eventLabel.frame = CGRectMake(0, 0, self.eventView.width - 80.0, self.eventView.height);
+    [self.eventView addSubview:self.eventLabel];
+    
+    self.eventButton = [UIButton buttonWithFrame:CGRectMake(self.eventLabel.right + 10.0, 0, self.eventView.width - self.eventLabel.width - 10.0, self.eventView.height) andStyle:@"eventButton" target:nil action:nil];
+    [self.eventButton setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
+    [self.eventView addSubview:self.eventButton];
+    
+    self.eventLoadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.eventLoadingView.hidesWhenStopped = YES;
+    self.eventLoadingView.frame = self.eventButton.frame;
+    [self.eventView addSubview:self.eventLoadingView];
+    
+    
+    // Update footer
     [self updateFooter];
     
     // animate footer
@@ -431,29 +446,57 @@ eventButton = _eventButton;
 }
 
 - (void)updateFooter {
+    [self.eventButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+    
     if (self.eventDict) {
-        // Join existing event OR if creator, show message
+        NSString *title = nil;
+        NSString *subtitle = nil;
         NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
-        if ([[self.eventDict objectForKey:@"fbId"] isEqualToString:fbId]) {
-            // is creator
-            self.eventButton.enabled = NO;
-            [self.eventButton setTitle:[NSString stringWithFormat:@"I'm going here for %@", [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
-        } else {
-            // is not creator
-            NSArray *attendees = [self.eventDict objectForKey:@"attendees"];
-            if (attendees && [attendees containsObject:fbId]) {
-                self.eventButton.enabled = NO;
-                [self.eventButton setTitle:[NSString stringWithFormat:@"I'm going here for %@", [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
+        
+        NSString *reason = [self.eventDict objectForKey:@"reason"];
+        NSArray *attendeeIds = [self.eventDict objectForKey:@"attendeeIds"];
+        NSArray *attendeeNames = [self.eventDict objectForKey:@"attendeeNames"];
+        NSArray *friendIds = [attendeeIds subarrayWithRange:NSMakeRange(1, attendeeIds.count - 1)];
+        NSString *ownerId = [attendeeIds objectAtIndex:0];
+        NSString *ownerName = [attendeeNames objectAtIndex:0];
+        
+        title = ([fbId isEqualToString:ownerId]) ? [NSString stringWithFormat:@"You are going here for %@", reason] : [NSString stringWithFormat:@"%@ is going here for %@", ownerName, reason];
+        
+        
+        if (friendIds.count > 0) {
+            NSString *friendText = nil;
+            NSInteger numFriends;
+            if ([friendIds containsObject:fbId]) {
+                numFriends = friendIds.count - 1;
+                if (numFriends > 0) {
+                    friendText = (numFriends == 1) ? [NSString stringWithFormat:@"%d friend is", numFriends] : [NSString stringWithFormat:@"%d friends are", numFriends];
+                    subtitle = [NSString stringWithFormat:@"You and %@ also going", friendText];
+                } else {
+                    subtitle = [NSString stringWithFormat:@"You are also going"];
+                }
             } else {
-                self.eventButton.enabled = YES;
-                [self.eventButton setTitle:[NSString stringWithFormat:@"Join %@ for %@", [self.eventDict objectForKey:@"fbName"], [self.eventDict objectForKey:@"reason"]] forState:UIControlStateNormal];
-                [self.eventButton addTarget:self action:@selector(joinEvent:) forControlEvents:UIControlEventTouchUpInside];
+                numFriends = friendIds.count;
+                friendText = (numFriends == 1) ? [NSString stringWithFormat:@"%d friend is", numFriends] : [NSString stringWithFormat:@"%d friends are", numFriends];
+                subtitle = [NSString stringWithFormat:@"%@ also going", friendText];
             }
+        } else {
+            subtitle = @"No one else is going yet";
         }
+        
+        // Button
+        if ([attendeeIds containsObject:fbId]) {
+            [self.eventButton setTitle:@"Leave" forState:UIControlStateNormal];
+            [self.eventButton addTarget:self action:@selector(leaveEvent:) forControlEvents:UIControlEventTouchUpInside];
+        } else {
+            [self.eventButton setTitle:@"Join" forState:UIControlStateNormal];
+            [self.eventButton addTarget:self action:@selector(joinEvent:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        self.eventLabel.text = [NSString stringWithFormat:@"%@\r\n%@", title, subtitle];
     } else {
         // Create new event
-        self.eventButton.enabled = YES;
-        [self.eventButton setTitle:@"I'm going here for..." forState:UIControlStateNormal];
+        self.eventLabel.text = @"Tell your friends you want to go here\r\nWe'll let them know on Facebook";
+        [self.eventButton setTitle:@"Go" forState:UIControlStateNormal];
         [self.eventButton addTarget:self action:@selector(newEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
@@ -522,12 +565,20 @@ eventButton = _eventButton;
     }
 }
 
-- (void)joinEvent:(UIButton *)button {
-    // Send request to server, update EventManager cache on response
+- (void)leaveEvent:(UIButton *)button {
+    [self mutateEventWithAction:@"leave"];
+}
 
+- (void)joinEvent:(UIButton *)button {
+    [self mutateEventWithAction:@"join"];
+}
+
+- (void)mutateEventWithAction:(NSString *)action {
     self.eventButton.enabled = NO;
+    [self.eventButton setTitle:nil forState:UIControlStateNormal];
+    [self.eventLoadingView startAnimating];
     
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events/%@/join", API_BASE_URL, [self.eventDict objectForKey:@"_id"]];
+    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events/%@/%@", API_BASE_URL, [self.eventDict objectForKey:@"_id"], action];
     
     NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
     NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
@@ -556,12 +607,12 @@ eventButton = _eventButton;
             [[NotificationManager sharedManager] downloadNotifications];
         }
         [self updateFooter];
+        self.eventButton.enabled = YES;
+        [self.eventLoadingView stopAnimating];
     }];
 }
 
 - (void)createEventWithReason:(NSString *)reason {
-    self.eventButton.enabled = NO;
-    
     NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events", API_BASE_URL];
     
     NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
@@ -597,18 +648,6 @@ eventButton = _eventButton;
     }];
 }
 
-- (void)updateEventWithDict:(NSDictionary *)eventDict {
-
-}
-
-- (void)updateEventButtonReason:(NSString *)reason {
-    // TODO: move this to an updateWithReason method
-    if (self.eventButton) {
-        self.eventButton.enabled = NO;
-        [self.eventButton setTitle:[NSString stringWithFormat:@"I'm going here for %@", reason] forState:UIControlStateNormal];
-    }
-}
-
 #pragma mark - State Machine
 - (void)loadDataSource {
     [super loadDataSource];
@@ -632,14 +671,8 @@ eventButton = _eventButton;
         // Delayed footer setup
         [self loadEventWithId:self.eventId];
     } else {
-        // Is there a cached event for this location?
-        NSArray *notifications = [[NotificationManager sharedManager] notifications];
-        for (NSDictionary *event in notifications) {
-            if ([[event objectForKey:@"venueId"] isEqualToString:self.venueId]) {
-                self.eventDict = event;
-            }
-        }
-        [self setupFooter];
+        // Ask server if I have an event here
+        [self findEventForVenueId:self.venueId];
     }
     
     if ([self dataSourceIsEmpty]) {
@@ -654,6 +687,39 @@ eventButton = _eventButton;
 
 - (BOOL)dataSourceIsEmpty {
     return ([self.items count] == 0);
+}
+
+- (void)findEventForVenueId:(NSString *)venueId {
+    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/venues/%@/events", API_BASE_URL, venueId];
+    
+    NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
+    NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
+    NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
+    [parameters setObject:fbId forKey:@"fbId"];
+    [parameters setObject:fbName forKey:@"fbName"];
+    
+    NSURL *URL = [NSURL URLWithString:URLPath];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
+    
+    BLOCK_SELF;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
+        
+        NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
+        
+        if (!error && responseCode == 200) {
+            id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            //        NSLog(@"res: %@", res);
+            if (res && [res isKindOfClass:[NSArray class]] && [res count] > 0) {
+                self.eventDict = [res objectAtIndex:0];
+            }
+        }
+        [self setupFooter]; // delayed footer setup
+    }];
 }
 
 - (void)loadEventWithId:(NSString *)eventId {
@@ -673,11 +739,11 @@ eventButton = _eventButton;
         if (!error && responseCode == 200) {
             id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             //        NSLog(@"res: %@", res);
-            self.eventDict = (NSMutableDictionary *)res;
+            self.eventDict = res;
             [self setupFooter]; // delayed footer setup
         }
     }];
-
+    
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {

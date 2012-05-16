@@ -80,37 +80,42 @@ facepileView = _facepileView;
 
 - (void)tableView:(UITableView *)tableView fillCellWithObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dict = (NSDictionary *)object;
-    NSURL *profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", [dict objectForKey:@"fbId"]]];
+//    NSString *creatorName = [[dict objectForKey:@"attendeeNames"] objectAtIndex:0];
+    NSString *creatorId = [[dict objectForKey:@"attendeeIds"] objectAtIndex:0];
+    
+    NSURL *profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", creatorId]];
     [self.psImageView loadImageWithURL:profileURL];
     
-    NSDate *eventDate = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"timestamp"] doubleValue]];
-    NSString *eventDateString = [eventDate stringWithFormat:@"EEEE, MMMM d"];
+//    NSDate *eventDate = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"timestamp"] doubleValue]];
+//    NSString *eventDateString = [eventDate stringWithFormat:@"EEEE, MMMM d"];
     
     // Attributed message
-    NSString *message = [NSString stringWithFormat:@"%@ is going to %@ for %@ on %@", [dict objectForKey:@"fbName"], [dict objectForKey:@"venueName"], [dict objectForKey:@"reason"], eventDateString];
-    
+    NSString *names = [[dict objectForKey:@"attendeeNames"] componentsJoinedByString:@", "];
+    NSString *isOrAre = ([[dict objectForKey:@"attendeeNames"] count] > 1) ? @"are" : @"is";
+    NSString *message = [NSString stringWithFormat:@"%@ %@ going to %@ for %@", names, isOrAre, [dict objectForKey:@"venueName"], [dict objectForKey:@"reason"]];
     
     [self.messageLabel setText:message afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-        NSRange userNameRange = [[mutableAttributedString string] rangeOfString:[dict objectForKey:@"fbName"] options:NSCaseInsensitiveSearch];
+        NSRange userNameRange = [[mutableAttributedString string] rangeOfString:names options:NSCaseInsensitiveSearch];
         NSRange venueNameRange = [[mutableAttributedString string] rangeOfString:[dict objectForKey:@"venueName"] options:NSCaseInsensitiveSearch];
         NSRange reasonRange = [[mutableAttributedString string] rangeOfString:[dict objectForKey:@"reason"] options:NSCaseInsensitiveSearch];
-        NSRange dateRange = [[mutableAttributedString string] rangeOfString:eventDateString options:NSCaseInsensitiveSearch];
+//        NSRange dateRange = [[mutableAttributedString string] rangeOfString:eventDateString options:NSCaseInsensitiveSearch];
         
         
         //Color
         [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:userNameRange];
         [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:venueNameRange];
         [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:reasonRange];
-        [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:dateRange];
+//        [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:dateRange];
         
         return mutableAttributedString;
     }];
 
-    if ([[dict objectForKey:@"attendees"] count] > 0) {
+    NSArray *friendIds = [[dict objectForKey:@"attendeeIds"] subarrayWithRange:NSMakeRange(1, [[dict objectForKey:@"attendeeIds"] count] - 1)];
+    if (friendIds.count > 0) {
         self.facepileView.hidden = NO;
         
         NSMutableArray *faces = [NSMutableArray array];
-        for (NSString *fbId in [dict objectForKey:@"attendees"]) {
+        for (NSString *fbId in friendIds) {
             NSDictionary *face = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", fbId] forKey:@"url"];
             [faces addObject:face];
         }
@@ -125,19 +130,22 @@ facepileView = _facepileView;
     CGFloat width = 268.0 - MARGIN * 2;
     width -= IMAGE_SIZE + MARGIN;
     
-    NSDate *eventDate = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"timestamp"] doubleValue]];
-    NSString *eventDateString = [eventDate stringWithFormat:@"EEEE, MMMM d"];
+//    NSDate *eventDate = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"timestamp"] doubleValue]];
+//    NSString *eventDateString = [eventDate stringWithFormat:@"EEEE, MMMM d"];
     
-    NSString *message = [NSString stringWithFormat:@"%@ is going to %@ for %@ on %@", [dict objectForKey:@"fbName"], [dict objectForKey:@"venueName"], [dict objectForKey:@"reason"], eventDateString];
+    NSString *names = [[dict objectForKey:@"attendeeNames"] componentsJoinedByString:@", "];
+    NSString *isOrAre = ([[dict objectForKey:@"attendeeNames"] count] > 1) ? @"are" : @"is";
+    NSString *message = [NSString stringWithFormat:@"%@ %@ going to %@ for %@", names, isOrAre, [dict objectForKey:@"venueName"], [dict objectForKey:@"reason"]];
     CGSize labelSize = [PSStyleSheet sizeForText:message width:width style:@"eventMessageLabel"];
     height += labelSize.height;
     
     height = MAX(IMAGE_SIZE, height);
     
-    if ([[dict objectForKey:@"attendees"] count] > 0) {
+    NSArray *friendIds = [[dict objectForKey:@"attendeeIds"] subarrayWithRange:NSMakeRange(1, [[dict objectForKey:@"attendeeIds"] count] - 1)];
+    if (friendIds.count > 0) {
         // has facepile
         NSMutableArray *faces = [NSMutableArray array];
-        for (NSString *fbId in [dict objectForKey:@"attendees"]) {
+        for (NSString *fbId in friendIds) {
             NSDictionary *face = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", fbId] forKey:@"url"];
             [faces addObject:face];
         }

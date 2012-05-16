@@ -56,12 +56,6 @@ loadingLabel = _loadingLabel;
     return self;
 }
 
-- (void)dealloc {
-    self.tableView.delegate = nil;
-    self.tableView.dataSource = nil;
-    
-}
-
 - (void)loadDataSource {
     NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/yelp", API_BASE_URL];
     

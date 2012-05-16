@@ -33,12 +33,16 @@
 
 #pragma mark - View Config
 - (UIColor *)baseBackgroundColor {
-    return [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
+    return RGBCOLOR(50, 50, 50);
 }
 
 #pragma mark - View
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 #pragma mark - Subviews
@@ -56,33 +60,44 @@
     
     
     // Middle
-    UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(0, topView.bottom, self.view.width, self.view.height - 200.0)];
+    UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(0, topView.bottom, self.view.width, 281.0)];
     midView.backgroundColor = RGBCOLOR(50, 50, 50);
     [self.view addSubview:midView];
     
     
     
     // Bottom
-    UIView *botView = [[UIView alloc] initWithFrame:CGRectMake(0, midView.bottom, self.view.width, self.view.height - topView.height - midView.height)];
+    UIView *botView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height - 119, self.view.width, 119)];
     botView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
     [self.view addSubview:botView];
     
+    // Add disclaimer
+    UILabel *disclaimer = [UILabel labelWithText:@"We use facebook to find your friends." style:@"fbDisclaimerLabel"];
+    disclaimer.textAlignment = UITextAlignmentCenter;
+    disclaimer.frame = CGRectMake(0, 10, botView.width, 20.0);
+    [botView addSubview:disclaimer];
+    
     // Add a login button
-    UIButton *fbButton = [UIButton buttonWithFrame:CGRectMake(33, 33, 254, 59) andStyle:nil target:self action:@selector(login:)];
-    [botView addSubview:fbButton];
+    UIButton *fbButton = [UIButton buttonWithFrame:CGRectMake(0, 30.0, botView.width, 59) andStyle:nil target:self action:@selector(login:)];
     [fbButton setImage:[UIImage imageNamed:@"ButtonFacebook"] forState:UIControlStateNormal];
     [fbButton setImage:[UIImage imageNamed:@"ButtonFacebookHighlighted"] forState:UIControlStateHighlighted];
+    [botView addSubview:fbButton];
     
-    // Add disclaimer
-    UILabel *disclaimer = [UILabel labelWithText:@"We use facebook to find your friends." style:@"bodyLabel"];
-    disclaimer.textAlignment = UITextAlignmentCenter;
-    disclaimer.frame = CGRectMake(0, fbButton.bottom + 8.0, botView.width, 28.0);
-    [botView addSubview:disclaimer];
+    // Add exit
+    UIButton *closeButton = [UIButton buttonWithStyle:@"fbNoThanksLabel"];
+    closeButton.frame = CGRectMake(0, botView.height - 30.0, botView.width, 20.0);
+    [closeButton setTitle:@"No Thanks" forState:UIControlStateNormal];
+    [closeButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    [botView addSubview:closeButton];
 }
 
 #pragma mark - Actions
 - (void)login:(UIButton *)button {
     [[PSFacebookCenter defaultCenter] authorizeWithPermissions:FB_PERMISSIONS];
+}
+
+- (void)dismiss {
+    [(PSNavigationController *)self.parentViewController popViewControllerWithDirection:PSNavigationControllerDirectionDown animated:YES];
 }
 
 - (void)uploadAccessToken {

@@ -11,6 +11,7 @@
 #import "EventViewController.h"
 #import "FBConnectViewController.h"
 
+#import "InfoPopoverView.h"
 #import "PSPopoverView.h"
 #import "VenueView.h"
 #import "CategoryChooserView.h"
@@ -71,13 +72,15 @@ hasLoadedOnce = _hasLoadedOnce;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidUpdate) name:kPSLocationCenterDidUpdate object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidFail) name:kPSLocationCenterDidFail object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotifications) name:kNotificationManagerDidUpdate object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(facebookDidLogin) name:kPSFacebookCenterDialogDidSucceed object:nil];
+        
     }
     return self;
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSLocationCenterDidUpdate object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSLocationCenterDidFail object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)refreshOnAppear {
@@ -93,6 +96,10 @@ hasLoadedOnce = _hasLoadedOnce;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
+        [self updateNotifications];
+    }
+    
     // Load
     [self loadDataSource];
 }
@@ -103,6 +110,15 @@ hasLoadedOnce = _hasLoadedOnce;
     if (self.shouldRefreshOnAppear) {
         self.shouldRefreshOnAppear = NO;
         [self reloadDataSource];
+    }
+    
+    NSDate *showDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"showEventPopover"];
+    
+    if ([[showDate earlierDate:[NSDate date]] isEqualToDate:showDate] && ![[PSFacebookCenter defaultCenter] isLoggedIn]) {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:86400] forKey:@"showEventPopover"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        InfoPopoverView *pv = [[InfoPopoverView alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:pv];
     }
 }
 
@@ -512,6 +528,17 @@ hasLoadedOnce = _hasLoadedOnce;
     if (alertView.cancelButtonIndex == buttonIndex) return;
     
     [Appirater rateApp];
+}
+
+#pragma mark - Notifications
+
+- (void)updateNotifications {
+    NSArray *notifications = [[NotificationManager sharedManager] notifications];
+    [self.centerButton setTitle:[NSString stringWithFormat:@"Lunchbox (%d)", notifications.count] forState:UIControlStateNormal];
+}
+
+- (void)facebookDidLogin {
+    [[NotificationManager sharedManager] downloadNotifications];
 }
 
 @end

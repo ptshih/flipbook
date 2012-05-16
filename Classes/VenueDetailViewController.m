@@ -10,7 +10,6 @@
 #import "TipListViewController.h"
 #import "CheckinViewController.h"
 #import "PhotoTagsViewController.h"
-#import "FBConnectViewController.h"
 
 #import "PhotoView.h"
 #import "PSZoomView.h"
@@ -563,13 +562,8 @@ eventButton = _eventButton;
 }
 
 - (void)newEvent:(UIButton *)button {
-    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
-        UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"I'm going here for..." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Coffee/Tea", @"Lunch", @"Dinner", @"Dessert", @"Drinks", nil];
-        [as showInView:self.view];
-    } else {
-        FBConnectViewController *vc = [[FBConnectViewController alloc] initWithNibName:nil bundle:nil];
-        [(PSNavigationController *)self.parentViewController pushViewController:vc direction:PSNavigationControllerDirectionUp animated:YES];
-    }
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"I'm going here for..." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Coffee/Tea", @"Lunch", @"Dinner", @"Dessert", @"Drinks", nil];
+    [as showInView:self.view];
 }
 
 - (void)leaveEvent:(UIButton *)button {
@@ -671,19 +665,23 @@ eventButton = _eventButton;
 - (void)dataSourceDidLoad {
     [super dataSourceDidLoad];
     
+    if ([self dataSourceIsEmpty]) {
+        // Show empty view
+    }
+    
     // Load event
     // Don't setup footer yet if an event was passed in
     // We need to download it to find out what messave to show
-    if (self.eventId) {
-        // Delayed footer setup
-        [self loadEventWithId:self.eventId];
+    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
+        if (self.eventId) {
+            // Delayed footer setup
+            [self loadEventWithId:self.eventId];
+        } else {
+            // Ask server if I have an event here
+            [self findEventForVenueId:self.venueId];
+        }
     } else {
-        // Ask server if I have an event here
-        [self findEventForVenueId:self.venueId];
-    }
-    
-    if ([self dataSourceIsEmpty]) {
-        // Show empty view
+        // noop
     }
 }
 

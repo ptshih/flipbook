@@ -513,5 +513,62 @@
 		<key>numberOfLines</key>
 		<integer>1</integer>
 	</dict>
+	<key>fbDisclaimerLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0x2a2a2a</string>
+		<key>highlightedTextColor</key>
+		<string>0x2a2a2a</string>
+		<key>textAlignment</key>
+		<string>center</string>
+		<key>shadowColor</key>
+		<string>0xffffff</string>
+		<key>shadowOffset</key>
+		<string>{0,0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>fbNoThanksLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0x3B5998</string>
+		<key>highlightedTextColor</key>
+		<string>0x3B5998</string>
+		<key>textAlignment</key>
+		<string>center</string>
+		<key>shadowColor</key>
+		<string>0xffffff</string>
+		<key>shadowOffset</key>
+		<string>{0,0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>infoPopoverLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>Gotham-Book</string>
+		<key>fontSize</key>
+		<integer>14</integer>
+		<key>textColor</key>
+		<string>0x2a2a2a</string>
+		<key>highlightedTextColor</key>
+		<string>0x2a2a2a</string>
+		<key>textAlignment</key>
+		<string>center</string>
+		<key>shadowColor</key>
+		<string>0xffffff</string>
+		<key>shadowOffset</key>
+		<string>{0,0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
 </dict>
 </plist>

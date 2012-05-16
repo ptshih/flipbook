@@ -401,8 +401,14 @@ hasLoadedOnce = _hasLoadedOnce;
                     [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
                     
                     // Location
-                    if ([venue objectForKey:@"location"]) {
-                        [item setObject:[venue objectForKey:@"location"] forKey:@"location"];
+                    NSDictionary *location = [venue objectForKey:@"location"];
+                    if (location) {
+                        // If bad address, skip
+                        if (!NOT_NULL([location objectForKey:@"address"]) || !NOT_NULL([location objectForKey:@"city"]) || !NOT_NULL([location objectForKey:@"state"])) {
+                            continue;
+                        }
+                        
+                        [item setObject:location forKey:@"location"];
                     } else {
                         continue;
                     }
@@ -423,7 +429,10 @@ hasLoadedOnce = _hasLoadedOnce;
                     NSString *photoURLPath = nil;
                     NSNumber *photoWidth = nil;
                     NSNumber *photoHeight = nil;
+                    BOOL hasPhoto = NO;
                     if ([venue objectForKey:@"photos"]) {
+                        hasPhoto = YES;
+                        
                         photoURLPath = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndex:0] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"url"];
                         
                         photoWidth = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndex:0] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"width"];
@@ -449,7 +458,10 @@ hasLoadedOnce = _hasLoadedOnce;
                     }
                     
                     // Tip
+                    BOOL hasTip = NO;
                     if (tips && tips.count > 0 && [tips notNull]) {
+                        hasTip = YES;
+                        
                         NSDictionary *tip = [tips objectAtIndex:0];
                         
                         NSDictionary *tipUser = [tip objectForKey:@"user"];
@@ -459,6 +471,11 @@ hasLoadedOnce = _hasLoadedOnce;
                         
                         [item setObject:tipUserName forKey:@"tipUserName"];
                         [item setObject:tipText forKey:@"tipText"];
+                    }
+                    
+                    // If no photo AND no tip, skip
+                    if (!hasTip && !hasPhoto) {
+                        continue;
                     }
                     
                     [items addObject:item];

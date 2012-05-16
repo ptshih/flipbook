@@ -77,6 +77,8 @@ hasPhoto = _hasPhoto;
     NSString *fsAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fsAccessToken"];
     
     if (!fsAccessToken) {
+        self.rightButton.userInteractionEnabled = NO;
+        
         // show webview
         self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
         self.webView.top = self.headerView.bottom;
@@ -411,6 +413,7 @@ hasPhoto = _hasPhoto;
             } completion:^(BOOL finished){
                 [webView removeFromSuperview];
                 [blockSelf.textView becomeFirstResponder];
+                self.rightButton.userInteractionEnabled = YES;
             }];
         }
     }

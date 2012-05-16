@@ -21,6 +21,8 @@
 
 #import "EventManager.h"
 
+#import "ActionSheetPicker.h"
+
 static NSNumberFormatter *__numberFormatter = nil;
 
 @interface VenueDetailViewController () <PSPopoverViewDelegate, UIActionSheetDelegate>
@@ -179,7 +181,10 @@ eventButton = _eventButton;
     
     // Address
     UIButton *addressButton = nil;
-    NSString *formattedAddress = [NSString stringWithFormat:@"%@ %@, %@ %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"], [location objectForKey:@"postalCode"]];
+    NSString *formattedAddress = [NSString stringWithFormat:@"%@ %@, %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"]];
+    if ([location objectForKey:@"postalCode"]) {
+        formattedAddress = [formattedAddress stringByAppendingFormat:@" %@", [location objectForKey:@"postalCode"]];
+    }
     
     if (formattedAddress) {
         UIImageView *addressIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPinMiniBlack"]];
@@ -381,7 +386,7 @@ eventButton = _eventButton;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.rightButton setImage:[UIImage imageNamed:@"IconYelpWhite"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconCameraWhite"] forState:UIControlStateNormal];
     self.rightButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     self.rightButton.userInteractionEnabled = NO;
     
@@ -438,6 +443,7 @@ eventButton = _eventButton;
 - (void)updateHeader {
     // Call this when venueDict is ready to re-enable header actions
     [self.centerButton setTitle:[self.venueDict objectForKey:@"name"] forState:UIControlStateNormal];
+    self.centerButton.userInteractionEnabled = YES;
     self.rightButton.userInteractionEnabled = YES;
 }
 
@@ -481,7 +487,7 @@ eventButton = _eventButton;
         
         // Button
         if ([attendeeIds containsObject:fbId]) {
-            [self.eventButton setTitle:@"Leave" forState:UIControlStateNormal];
+            [self.eventButton setTitle:@"Edit" forState:UIControlStateNormal];
             [self.eventButton addTarget:self action:@selector(leaveEvent:) forControlEvents:UIControlEventTouchUpInside];
         } else {
             [self.eventButton setTitle:@"Join" forState:UIControlStateNormal];
@@ -503,29 +509,23 @@ eventButton = _eventButton;
 }
 
 - (void)centerAction {
-//    YelpPopoverView *v = [[YelpPopoverView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, 288, 154)]; // 218
-//    PSPopoverView *pv = [[PSPopoverView alloc] initWithTitle:@"Powered by Yelp" contentView:v];
-//    pv.delegate = self;
-//    [pv showWithSize:v.frame.size inView:self.view];
-}
-
-- (void)rightAction {
     YelpPopoverView *v = [[YelpPopoverView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, 288, 154)]; // 218
     PSPopoverView *pv = [[PSPopoverView alloc] initWithTitle:@"Powered by Yelp" contentView:v];
     pv.delegate = self;
     [pv showWithSize:v.frame.size inView:self.view];
-    
-    return;
+}
+
+- (void)rightAction {
     
     // Take a photo
-    //    PhotoTagsViewController *vc = [[PhotoTagsViewController alloc] initWithDictionary:self.venueDict];
-    //    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-    
-    // Checkin
-//    CheckinViewController *vc = [[CheckinViewController alloc] initWithDictionary:self.venueDict];
+//    PhotoTagsViewController *vc = [[PhotoTagsViewController alloc] initWithDictionary:self.venueDict];
 //    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     
-//    return;
+    // Checkin
+    CheckinViewController *vc = [[CheckinViewController alloc] initWithDictionary:self.venueDict];
+    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    
+    return;
     //    
     //    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
     //    av.tag = kAlertTagFoursquare;
@@ -559,12 +559,26 @@ eventButton = _eventButton;
 }
 
 - (void)newEvent:(UIButton *)button {
-    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"I'm going here for..." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Coffee/Tea", @"Lunch", @"Dinner", @"Dessert", @"Drinks", nil];
-    [as showInView:self.view];
+    ActionStringDoneBlock done = ^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+        
+        NSString *reason = selectedValue;
+        
+        [self createEventWithReason:reason];
+    };
+    ActionStringCancelBlock cancel = ^(ActionSheetStringPicker *picker) {
+        NSLog(@"Block Picker Canceled");
+    };
+    
+    NSArray *times = [NSArray arrayWithObjects:@"Coffee/Tea", @"Lunch", @"Dinner", @"Dessert", @"Drinks", nil];
+    [ActionSheetStringPicker showPickerWithTitle:@"When are you going?" rows:times initialSelection:0 doneBlock:done cancelBlock:cancel origin:button];
+    
+//    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"I'm going here for..." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Coffee/Tea", @"Lunch", @"Dinner", @"Dessert", @"Drinks", nil];
+//    [as showInView:self.view];
 }
 
 - (void)leaveEvent:(UIButton *)button {
-    [self mutateEventWithAction:@"leave"];
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"Change your attendance?" delegate:self cancelButtonTitle:@"Nevermind" destructiveButtonTitle:nil otherButtonTitles:@"Not going anymore", nil];
+    [as showInView:self.view];
 }
 
 - (void)joinEvent:(UIButton *)button {
@@ -946,7 +960,10 @@ eventButton = _eventButton;
 #pragma mark - Button Actions
 - (void)openAddress:(id)sender {
     NSDictionary *location = [self.venueDict objectForKey:@"location"];
-    NSString *formattedAddress = [NSString stringWithFormat:@"%@ %@, %@ %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"], [location objectForKey:@"postalCode"]];
+    NSString *formattedAddress = [NSString stringWithFormat:@"%@ %@, %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"]];
+    if ([location objectForKey:@"postalCode"]) {
+        formattedAddress = [formattedAddress stringByAppendingFormat:@" %@", [location objectForKey:@"postalCode"]];
+    }
     NSString *urlString = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", [formattedAddress stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
@@ -975,7 +992,9 @@ eventButton = _eventButton;
     
     NSString *reason = [actionSheet buttonTitleAtIndex:buttonIndex];
     
-    [self createEventWithReason:reason];
+    if ([reason isEqualToString:@"Not going anymore"]) {
+        [self mutateEventWithAction:@"leave"];
+    }
 }
 
 @end

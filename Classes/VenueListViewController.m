@@ -202,8 +202,8 @@ hasLoadedOnce = _hasLoadedOnce;
     
     return;
     
-    //    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
-    //    LocationChooserView *cv = [[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion];
+//        CGFloat radius = self.radius > 0 ? self.radius : 400.0;
+//        MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, radius * 2, radius * 2);
     //    PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv];
     //    popoverView.tag = kPopoverLocation;
     //    popoverView.delegate = self;
@@ -211,7 +211,8 @@ hasLoadedOnce = _hasLoadedOnce;
 }
 
 - (void)rightAction {
-    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, self.radius * 2, self.radius * 2);
+    CGFloat radius = self.radius > 0 ? self.radius : 400.0;
+    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, radius * 2, radius * 2);
     LocationChooserView *cv = [[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion];
     PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv];
     popoverView.tag = kPopoverLocation;

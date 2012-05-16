@@ -382,7 +382,7 @@ eventButton = _eventButton;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.rightButton setImage:[UIImage imageNamed:@"IconCameraWhite"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconYelpWhite"] forState:UIControlStateNormal];
     self.rightButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     self.rightButton.userInteractionEnabled = NO;
     
@@ -514,15 +514,22 @@ eventButton = _eventButton;
 }
 
 - (void)rightAction {
+    YelpPopoverView *v = [[YelpPopoverView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, 288, 154)]; // 218
+    PSPopoverView *pv = [[PSPopoverView alloc] initWithTitle:@"Powered by Yelp" contentView:v];
+    pv.delegate = self;
+    [pv showWithSize:v.frame.size inView:self.view];
+    
+    return;
+    
     // Take a photo
     //    PhotoTagsViewController *vc = [[PhotoTagsViewController alloc] initWithDictionary:self.venueDict];
     //    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     
     // Checkin
-    CheckinViewController *vc = [[CheckinViewController alloc] initWithDictionary:self.venueDict];
-    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+//    CheckinViewController *vc = [[CheckinViewController alloc] initWithDictionary:self.venueDict];
+//    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     
-    return;
+//    return;
     //    
     //    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
     //    av.tag = kAlertTagFoursquare;

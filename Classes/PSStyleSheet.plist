@@ -62,13 +62,34 @@
 	<key>popoverTitleLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>HelveticaNeueLT-BoldCond</string>
 		<key>fontSize</key>
 		<integer>17</integer>
 		<key>textColor</key>
 		<string>0xefefef</string>
+		<key>highlightedTextColor</key>
+		<string>0xefefef</string>
 		<key>shadowColor</key>
 		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0,1}</string>
+		<key>numberOfLines</key>
+		<integer>1</integer>
+		<key>textAlignment</key>
+		<string>center</string>
+	</dict>
+	<key>popoverSearchLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue-Bold</string>
+		<key>fontSize</key>
+		<integer>14</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>shadowColor</key>
+		<string>0xffffff</string>
 		<key>shadowOffset</key>
 		<string>{0,1}</string>
 		<key>numberOfLines</key>

@@ -44,6 +44,8 @@ locationDidChange = _locationDidChange;
         queryView.layer.masksToBounds = YES;
         queryView.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
         queryView.layer.borderWidth = 1.0;
+        queryView.layer.shouldRasterize = YES;
+        queryView.layer.rasterizationScale = [UIScreen mainScreen].scale;
         
         PSTextField *queryField = [[PSTextField alloc] initWithFrame:queryView.bounds withInset:UIEdgeInsetsMake(8, 8, 8, 8)];
         [PSStyleSheet applyStyle:@"queryField" forTextField:queryField];
@@ -86,26 +88,27 @@ locationDidChange = _locationDidChange;
         currentLocationButton.layer.masksToBounds = YES;
         currentLocationButton.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
         currentLocationButton.layer.borderWidth = 1.0;
+        currentLocationButton.layer.shouldRasterize = YES;
+        currentLocationButton.layer.rasterizationScale = [UIScreen mainScreen].scale;
         [currentLocationButton addTarget:self action:@selector(centerCurrentLocation) forControlEvents:UIControlEventTouchUpInside];
         [self.mapView addSubview:currentLocationButton];
         
         UIButton *redoSearchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [redoSearchButton setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
         redoSearchButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
-        redoSearchButton.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
-        redoSearchButton.layer.cornerRadius = 4.0;
-        redoSearchButton.layer.masksToBounds = YES;
-        redoSearchButton.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
-        redoSearchButton.layer.borderWidth = 1.0;
+//        redoSearchButton.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
+//        redoSearchButton.layer.cornerRadius = 4.0;
+//        redoSearchButton.layer.masksToBounds = YES;
+//        redoSearchButton.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
+//        redoSearchButton.layer.borderWidth = 1.0;
         [redoSearchButton addTarget:self action:@selector(redoSearch) forControlEvents:UIControlEventTouchUpInside];
-        redoSearchButton.height = 36;
-        redoSearchButton.width = self.mapView.width - 16;
-        redoSearchButton.left = 8;
-        redoSearchButton.top = self.mapView.height - 8 - 36;
+        redoSearchButton.height = 31;
+        redoSearchButton.width = self.mapView.width / 2;
+        redoSearchButton.left = self.mapView.width / 2 - 8;
+        redoSearchButton.top = self.mapView.height - 8 - 31;
         [redoSearchButton setTitle:@"Search In This Area" forState:UIControlStateNormal];
-        [PSStyleSheet applyStyle:@"popoverTitleLabel" forButton:redoSearchButton];
+        [PSStyleSheet applyStyle:@"popoverSearchLabel" forButton:redoSearchButton];
         [self.mapView addSubview:redoSearchButton];
-        
-        
     }
     return self;
 }

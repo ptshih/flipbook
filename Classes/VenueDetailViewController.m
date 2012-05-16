@@ -28,8 +28,8 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 @property (nonatomic, copy) NSString *venueId;
 @property (nonatomic, copy) NSString *eventId;
-@property (nonatomic, strong) NSMutableDictionary *venueDict;
-@property (nonatomic, strong) NSMutableDictionary *eventDict;
+@property (nonatomic, strong) NSDictionary *venueDict;
+@property (nonatomic, strong) NSDictionary *eventDict;
 @property (nonatomic, strong) MKMapView *mapView;
 
 @property (nonatomic, weak) UIButton *eventButton;
@@ -71,7 +71,7 @@ eventButton = _eventButton;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.shouldAddRoundedCorners = YES;
-        self.shouldPullRefresh = YES;
+//        self.shouldPullRefresh = YES;
     }
     return self;
 }
@@ -551,7 +551,9 @@ eventButton = _eventButton;
         if (!error && responseCode == 200) {
             id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             //        NSLog(@"res: %@", res);
-            self.eventDict = (NSMutableDictionary *)res;
+            self.eventDict = res;
+            
+            [[NotificationManager sharedManager] downloadNotifications];
         }
         [self updateFooter];
     }];
@@ -587,7 +589,9 @@ eventButton = _eventButton;
         if (!error && responseCode == 200) {
             id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             //        NSLog(@"res: %@", res);
-            self.eventDict = (NSMutableDictionary *)res;
+            self.eventDict = res;
+            
+            [[NotificationManager sharedManager] downloadNotifications];
         }
         [self updateFooter];
     }];
@@ -612,15 +616,14 @@ eventButton = _eventButton;
     [self loadDataSourceFromRemoteUsingCache:YES];
 }
 
-- (void)reloadDataSource {
-    [super reloadDataSource];
-    
-    [self loadDataSourceFromRemoteUsingCache:NO];
-}
+//- (void)reloadDataSource {
+//    [super reloadDataSource];
+//    
+//    [self loadDataSourceFromRemoteUsingCache:NO];
+//}
 
 - (void)dataSourceDidLoad {
     [super dataSourceDidLoad];
-    
     
     // Load event
     // Don't setup footer yet if an event was passed in
@@ -629,6 +632,13 @@ eventButton = _eventButton;
         // Delayed footer setup
         [self loadEventWithId:self.eventId];
     } else {
+        // Is there a cached event for this location?
+        NSArray *notifications = [[NotificationManager sharedManager] notifications];
+        for (NSDictionary *event in notifications) {
+            if ([[event objectForKey:@"venueId"] isEqualToString:self.venueId]) {
+                self.eventDict = event;
+            }
+        }
         [self setupFooter];
     }
     
@@ -682,7 +692,7 @@ eventButton = _eventButton;
         ASSERT_MAIN_THREAD;
         if (error) {
             [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
-            self.venueDict = nil;
+            blockSelf.venueDict = nil;
             [blockSelf.items removeAllObjects];
             [blockSelf dataSourceDidError];
         } else {
@@ -691,38 +701,41 @@ eventButton = _eventButton;
             
             if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
                 // Parse out venueDict
-                self.venueDict = [NSMutableDictionary dictionary];
+                
+                NSMutableDictionary *venueDict = [NSMutableDictionary dictionary];
                 
                 // id and name
-                [self.venueDict setObject:[apiResponse objectForKey:@"id"] forKey:@"id"];
-                [self.venueDict setObject:[apiResponse objectForKey:@"name"] forKey:@"name"];
+                [venueDict setObject:[apiResponse objectForKey:@"id"] forKey:@"id"];
+                [venueDict setObject:[apiResponse objectForKey:@"name"] forKey:@"name"];
                 
                 // location
-                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"location"]) forKey:@"location"];
+                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"location"]) forKey:@"location"];
                 
                 // contact
-                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"contact"]) forKey:@"contact"];
+                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"contact"]) forKey:@"contact"];
                 
                 // url
-                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"url"]) forKey:@"url"];
+                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"url"]) forKey:@"url"];
                 
                 // categories
-                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"categories"]) forKey:@"categories"];
+                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"categories"]) forKey:@"categories"];
                 
                 // stats
-                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"stats"]) forKey:@"stats"];
+                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"stats"]) forKey:@"stats"];
                 
                 // menu
-                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"menu"]) forKey:@"menu"];
+                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"menu"]) forKey:@"menu"];
                 
                 // reservations
-                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"reservations"]) forKey:@"reservations"];
+                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"reservations"]) forKey:@"reservations"];
                 
                 // tips
-                [self.venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"tips"]) forKey:@"tips"];
+                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"tips"]) forKey:@"tips"];
+                
+                blockSelf.venueDict = [NSDictionary dictionaryWithDictionary:venueDict];
                 
                 // load/setup the headers
-                [self setupVenueSubviews];
+                [blockSelf setupVenueSubviews];
                 
                 // Parse out the photos
                 NSMutableArray *items = [NSMutableArray array];
@@ -750,7 +763,7 @@ eventButton = _eventButton;
                 
             } else {
                 // Error in apiResponse
-                self.venueDict = nil;
+                blockSelf.venueDict = nil;
                 [blockSelf.items removeAllObjects];
                 [blockSelf dataSourceDidError];
             }

@@ -7,6 +7,7 @@
 //
 
 #import "EventCell.h"
+#import "PSFacepileView.h"
 
 #define MARGIN 8.0
 #define IMAGE_SIZE 40.0
@@ -14,13 +15,15 @@
 @interface EventCell ()
 
 @property (nonatomic, strong) TTTAttributedLabel *messageLabel;
+@property (nonatomic, strong) PSFacepileView *facepileView;
 
 @end
 
 @implementation EventCell
 
 @synthesize
-messageLabel = _messageLabel;
+messageLabel = _messageLabel,
+facepileView = _facepileView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -34,10 +37,20 @@ messageLabel = _messageLabel;
         [PSStyleSheet applyStyle:@"eventMessageLabel" forLabel:self.messageLabel];
         [self.contentView addSubview:self.messageLabel];
         
+        self.facepileView = [[PSFacepileView alloc] initWithFrame:CGRectZero];
+        self.facepileView.hidden = YES;
+        [self.contentView addSubview:self.facepileView];
+        
         self.selectionStyle = UITableViewCellSelectionStyleBlue;
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return self;
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    
+    [self.facepileView prepareForReuse];
 }
 
 - (void)layoutSubviews {
@@ -57,10 +70,12 @@ messageLabel = _messageLabel;
     labelSize = [PSStyleSheet sizeForText:self.messageLabel.text width:width style:@"eventMessageLabel"];
     self.messageLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
-//    top = self.textLabel.bottom;
+    top = self.messageLabel.bottom;
     
-//    self.detailTextLabel.frame = CGRectMake(left, top, width, 25.0);
-//    top = self.detailTextLabel.bottom;
+    if (!self.facepileView.hidden) {
+        self.facepileView.top = top;
+        self.facepileView.left = left;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView fillCellWithObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
@@ -90,15 +105,17 @@ messageLabel = _messageLabel;
         
         return mutableAttributedString;
     }];
-    
-//    self.textLabel.text = message;
-//    self.detailTextLabel.text = [dict objectForKey:@"venueId"];
-    
-//    UIButton *accessoryButton = [UIButton buttonWithFrame:CGRectMake(0, 0, 44, 44) andStyle:nil target:self action:@selector(accessoryButtonTapped:withEvent:)];
-//    [accessoryButton setImage:[UIImage imageNamed:@"IconPlusWhite"] forState:UIControlStateNormal];
-//    
-//    self.accessoryView = accessoryButton;
-//    self.parentTableView = tableView;
+
+    if ([[dict objectForKey:@"attendees"] count] > 0) {
+        self.facepileView.hidden = NO;
+        
+        NSMutableArray *faces = [NSMutableArray array];
+        for (NSString *fbId in [dict objectForKey:@"attendees"]) {
+            NSDictionary *face = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", fbId] forKey:@"url"];
+            [faces addObject:face];
+        }
+        [self.facepileView loadWithFaces:faces];
+    }
 }
 
 + (CGFloat)rowHeightForObject:(id)object atIndexPath:(NSIndexPath *)indexPath forInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -116,6 +133,17 @@ messageLabel = _messageLabel;
     height += labelSize.height;
     
     height = MAX(IMAGE_SIZE, height);
+    
+    if ([[dict objectForKey:@"attendees"] count] > 0) {
+        // has facepile
+        NSMutableArray *faces = [NSMutableArray array];
+        for (NSString *fbId in [dict objectForKey:@"attendees"]) {
+            NSDictionary *face = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", fbId] forKey:@"url"];
+            [faces addObject:face];
+        }
+        CGFloat facepileHeight = [PSFacepileView heightWithFaces:faces];
+        height += facepileHeight;
+    }
     
     height += MARGIN * 2;
     

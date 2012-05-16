@@ -454,5 +454,24 @@
 		<key>numberOfLines</key>
 		<integer>1</integer>
 	</dict>
+	<key>facepileMoreLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue-Bold</string>
+		<key>fontSize</key>
+		<integer>13</integer>
+		<key>textColor</key>
+		<string>0x2a2a2a</string>
+		<key>highlightedTextColor</key>
+		<string>0x2a2a2a</string>
+		<key>textAlignment</key>
+		<string>center</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>1</integer>
+	</dict>
 </dict>
 </plist>

@@ -963,6 +963,9 @@
 		28F1F5D11562D4D100142939 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5D01562D4D100142939 /* NotificationManager.m */; };
 		28F1F5D21562D4D100142939 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5D01562D4D100142939 /* NotificationManager.m */; };
 		28F1F5D31562D4D100142939 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5D01562D4D100142939 /* NotificationManager.m */; };
+		28F1F5EF1563200500142939 /* PSFacepileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5EE1563200500142939 /* PSFacepileView.m */; };
+		28F1F5F01563200500142939 /* PSFacepileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5EE1563200500142939 /* PSFacepileView.m */; };
+		28F1F5F11563200500142939 /* PSFacepileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5EE1563200500142939 /* PSFacepileView.m */; };
 		D0BBA7B01548819D006CD0B7 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; };
 		D0BBA7B11548819D006CD0B7 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D0BBA7B31548819D006CD0B7 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */; };
@@ -1259,6 +1262,8 @@
 		28EDA6C815354130001BF4D1 /* AddPhotoBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddPhotoBackground.png; sourceTree = "<group>"; };
 		28F1F5CF1562D4D100142939 /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		28F1F5D01562D4D100142939 /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
+		28F1F5ED1563200400142939 /* PSFacepileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSFacepileView.h; sourceTree = "<group>"; };
+		28F1F5EE1563200500142939 /* PSFacepileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSFacepileView.m; sourceTree = "<group>"; };
 		28F38D601498442E009D58BA /* IconMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconMore.png; sourceTree = "<group>"; };
 		28F38D611498442E009D58BA /* IconMore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconMore@2x.png"; sourceTree = "<group>"; };
 		28F49074151EA9540050A423 /* ShadowFlattened.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShadowFlattened.png; sourceTree = "<group>"; };
@@ -1972,6 +1977,8 @@
 				28603B4314AA860700541BB1 /* PSZoomView.m */,
 				286987861475CEEC00B40860 /* PSCell.h */,
 				286987871475CEEC00B40860 /* PSCell.m */,
+				28F1F5ED1563200400142939 /* PSFacepileView.h */,
+				28F1F5EE1563200500142939 /* PSFacepileView.m */,
 				2869878C1475CEEC00B40860 /* PSImageView.h */,
 				2869878D1475CEEC00B40860 /* PSImageView.m */,
 				2869878F1475CEEC00B40860 /* PSErrorView.h */,
@@ -3406,6 +3413,7 @@
 				28488ED11560EF260012C7D0 /* EventViewController.m in Sources */,
 				28488EF915610AC70012C7D0 /* FBConnectViewController.m in Sources */,
 				28F1F5D31562D4D100142939 /* NotificationManager.m in Sources */,
+				28F1F5F11563200500142939 /* PSFacepileView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3523,6 +3531,7 @@
 				28488ED01560EF260012C7D0 /* EventViewController.m in Sources */,
 				28488EF815610AC70012C7D0 /* FBConnectViewController.m in Sources */,
 				28F1F5D21562D4D100142939 /* NotificationManager.m in Sources */,
+				28F1F5F01563200500142939 /* PSFacepileView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3640,6 +3649,7 @@
 				28488ECF1560EF260012C7D0 /* EventViewController.m in Sources */,
 				28488EF715610AC70012C7D0 /* FBConnectViewController.m in Sources */,
 				28F1F5D11562D4D100142939 /* NotificationManager.m in Sources */,
+				28F1F5EF1563200500142939 /* PSFacepileView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

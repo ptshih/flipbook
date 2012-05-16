@@ -10,5 +10,7 @@
 	<date>1970-01-01T08:00:00Z</date>
 	<key>showEventPopover</key>
 	<date>1970-01-01T08:00:00Z</date>
+	<key>shouldPostToFacebook</key>
+	<true/>
 </dict>
 </plist>

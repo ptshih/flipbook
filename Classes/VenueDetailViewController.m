@@ -437,10 +437,7 @@ eventButton = _eventButton;
 
 - (void)updateHeader {
     // Call this when venueDict is ready to re-enable header actions
-    
     [self.centerButton setTitle:[self.venueDict objectForKey:@"name"] forState:UIControlStateNormal];
-    self.centerButton.userInteractionEnabled = YES;
-    
     self.rightButton.userInteractionEnabled = YES;
 }
 
@@ -506,10 +503,10 @@ eventButton = _eventButton;
 }
 
 - (void)centerAction {
-    YelpPopoverView *v = [[YelpPopoverView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, 288, 154)]; // 218
-    PSPopoverView *pv = [[PSPopoverView alloc] initWithTitle:@"Powered by Yelp" contentView:v];
-    pv.delegate = self;
-    [pv showWithSize:v.frame.size inView:self.view];
+//    YelpPopoverView *v = [[YelpPopoverView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, 288, 154)]; // 218
+//    PSPopoverView *pv = [[PSPopoverView alloc] initWithTitle:@"Powered by Yelp" contentView:v];
+//    pv.delegate = self;
+//    [pv showWithSize:v.frame.size inView:self.view];
 }
 
 - (void)rightAction {
@@ -584,10 +581,13 @@ eventButton = _eventButton;
     NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
     NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
     NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
+    BOOL shouldPost = [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldPostToFacebook"];
+    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
     [parameters setObject:fbId forKey:@"fbId"];
     [parameters setObject:fbName forKey:@"fbName"];
+    [parameters setObject:[NSNumber numberWithBool:shouldPost] forKey:@"shouldPostToFacebook"];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
@@ -619,6 +619,8 @@ eventButton = _eventButton;
     NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
     NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
     NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
+    BOOL shouldPost = [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldPostToFacebook"];
+    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
     [parameters setObject:fbId forKey:@"fbId"];
@@ -626,6 +628,7 @@ eventButton = _eventButton;
     [parameters setObject:[self.venueDict objectForKey:@"id"] forKey:@"venueId"];
     [parameters setObject:[self.venueDict objectForKey:@"name"] forKey:@"venueName"];
     [parameters setObject:reason forKey:@"reason"];
+    [parameters setObject:[NSNumber numberWithBool:shouldPost] forKey:@"shouldPostToFacebook"];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];

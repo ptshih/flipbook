@@ -10,6 +10,7 @@
 #import "VenueDetailViewController.h"
 #import "EventViewController.h"
 #import "FBConnectViewController.h"
+#import "SettingsViewController.h"
 
 #import "InfoPopoverView.h"
 #import "PSPopoverView.h"
@@ -118,7 +119,13 @@ hasLoadedOnce = _hasLoadedOnce;
         [[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:86400] forKey:@"showEventPopover"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         InfoPopoverView *pv = [[InfoPopoverView alloc] initWithFrame:self.view.bounds];
-        [self.view addSubview:pv];
+        pv.alpha = 0.0;
+        
+        [UIView animateWithDuration:0.4 animations:^{
+            pv.alpha = 1.0;
+        } completion:^(BOOL finished) {
+            [self.view addSubview:pv];
+        }];
     }
 }
 
@@ -180,8 +187,18 @@ hasLoadedOnce = _hasLoadedOnce;
     
     UILabel *locationLabel = [UILabel labelWithText:@"Trying to locate you..." style:@"locationLabel"];
     self.locationLabel = locationLabel;
-    locationLabel.frame = self.footerView.bounds;
+    locationLabel.frame = CGRectInset(self.footerView.bounds, 32, 0);
     locationLabel.autoresizingMask = self.footerView.autoresizingMask;
+    
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(rightAction)];
+    [locationLabel addGestureRecognizer:gr];
+    
+    UIButton *settingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    settingsButton.frame = CGRectMake(self.footerView.width - 20 - 8, 8, 16, 16);
+    
+    [settingsButton setBackgroundImage:[UIImage imageNamed:@"IconGearWhite"] forState:UIControlStateNormal];
+    [settingsButton addTarget:self action:@selector(showSettings) forControlEvents:UIControlEventTouchUpInside];
+    [self.footerView addSubview:settingsButton];
     
     // Add to subviews
     [self.footerView addSubview:locationLabel];
@@ -243,6 +260,11 @@ hasLoadedOnce = _hasLoadedOnce;
     //    popoverView.delegate = self;
     //    
     //    [popoverView showWithSize:cv.frame.size inView:self.view];
+}
+
+- (void)showSettings {
+    SettingsViewController *vc = [[SettingsViewController alloc] initWithNibName:nil bundle:nil];
+    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Location Notification

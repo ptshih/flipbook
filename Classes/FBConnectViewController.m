@@ -52,7 +52,7 @@
     topView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
     [self.view addSubview:topView];
     
-    UILabel *logo = [UILabel labelWithText:@"Tell Your Friends" style:@"h1Label"];
+    UILabel *logo = [UILabel labelWithText:@"Share Your Plans With Friends" style:@"h1Label"];
     logo.textAlignment = UITextAlignmentCenter;
     logo.frame = topView.bounds;
     [topView addSubview:logo];
@@ -60,10 +60,20 @@
     
     
     // Middle
-    UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(0, topView.bottom, self.view.width, 281.0)];
+    UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(0, topView.bottom, self.view.width, self.view.height - 60 - 119)];
     midView.backgroundColor = RGBCOLOR(50, 50, 50);
     [self.view addSubview:midView];
     
+    
+    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"InfoPopover"]];
+    bg.top = 10.0;
+    bg.left = floorf((midView.width - bg.width) / 2);
+    [midView addSubview:bg];
+    
+    UILabel *infoLabel = [UILabel labelWithStyle:@"infoPopoverLabel"];
+    infoLabel.text = @"Sign in with Facebook to Try!\r\n\r\nIn this version of Lunchbox, you can tell your friends that you plan on going somewhere for Coffee/Tea, Lunch, Dinner, Dessert, or Drinks!";
+    infoLabel.frame = UIEdgeInsetsInsetRect(bg.bounds, UIEdgeInsetsMake(30, 30, 42, 30));
+    [bg addSubview:infoLabel];
     
     
     // Bottom

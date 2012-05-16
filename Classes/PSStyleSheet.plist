@@ -199,7 +199,7 @@
 		<key>fontName</key>
 		<string>HelveticaNeueLT-BoldCond</string>
 		<key>fontSize</key>
-		<integer>18</integer>
+		<integer>17</integer>
 		<key>textColor</key>
 		<string>0x222222</string>
 		<key>highlightedTextColor</key>
@@ -211,7 +211,7 @@
 		<key>shadowOffset</key>
 		<string>{0, 0}</string>
 		<key>numberOfLines</key>
-		<integer>3</integer>
+		<integer>1</integer>
 	</dict>
 	<key>h3Label</key>
 	<dict>

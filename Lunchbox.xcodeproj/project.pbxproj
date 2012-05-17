@@ -142,6 +142,9 @@
 		281EEB141564428600B3E7D3 /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 281EEB071564428600B3E7D3 /* DistancePickerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		281EEB151564428600B3E7D3 /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 281EEB071564428600B3E7D3 /* DistancePickerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		281EEB161564428600B3E7D3 /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 281EEB071564428600B3E7D3 /* DistancePickerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		281EEB4B156453F500B3E7D3 /* PSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 281EEB4A156453F500B3E7D3 /* PSWebViewController.m */; };
+		281EEB4C156453F500B3E7D3 /* PSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 281EEB4A156453F500B3E7D3 /* PSWebViewController.m */; };
+		281EEB4D156453F500B3E7D3 /* PSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 281EEB4A156453F500B3E7D3 /* PSWebViewController.m */; };
 		281F49841545BCC10066DD70 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818CE14723F1D007E4827 /* main.m */; };
 		281F49851545BCC10066DD70 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818D214723F1D007E4827 /* AppDelegate.m */; };
 		281F49861545BCC10066DD70 /* NSArray+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987401475CEEC00B40860 /* NSArray+PSKit.m */; };
@@ -1142,6 +1145,8 @@
 		281EEB051564428600B3E7D3 /* ActionSheetStringPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetStringPicker.m; sourceTree = "<group>"; };
 		281EEB061564428600B3E7D3 /* DistancePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistancePickerView.h; sourceTree = "<group>"; };
 		281EEB071564428600B3E7D3 /* DistancePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistancePickerView.m; sourceTree = "<group>"; };
+		281EEB49156453F400B3E7D3 /* PSWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWebViewController.h; sourceTree = "<group>"; };
+		281EEB4A156453F500B3E7D3 /* PSWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWebViewController.m; sourceTree = "<group>"; };
 		281F4ABC1545BCC10066DD70 /* Lunchbox Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lunchbox Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		281F4ABE1545BCC10066DD70 /* Info-Beta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-Beta.plist"; path = "/Users/ptshih/ios/lunchbox/Info-Beta.plist"; sourceTree = "<absolute>"; };
 		282E821D1515F0E8000B8566 /* PSCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCollectionViewCell.h; sourceTree = "<group>"; };
@@ -2104,6 +2109,8 @@
 				D0F4CB4714F996F70001FD7E /* PSCollectionViewController.m */,
 				2869879E1475CEEC00B40860 /* PSTableViewController.h */,
 				2869879F1475CEEC00B40860 /* PSTableViewController.m */,
+				281EEB49156453F400B3E7D3 /* PSWebViewController.h */,
+				281EEB4A156453F500B3E7D3 /* PSWebViewController.m */,
 				D0A3AC8914F42AA300748CE7 /* PSCachedImageView.h */,
 				D0A3AC8A14F42AA300748CE7 /* PSCachedImageView.m */,
 				28603B4214AA860700541BB1 /* PSZoomView.h */,
@@ -3608,6 +3615,7 @@
 				281EEB101564428600B3E7D3 /* ActionSheetDistancePicker.m in Sources */,
 				281EEB131564428600B3E7D3 /* ActionSheetStringPicker.m in Sources */,
 				281EEB161564428600B3E7D3 /* DistancePickerView.m in Sources */,
+				281EEB4D156453F500B3E7D3 /* PSWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3734,6 +3742,7 @@
 				281EEB0F1564428600B3E7D3 /* ActionSheetDistancePicker.m in Sources */,
 				281EEB121564428600B3E7D3 /* ActionSheetStringPicker.m in Sources */,
 				281EEB151564428600B3E7D3 /* DistancePickerView.m in Sources */,
+				281EEB4C156453F500B3E7D3 /* PSWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3860,6 +3869,7 @@
 				281EEB0E1564428600B3E7D3 /* ActionSheetDistancePicker.m in Sources */,
 				281EEB111564428600B3E7D3 /* ActionSheetStringPicker.m in Sources */,
 				281EEB141564428600B3E7D3 /* DistancePickerView.m in Sources */,
+				281EEB4B156453F500B3E7D3 /* PSWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

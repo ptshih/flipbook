@@ -10,6 +10,7 @@
 #import "TipListViewController.h"
 #import "CheckinViewController.h"
 #import "PhotoTagsViewController.h"
+#import "PSWebViewController.h"
 
 #import "PhotoView.h"
 #import "PSZoomView.h"
@@ -77,6 +78,15 @@ eventButton = _eventButton;
         //        self.shouldPullRefresh = YES;
     }
     return self;
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    self.mapView.delegate = nil;
+}
+
+- (void)dealloc {
+    self.mapView.delegate = nil;
 }
 
 #pragma mark - View Config
@@ -176,7 +186,7 @@ eventButton = _eventButton;
         CGSize statsLabelSize = [PSStyleSheet sizeForText:statsLabel.text width:self.mapView.width - 16 style:@"h3Label"];
         statsLabel.frame = CGRectMake(8 + 16, mapTop, statsLabelSize.width, 16.0);
         
-        mapTop += statsLabel.height + 2.0;
+        mapTop += statsLabel.height + 4.0;
     }
     
     // Address
@@ -200,7 +210,7 @@ eventButton = _eventButton;
         
         addressButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
         
-        mapTop += addressButton.height + 2.0;
+        mapTop += addressButton.height + 4.0;
     }
     
     // Phone
@@ -219,7 +229,7 @@ eventButton = _eventButton;
         
         phoneButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
         
-        mapTop += phoneButton.height + 2.0;
+        mapTop += phoneButton.height + 4.0;
     }
     
     // Website
@@ -238,7 +248,7 @@ eventButton = _eventButton;
         
         websiteButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
         
-        mapTop += websiteButton.height + 2.0;
+        mapTop += websiteButton.height + 4.0;
     }
     
     // Menu
@@ -257,7 +267,7 @@ eventButton = _eventButton;
         
         menuButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
         
-        mapTop += menuButton.height + 2.0;
+        mapTop += menuButton.height + 4.0;
     }
     
     // Reservations
@@ -973,17 +983,31 @@ eventButton = _eventButton;
 }
 
 - (void)openWebsite:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self.venueDict objectForKey:@"url"]]];
+    NSString *urlString = [self.venueDict objectForKey:@"url"];
+    if (urlString) {
+        PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:urlString title:nil];
+        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    }
+    
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self.venueDict objectForKey:@"url"]]];
 }
 
 - (void)openMenu:(id)sender {
     NSString *urlString = [NSString stringWithFormat:@"%@", [[self.venueDict objectForKey:@"menu"] objectForKey:@"mobileUrl"]];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+    
+    PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:urlString title:[NSString stringWithFormat:@"Menu for %@", [self.venueDict objectForKey:@"name"]]];
+    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
 - (void)openReservations:(id)sender {
     NSString *urlString = [NSString stringWithFormat:@"%@", [[self.venueDict objectForKey:@"reservations"] objectForKey:@"url"]];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+    
+    PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:urlString title:@"OpenTable Reservations"];
+    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
 #pragma mark - UIActionSheetDelegate

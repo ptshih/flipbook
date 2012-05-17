@@ -35,7 +35,6 @@ tableView = _tableView;
 - (void)dealloc {
     self.tableView.delegate = nil;
     self.tableView.dataSource = nil;
-    
 }
 
 #pragma mark - UITableView

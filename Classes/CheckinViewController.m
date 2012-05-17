@@ -64,6 +64,15 @@ hasPhoto = _hasPhoto;
     return self;
 }
 
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    self.webView.delegate = nil;
+}
+
+- (void)dealloc {
+    self.webView.delegate = nil;
+}
+
 #pragma mark - View Config
 - (UIColor *)baseBackgroundColor {
     return [UIColor whiteColor];

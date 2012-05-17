@@ -74,6 +74,8 @@ rightButton = _rightButton;
 }
 
 - (void)setupHeader {
+    [super setupHeader];
+    
     // Setup perma header
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
     self.headerView.backgroundColor = [UIColor blackColor];

@@ -1,33 +1,31 @@
 //
-//  EventViewController.m
+//  NewEventViewController.m
 //  Lunchbox
 //
 //  Created by Peter Shih on 5/18/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "NewEventViewController.h"
 #import "EventViewController.h"
 
-#define kEventWhenTag 8001
-#define kEventReasonTag 8002
+@interface NewEventViewController ()
 
-@interface EventViewController ()
-
-@property (nonatomic, strong) NSDictionary *eventDict;
+@property (nonatomic, strong) NSDictionary *venueDict;
 
 @end
 
-@implementation EventViewController
+@implementation NewEventViewController
 
 @synthesize
-eventDict = _eventDict;
+venueDict = _venueDict;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
-        self.eventDict = dictionary;
+        self.venueDict = dictionary;
         
-        self.title = [NSString stringWithFormat:@"View Event"];
+        self.title = @"New Event";
     }
     return self;
 }
@@ -48,13 +46,6 @@ eventDict = _eventDict;
 #pragma mark - Config Subviews
 - (void)setupSubviews {
     [super setupSubviews];
-    
-    
-    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
-    UILabel *versionLabel = [UILabel labelWithText:[NSString stringWithFormat:@"Lunchbox Version %@", appVersion] style:@"metaLabel"];
-    versionLabel.textAlignment = UITextAlignmentCenter;
-    versionLabel.frame = CGRectMake(0, 0, self.tableView.width, 20.0);
-    self.tableView.tableFooterView = versionLabel;
 }
 
 - (void)setupHeader {
@@ -82,7 +73,7 @@ eventDict = _eventDict;
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     //    [self.rightButton setImage:[UIImage imageNamed:@"IconSearchWhite"] forState:UIControlStateNormal];
     self.rightButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    self.rightButton.userInteractionEnabled = NO;
+//    self.rightButton.userInteractionEnabled = NO;
     
     [self.headerView addSubview:self.leftButton];
     [self.headerView addSubview:self.centerButton];
@@ -99,20 +90,12 @@ eventDict = _eventDict;
 }
 
 - (void)rightAction {
+    [self createEvent];
 }
 
 
-- (void)leaveEvent:(UIButton *)button {
-//    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"Change your attendance?" delegate:self cancelButtonTitle:@"Nevermind" destructiveButtonTitle:nil otherButtonTitles:@"Not going anymore", nil];
-//    as.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-//    [as showInView:self.view];
-}
-
-
-#pragma mark - Events
-- (void)mutateEventWithAction:(NSString *)action {
-    
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events/%@/%@", API_BASE_URL, [self.eventDict objectForKey:@"_id"], action];
+- (void)createEvent {
+    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events", API_BASE_URL];
     
     NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
     NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
@@ -124,6 +107,17 @@ eventDict = _eventDict;
     [parameters setObject:fbId forKey:@"fbId"];
     [parameters setObject:fbName forKey:@"fbName"];
     [parameters setObject:[NSNumber numberWithBool:shouldPost] forKey:@"shouldPostToFacebook"];
+    
+    
+    NSDictionary *location = [self.venueDict objectForKey:@"location"];
+    NSString *formattedAddress = [NSString stringWithFormat:@"%@ %@, %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"]];
+    if ([location objectForKey:@"postalCode"]) {
+        formattedAddress = [formattedAddress stringByAppendingFormat:@" %@", [location objectForKey:@"postalCode"]];
+    }
+    
+    [parameters setObject:[self.venueDict objectForKey:@"id"] forKey:@"venueId"];
+    [parameters setObject:[self.venueDict objectForKey:@"name"] forKey:@"venueName"];
+    [parameters setObject:formattedAddress forKey:@"venueAddress"];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
@@ -139,28 +133,17 @@ eventDict = _eventDict;
         if (!error && responseCode == 200) {
             id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             //        NSLog(@"res: %@", res);
-            self.eventDict = res;
             
-            [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:NULL];
+            if (res && [res isKindOfClass:[NSDictionary class]]) {
+                [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:NULL];
+                
+                EventViewController *vc = [[EventViewController alloc] initWithDictionary:res];
+                [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES completionBlock:^{
+                    [(PSNavigationController *)self.parentViewController removeViewController:self];
+                }];
+            }
         }
     }];
-}
-
-#pragma mark - UIActionSheetDelegate
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == actionSheet.cancelButtonIndex) return;
-    
-//    if (actionSheet.tag == kEventWhenTag) {
-//        NSString *when = [actionSheet buttonTitleAtIndex:buttonIndex];
-//        
-//        //        [self createEventWithReason:when];
-//    } else if (actionSheet.tag == kEventReasonTag) {
-//        NSString *reason = [actionSheet buttonTitleAtIndex:buttonIndex];
-//        
-//        if ([reason isEqualToString:@"Not going anymore"]) {
-//            [self mutateEventWithAction:@"leave"];
-//        }
-//    }
 }
 
 @end

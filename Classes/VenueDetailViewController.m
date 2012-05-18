@@ -8,8 +8,10 @@
 
 #import "VenueDetailViewController.h"
 #import "TipListViewController.h"
-#import "CheckinViewController.h"
-#import "PhotoTagsViewController.h"
+#import "NewEventViewController.h"
+#import "EventViewController.h"
+//#import "CheckinViewController.h"
+//#import "PhotoTagsViewController.h"
 #import "PSWebViewController.h"
 
 #import "PhotoView.h"
@@ -19,8 +21,6 @@
 
 #import "VenueAnnotation.h"
 #import "VenueAnnotationView.h"
-
-#import "EventManager.h"
 
 #import "ActionSheetPicker.h"
 
@@ -35,9 +35,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 @property (nonatomic, strong) MKMapView *mapView;
 
 @property (nonatomic, strong) UIView *eventView;
-@property (nonatomic, strong) UIActivityIndicatorView *eventLoadingView;
 @property (nonatomic, strong) UILabel *eventLabel;
-@property (nonatomic, strong) UIButton *eventButton;
 
 @end
 
@@ -52,9 +50,7 @@ mapView = _mapView;
 
 @synthesize
 eventView = _eventView,
-eventLoadingView = _eventLoadingView,
-eventLabel = _eventLabel,
-eventButton = _eventButton;
+eventLabel = _eventLabel;
 
 + (void)initialize {
     __numberFormatter = [[NSNumberFormatter alloc] init];
@@ -76,6 +72,8 @@ eventButton = _eventButton;
     if (self) {
         self.shouldAddRoundedCorners = YES;
         //        self.shouldPullRefresh = YES;
+        
+        self.title = @"Loading...";
     }
     return self;
 }
@@ -321,7 +319,7 @@ eventButton = _eventButton;
         [tipView addSubview:tipLabel];
         
         // Tip
-        NSDictionary *tip = [[self.venueDict objectForKey:@"tips"] objectAtIndex:0];
+        NSDictionary *tip = [[self.venueDict objectForKey:@"tips"] objectAtIndexOrNil:0];
         NSDictionary *tipUser = [tip objectForKey:@"user"];
         NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
         tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
@@ -355,7 +353,7 @@ eventButton = _eventButton;
         CGFloat tipHeight = countLabel.bottom + 4.0;
         tipView.height = tipHeight;
         
-        UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureIndicatorWhiteBordered"]];
+        UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrowGray"]];
         disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         disclosure.contentMode = UIViewContentModeCenter;
         disclosure.frame = CGRectMake(tipView.width - 20, 0, 20, tipView.height);
@@ -387,7 +385,7 @@ eventButton = _eventButton;
     
     self.centerButton = [UIButton buttonWithFrame:CGRectMake(44, 0, self.headerView.width - 88, 44) andStyle:@"navigationTitleLabel" target:self action:@selector(centerAction)];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.centerButton setTitle:@"Loading..." forState:UIControlStateNormal];
+    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.centerButton.titleLabel.minimumFontSize = 12.0;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
@@ -396,7 +394,7 @@ eventButton = _eventButton;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.rightButton setImage:[UIImage imageNamed:@"IconCameraWhite"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconCalendarWhite"] forState:UIControlStateNormal];
     self.rightButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     self.rightButton.userInteractionEnabled = NO;
     
@@ -421,23 +419,20 @@ eventButton = _eventButton;
     
     // Event
     self.eventView = [[UIView alloc] initWithFrame:CGRectInset(self.footerView.bounds, 8, 8)];
+    
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushEvent:)];
+    [self.eventView addGestureRecognizer:gr];
     [self.footerView addSubview:self.eventView];
     
     self.eventLabel = [UILabel labelWithStyle:@"eventLabel"];
-    //    self.eventLabel.adjustsFontSizeToFitWidth = YES;
-    //    self.eventLabel.minimumFontSize = 12.0;
-    self.eventLabel.frame = CGRectMake(0, 0, self.eventView.width - 80.0, self.eventView.height);
+    self.eventLabel.frame = CGRectMake(0, 0, self.eventView.width - 20.0, self.eventView.height);
     [self.eventView addSubview:self.eventLabel];
     
-    self.eventButton = [UIButton buttonWithFrame:CGRectMake(self.eventLabel.right + 10.0, 0, self.eventView.width - self.eventLabel.width - 10.0, self.eventView.height) andStyle:@"eventButton" target:nil action:nil];
-    [self.eventButton setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
-    [self.eventView addSubview:self.eventButton];
-    
-    self.eventLoadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.eventLoadingView.hidesWhenStopped = YES;
-    self.eventLoadingView.frame = self.eventButton.frame;
-    [self.eventView addSubview:self.eventLoadingView];
-    
+    UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrow"]];
+    disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    disclosure.contentMode = UIViewContentModeCenter;
+    disclosure.frame = CGRectMake(self.eventView.width - 20, 0, 20, self.eventView.height);
+    [self.eventView addSubview:disclosure];
     
     // Update footer
     [self updateFooter];
@@ -452,66 +447,91 @@ eventButton = _eventButton;
 
 - (void)updateHeader {
     // Call this when venueDict is ready to re-enable header actions
-    [self.centerButton setTitle:[self.venueDict objectForKey:@"name"] forState:UIControlStateNormal];
+    self.title = [self.venueDict objectForKey:@"name"];
+    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     self.centerButton.userInteractionEnabled = YES;
     self.rightButton.userInteractionEnabled = YES;
 }
 
 - (void)updateFooter {
-    [self.eventButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
-    
     if (self.eventDict) {
-        NSString *title = nil;
-        NSString *subtitle = nil;
-        NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
-        
-        NSString *reason = [self.eventDict objectForKey:@"reason"];
-        NSArray *attendeeIds = [self.eventDict objectForKey:@"attendeeIds"];
-        NSArray *attendeeNames = [self.eventDict objectForKey:@"attendeeNames"];
-        NSArray *friendIds = [attendeeIds subarrayWithRange:NSMakeRange(1, attendeeIds.count - 1)];
-        NSString *ownerId = [attendeeIds objectAtIndex:0];
-        NSString *ownerName = [attendeeNames objectAtIndex:0];
-        
-        title = ([fbId isEqualToString:ownerId]) ? [NSString stringWithFormat:@"You are going here for %@", reason] : [NSString stringWithFormat:@"%@ is going here for %@", ownerName, reason];
-        
-        
-        if (friendIds.count > 0) {
-            NSString *friendText = nil;
-            NSInteger numFriends;
-            if ([friendIds containsObject:fbId]) {
-                numFriends = friendIds.count - 1;
-                if (numFriends > 0) {
-                    friendText = (numFriends == 1) ? [NSString stringWithFormat:@"%d friend is", numFriends] : [NSString stringWithFormat:@"%d friends are", numFriends];
-                    subtitle = [NSString stringWithFormat:@"You and %@ also going", friendText];
-                } else {
-                    subtitle = [NSString stringWithFormat:@"You are also going"];
-                }
-            } else {
-                numFriends = friendIds.count;
-                friendText = (numFriends == 1) ? [NSString stringWithFormat:@"%d friend is", numFriends] : [NSString stringWithFormat:@"%d friends are", numFriends];
-                subtitle = [NSString stringWithFormat:@"%@ also going", friendText];
-            }
-        } else {
-            subtitle = @"No one else is going yet";
+        NSArray *attendees = [self.eventDict objectForKey:@"attendees"];
+        NSMutableArray *fbNames = [NSMutableArray array];
+        NSMutableArray *fbIds = [NSMutableArray array];
+        for (NSDictionary *attendee in attendees) {
+            [fbNames addObject:[attendee objectForKey:@"fbName"]];
+            [fbIds addObject:[attendee objectForKey:@"fbId"]];
         }
         
-        // Button
-        if ([attendeeIds containsObject:fbId]) {
-            [self.eventButton setTitle:@"Edit" forState:UIControlStateNormal];
-            [self.eventButton addTarget:self action:@selector(leaveEvent:) forControlEvents:UIControlEventTouchUpInside];
+        // Find out if user is attending
+        BOOL isAttending = [fbIds containsObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"]];
+        
+        if (isAttending) {
+            self.eventLabel.text = [NSString stringWithFormat:@"You and %@ are part of an event here.", [fbNames componentsJoinedByString:@", "]];
         } else {
-            [self.eventButton setTitle:@"Join" forState:UIControlStateNormal];
-            [self.eventButton addTarget:self action:@selector(joinEvent:) forControlEvents:UIControlEventTouchUpInside];
+            self.eventLabel.text = [NSString stringWithFormat:@"%@ are part of an event here.", [fbNames componentsJoinedByString:@", "]];
         }
         
-        self.eventLabel.text = [NSString stringWithFormat:@"%@\r\n%@", title, subtitle];
     } else {
-        // Create new event
-        self.eventLabel.text = @"Tell your friends you want to go here\r\nWe'll let them know on Facebook";
-        [self.eventButton setTitle:@"Go" forState:UIControlStateNormal];
-        [self.eventButton addTarget:self action:@selector(newEvent:) forControlEvents:UIControlEventTouchUpInside];
+        self.eventLabel.text = @"You and your friends are not part of an event here. Tap here to start one now!";
     }
 }
+
+//- (void)updateFooter {
+//    [self.eventButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+//    
+//    if (self.eventDict) {
+//        NSString *title = nil;
+//        NSString *subtitle = nil;
+//        NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
+//        
+//        NSString *reason = [self.eventDict objectForKey:@"reason"];
+//        NSArray *attendeeIds = [self.eventDict objectForKey:@"attendeeIds"];
+//        NSArray *attendeeNames = [self.eventDict objectForKey:@"attendeeNames"];
+//        NSArray *friendIds = [attendeeIds subarrayWithRange:NSMakeRange(1, attendeeIds.count - 1)];
+//        NSString *ownerId = [attendeeIds objectAtIndexOrNil:0];
+//        NSString *ownerName = [attendeeNames objectAtIndexOrNil:0];
+//        
+//        title = ([fbId isEqualToString:ownerId]) ? [NSString stringWithFormat:@"You are going for %@", reason] : [NSString stringWithFormat:@"%@ is going for %@", ownerName, reason];
+//        
+//        
+//        if (friendIds.count > 0) {
+//            NSString *friendText = nil;
+//            NSInteger numFriends;
+//            if ([friendIds containsObject:fbId]) {
+//                numFriends = friendIds.count - 1;
+//                if (numFriends > 0) {
+//                    friendText = (numFriends == 1) ? [NSString stringWithFormat:@"%d friend is", numFriends] : [NSString stringWithFormat:@"%d friends are", numFriends];
+//                    subtitle = [NSString stringWithFormat:@"You and %@ also going", friendText];
+//                } else {
+//                    subtitle = [NSString stringWithFormat:@"You are also going"];
+//                }
+//            } else {
+//                numFriends = friendIds.count;
+//                friendText = (numFriends == 1) ? [NSString stringWithFormat:@"%d friend is", numFriends] : [NSString stringWithFormat:@"%d friends are", numFriends];
+//                subtitle = [NSString stringWithFormat:@"%@ also going", friendText];
+//            }
+//        } else {
+//            subtitle = @"No one else is going yet";
+//        }
+//        
+//        // Button
+//        if ([attendeeIds containsObject:fbId]) {
+//            [self.eventButton setTitle:@"Edit" forState:UIControlStateNormal];
+//            [self.eventButton addTarget:self action:@selector(leaveEvent:) forControlEvents:UIControlEventTouchUpInside];
+//        } else {
+//            [self.eventButton setTitle:@"Join" forState:UIControlStateNormal];
+//            [self.eventButton addTarget:self action:@selector(joinEvent:) forControlEvents:UIControlEventTouchUpInside];
+//        }
+//        
+//        self.eventLabel.text = [NSString stringWithFormat:@"%@\r\n%@", title, subtitle];
+//    } else {
+//        // Create new event
+//        self.eventLabel.text = @"Tell your friends you plan to go here\r\nWe'll let them know on Facebook";
+//        [self.eventButton setTitle:@"Go" forState:UIControlStateNormal];
+//        [self.eventButton addTarget:self action:@selector(newEvent:) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//}
 
 #pragma mark - Actions
 - (void)leftAction {
@@ -526,16 +546,20 @@ eventButton = _eventButton;
 }
 
 - (void)rightAction {
+    [self pushEvent:nil];
     
     // Take a photo
 //    PhotoTagsViewController *vc = [[PhotoTagsViewController alloc] initWithDictionary:self.venueDict];
 //    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     
     // Checkin
-    CheckinViewController *vc = [[CheckinViewController alloc] initWithDictionary:self.venueDict];
-    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+//    CheckinViewController *vc = [[CheckinViewController alloc] initWithDictionary:self.venueDict];
+//    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     
-    return;
+//    return;
+    
+    
+    
     //    
     //    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
     //    av.tag = kAlertTagFoursquare;
@@ -548,6 +572,18 @@ eventButton = _eventButton;
     //    } else {
     //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
     //    }
+}
+
+- (void)pushEvent:(UITapGestureRecognizer *)gr {
+    if (self.eventDict) {
+        // If user is already part of an event here, edit mode otherwise create mode
+        EventViewController *vc = [[EventViewController alloc] initWithDictionary:self.eventDict];
+        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    } else {
+        // If user is already part of an event here, edit mode otherwise create mode
+        NewEventViewController *vc = [[NewEventViewController alloc] initWithDictionary:self.venueDict];
+        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    }
 }
 
 - (void)zoomMap:(UITapGestureRecognizer *)gr {
@@ -568,113 +604,6 @@ eventButton = _eventButton;
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 }
 
-- (void)newEvent:(UIButton *)button {
-    ActionStringDoneBlock done = ^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-        
-        NSString *reason = selectedValue;
-        
-        [self createEventWithReason:reason];
-    };
-    ActionStringCancelBlock cancel = ^(ActionSheetStringPicker *picker) {
-        NSLog(@"Block Picker Canceled");
-    };
-    
-    NSArray *times = [NSArray arrayWithObjects:@"Coffee/Tea", @"Lunch", @"Dinner", @"Dessert", @"Drinks", nil];
-    [ActionSheetStringPicker showPickerWithTitle:@"When are you going?" rows:times initialSelection:0 doneBlock:done cancelBlock:cancel origin:button];
-    
-//    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"I'm going here for..." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Coffee/Tea", @"Lunch", @"Dinner", @"Dessert", @"Drinks", nil];
-//    [as showInView:self.view];
-}
-
-- (void)leaveEvent:(UIButton *)button {
-    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"Change your attendance?" delegate:self cancelButtonTitle:@"Nevermind" destructiveButtonTitle:nil otherButtonTitles:@"Not going anymore", nil];
-    [as showInView:self.view];
-}
-
-- (void)joinEvent:(UIButton *)button {
-    [self mutateEventWithAction:@"join"];
-}
-
-- (void)mutateEventWithAction:(NSString *)action {
-    self.eventButton.enabled = NO;
-    [self.eventButton setTitle:nil forState:UIControlStateNormal];
-    [self.eventLoadingView startAnimating];
-    
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events/%@/%@", API_BASE_URL, [self.eventDict objectForKey:@"_id"], action];
-    
-    NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
-    NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
-    NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
-    BOOL shouldPost = [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldPostToFacebook"];
-    
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
-    [parameters setObject:fbId forKey:@"fbId"];
-    [parameters setObject:fbName forKey:@"fbName"];
-    [parameters setObject:[NSNumber numberWithBool:shouldPost] forKey:@"shouldPostToFacebook"];
-    
-    NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
-    
-    BLOCK_SELF;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
-        
-        NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
-        
-        if (!error && responseCode == 200) {
-            id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            //        NSLog(@"res: %@", res);
-            self.eventDict = res;
-            
-            [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:NULL];
-        }
-        [self updateFooter];
-        self.eventButton.enabled = YES;
-        [self.eventLoadingView stopAnimating];
-    }];
-}
-
-- (void)createEventWithReason:(NSString *)reason {
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events", API_BASE_URL];
-    
-    NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
-    NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
-    NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
-    BOOL shouldPost = [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldPostToFacebook"];
-    
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
-    [parameters setObject:fbId forKey:@"fbId"];
-    [parameters setObject:fbName forKey:@"fbName"];
-    [parameters setObject:[self.venueDict objectForKey:@"id"] forKey:@"venueId"];
-    [parameters setObject:[self.venueDict objectForKey:@"name"] forKey:@"venueName"];
-    [parameters setObject:reason forKey:@"reason"];
-    [parameters setObject:[NSNumber numberWithBool:shouldPost] forKey:@"shouldPostToFacebook"];
-    
-    NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
-    
-    BLOCK_SELF;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
-        
-        NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
-        
-        if (!error && responseCode == 200) {
-            id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            //        NSLog(@"res: %@", res);
-            self.eventDict = res;
-            
-            [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:NULL];
-        }
-        [self updateFooter];
-    }];
-}
 
 #pragma mark - State Machine
 - (void)loadDataSource {
@@ -747,7 +676,7 @@ eventButton = _eventButton;
             id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             //        NSLog(@"res: %@", res);
             if (res && [res isKindOfClass:[NSArray class]] && [res count] > 0) {
-                self.eventDict = [res objectAtIndex:0];
+                self.eventDict = [res objectAtIndexOrNil:0];
             }
         }
         [self setupFooter]; // delayed footer setup
@@ -843,7 +772,7 @@ eventButton = _eventButton;
                     NSString *firstName = [NSString stringWithFormat:@"%@", [user objectForKey:@"firstName"]];
                     NSString *name = ([user objectForKey:@"lastName"]) ? [firstName stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : firstName;
                     NSDictionary *sizes = [photo objectForKey:@"sizes"];
-                    NSDictionary *fullSize = [[sizes objectForKey:@"items"] objectAtIndex:0];
+                    NSDictionary *fullSize = [[sizes objectForKey:@"items"] objectAtIndexOrNil:0];
                     
                     NSMutableDictionary *item = [NSMutableDictionary dictionary];
                     [item setObject:[fullSize objectForKey:@"url"] forKey:@"source"];
@@ -995,7 +924,7 @@ eventButton = _eventButton;
 - (void)openMenu:(id)sender {
     NSString *urlString = [NSString stringWithFormat:@"%@", [[self.venueDict objectForKey:@"menu"] objectForKey:@"mobileUrl"]];
     
-    PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:urlString title:[NSString stringWithFormat:@"Menu for %@", [self.venueDict objectForKey:@"name"]]];
+    PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:urlString title:@"Menu"];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
@@ -1008,17 +937,6 @@ eventButton = _eventButton;
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
-}
-
-#pragma mark - UIActionSheetDelegate
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == actionSheet.cancelButtonIndex) return;
-    
-    NSString *reason = [actionSheet buttonTitleAtIndex:buttonIndex];
-    
-    if ([reason isEqualToString:@"Not going anymore"]) {
-        [self mutateEventWithAction:@"leave"];
-    }
 }
 
 @end

@@ -24,6 +24,8 @@
         self.tableViewStyle = UITableViewStyleGrouped;
         self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.separatorColor = [UIColor lightGrayColor];
+        
+        self.title = @"Settings";
     }
     return self;
 }
@@ -68,7 +70,7 @@
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
-    [self.centerButton setTitle:@"Settings" forState:UIControlStateNormal];
+    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     self.centerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.centerButton.userInteractionEnabled = NO;
     

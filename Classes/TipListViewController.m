@@ -27,6 +27,8 @@ rightButton = _rightButton;
     if (self) {
         self.venueDict = dictionary; 
         self.shouldAddRoundedCorners = YES;
+        
+        self.title = [NSString stringWithFormat:@"Tips for %@", [self.venueDict objectForKey:@"name"]];
     }
     return self;
 }
@@ -88,7 +90,7 @@ rightButton = _rightButton;
     
     self.centerButton = [UIButton buttonWithFrame:CGRectMake(44, 0, self.headerView.width - 88, 44) andStyle:@"navigationTitleLabel" target:self action:@selector(centerAction)];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    [self.centerButton setTitle:[NSString stringWithFormat:@"Tips for %@", [self.venueDict objectForKey:@"name"]] forState:UIControlStateNormal];
+    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
     self.centerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;

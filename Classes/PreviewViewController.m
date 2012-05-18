@@ -43,7 +43,7 @@ imageView = _imageView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        self.title = @"Add This Photo";
     }
     return self;
 }
@@ -96,7 +96,7 @@ imageView = _imageView;
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
-    [self.centerButton setTitle:@"Add This Photo" forState:UIControlStateNormal];
+    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     self.centerButton.userInteractionEnabled = NO;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];

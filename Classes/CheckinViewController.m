@@ -52,6 +52,8 @@ hasPhoto = _hasPhoto;
         self.venueDict = dictionary; 
         
         self.shouldAddRoundedCorners = YES;
+        
+        self.title = [self.venueDict objectForKey:@"name"];
     }
     return self;
 }
@@ -169,7 +171,7 @@ hasPhoto = _hasPhoto;
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
-    [self.centerButton setTitle:[self.venueDict objectForKey:@"name"] forState:UIControlStateNormal];
+    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     self.centerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.centerButton.userInteractionEnabled = NO;
     

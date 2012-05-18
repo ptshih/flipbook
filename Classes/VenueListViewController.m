@@ -8,7 +8,7 @@
 
 #import "VenueListViewController.h"
 #import "VenueDetailViewController.h"
-#import "EventViewController.h"
+#import "NotificationViewController.h"
 #import "FBConnectViewController.h"
 #import "SettingsViewController.h"
 
@@ -70,6 +70,8 @@ hasLoadedOnce = _hasLoadedOnce;
         self.radius = 0;
         self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
         self.hasLoadedOnce = NO;
+        
+        self.title = @"Lunchbox";
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidUpdate) name:kPSLocationCenterDidUpdate object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidFail) name:kPSLocationCenterDidFail object:nil];
@@ -162,7 +164,7 @@ hasLoadedOnce = _hasLoadedOnce;
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
-    [self.centerButton setTitle:@"Lunchbox" forState:UIControlStateNormal];
+    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     self.centerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
@@ -222,7 +224,7 @@ hasLoadedOnce = _hasLoadedOnce;
 
 - (void)centerAction {
     if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
-        EventViewController *vc = [[EventViewController alloc] initWithNibName:nil bundle:nil];
+        NotificationViewController *vc = [[NotificationViewController alloc] initWithNibName:nil bundle:nil];
         vc.view.frame = CGRectMake(0, 0, 288, 356);
         PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Notifications" contentController:vc];
         popoverView.tag = kPopoverEvent;
@@ -415,7 +417,7 @@ hasLoadedOnce = _hasLoadedOnce;
                     
                     // Categories
                     if ([venue objectForKey:@"categories"] && [[venue objectForKey:@"categories"] count] > 0) {
-                        [item setObject:[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"shortName"] forKey:@"primaryCategory"];
+                        [item setObject:[[[venue objectForKey:@"categories"] objectAtIndexOrNil:0] objectForKey:@"shortName"] forKey:@"primaryCategory"];
                     } else {
                         continue;
                     }
@@ -433,13 +435,13 @@ hasLoadedOnce = _hasLoadedOnce;
                     if ([venue objectForKey:@"photos"]) {
                         hasPhoto = YES;
                         
-                        photoURLPath = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndex:0] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"url"];
+                        photoURLPath = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndexOrNil:0] objectForKey:@"items"] objectAtIndexOrNil:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndexOrNil:0] objectForKey:@"url"];
                         
-                        photoWidth = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndex:0] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"width"];
+                        photoWidth = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndexOrNil:0] objectForKey:@"items"] objectAtIndexOrNil:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndexOrNil:0] objectForKey:@"width"];
                         
-                        photoHeight = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndex:0] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"height"];
+                        photoHeight = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndexOrNil:0] objectForKey:@"items"] objectAtIndexOrNil:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndexOrNil:0] objectForKey:@"height"];
                     } else if ([venue objectForKey:@"categories"]) {
-                        NSDictionary *icon = [[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"icon"];
+                        NSDictionary *icon = [[[venue objectForKey:@"categories"] objectAtIndexOrNil:0] objectForKey:@"icon"];
                         photoURLPath = [[icon objectForKey:@"prefix"] stringByAppendingFormat:@"%@%@", [[icon objectForKey:@"sizes"] lastObject], [icon objectForKey:@"name"]];
                         
                         photoWidth = [NSNumber numberWithInteger:256];
@@ -462,7 +464,7 @@ hasLoadedOnce = _hasLoadedOnce;
                     if (tips && tips.count > 0 && [tips notNull]) {
                         hasTip = YES;
                         
-                        NSDictionary *tip = [tips objectAtIndex:0];
+                        NSDictionary *tip = [tips objectAtIndexOrNil:0];
                         
                         NSDictionary *tipUser = [tip objectForKey:@"user"];
                         NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
@@ -573,7 +575,8 @@ hasLoadedOnce = _hasLoadedOnce;
 
 - (void)updateNotifications {
     NSArray *notifications = [[NotificationManager sharedManager] notifications];
-    [self.centerButton setTitle:[NSString stringWithFormat:@"Lunchbox (%d)", notifications.count] forState:UIControlStateNormal];
+    self.title = [NSString stringWithFormat:@"Lunchbox (%d)", notifications.count];
+    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
 }
 
 - (void)facebookDidLogin {

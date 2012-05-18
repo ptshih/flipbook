@@ -1,14 +1,14 @@
 //
-//  EventViewController.h
+//  NewEventViewController.h
 //  Lunchbox
 //
 //  Created by Peter Shih on 5/18/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "PSTableViewController.h"
+#import "PSViewController.h"
 
-@interface EventViewController : PSTableViewController
+@interface NewEventViewController : PSViewController
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

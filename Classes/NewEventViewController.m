@@ -137,6 +137,8 @@ venueDict = _venueDict;
             if (res && [res isKindOfClass:[NSDictionary class]]) {
                 [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:NULL];
                 
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNewEventCreatedNotification object:nil userInfo:res];
+                
                 EventViewController *vc = [[EventViewController alloc] initWithDictionary:res];
                 [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES completionBlock:^{
                     [(PSNavigationController *)self.parentViewController removeViewController:self];

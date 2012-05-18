@@ -74,6 +74,8 @@ eventLabel = _eventLabel;
         //        self.shouldPullRefresh = YES;
         
         self.title = @"Loading...";
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newEventCreated:) name:kNewEventCreatedNotification object:nil];
     }
     return self;
 }
@@ -85,6 +87,8 @@ eventLabel = _eventLabel;
 
 - (void)dealloc {
     self.mapView.delegate = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - View Config
@@ -937,6 +941,14 @@ eventLabel = _eventLabel;
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+}
+
+#pragma mark - Notifications
+
+- (void)newEventCreated:(NSNotification *)notification {
+    NSDictionary *eventDict = notification.userInfo;
+    self.eventDict = eventDict;
+    [self updateFooter];
 }
 
 @end

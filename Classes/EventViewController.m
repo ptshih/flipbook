@@ -8,24 +8,34 @@
 
 #import "EventViewController.h"
 
+#import "VenueMiniView.h"
+
 #define kEventWhenTag 8001
 #define kEventReasonTag 8002
 
 @interface EventViewController ()
 
-@property (nonatomic, strong) NSDictionary *eventDict;
+@property (nonatomic, copy) NSDictionary *venueDict;
+@property (nonatomic, copy) NSDictionary *eventDict;
+
+@property (nonatomic, strong) VenueMiniView *miniView;
 
 @end
 
 @implementation EventViewController
 
 @synthesize
+venueDict = _venueDict,
 eventDict = _eventDict;
 
-- (id)initWithDictionary:(NSDictionary *)dictionary {
+@synthesize
+miniView = _miniView;
+
+- (id)initWithVenueDict:(NSDictionary *)venueDict eventDict:(NSDictionary *)eventDict {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
-        self.eventDict = dictionary;
+        self.venueDict = venueDict;
+        self.eventDict = eventDict;
         
         self.title = [NSString stringWithFormat:@"View Event"];
     }
@@ -40,6 +50,10 @@ eventDict = _eventDict;
 #pragma mark - View
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Venue Mini
+    self.miniView = [[VenueMiniView alloc] initWithDictionary:self.venueDict];
+    [self.view addSubview:self.miniView];
     
     // Load
     [self loadDataSource];

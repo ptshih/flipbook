@@ -8,7 +8,7 @@
 
 #import "PSCollectionViewController.h"
 
-@interface VenueDetailViewController : PSCollectionViewController <MKMapViewDelegate, UIAlertViewDelegate>
+@interface VenueDetailViewController : PSCollectionViewController
 
 - (id)initWithVenueId:(NSString *)venueId eventId:(NSString *)eventId;
 

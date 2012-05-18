@@ -10,6 +10,6 @@
 
 @interface EventViewController : PSTableViewController
 
-- (id)initWithDictionary:(NSDictionary *)dictionary;
+- (id)initWithVenueDict:(NSDictionary *)venueDict eventDict:(NSDictionary *)eventDict;
 
 @end

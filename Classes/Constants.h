@@ -67,6 +67,9 @@
 #define kErrorNotificationManager @"com.petershih.lunchbox.notifications"
 
 // Convenience
+#define kTimeInterval6Months 15552000
+#define kTimeInterval3Months 7776000
+#define kTimeInterval1Month 2592000
 #define kTimeInterval1Day 86400
 #define kTimeInterval5Seconds 5
 

@@ -26,7 +26,7 @@
 
 static NSNumberFormatter *__numberFormatter = nil;
 
-@interface VenueDetailViewController () <PSPopoverViewDelegate, UIActionSheetDelegate>
+@interface VenueDetailViewController () <PSPopoverViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, MKMapViewDelegate>
 
 @property (nonatomic, copy) NSString *venueId;
 @property (nonatomic, copy) NSString *eventId;
@@ -112,8 +112,6 @@ eventLabel = _eventLabel;
 - (void)setupVenueSubviews {
     [self updateHeader];
     
-    NSDictionary *location = [self.venueDict objectForKey:@"location"];
-    
     // Empty Label
     UILabel *emptyLabel = [UILabel labelWithText:@"No Photos Found" style:@"emptyLabel"];
     emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -162,6 +160,7 @@ eventLabel = _eventLabel;
     self.mapView.zoomEnabled = NO;
     self.mapView.scrollEnabled = NO;
     
+    NSDictionary *location = [self.venueDict objectForKey:@"location"];
     MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([[location objectForKey:@"lat"] floatValue], [[location objectForKey:@"lng"] floatValue]), 250, 250);
     [self.mapView setRegion:mapRegion animated:NO];
     [self.mapView removeAnnotations:[self.mapView annotations]];
@@ -581,7 +580,7 @@ eventLabel = _eventLabel;
 - (void)pushEvent:(UITapGestureRecognizer *)gr {
     if (self.eventDict) {
         // If user is already part of an event here, edit mode otherwise create mode
-        EventViewController *vc = [[EventViewController alloc] initWithDictionary:self.eventDict];
+        EventViewController *vc = [[EventViewController alloc] initWithVenueDict:self.venueDict eventDict:self.eventDict];
         [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     } else {
         // If user is already part of an event here, edit mode otherwise create mode

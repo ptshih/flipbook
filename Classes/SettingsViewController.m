@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import "PSWebViewController.h"
 #import "SettingCell.h"
 
 @interface SettingsViewController ()
@@ -170,7 +171,8 @@
         [Appirater rateApp];
     } else if ([object isEqualToString:@"Frequently Asked Questions"]) {
         NSString *urlString = [NSString stringWithFormat:@"http://petershih.com/lunchbox/faq"];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+        PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:urlString title:@"FAQ"];
+        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     }
     
 //    id object = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];

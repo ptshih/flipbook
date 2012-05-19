@@ -85,11 +85,7 @@ notesField = _notesField;
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-    if ([self.dateField isFirstResponder]) {
-        [self.dateField resignFirstResponder];
-    } else if ([self.notesField isFirstResponder]) {
-        [self.notesField resignFirstResponder];
-    }
+    [self.view findAndResignFirstResponder];
 }
 
 #pragma mark - Config Subviews
@@ -202,6 +198,8 @@ notesField = _notesField;
 
 
 - (void)createEvent {
+    [self.view findAndResignFirstResponder];
+    
     [SVProgressHUD showWithStatus:@"Adding Event..." maskType:SVProgressHUDMaskTypeGradient];
     
     NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events", API_BASE_URL];

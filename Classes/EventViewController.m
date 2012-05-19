@@ -20,6 +20,9 @@
 @property (nonatomic, copy) NSDictionary *eventDict;
 
 @property (nonatomic, strong) VenueMiniView *venueMiniView;
+@property (nonatomic, strong) PSFacepileView *facepileView;
+
+@property (nonatomic, strong) UIButton *actionButton;
 
 @end
 
@@ -30,7 +33,11 @@ venueDict = _venueDict,
 eventDict = _eventDict;
 
 @synthesize
-venueMiniView = _venueMiniView;
+venueMiniView = _venueMiniView,
+facepileView = _facepileView;
+
+@synthesize
+actionButton = _actionButton;
 
 - (id)initWithVenueDict:(NSDictionary *)venueDict eventDict:(NSDictionary *)eventDict {
     self = [self initWithNibName:nil bundle:nil];
@@ -93,6 +100,9 @@ venueMiniView = _venueMiniView;
     
     height += dateField.height;
     
+    // bg behind facepile
+    [tableHeaderView addSubview:[[UIImageView alloc] initWithFrame:CGRectMake(0, dateField.bottom, tableHeaderView.width, 44) image:[UIImage stretchableImageNamed:@"BackgroundTextField" withLeftCapWidth:0 topCapWidth:1]]];
+    
     // Attendees
     NSArray *attendees = [self.eventDict objectForKey:@"attendees"];
     NSMutableArray *fbNames = [NSMutableArray array];
@@ -105,11 +115,11 @@ venueMiniView = _venueMiniView;
     }
 //    NSString *creatorId = [[attendees objectAtIndexOrNil:0] objectForKey:@"fbId"];
     
-    PSFacepileView *facepileView = [[PSFacepileView alloc] initWithFrame:CGRectMake(8, dateField.bottom + 8, [PSFacepileView widthWithFaces:fbUrls], [PSFacepileView heightWithFaces:fbUrls])];
-    [facepileView loadWithFaces:fbUrls];
-    [tableHeaderView addSubview:facepileView];
+    self.facepileView = [[PSFacepileView alloc] initWithFrame:CGRectMake(8, dateField.bottom + 8, [PSFacepileView widthWithFaces:fbUrls], [PSFacepileView heightWithFaces:fbUrls])];
+    [self.facepileView loadWithFaces:fbUrls];
+    [tableHeaderView addSubview:self.facepileView];
     
-    height += facepileView.height;
+    height += self.facepileView.height;
     
     
     tableHeaderView.height = height;
@@ -163,6 +173,67 @@ venueMiniView = _venueMiniView;
     self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
     self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.footerView];
+    
+    CGFloat width = floorf((self.footerView.width - 8. * 4.) / 3.);
+    
+    UIButton *commentButton = [UIButton buttonWithFrame:CGRectMake(8, 7, width, 31.0) andStyle:@"popoverSearchLabel" target:self action:nil];
+    [commentButton setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
+    [commentButton setTitle:@"Comment" forState:UIControlStateNormal];
+    [self.footerView addSubview:commentButton];
+    
+    UIButton *editButton = [UIButton buttonWithFrame:CGRectMake(16 + width, 7, width, 31.0) andStyle:@"popoverSearchLabel" target:self action:nil];
+    [editButton setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
+    [editButton setTitle:@"Edit" forState:UIControlStateNormal];
+    [self.footerView addSubview:editButton];
+    
+    // Join/leave
+    self.actionButton = [UIButton buttonWithFrame:CGRectMake(24 + width * 2, 7, width, 31.0) andStyle:@"popoverSearchLabel" target:self action:nil];
+    [self.actionButton setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
+    [self.footerView addSubview:self.actionButton];
+    
+    [self updateFooter];
+}
+
+- (void)updateFooter {
+    [self.actionButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+    
+    // Check if user is an attendee
+    NSArray *attendees = [self.eventDict objectForKey:@"attendees"];
+    NSMutableArray *fbNames = [NSMutableArray array];
+    NSMutableArray *fbIds = [NSMutableArray array];
+    for (NSDictionary *attendee in attendees) {
+        [fbNames addObject:[attendee objectForKey:@"fbName"]];
+        [fbIds addObject:[attendee objectForKey:@"fbId"]];
+    }
+    
+    BOOL isAttending = [fbIds containsObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"]];
+    
+    if (isAttending) {
+        [self.actionButton setTitle:@"Leave" forState:UIControlStateNormal];
+        [self.actionButton addTarget:self action:@selector(leaveEvent) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        [self.actionButton setTitle:@"Join" forState:UIControlStateNormal];
+        [self.actionButton addTarget:self action:@selector(joinEvent) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+- (void)updateFacepile {
+    // Attendees
+    NSArray *attendees = [self.eventDict objectForKey:@"attendees"];
+    NSMutableArray *fbNames = [NSMutableArray array];
+    NSMutableArray *fbIds = [NSMutableArray array];
+    NSMutableArray *fbUrls = [NSMutableArray array];
+    for (NSDictionary *attendee in attendees) {
+        [fbNames addObject:[attendee objectForKey:@"fbName"]];
+        [fbIds addObject:[attendee objectForKey:@"fbId"]];
+        [fbUrls addObject:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [attendee objectForKey:@"fbId"]] forKey:@"url"]];
+    }
+    //    NSString *creatorId = [[attendees objectAtIndexOrNil:0] objectForKey:@"fbId"];
+    
+    [self.facepileView prepareForReuse];
+    self.facepileView.width = [PSFacepileView widthWithFaces:fbUrls];
+    self.facepileView.height = [PSFacepileView heightWithFaces:fbUrls];
+    [self.facepileView loadWithFaces:fbUrls];
 }
 
 #pragma mark - Actions
@@ -176,16 +247,20 @@ venueMiniView = _venueMiniView;
 - (void)rightAction {
 }
 
+- (void)joinEvent {
+    [self mutateEventWithAction:@"join"];
+}
 
-- (void)leaveEvent:(UIButton *)button {
-//    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"Change your attendance?" delegate:self cancelButtonTitle:@"Nevermind" destructiveButtonTitle:nil otherButtonTitles:@"Not going anymore", nil];
-//    as.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-//    [as showInView:self.view];
+- (void)leaveEvent {
+    [self mutateEventWithAction:@"leave"];
 }
 
 
 #pragma mark - Events
 - (void)mutateEventWithAction:(NSString *)action {
+    // action: join or leave
+    
+    [SVProgressHUD showWithStatus:@"Updating Event..." maskType:SVProgressHUDMaskTypeGradient];
     
     NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events/%@/%@", API_BASE_URL, [self.eventDict objectForKey:@"_id"], action];
     
@@ -213,10 +288,28 @@ venueMiniView = _venueMiniView;
         
         if (!error && responseCode == 200) {
             id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            //        NSLog(@"res: %@", res);
-            self.eventDict = res;
             
-            [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:NULL];
+            if (res && [res isKindOfClass:[NSDictionary class]]) {
+                [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:NULL];
+                
+                [SVProgressHUD dismissWithSuccess:@"Event Updated"];
+                
+                if ([res count] > 0) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kEventUpdatedNotification object:nil userInfo:res];
+                    self.eventDict = res;
+                    [self updateFooter];
+                    [self updateFacepile];
+                } else {
+                    // Event was deleted, no attendees left
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kEventUpdatedNotification object:nil userInfo:nil];
+                    [(PSNavigationController *)self.parentViewController popViewControllerWithDirection:PSNavigationControllerDirectionRight animated:YES];
+                }
+            } else {
+                [SVProgressHUD dismissWithError:@"Event Update Failed"];
+            }
+            
+        } else {
+            [SVProgressHUD dismissWithError:@"Event Update Failed"];
         }
     }];
 }

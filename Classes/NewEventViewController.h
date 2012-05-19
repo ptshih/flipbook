@@ -8,8 +8,6 @@
 
 #import "PSViewController.h"
 
-#define kNewEventCreatedNotification @"NewEventCreatedNotification"
-
 @interface NewEventViewController : PSViewController
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;

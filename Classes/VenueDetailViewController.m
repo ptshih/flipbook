@@ -75,7 +75,7 @@ eventLabel = _eventLabel;
         
         self.title = @"Loading...";
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newEventCreated:) name:kNewEventCreatedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventUpdated:) name:kEventUpdatedNotification object:nil];
     }
     return self;
 }
@@ -471,11 +471,13 @@ eventLabel = _eventLabel;
         BOOL isAttending = [fbIds containsObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"]];
         
         if (isAttending) {
-            self.eventLabel.text = [NSString stringWithFormat:@"You and %@ are part of an event here.", [fbNames componentsJoinedByString:@", "]];
+            [fbNames removeObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"]];
+            NSString *andFriends = (fbNames.count > 0) ? [NSString stringWithFormat:@" and %@ ", [fbNames componentsJoinedByString:@", "]] : @" ";
+            self.eventLabel.text = [NSString stringWithFormat:@"You%@are part of an event on %@", andFriends, [NSDate stringFromDate:[NSDate dateWithMillisecondsSince1970:[[self.eventDict objectForKey:@"datetime"] doubleValue]] withFormat:@"EEE, MMM dd, yyyy @ HH:mm a z"]];
         } else {
-            self.eventLabel.text = [NSString stringWithFormat:@"%@ are part of an event here.", [fbNames componentsJoinedByString:@", "]];
+            NSString *isOrAre = (fbNames.count > 1) ? @"are" : @"is";
+            self.eventLabel.text = [NSString stringWithFormat:@"%@ %@ part of an event on %@", [fbNames componentsJoinedByString:@", "], isOrAre, [NSDate stringFromDate:[NSDate dateWithMillisecondsSince1970:[[self.eventDict objectForKey:@"datetime"] doubleValue]] withFormat:@"EEE, MMM dd, yyyy @ HH:mm a z"]];
         }
-        
     } else {
         self.eventLabel.text = @"You and your friends are not part of an event here. Tap here to start one now!";
     }
@@ -945,7 +947,7 @@ eventLabel = _eventLabel;
 
 #pragma mark - Notifications
 
-- (void)newEventCreated:(NSNotification *)notification {
+- (void)eventUpdated:(NSNotification *)notification {
     NSDictionary *eventDict = notification.userInfo;
     self.eventDict = eventDict;
     [self updateFooter];

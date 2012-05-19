@@ -52,7 +52,8 @@
 /**
  Notifications
  */
-#define kShouldRecenterCurrentLocation @"kShouldRecenterCurrentLocation"
+#define kEventUpdatedNotification @"EventUpdatedNotification"
+#define kShouldRecenterCurrentLocation @"ShouldRecenterCurrentLocation"
 
 /**
  Alert Tags

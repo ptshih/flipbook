@@ -35,8 +35,9 @@ mapView = _mapView;
         self.venueDict = dictionary;
         
         CGFloat height = frame.size.height;
+        CGFloat width = floorf((4.0/3.0) * height);
         
-        self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(MARGIN, MARGIN, height - MARGIN * 2, height - MARGIN * 2)];
+        self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(MARGIN, MARGIN, width - MARGIN * 2, height - MARGIN * 2)];
         self.mapView.delegate = self;
         self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.mapView.zoomEnabled = NO;

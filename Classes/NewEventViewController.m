@@ -234,7 +234,7 @@ notesField = _notesField;
             if (res && [res isKindOfClass:[NSDictionary class]]) {
                 [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:NULL];
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNewEventCreatedNotification object:nil userInfo:res];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kEventUpdatedNotification object:nil userInfo:res];
                 
                 [SVProgressHUD dismissWithSuccess:@"Event Added"];
                 
@@ -243,11 +243,11 @@ notesField = _notesField;
                     [(PSNavigationController *)self.parentViewController removeViewController:self];
                 }];
             } else {
-                [SVProgressHUD dismissWithError:@"Event Not Added"];
+                [SVProgressHUD dismissWithError:@"Event Add Failed"];
                 [self.dateField becomeFirstResponder];                
             }
         } else {
-            [SVProgressHUD dismissWithError:@"Event Not Added"];
+            [SVProgressHUD dismissWithError:@"Event Add Failed"];
             [self.dateField becomeFirstResponder];
         }
     }];

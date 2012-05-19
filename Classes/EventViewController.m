@@ -18,7 +18,7 @@
 @property (nonatomic, copy) NSDictionary *venueDict;
 @property (nonatomic, copy) NSDictionary *eventDict;
 
-@property (nonatomic, strong) VenueMiniView *miniView;
+@property (nonatomic, strong) VenueMiniView *venueMiniView;
 
 @end
 
@@ -29,7 +29,7 @@ venueDict = _venueDict,
 eventDict = _eventDict;
 
 @synthesize
-miniView = _miniView;
+venueMiniView = _venueMiniView;
 
 - (id)initWithVenueDict:(NSDictionary *)venueDict eventDict:(NSDictionary *)eventDict {
     self = [self initWithNibName:nil bundle:nil];
@@ -51,10 +51,6 @@ miniView = _miniView;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Venue Mini
-    self.miniView = [[VenueMiniView alloc] initWithDictionary:self.venueDict];
-    [self.view addSubview:self.miniView];
-    
     // Load
     [self loadDataSource];
 }
@@ -62,6 +58,10 @@ miniView = _miniView;
 #pragma mark - Config Subviews
 - (void)setupSubviews {
     [super setupSubviews];
+    
+    // Venue Mini
+    self.venueMiniView = [[VenueMiniView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, self.view.width, 80.0)];
+    self.tableView.tableHeaderView = self.venueMiniView;
     
     
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];

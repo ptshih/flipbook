@@ -10,6 +10,6 @@
 
 @interface VenueMiniView : PSView
 
-- (id)initWithDictionary:(NSDictionary *)dictionary;
+- (id)initWithDictionary:(NSDictionary *)dictionary frame:(CGRect)frame;
 
 @end

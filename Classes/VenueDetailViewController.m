@@ -416,10 +416,6 @@ eventLabel = _eventLabel;
     self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.footerView];
     
-    //    UIImageView *footerBg = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"BackgroundToolbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:0]];
-    //    footerBg.autoresizingMask = self.footerView.autoresizingMask;
-    //    [self.footerView addSubview:footerBg];
-    
     // Event
     self.eventView = [[UIView alloc] initWithFrame:CGRectInset(self.footerView.bounds, 8, 8)];
     

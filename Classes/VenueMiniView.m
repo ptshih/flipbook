@@ -50,7 +50,7 @@ mapView = _mapView;
         [self addSubview:self.mapView];
         
         NSDictionary *location = [self.venueDict objectForKey:@"location"];
-        MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([[location objectForKey:@"lat"] floatValue], [[location objectForKey:@"lng"] floatValue]), 250, 250);
+        MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([[location objectForKey:@"lat"] floatValue], [[location objectForKey:@"lng"] floatValue]), 200, 200);
         [self.mapView setRegion:mapRegion animated:NO];
         [self.mapView removeAnnotations:[self.mapView annotations]];
         VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:self.venueDict];

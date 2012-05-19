@@ -9,6 +9,7 @@
 #import "EventViewController.h"
 
 #import "VenueMiniView.h"
+#import "PSFacepileView.h"
 
 #define kEventWhenTag 8001
 #define kEventReasonTag 8002
@@ -36,6 +37,17 @@ venueMiniView = _venueMiniView;
     if (self) {
         self.venueDict = venueDict;
         self.eventDict = eventDict;
+    }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.shouldAddRoundedCorners = YES;
+        self.tableViewStyle = UITableViewStylePlain;
+        self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.separatorColor = [UIColor lightGrayColor];
         
         self.title = [NSString stringWithFormat:@"View Event"];
     }
@@ -59,16 +71,56 @@ venueMiniView = _venueMiniView;
 - (void)setupSubviews {
     [super setupSubviews];
     
+    // Table Header
+    CGFloat height = 0.0;
+    UIView *tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 0)];
+    
     // Venue Mini
     self.venueMiniView = [[VenueMiniView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, self.view.width, 80.0)];
-    self.tableView.tableHeaderView = self.venueMiniView;
+    self.venueMiniView.backgroundColor = [UIColor whiteColor];
+    [tableHeaderView addSubview:self.venueMiniView];
+    
+    height += self.venueMiniView.height;
+    
+    // Date/Time
+    PSTextField *dateField = [[PSTextField alloc] initWithFrame:CGRectMake(0, self.venueMiniView.bottom, tableHeaderView.width, 44) withInset:UIEdgeInsetsMake(12, 8, 12, 8)];
+    [PSStyleSheet applyStyle:@"eventField" forTextField:dateField];
+    dateField.leftViewMode = UITextFieldViewModeAlways;
+    dateField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconClockBlack"]];
+    dateField.text = [NSDate stringFromDate:[NSDate dateWithMillisecondsSince1970:[[self.eventDict objectForKey:@"datetime"] doubleValue]] withFormat:@"EEE, MMM dd, yyyy @ HH:mm a z"];
+    [tableHeaderView addSubview:[[UIImageView alloc] initWithFrame:dateField.frame image:[UIImage stretchableImageNamed:@"BackgroundTextFieldTop" withLeftCapWidth:0 topCapWidth:1]]];
+    [tableHeaderView addSubview:dateField];
+    
+    height += dateField.height;
+    
+    // Attendees
+    NSArray *attendees = [self.eventDict objectForKey:@"attendees"];
+    NSMutableArray *fbNames = [NSMutableArray array];
+    NSMutableArray *fbIds = [NSMutableArray array];
+    NSMutableArray *fbUrls = [NSMutableArray array];
+    for (NSDictionary *attendee in attendees) {
+        [fbNames addObject:[attendee objectForKey:@"fbName"]];
+        [fbIds addObject:[attendee objectForKey:@"fbId"]];
+        [fbUrls addObject:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [attendee objectForKey:@"fbId"]] forKey:@"url"]];
+    }
+//    NSString *creatorId = [[attendees objectAtIndexOrNil:0] objectForKey:@"fbId"];
+    
+    PSFacepileView *facepileView = [[PSFacepileView alloc] initWithFrame:CGRectMake(8, dateField.bottom + 8, [PSFacepileView widthWithFaces:fbUrls], [PSFacepileView heightWithFaces:fbUrls])];
+    [facepileView loadWithFaces:fbUrls];
+    [tableHeaderView addSubview:facepileView];
+    
+    height += facepileView.height;
     
     
-    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
-    UILabel *versionLabel = [UILabel labelWithText:[NSString stringWithFormat:@"Lunchbox Version %@", appVersion] style:@"metaLabel"];
-    versionLabel.textAlignment = UITextAlignmentCenter;
-    versionLabel.frame = CGRectMake(0, 0, self.tableView.width, 20.0);
-    self.tableView.tableFooterView = versionLabel;
+    tableHeaderView.height = height;
+    self.tableView.tableHeaderView = tableHeaderView;
+    
+    
+//    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
+//    UILabel *versionLabel = [UILabel labelWithText:[NSString stringWithFormat:@"Lunchbox Version %@", appVersion] style:@"metaLabel"];
+//    versionLabel.textAlignment = UITextAlignmentCenter;
+//    versionLabel.frame = CGRectMake(0, 0, self.tableView.width, 20.0);
+//    self.tableView.tableFooterView = versionLabel;
 }
 
 - (void)setupHeader {
@@ -102,6 +154,15 @@ venueMiniView = _venueMiniView;
     [self.headerView addSubview:self.centerButton];
     [self.headerView addSubview:self.rightButton];
     [self.view addSubview:self.headerView];
+}
+
+- (void)setupFooter {
+    [super setupFooter];
+    
+    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height - 44, self.view.width, 44)];
+    self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
+    self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:self.footerView];
 }
 
 #pragma mark - Actions

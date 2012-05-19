@@ -376,7 +376,8 @@ eventLabel = _eventLabel;
 }
 
 - (void)setupHeader {
-    // Setup perma header
+    [super setupHeader];
+    
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
     self.headerView.backgroundColor = [UIColor blackColor];
     self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -408,8 +409,7 @@ eventLabel = _eventLabel;
 }
 
 - (void)setupFooter {
-    // If no venueDict, don't setup the footer
-    if (!self.venueDict) return;
+    [super setupFooter];
     
     self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, 44)];
     self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
@@ -433,15 +433,11 @@ eventLabel = _eventLabel;
     disclosure.frame = CGRectMake(self.eventView.width - 20, 0, 20, self.eventView.height);
     [self.eventView addSubview:disclosure];
     
+    // If no venueDict, don't setup the footer
+    if (!self.venueDict) return;
+    
     // Update footer
     [self updateFooter];
-    
-    // animate footer
-    [UIView animateWithDuration:0.4 animations:^{
-        self.footerView.top -= self.footerView.height;
-    } completion:^(BOOL finished) {
-        [self updateSubviews];
-    }];
 }
 
 - (void)updateHeader {
@@ -453,6 +449,15 @@ eventLabel = _eventLabel;
 }
 
 - (void)updateFooter {
+    // animate footer
+    if (self.footerView.top == self.view.bottom) {
+        [UIView animateWithDuration:0.4 animations:^{
+            self.footerView.top -= self.footerView.height;
+        } completion:^(BOOL finished) {
+            [self updateSubviews];
+        }];
+    }
+    
     if (self.eventDict) {
         NSArray *attendees = [self.eventDict objectForKey:@"attendees"];
         NSMutableArray *fbNames = [NSMutableArray array];
@@ -678,7 +683,7 @@ eventLabel = _eventLabel;
                 self.eventDict = [res objectAtIndexOrNil:0];
             }
         }
-        [self setupFooter]; // delayed footer setup
+        [self updateFooter]; // delayed footer setup
     }];
 }
 
@@ -700,7 +705,7 @@ eventLabel = _eventLabel;
             id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             //        NSLog(@"res: %@", res);
             self.eventDict = res;
-            [self setupFooter]; // delayed footer setup
+            [self updateFooter]; // delayed footer setup
         }
     }];
     

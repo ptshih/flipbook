@@ -10,7 +10,7 @@
 #import "EventViewController.h"
 #import "VenueMiniView.h"
 
-@interface NewEventViewController ()
+@interface NewEventViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) NSDictionary *venueDict;
 @property (nonatomic, strong) NSDate *selectedDate;
@@ -81,8 +81,14 @@ notesField = _notesField;
     [self.view addSubview:self.contentView];
     
     // Venue Mini View
-    self.venueMiniView = [[VenueMiniView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, self.contentView.width, 112.0)];
+    self.venueMiniView = [[VenueMiniView alloc] initWithDictionary:self.venueDict frame:CGRectMake(0, 0, self.contentView.width, 80.0)];
+    self.venueMiniView.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:self.venueMiniView];
+    
+    // Instructions label
+    UILabel *helpLabel = [UILabel labelWithText:@"To create an event, choose a date and time:" style:@"h3Label"];
+    helpLabel.frame = CGRectMake(8, self.venueMiniView.bottom, self.contentView.width - 16, 32);
+    [self.contentView addSubview:helpLabel];
     
     // Date and time
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
@@ -91,25 +97,28 @@ notesField = _notesField;
     datePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:kTimeInterval3Months];
     [datePicker setDate:[NSDate date] animated:NO];
     [datePicker addTarget:self action:@selector(datePickerChanged:) forControlEvents:UIControlEventValueChanged];
+    self.selectedDate = datePicker.date;
     
-    self.dateField = [[PSTextField alloc] initWithFrame:CGRectMake(0, self.venueMiniView.bottom, self.view.width, 44) withInset:UIEdgeInsetsMake(12, 8, 12, 8)];
+    self.dateField = [[PSTextField alloc] initWithFrame:CGRectMake(0, helpLabel.bottom, self.view.width, 44) withInset:UIEdgeInsetsMake(12, 8, 12, 8)];
     [PSStyleSheet applyStyle:@"eventField" forTextField:self.dateField];
     self.dateField.placeholder = @"Choose a date and time";
     self.dateField.inputView = datePicker;
     self.dateField.leftViewMode = UITextFieldViewModeAlways;
     self.dateField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconClockBlack"]];
-    self.dateField.text = [NSDate stringFromDate:datePicker.date withFormat:@"EEE, dd MMM yyyy HH:mm:ss z"];
+    self.dateField.text = [NSDate stringFromDate:datePicker.date withFormat:@"EEE, MMM dd, yyyy @ HH:mm a z"];
     [self.contentView addSubview:[[UIImageView alloc] initWithFrame:self.dateField.frame image:[UIImage stretchableImageNamed:@"BackgroundTextFieldTop" withLeftCapWidth:0 topCapWidth:1]]];
     [self.contentView addSubview:self.dateField];
     
     
     // Add notes
     self.notesField = [[PSTextField alloc] initWithFrame:CGRectMake(0, self.dateField.bottom, self.view.width, 44) withInset:UIEdgeInsetsMake(12, 8, 12, 8)];
+    self.notesField.delegate = self;
     [PSStyleSheet applyStyle:@"eventField" forTextField:self.notesField];
     self.notesField.placeholder = @"Add Notes... (optional)";
     [self.notesField addTarget:self action:@selector(notesChanged:) forControlEvents:UIControlEventEditingChanged];
     self.notesField.leftViewMode = UITextFieldViewModeAlways;
     self.notesField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconComposeBlack"]];
+    self.notesField.returnKeyType = UIReturnKeySend;
     [self.contentView addSubview:[[UIImageView alloc] initWithFrame:self.notesField.frame image:[UIImage stretchableImageNamed:@"BackgroundTextFieldTop" withLeftCapWidth:0 topCapWidth:1]]];
     [self.contentView addSubview:self.notesField];
 }
@@ -156,12 +165,13 @@ notesField = _notesField;
 }
 
 - (void)rightAction {
+    [self.view findAndResignFirstResponder];
     [self createEvent];
 }
 
 - (void)datePickerChanged:(UIDatePicker *)datePicker {
     self.selectedDate = datePicker.date;
-    self.dateField.text = [NSDate stringFromDate:datePicker.date withFormat:@"EEE, dd MMM yyyy HH:mm:ss z"];
+    self.dateField.text = [NSDate stringFromDate:datePicker.date withFormat:@"EEE, MMM dd, yyyy @ HH:mm a z"];
 }
 
 - (void)notesChanged:(PSTextField *)notesField {
@@ -170,8 +180,6 @@ notesField = _notesField;
 
 
 - (void)createEvent {
-    [self.view findAndResignFirstResponder];
-    
     [SVProgressHUD showWithStatus:@"Adding Event..." maskType:SVProgressHUDMaskTypeGradient];
     
     NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events", API_BASE_URL];
@@ -201,7 +209,7 @@ notesField = _notesField;
     
     // Event
     if (self.selectedDate) {
-        [parameters setObject:[NSNumber numberWithDouble:[self.selectedDate millisecondsSince1970]] forKey:@"date"];
+        [parameters setObject:[NSNumber numberWithDouble:[self.selectedDate millisecondsSince1970]] forKey:@"datetime"];
     }
     
     if (self.notes) {
@@ -236,11 +244,20 @@ notesField = _notesField;
                 }];
             } else {
                 [SVProgressHUD dismissWithError:@"Event Not Added"];
+                [self.dateField becomeFirstResponder];                
             }
         } else {
             [SVProgressHUD dismissWithError:@"Event Not Added"];
+            [self.dateField becomeFirstResponder];
         }
     }];
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [self createEvent];
+    return YES;
+}
+
 
 @end

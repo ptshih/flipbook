@@ -105,7 +105,7 @@ notesField = _notesField;
     self.dateField.inputView = datePicker;
     self.dateField.leftViewMode = UITextFieldViewModeAlways;
     self.dateField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconClockBlack"]];
-    self.dateField.text = [NSDate stringFromDate:datePicker.date withFormat:@"EEE, MMM dd, yyyy @ HH:mm a z"];
+    self.dateField.text = [NSDate stringFromDate:datePicker.date withFormat:kEventDateFormat];
     [self.contentView addSubview:[[UIImageView alloc] initWithFrame:self.dateField.frame image:[UIImage stretchableImageNamed:@"BackgroundTextFieldTop" withLeftCapWidth:0 topCapWidth:1]]];
     [self.contentView addSubview:self.dateField];
     
@@ -171,7 +171,7 @@ notesField = _notesField;
 
 - (void)datePickerChanged:(UIDatePicker *)datePicker {
     self.selectedDate = datePicker.date;
-    self.dateField.text = [NSDate stringFromDate:datePicker.date withFormat:@"EEE, MMM dd, yyyy @ HH:mm a z"];
+    self.dateField.text = [NSDate stringFromDate:datePicker.date withFormat:kEventDateFormat];
 }
 
 - (void)notesChanged:(PSTextField *)notesField {

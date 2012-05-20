@@ -94,7 +94,7 @@ actionButton = _actionButton;
     [PSStyleSheet applyStyle:@"eventField" forTextField:dateField];
     dateField.leftViewMode = UITextFieldViewModeAlways;
     dateField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconClockBlack"]];
-    dateField.text = [NSDate stringFromDate:[NSDate dateWithMillisecondsSince1970:[[self.eventDict objectForKey:@"datetime"] doubleValue]] withFormat:@"EEE, MMM dd, yyyy @ HH:mm a z"];
+    dateField.text = [NSDate stringFromDate:[NSDate dateWithMillisecondsSince1970:[[self.eventDict objectForKey:@"datetime"] doubleValue]] withFormat:kEventDateFormat];
     [tableHeaderView addSubview:[[UIImageView alloc] initWithFrame:dateField.frame image:[UIImage stretchableImageNamed:@"BackgroundTextFieldTop" withLeftCapWidth:0 topCapWidth:1]]];
     [tableHeaderView addSubview:dateField];
     

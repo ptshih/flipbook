@@ -470,7 +470,7 @@
 	<key>eventLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>Gotham-Book</string>
 		<key>fontSize</key>
 		<integer>12</integer>
 		<key>textColor</key>
@@ -489,7 +489,7 @@
 	<key>locationLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>Gotham-Book</string>
 		<key>fontSize</key>
 		<integer>14</integer>
 		<key>textColor</key>

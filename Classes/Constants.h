@@ -61,7 +61,6 @@
 #define kAlertTagDirections 7001
 #define kAlertTagFoursquare 7002
 
-
 /**
  Error domains
  */
@@ -73,6 +72,9 @@
 #define kTimeInterval1Month 2592000
 #define kTimeInterval1Day 86400
 #define kTimeInterval5Seconds 5
+
+// Date formats
+#define kEventDateFormat @"EEE, MMM dd, yyyy @ h:mm a z"
 
 // Colors
 #define CELL_WHITE_COLOR [UIColor whiteColor]

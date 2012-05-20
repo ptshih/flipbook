@@ -411,7 +411,7 @@ eventLabel = _eventLabel;
 - (void)setupFooter {
     [super setupFooter];
     
-    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, 44)];
+    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, 44.0)];
     self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
     self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.footerView];
@@ -423,21 +423,30 @@ eventLabel = _eventLabel;
     [self.eventView addGestureRecognizer:gr];
     [self.footerView addSubview:self.eventView];
     
-    self.eventLabel = [UILabel labelWithStyle:@"eventLabel"];
-    self.eventLabel.frame = CGRectMake(0, 0, self.eventView.width - 20.0, self.eventView.height);
-    [self.eventView addSubview:self.eventLabel];
+    UIImageView *eventIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconCalendarWhite"]];
+    eventIcon.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+    eventIcon.contentMode = UIViewContentModeCenter;
+    eventIcon.frame = CGRectMake(0, 0, eventIcon.width, self.eventView.height);
+    [self.eventView addSubview:eventIcon];
     
     UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrow"]];
     disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     disclosure.contentMode = UIViewContentModeCenter;
-    disclosure.frame = CGRectMake(self.eventView.width - 20, 0, 20, self.eventView.height);
+    disclosure.frame = CGRectMake(self.eventView.width - disclosure.width, 0, disclosure.width, self.eventView.height);
     [self.eventView addSubview:disclosure];
     
-    // If no venueDict, don't setup the footer
-    if (!self.venueDict) return;
+    self.eventLabel = [UILabel labelWithStyle:@"eventLabel"];
+    self.eventLabel.frame = CGRectMake(eventIcon.right + 8.0, 0, self.eventView.width - eventIcon.width - disclosure.width - 16.0, self.eventView.height);
+    self.eventLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [self.eventView addSubview:self.eventLabel];
     
-    // Update footer
-    [self updateFooter];
+    // If no venueDict, don't setup the footer
+    if (!self.venueDict) {
+        self.footerView.height = 0.0;
+    } else {
+        // Update footer
+        [self updateFooter];
+    }
 }
 
 - (void)updateHeader {
@@ -451,10 +460,11 @@ eventLabel = _eventLabel;
 - (void)updateFooter {
     // animate footer
     if (self.footerView.top == self.view.bottom) {
+        self.footerView.height = 44.0;
         [UIView animateWithDuration:0.4 animations:^{
+            [self updateSubviews];
             self.footerView.top -= self.footerView.height;
         } completion:^(BOOL finished) {
-            [self updateSubviews];
         }];
     }
     
@@ -473,13 +483,13 @@ eventLabel = _eventLabel;
         if (isAttending) {
             [fbNames removeObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"]];
             NSString *andFriends = (fbNames.count > 0) ? [NSString stringWithFormat:@" and %@ ", [fbNames componentsJoinedByString:@", "]] : @" ";
-            self.eventLabel.text = [NSString stringWithFormat:@"You%@are part of an event on %@", andFriends, [NSDate stringFromDate:[NSDate dateWithMillisecondsSince1970:[[self.eventDict objectForKey:@"datetime"] doubleValue]] withFormat:@"EEE, MMM dd, yyyy @ HH:mm a z"]];
+            self.eventLabel.text = [NSString stringWithFormat:@"You%@are attending an event on %@", andFriends, [NSDate stringFromDate:[NSDate dateWithMillisecondsSince1970:[[self.eventDict objectForKey:@"datetime"] doubleValue]] withFormat:kEventDateFormat]];
         } else {
             NSString *isOrAre = (fbNames.count > 1) ? @"are" : @"is";
-            self.eventLabel.text = [NSString stringWithFormat:@"%@ %@ part of an event on %@", [fbNames componentsJoinedByString:@", "], isOrAre, [NSDate stringFromDate:[NSDate dateWithMillisecondsSince1970:[[self.eventDict objectForKey:@"datetime"] doubleValue]] withFormat:@"EEE, MMM dd, yyyy @ HH:mm a z"]];
+            self.eventLabel.text = [NSString stringWithFormat:@"%@ %@ attending an event on %@", [fbNames componentsJoinedByString:@", "], isOrAre, [NSDate stringFromDate:[NSDate dateWithMillisecondsSince1970:[[self.eventDict objectForKey:@"datetime"] doubleValue]] withFormat:kEventDateFormat]];
         }
     } else {
-        self.eventLabel.text = @"You and your friends are not part of an event here. Tap here to start one now!";
+        self.eventLabel.text = @"There are no events here.\r\nTap here to start one now!";
     }
 }
 

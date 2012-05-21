@@ -209,7 +209,8 @@ eventLabel = _eventLabel;
         [addressButton setTitle:formattedAddress forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:addressButton];
         
-        addressButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
+        // weird 1px border padding for buttons
+        addressButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16 - 11, 16);
         
         mapTop += addressButton.height + 4.0;
     }
@@ -228,7 +229,7 @@ eventLabel = _eventLabel;
         [phoneButton setTitle:[NSString stringWithFormat:@"%@", [[self.venueDict objectForKey:@"contact"] objectForKey:@"formattedPhone"]] forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:phoneButton];
         
-        phoneButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
+        phoneButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16 - 11, 16);
         
         mapTop += phoneButton.height + 4.0;
     }
@@ -247,7 +248,7 @@ eventLabel = _eventLabel;
         [websiteButton setTitle:[NSString stringWithFormat:@"%@", [self.venueDict objectForKey:@"url"]] forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:websiteButton];
         
-        websiteButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
+        websiteButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16 - 11, 16);
         
         mapTop += websiteButton.height + 4.0;
     }
@@ -266,7 +267,7 @@ eventLabel = _eventLabel;
         [menuButton setTitle:[NSString stringWithFormat:@"%@", @"See the menu"] forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:menuButton];
         
-        menuButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
+        menuButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16 - 11, 16);
         
         mapTop += menuButton.height + 4.0;
     }
@@ -285,7 +286,7 @@ eventLabel = _eventLabel;
         [reservationsButton setTitle:[NSString stringWithFormat:@"%@", @"Make reservations on OpenTable"] forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:reservationsButton];
         
-        reservationsButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16, 16);
+        reservationsButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16 - 11, 16);
         
         mapTop += reservationsButton.height + 4.0;
     }
@@ -592,12 +593,12 @@ eventLabel = _eventLabel;
 
 - (void)pushEvent:(UITapGestureRecognizer *)gr {
     if (self.eventDict) {
-        // If user is already part of an event here, edit mode otherwise create mode
+        // View existing
         EventViewController *vc = [[EventViewController alloc] initWithVenueDict:self.venueDict eventDict:self.eventDict];
         [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     } else {
-        // If user is already part of an event here, edit mode otherwise create mode
-        NewEventViewController *vc = [[NewEventViewController alloc] initWithDictionary:self.venueDict];
+        // Create new
+        NewEventViewController *vc = [[NewEventViewController alloc] initWithVenueDict:self.venueDict eventDict:nil];
         [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     }
 }

@@ -10,6 +10,6 @@
 
 @interface NewEventViewController : PSViewController
 
-- (id)initWithDictionary:(NSDictionary *)dictionary;
+- (id)initWithVenueDict:(NSDictionary *)venueDict eventDict:(NSDictionary *)eventDict;
 
 @end

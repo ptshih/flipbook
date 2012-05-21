@@ -7,6 +7,7 @@
 //
 
 #import "EventViewController.h"
+#import "NewEventViewController.h"
 
 #import "VenueMiniView.h"
 #import "PSFacepileView.h"
@@ -57,6 +58,8 @@ actionButton = _actionButton;
         self.separatorColor = [UIColor lightGrayColor];
         
         self.title = [NSString stringWithFormat:@"View Event"];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventUpdated:) name:kEventUpdatedNotification object:nil];
     }
     return self;
 }
@@ -100,27 +103,23 @@ actionButton = _actionButton;
     
     height += dateField.height;
     
-    // bg behind facepile
-    [tableHeaderView addSubview:[[UIImageView alloc] initWithFrame:CGRectMake(0, dateField.bottom, tableHeaderView.width, 44) image:[UIImage stretchableImageNamed:@"BackgroundTextField" withLeftCapWidth:0 topCapWidth:1]]];
-    
     // Attendees
     NSArray *attendees = [self.eventDict objectForKey:@"attendees"];
     NSMutableArray *fbNames = [NSMutableArray array];
     NSMutableArray *fbIds = [NSMutableArray array];
-    NSMutableArray *fbUrls = [NSMutableArray array];
+    NSMutableArray *faces = [NSMutableArray array];
     for (NSDictionary *attendee in attendees) {
         [fbNames addObject:[attendee objectForKey:@"fbName"]];
         [fbIds addObject:[attendee objectForKey:@"fbId"]];
-        [fbUrls addObject:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [attendee objectForKey:@"fbId"]] forKey:@"url"]];
+        [faces addObject:[NSDictionary dictionaryWithObjectsAndKeys:[attendee objectForKey:@"fbName"], @"name", [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [attendee objectForKey:@"fbId"]], @"url", nil]];
     }
 //    NSString *creatorId = [[attendees objectAtIndexOrNil:0] objectForKey:@"fbId"];
     
-    self.facepileView = [[PSFacepileView alloc] initWithFrame:CGRectMake(8, dateField.bottom + 8, [PSFacepileView widthWithFaces:fbUrls], [PSFacepileView heightWithFaces:fbUrls])];
-    [self.facepileView loadWithFaces:fbUrls];
+    self.facepileView = [[PSFacepileView alloc] initWithFrame:CGRectMake(8, dateField.bottom + 8, [PSFacepileView widthWithFaces:faces shouldShowNames:YES], [PSFacepileView heightWithFaces:faces shouldShowNames:YES])];
+    [self.facepileView loadWithFaces:faces shouldShowNames:YES];
     [tableHeaderView addSubview:self.facepileView];
     
     height += self.facepileView.height;
-    
     
     tableHeaderView.height = height;
     self.tableView.tableHeaderView = tableHeaderView;
@@ -181,7 +180,7 @@ actionButton = _actionButton;
     [commentButton setTitle:@"Comment" forState:UIControlStateNormal];
     [self.footerView addSubview:commentButton];
     
-    UIButton *editButton = [UIButton buttonWithFrame:CGRectMake(16 + width, 7, width, 31.0) andStyle:@"popoverSearchLabel" target:self action:nil];
+    UIButton *editButton = [UIButton buttonWithFrame:CGRectMake(16 + width, 7, width, 31.0) andStyle:@"popoverSearchLabel" target:self action:@selector(editEvent)];
     [editButton setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
     [editButton setTitle:@"Edit" forState:UIControlStateNormal];
     [self.footerView addSubview:editButton];
@@ -222,18 +221,18 @@ actionButton = _actionButton;
     NSArray *attendees = [self.eventDict objectForKey:@"attendees"];
     NSMutableArray *fbNames = [NSMutableArray array];
     NSMutableArray *fbIds = [NSMutableArray array];
-    NSMutableArray *fbUrls = [NSMutableArray array];
+    NSMutableArray *faces = [NSMutableArray array];
     for (NSDictionary *attendee in attendees) {
         [fbNames addObject:[attendee objectForKey:@"fbName"]];
         [fbIds addObject:[attendee objectForKey:@"fbId"]];
-        [fbUrls addObject:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [attendee objectForKey:@"fbId"]] forKey:@"url"]];
+        [faces addObject:[NSDictionary dictionaryWithObjectsAndKeys:[attendee objectForKey:@"fbName"], @"name", [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [attendee objectForKey:@"fbId"]], @"url", nil]];
     }
     //    NSString *creatorId = [[attendees objectAtIndexOrNil:0] objectForKey:@"fbId"];
     
     [self.facepileView prepareForReuse];
-    self.facepileView.width = [PSFacepileView widthWithFaces:fbUrls];
-    self.facepileView.height = [PSFacepileView heightWithFaces:fbUrls];
-    [self.facepileView loadWithFaces:fbUrls];
+    self.facepileView.width = [PSFacepileView widthWithFaces:faces shouldShowNames:YES];
+    self.facepileView.height = [PSFacepileView heightWithFaces:faces shouldShowNames:YES];
+    [self.facepileView loadWithFaces:faces shouldShowNames:YES];
 }
 
 #pragma mark - Actions
@@ -255,6 +254,10 @@ actionButton = _actionButton;
     [self mutateEventWithAction:@"leave"];
 }
 
+- (void)editEvent {
+    NewEventViewController *vc = [[NewEventViewController alloc] initWithVenueDict:self.venueDict eventDict:self.eventDict];
+    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+}
 
 #pragma mark - Events
 - (void)mutateEventWithAction:(NSString *)action {
@@ -296,9 +299,6 @@ actionButton = _actionButton;
                 
                 if ([res count] > 0) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:kEventUpdatedNotification object:nil userInfo:res];
-                    self.eventDict = res;
-                    [self updateFooter];
-                    [self updateFacepile];
                 } else {
                     // Event was deleted, no attendees left
                     [[NSNotificationCenter defaultCenter] postNotificationName:kEventUpdatedNotification object:nil userInfo:nil];
@@ -312,6 +312,16 @@ actionButton = _actionButton;
             [SVProgressHUD dismissWithError:@"Event Update Failed"];
         }
     }];
+}
+
+#pragma mark - Notifications
+
+- (void)eventUpdated:(NSNotification *)notification {
+    NSDictionary *eventDict = notification.userInfo;
+    self.eventDict = eventDict;
+    [self updateFooter];
+    [self updateFacepile];
+    // TODO update header
 }
 
 #pragma mark - UIActionSheetDelegate

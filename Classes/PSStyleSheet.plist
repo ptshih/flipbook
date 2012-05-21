@@ -505,6 +505,25 @@
 		<key>numberOfLines</key>
 		<integer>1</integer>
 	</dict>
+	<key>facepileLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>Gotham-Book</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0x2a2a2a</string>
+		<key>highlightedTextColor</key>
+		<string>0x2a2a2a</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>2</integer>
+	</dict>
 	<key>facepileMoreLabel</key>
 	<dict>
 		<key>fontName</key>
@@ -512,9 +531,9 @@
 		<key>fontSize</key>
 		<integer>13</integer>
 		<key>textColor</key>
-		<string>0x2a2a2a</string>
+		<string>0xefefef</string>
 		<key>highlightedTextColor</key>
-		<string>0x2a2a2a</string>
+		<string>0xefefef</string>
 		<key>textAlignment</key>
 		<string>center</string>
 		<key>shadowColor</key>

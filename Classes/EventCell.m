@@ -122,11 +122,11 @@ facepileView = _facepileView;
         self.facepileView.hidden = NO;
         
         NSMutableArray *faces = [NSMutableArray array];
-        for (NSString *fbId in friendIds) {
-            NSDictionary *face = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", fbId] forKey:@"url"];
-            [faces addObject:face];
+        for (NSDictionary *attendee in attendees) {
+            [faces addObject:[NSDictionary dictionaryWithObjectsAndKeys:[attendee objectForKey:@"fbName"], @"name", [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [attendee objectForKey:@"fbId"]], @"url", nil]];
         }
-        [self.facepileView loadWithFaces:faces];
+        self.facepileView.width = [PSFacepileView widthWithFaces:faces shouldShowNames:NO];
+        [self.facepileView loadWithFaces:faces shouldShowNames:NO];
     }
 }
 
@@ -157,21 +157,20 @@ facepileView = _facepileView;
     CGSize labelSize = [PSStyleSheet sizeForText:message width:width style:@"eventMessageLabel"];
     height += labelSize.height;
     
-    height = MAX(IMAGE_SIZE, height);
-    
     NSArray *friendIds = [fbIds subarrayWithRange:NSMakeRange(1, [fbIds count] - 1)];
     if (friendIds.count > 0) {
         // has facepile
         NSMutableArray *faces = [NSMutableArray array];
-        for (NSString *fbId in friendIds) {
-            NSDictionary *face = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", fbId] forKey:@"url"];
-            [faces addObject:face];
+        for (NSDictionary *attendee in attendees) {
+            [faces addObject:[NSDictionary dictionaryWithObjectsAndKeys:[attendee objectForKey:@"fbName"], @"name", [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [attendee objectForKey:@"fbId"]], @"url", nil]];
         }
-        CGFloat facepileHeight = [PSFacepileView heightWithFaces:faces];
+        CGFloat facepileHeight = [PSFacepileView heightWithFaces:faces shouldShowNames:NO];
         height += facepileHeight;
     }
     
     height += MARGIN * 2;
+    
+    height = MAX(IMAGE_SIZE + MARGIN * 2, height);
     
     return height;
 }

@@ -13,6 +13,7 @@
 @interface NewEventViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) NSDictionary *venueDict;
+@property (nonatomic, strong) NSDictionary *eventDict;
 @property (nonatomic, strong) NSDate *selectedDate;
 @property (nonatomic, strong) NSString *notes;
 
@@ -21,12 +22,15 @@
 @property (nonatomic, strong) PSTextField *dateField;
 @property (nonatomic, strong) PSTextField *notesField;
 
+@property (nonatomic, assign) BOOL isEditMode;
+
 @end
 
 @implementation NewEventViewController
 
 @synthesize
 venueDict = _venueDict,
+eventDict = _eventDict,
 selectedDate = _selectedDate,
 notes = _notes;
 
@@ -36,10 +40,16 @@ venueMiniView = _venueMiniView,
 dateField = _dateField,
 notesField = _notesField;
 
-- (id)initWithDictionary:(NSDictionary *)dictionary {
+@synthesize
+isEditMode = _isEditMode;
+
+- (id)initWithVenueDict:(NSDictionary *)venueDict eventDict:(NSDictionary *)eventDict {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
-        self.venueDict = dictionary;
+        self.venueDict = venueDict;
+        self.eventDict = eventDict;
+
+        self.isEditMode = eventDict ? YES : NO;
         
         self.title = @"Add Event";
     }
@@ -95,9 +105,15 @@ notesField = _notesField;
     datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     datePicker.minimumDate = [NSDate date];
     datePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:kTimeInterval3Months];
-    [datePicker setDate:[NSDate date] animated:NO];
+    
+    // Edit mode
+    if (self.eventDict) {
+        self.selectedDate = [NSDate dateWithMillisecondsSince1970:[[self.eventDict objectForKey:@"datetime"] doubleValue]];
+    } else {
+        self.selectedDate = [NSDate date];
+    }
+    [datePicker setDate:self.selectedDate animated:NO];
     [datePicker addTarget:self action:@selector(datePickerChanged:) forControlEvents:UIControlEventValueChanged];
-    self.selectedDate = datePicker.date;
     
     self.dateField = [[PSTextField alloc] initWithFrame:CGRectMake(0, helpLabel.bottom, self.view.width, 44) withInset:UIEdgeInsetsMake(12, 8, 12, 8)];
     [PSStyleSheet applyStyle:@"eventField" forTextField:self.dateField];
@@ -105,7 +121,7 @@ notesField = _notesField;
     self.dateField.inputView = datePicker;
     self.dateField.leftViewMode = UITextFieldViewModeAlways;
     self.dateField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconClockBlack"]];
-    self.dateField.text = [NSDate stringFromDate:datePicker.date withFormat:kEventDateFormat];
+    self.dateField.text = [NSDate stringFromDate:self.selectedDate withFormat:kEventDateFormat];
     [self.contentView addSubview:[[UIImageView alloc] initWithFrame:self.dateField.frame image:[UIImage stretchableImageNamed:@"BackgroundTextFieldTop" withLeftCapWidth:0 topCapWidth:1]]];
     [self.contentView addSubview:self.dateField];
     
@@ -121,6 +137,11 @@ notesField = _notesField;
     self.notesField.returnKeyType = UIReturnKeySend;
     [self.contentView addSubview:[[UIImageView alloc] initWithFrame:self.notesField.frame image:[UIImage stretchableImageNamed:@"BackgroundTextFieldTop" withLeftCapWidth:0 topCapWidth:1]]];
     [self.contentView addSubview:self.notesField];
+    
+    if (self.eventDict) {
+        NSString *notes = OBJ_NOT_NULL([self.eventDict objectForKey:@"notes"]);
+        self.notesField.text = notes;
+    }
 }
 
 - (void)setupHeader {
@@ -166,7 +187,11 @@ notesField = _notesField;
 
 - (void)rightAction {
     [self.view findAndResignFirstResponder];
-    [self createEvent];
+    if (self.isEditMode) {
+        [self editEvent];
+    } else {
+        [self createEvent];
+    }
 }
 
 - (void)datePickerChanged:(UIDatePicker *)datePicker {
@@ -176,6 +201,66 @@ notesField = _notesField;
 
 - (void)notesChanged:(PSTextField *)notesField {
     self.notes = notesField.text;
+}
+
+- (void)editEvent {
+    [SVProgressHUD showWithStatus:@"Editing Event..." maskType:SVProgressHUDMaskTypeGradient];
+    
+    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events/%@/edit", API_BASE_URL, [self.eventDict objectForKey:@"_id"]];
+    
+    // FB
+    NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
+    NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
+    NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
+    BOOL shouldPost = [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldPostToFacebook"];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
+    [parameters setObject:fbId forKey:@"fbId"];
+    [parameters setObject:fbName forKey:@"fbName"];
+    [parameters setObject:[NSNumber numberWithBool:shouldPost] forKey:@"shouldPostToFacebook"];
+    
+    // Event
+    if (self.selectedDate) {
+        [parameters setObject:[NSNumber numberWithDouble:[self.selectedDate millisecondsSince1970]] forKey:@"datetime"];
+    }
+    
+    if (self.notes) {
+        [parameters setObject:self.notes forKey:@"notes"];
+    }
+    
+    NSURL *URL = [NSURL URLWithString:URLPath];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
+    
+    BLOCK_SELF;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
+        
+        NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
+        
+        if (!error && responseCode == 200) {
+            id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            //        NSLog(@"res: %@", res);
+            
+            if (res && [res isKindOfClass:[NSDictionary class]]) {
+                [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:NULL];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kEventUpdatedNotification object:nil userInfo:res];
+                
+                [SVProgressHUD dismissWithSuccess:@"Event Updated"];
+                
+                [(PSNavigationController *)self.parentViewController popViewControllerWithDirection:PSNavigationControllerDirectionRight animated:YES];
+            } else {
+                [SVProgressHUD dismissWithError:@"Event Edit Failed"];
+                [self.dateField becomeFirstResponder];                
+            }
+        } else {
+            [SVProgressHUD dismissWithError:@"Event Edit Failed"];
+            [self.dateField becomeFirstResponder];
+        }
+    }];
 }
 
 

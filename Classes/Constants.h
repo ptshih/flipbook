@@ -60,6 +60,7 @@
  */
 #define kAlertTagDirections 7001
 #define kAlertTagFoursquare 7002
+#define kAlertTagBookmark 7003
 
 /**
  Error domains

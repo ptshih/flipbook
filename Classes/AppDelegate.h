@@ -17,6 +17,6 @@
 @property (nonatomic, strong) NSDate *foregroundDate;
 @property (nonatomic, assign) BOOL shouldReloadInterface;
 
-- (void)pushVenueWithId:(NSString *)venueId eventId:(NSString *)eventId;
+- (void)pushVenueWithId:(NSString *)venueId;
 
 @end

@@ -10,6 +10,6 @@
 
 @interface VenueDetailViewController : PSCollectionViewController
 
-- (id)initWithVenueId:(NSString *)venueId eventId:(NSString *)eventId;
+- (id)initWithVenueId:(NSString *)venueId;
 
 @end

@@ -11,7 +11,7 @@
 #import "PSPopoverView.h"
 #import "AppDelegate.h"
 
-#import "EventCell.h"
+#import "BookmarkCell.h"
 
 @interface NotificationViewController ()
 
@@ -116,7 +116,7 @@
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         default:
-            return [EventCell class];
+            return [BookmarkCell class];
             break;
     }
 }
@@ -134,11 +134,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     id object = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSString *venueId = [[object objectForKey:@"where"] objectForKey:@"venueId"];
-    NSString *eventId = [object objectForKey:@"_id"];
+    NSString *venueId = [object objectForKey:@"venueId"];
     if ([self.nextResponder.nextResponder isKindOfClass:[PSPopoverView class]]) {
         [(PSPopoverView *)self.nextResponder.nextResponder dismiss];
-        [(AppDelegate *)APP_DELEGATE pushVenueWithId:venueId eventId:eventId];
+        [(AppDelegate *)APP_DELEGATE pushVenueWithId:venueId];
     }
 }
 

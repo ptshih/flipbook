@@ -8,11 +8,7 @@
 
 #import "VenueListViewController.h"
 #import "VenueDetailViewController.h"
-#import "NotificationViewController.h"
-#import "FBConnectViewController.h"
-#import "SettingsViewController.h"
 
-#import "InfoPopoverView.h"
 #import "PSPopoverView.h"
 #import "VenueView.h"
 #import "CategoryChooserView.h"
@@ -20,9 +16,8 @@
 
 #define kPopoverLocation 7001
 #define kPopoverCategory 7002
-#define kPopoverEvent 7003
 
-@interface VenueListViewController ()
+@interface VenueListViewController () <PSPopoverViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, copy) NSString *category;
 @property (nonatomic, assign) CLLocationCoordinate2D centerCoordinate;
@@ -32,14 +27,9 @@
 
 @property (nonatomic, assign) BOOL hasLoadedOnce;
 
-- (void)refreshOnAppear;
-
 @end
 
 @implementation VenueListViewController
-
-@synthesize
-shouldRefreshOnAppear = _shouldRefreshOnAppear;
 
 @synthesize
 category = _category,
@@ -66,18 +56,14 @@ hasLoadedOnce = _hasLoadedOnce;
         self.shouldAddRoundedCorners = YES;
         self.shouldPullRefresh = NO;
         
-        self.shouldRefreshOnAppear = NO;
         self.radius = 0;
         self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
         self.hasLoadedOnce = NO;
         
-        self.title = @"Lunchbox";
+        self.title = @"Locating...";
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidUpdate) name:kPSLocationCenterDidUpdate object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidFail) name:kPSLocationCenterDidFail object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotifications) name:kNotificationManagerDidUpdate object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(facebookDidLogin) name:kFacebookLoginSucceeded object:nil];
-        
     }
     return self;
 }
@@ -86,9 +72,6 @@ hasLoadedOnce = _hasLoadedOnce;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)refreshOnAppear {
-    self.shouldRefreshOnAppear = YES;
-}
 
 #pragma mark - View Config
 - (UIColor *)baseBackgroundColor {
@@ -99,36 +82,12 @@ hasLoadedOnce = _hasLoadedOnce;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
-        [self updateNotifications];
-    }
-    
     // Load
     [self loadDataSource];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    if (self.shouldRefreshOnAppear) {
-        self.shouldRefreshOnAppear = NO;
-        [self reloadDataSource];
-    }
-    
-    NSDate *showDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"showEventPopover"];
-    
-    if ([[showDate earlierDate:[NSDate date]] isEqualToDate:showDate] && ![[PSFacebookCenter defaultCenter] isLoggedIn]) {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:kTimeInterval1Day] forKey:@"showEventPopover"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        InfoPopoverView *pv = [[InfoPopoverView alloc] initWithFrame:self.view.bounds];
-        pv.alpha = 0.0;
-        
-        [UIView animateWithDuration:0.4 animations:^{
-            pv.alpha = 1.0;
-        } completion:^(BOOL finished) {
-            [self.view addSubview:pv];
-        }];
-    }
 }
 
 #pragma mark - Config Subviews
@@ -178,34 +137,34 @@ hasLoadedOnce = _hasLoadedOnce;
     [self.view addSubview:self.headerView];
 }
 
-- (void)setupFooter {
-    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height - 32, self.view.width, 32)];
-    self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
-    self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    
-    //    UIImageView *footerBg = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"BackgroundToolbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:0]];
-    //    footerBg.autoresizingMask = self.footerView.autoresizingMask;
-    //    [self.footerView addSubview:footerBg];
-    
-    UILabel *locationLabel = [UILabel labelWithText:@"Trying to locate you..." style:@"locationLabel"];
-    self.locationLabel = locationLabel;
-    locationLabel.frame = CGRectInset(self.footerView.bounds, 32, 0);
-    locationLabel.autoresizingMask = self.footerView.autoresizingMask;
-    
-    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(rightAction)];
-    [locationLabel addGestureRecognizer:gr];
-    
-    UIButton *settingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    settingsButton.frame = CGRectMake(self.footerView.width - 20 - 8, 8, 16, 16);
-    
-    [settingsButton setBackgroundImage:[UIImage imageNamed:@"IconGearWhite"] forState:UIControlStateNormal];
-    [settingsButton addTarget:self action:@selector(showSettings) forControlEvents:UIControlEventTouchUpInside];
-    [self.footerView addSubview:settingsButton];
-    
-    // Add to subviews
-    [self.footerView addSubview:locationLabel];
-    [self.view addSubview:self.footerView];
-}
+//- (void)setupFooter {
+//    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height - 32, self.view.width, 32)];
+//    self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
+//    self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//    
+//    //    UIImageView *footerBg = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"BackgroundToolbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:0]];
+//    //    footerBg.autoresizingMask = self.footerView.autoresizingMask;
+//    //    [self.footerView addSubview:footerBg];
+//    
+//    UILabel *locationLabel = [UILabel labelWithText:@"Trying to locate you..." style:@"locationLabel"];
+//    self.locationLabel = locationLabel;
+//    locationLabel.frame = CGRectInset(self.footerView.bounds, 32, 0);
+//    locationLabel.autoresizingMask = self.footerView.autoresizingMask;
+//    
+//    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(rightAction)];
+//    [locationLabel addGestureRecognizer:gr];
+//    
+//    UIButton *settingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    settingsButton.frame = CGRectMake(self.footerView.width - 20 - 8, 8, 16, 16);
+//    
+//    [settingsButton setBackgroundImage:[UIImage imageNamed:@"IconGearWhite"] forState:UIControlStateNormal];
+//    [settingsButton addTarget:self action:@selector(showSettings) forControlEvents:UIControlEventTouchUpInside];
+//    [self.footerView addSubview:settingsButton];
+//    
+//    // Add to subviews
+//    [self.footerView addSubview:locationLabel];
+//    [self.view addSubview:self.footerView];
+//}
 
 #pragma mark - Actions
 - (void)leftAction {
@@ -223,26 +182,13 @@ hasLoadedOnce = _hasLoadedOnce;
 }
 
 - (void)centerAction {
-    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
-        NotificationViewController *vc = [[NotificationViewController alloc] initWithNibName:nil bundle:nil];
-        vc.view.frame = CGRectMake(0, 0, 288, 356);
-        PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Notifications" contentController:vc];
-        popoverView.tag = kPopoverEvent;
-        popoverView.delegate = self;
-        [popoverView showWithSize:vc.view.bounds.size inView:self.view];
-    } else {
-        FBConnectViewController *vc = [[FBConnectViewController alloc] initWithNibName:nil bundle:nil];
-        [(PSNavigationController *)self.parentViewController pushViewController:vc direction:PSNavigationControllerDirectionUp animated:YES];
-    }
-    
-    return;
-    
-//        CGFloat radius = self.radius > 0 ? self.radius : 400.0;
-//        MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, radius * 2, radius * 2);
-    //    PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv];
-    //    popoverView.tag = kPopoverLocation;
-    //    popoverView.delegate = self;
-    //    [popoverView showWithSize:cv.frame.size inView:self.view];
+    CGFloat radius = self.radius > 0 ? self.radius : 400.0;
+    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, radius * 2, radius * 2);
+    LocationChooserView *cv = [[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion];
+    PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv];
+    popoverView.tag = kPopoverLocation;
+    popoverView.delegate = self;
+    [popoverView showWithSize:cv.frame.size inView:self.view];
 }
 
 - (void)rightAction {
@@ -264,10 +210,7 @@ hasLoadedOnce = _hasLoadedOnce;
     //    [popoverView showWithSize:cv.frame.size inView:self.view];
 }
 
-- (void)showSettings {
-    SettingsViewController *vc = [[SettingsViewController alloc] initWithNibName:nil bundle:nil];
-    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-}
+
 
 #pragma mark - Location Notification
 - (void)locationDidUpdate {
@@ -319,7 +262,7 @@ hasLoadedOnce = _hasLoadedOnce;
         self.hasLoadedOnce = NO;
 #warning location bug
         // TODO: Show an error saying location undetectable
-        self.locationLabel.text = @"Unable to find your location";
+        [self.centerButton setTitle:@"Unable to find your location" forState:UIControlStateNormal];
         return;
     } else {
         self.hasLoadedOnce = YES;
@@ -350,8 +293,8 @@ hasLoadedOnce = _hasLoadedOnce;
                 locString = [NSString stringWithFormat:@"%@ of %@", [NSString localizedStringForDistance:self.radius], placemark.name];
             }
             
-            self.locationLabel.text = locString;
-            //            [self.centerButton setTitle:locString forState:UIControlStateNormal];
+//            self.locationLabel.text = locString;
+            [self.centerButton setTitle:locString forState:UIControlStateNormal];
             //            NSLog(@"placemark: %@", placemark);
         }
     }];
@@ -517,7 +460,7 @@ hasLoadedOnce = _hasLoadedOnce;
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(PSCollectionViewCell *)view atIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:[item objectForKey:@"id"] eventId:nil];
+    VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:[item objectForKey:@"id"]];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 }
 
@@ -569,18 +512,6 @@ hasLoadedOnce = _hasLoadedOnce;
     if (alertView.cancelButtonIndex == buttonIndex) return;
     
     [Appirater rateApp];
-}
-
-#pragma mark - Notifications
-
-- (void)updateNotifications {
-    NSArray *notifications = [[NotificationManager sharedManager] notifications];
-    self.title = [NSString stringWithFormat:@"Lunchbox (%d)", notifications.count];
-    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
-}
-
-- (void)facebookDidLogin {
-    [[NotificationManager sharedManager] downloadNotificationsWithCompletionBlock:NULL];
 }
 
 @end

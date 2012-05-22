@@ -52,7 +52,7 @@
     topView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
     [self.view addSubview:topView];
     
-    UILabel *logo = [UILabel labelWithText:@"Share Your Plans With Friends" style:@"h1Label"];
+    UILabel *logo = [UILabel labelWithText:@"Save/Bookmark Places" style:@"h1Label"];
     logo.textAlignment = UITextAlignmentCenter;
     logo.frame = topView.bounds;
     [topView addSubview:logo];
@@ -72,7 +72,7 @@
     [midView addSubview:bg];
     
     UILabel *infoLabel = [UILabel labelWithStyle:@"infoPopoverLabel"];
-    infoLabel.text = @"Sign in with Facebook to Start!\r\n\r\nYou can now tell your friends that you plan on going somewhere later.\r\n\r\nYou can also join your friends who have already made plans.\r\n\r\nStart sharing your plans today!";
+    infoLabel.text = @"Sign in with Facebook to Start!\r\n\r\nYou can now save places you like to your Lunchbox for easy viewing at a later time.\r\n\r\nWe can also let your friends know that you saved a place to your Lunchbox!";
     infoLabel.frame = UIEdgeInsetsInsetRect(bg.bounds, UIEdgeInsetsMake(30, 30, 42, 30));
     [bg addSubview:infoLabel];
     

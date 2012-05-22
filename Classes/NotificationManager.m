@@ -38,7 +38,7 @@ notifications = _notifications;
     // Only download if user has logged in already
     if (!fbId) return;
     
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/events", API_BASE_URL];
+    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/bookmarks", API_BASE_URL];
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:fbId forKey:@"fbId"];

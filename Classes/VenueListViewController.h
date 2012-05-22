@@ -9,9 +9,7 @@
 #import "PSCollectionViewController.h"
 #import "PSPopoverView.h"
 
-@interface VenueListViewController : PSCollectionViewController <PSPopoverViewDelegate, UIAlertViewDelegate>
-
-@property (nonatomic, assign) BOOL shouldRefreshOnAppear;
+@interface VenueListViewController : PSCollectionViewController
 
 - (id)initWithCategory:(NSString *)category;
 

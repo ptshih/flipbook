@@ -12,6 +12,7 @@
 @interface LocationChooserView ()
 
 @property (nonatomic, strong) PSTextField *queryField;
+@property (nonatomic, strong) UIButton *searchButton;
 
 @end
 
@@ -19,6 +20,7 @@
 
 @synthesize
 queryField = _queryField,
+searchButton = _searchButton,
 mapView = _mapView,
 query = _query,
 locationDidChange = _locationDidChange;
@@ -70,7 +72,7 @@ locationDidChange = _locationDidChange;
         queryField.returnKeyType = UIReturnKeySearch;
         queryField.autocorrectionType = UITextAutocorrectionTypeNo;
         queryField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        queryField.placeholder = @"Search for something...";
+        queryField.placeholder = @"Search for anything...";
 //        [queryField setEnablesReturnKeyAutomatically:YES];
         [queryField addTarget:self action:@selector(queryChanged:) forControlEvents:UIControlEventEditingChanged];
         [queryView addSubview:queryField];
@@ -94,21 +96,22 @@ locationDidChange = _locationDidChange;
         [self.mapView addSubview:currentLocationButton];
         
         UIButton *redoSearchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [redoSearchButton setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
+        self.searchButton = redoSearchButton;
+//        [redoSearchButton setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
         redoSearchButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
-//        redoSearchButton.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
-//        redoSearchButton.layer.cornerRadius = 4.0;
-//        redoSearchButton.layer.masksToBounds = YES;
-//        redoSearchButton.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
-//        redoSearchButton.layer.borderWidth = 1.0;
+        redoSearchButton.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
+        redoSearchButton.layer.cornerRadius = 4.0;
+        redoSearchButton.layer.masksToBounds = YES;
+        redoSearchButton.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
+        redoSearchButton.layer.borderWidth = 1.0;
+        redoSearchButton.layer.shouldRasterize = YES;
+        redoSearchButton.layer.rasterizationScale = [UIScreen mainScreen].scale;
         [redoSearchButton addTarget:self action:@selector(redoSearch) forControlEvents:UIControlEventTouchUpInside];
-        redoSearchButton.height = 31;
-        redoSearchButton.width = self.mapView.width - 128.0;
-        redoSearchButton.left = self.mapView.width - redoSearchButton.width - 8;
-        redoSearchButton.top = self.mapView.height - 8 - 31;
-        [redoSearchButton setTitle:@"Search In This Area" forState:UIControlStateNormal];
+        [redoSearchButton setTitle:@"Search This Area" forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"popoverSearchLabel" forButton:redoSearchButton];
+        redoSearchButton.frame = CGRectMake(self.mapView.width - 144.0 - 8.0, self.mapView.height - 8.0 - 31.0, 144.0, 31.0);
         [self.mapView addSubview:redoSearchButton];
+        self.searchButton.alpha = 0.0;
     }
     return self;
 }
@@ -160,6 +163,10 @@ locationDidChange = _locationDidChange;
     if ([self.queryField isFirstResponder]) {
         [self.queryField resignFirstResponder];
     }
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        self.searchButton.alpha = 1.0;
+    }];
 }
 
 @end

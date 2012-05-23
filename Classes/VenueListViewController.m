@@ -23,7 +23,7 @@
 @property (nonatomic, assign) CLLocationCoordinate2D centerCoordinate;
 @property (nonatomic, assign) CGFloat radius;
 @property (nonatomic, copy) NSString *query;
-@property (nonatomic, strong) UILabel *locationLabel;
+@property (nonatomic, strong) UILabel *queryLabel;
 
 @property (nonatomic, assign) BOOL hasLoadedOnce;
 
@@ -36,7 +36,7 @@ category = _category,
 centerCoordinate = _centerCoordinate,
 radius = _radius,
 query = _query,
-locationLabel = _locationLabel;
+queryLabel = _queryLabel;
 
 @synthesize
 hasLoadedOnce = _hasLoadedOnce;
@@ -137,34 +137,20 @@ hasLoadedOnce = _hasLoadedOnce;
     [self.view addSubview:self.headerView];
 }
 
-//- (void)setupFooter {
-//    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height - 32, self.view.width, 32)];
-//    self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
-//    self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//    
-//    //    UIImageView *footerBg = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"BackgroundToolbar"] stretchableImageWithLeftCapWidth:1 topCapHeight:0]];
-//    //    footerBg.autoresizingMask = self.footerView.autoresizingMask;
-//    //    [self.footerView addSubview:footerBg];
-//    
-//    UILabel *locationLabel = [UILabel labelWithText:@"Trying to locate you..." style:@"locationLabel"];
-//    self.locationLabel = locationLabel;
-//    locationLabel.frame = CGRectInset(self.footerView.bounds, 32, 0);
-//    locationLabel.autoresizingMask = self.footerView.autoresizingMask;
-//    
-//    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(rightAction)];
-//    [locationLabel addGestureRecognizer:gr];
-//    
-//    UIButton *settingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    settingsButton.frame = CGRectMake(self.footerView.width - 20 - 8, 8, 16, 16);
-//    
-//    [settingsButton setBackgroundImage:[UIImage imageNamed:@"IconGearWhite"] forState:UIControlStateNormal];
-//    [settingsButton addTarget:self action:@selector(showSettings) forControlEvents:UIControlEventTouchUpInside];
-//    [self.footerView addSubview:settingsButton];
-//    
-//    // Add to subviews
-//    [self.footerView addSubview:locationLabel];
-//    [self.view addSubview:self.footerView];
-//}
+- (void)setupFooter {
+    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height - 32, self.view.width, 32)];
+    self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
+    self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+    UILabel *queryLabel = [UILabel labelWithText:[NSString stringWithFormat:@"Showing Results for \"%@\"", self.category] style:@"queryLabel"];
+    self.queryLabel = queryLabel;
+    queryLabel.frame = CGRectInset(self.footerView.bounds, 32, 0);
+    queryLabel.autoresizingMask = self.footerView.autoresizingMask;
+    
+    // Add to subviews
+    [self.footerView addSubview:queryLabel];
+    [self.view addSubview:self.footerView];
+}
 
 #pragma mark - Actions
 - (void)leftAction {
@@ -502,6 +488,9 @@ hasLoadedOnce = _hasLoadedOnce;
             self.radius = ceilf(span / 2.0);
             self.centerCoordinate = mapView.centerCoordinate;
             self.query = [cv query];
+            
+            NSString *query = (self.query && self.query.length > 0) ? self.query : self.category;
+            self.queryLabel.text = [NSString stringWithFormat:@"Showing Results for \"%@\"", query];
             
             [self reloadDataSource];
         }

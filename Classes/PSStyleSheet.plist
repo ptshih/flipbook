@@ -85,13 +85,13 @@
 		<key>fontSize</key>
 		<integer>14</integer>
 		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>shadowColor</key>
 		<string>0xffffff</string>
+		<key>highlightedTextColor</key>
+		<string>0xffffff</string>
+		<key>shadowColor</key>
+		<string>0x2a2a2a</string>
 		<key>shadowOffset</key>
-		<string>{0,1}</string>
+		<string>{0,0.5}</string>
 		<key>numberOfLines</key>
 		<integer>1</integer>
 		<key>textAlignment</key>
@@ -368,11 +368,19 @@
 	<key>queryField</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeueLT-MediumCond</string>
+		<string>HelveticaNeue-Bold</string>
 		<key>fontSize</key>
-		<integer>16</integer>
+		<integer>14</integer>
 		<key>textColor</key>
-		<string>0xefefef</string>
+		<string>0xffffff</string>
+		<key>highlightedTextColor</key>
+		<string>0xffffff</string>
+		<key>shadowColor</key>
+		<string>0x2a2a2a</string>
+		<key>shadowOffset</key>
+		<string>{0,0.5}</string>
+		<key>numberOfLines</key>
+		<integer>1</integer>
 		<key>textAlignment</key>
 		<string>left</string>
 	</dict>
@@ -486,7 +494,7 @@
 		<key>numberOfLines</key>
 		<integer>2</integer>
 	</dict>
-	<key>locationLabel</key>
+	<key>queryLabel</key>
 	<dict>
 		<key>fontName</key>
 		<string>Gotham-Book</string>

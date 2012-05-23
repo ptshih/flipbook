@@ -10,7 +10,6 @@
 
 #import "TapjoyConnect.h"
 #import "TJCConfig.h"
-#import "OpenUDID.h"
 #import <CommonCrypto/CommonHMAC.h>
 #include <sys/socket.h> // Per msqr
 #include <sys/sysctl.h>
@@ -21,10 +20,13 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
 #endif
+#if TJC_OPENUDID_OPT_IN
+#import "TJCOpenUDID.h"
+#endif
+
 
 
 static TapjoyConnect *sharedInstance_ = nil; //To make TapjoyConnect Singleton
-static NSString *orignalRequest = TJC_SERVICE_URL;
 
 @implementation TapjoyConnect
 
@@ -76,9 +78,8 @@ static NSString *orignalRequest = TJC_SERVICE_URL;
 	
 	NSString *lad = [self isJailBrokenStr];
 	
-	NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
 	// Get seconds since Jan 1st, 1970.
-	NSString *timeStamp = [NSString stringWithFormat:@"%d", (int)timeInterval];
+	NSString *timeStamp = [TapjoyConnect getTimeStamp];
 	
 	// Compute verifier.
 	NSString *verifier = [TapjoyConnect TJCSHA256CommonParamsWithTimeStamp:timeStamp];
@@ -99,16 +100,21 @@ static NSString *orignalRequest = TJC_SERVICE_URL;
 	NSString *connectionType = [TJCNetReachability getReachibilityType];
 #endif
 	
-	NSString *macID = [TapjoyConnect getMACAddress];
+	NSString *macID = [TapjoyConnect getMACID];
+	NSString *sha1macAddress = [TapjoyConnect getSHA1MacAddress];
 	
-	NSString *openUDID = [OpenUDID value];
-	
-	NSString *openUDIDSlotCount = [NSString stringWithFormat:@"%d", [OpenUDID getOpenUDIDSlotCount]];
+#if TJC_OPENUDID_OPT_IN
+	NSString *openUDID = [TJCOpenUDID value];
+	NSString *openUDIDSlotCount = [NSString stringWithFormat:@"%d", [TJCOpenUDID getOpenUDIDSlotCount]];
+#endif
 	
 	NSMutableDictionary * genericDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
 													 macID, TJC_UNIQUE_MAC_ID,
+													 sha1macAddress, TJC_UNIQUE_MAC_ID_SHA1,
+#if TJC_OPENUDID_OPT_IN
 													 openUDID, TJC_OPEN_UDID,
 													 openUDIDSlotCount, TJC_OPEN_UDID_COUNT,
+#endif
 													 model, TJC_DEVICE_TYPE_NAME,
 													 systemVersion, TJC_DEVICE_OS_VERSION_NAME,
 													 appID_, TJC_APP_ID_NAME,
@@ -185,7 +191,7 @@ static NSString *orignalRequest = TJC_SERVICE_URL;
 }
 
 
-- (NSString*)createQueryStringFromDict:(NSDictionary*) paramDict
+- (NSString*)createQueryStringFromDict:(NSDictionary*)paramDict
 {
 	if(!paramDict)
 	{
@@ -201,11 +207,7 @@ static NSString *orignalRequest = TJC_SERVICE_URL;
 		id value = [paramDict objectForKey: key];
 		
 		// Encode string to a legal URL string.
-		NSString *encodedString = (NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
-																											  (CFStringRef)value,
-																											  NULL,
-																											  (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-																											  kCFStringEncodingUTF8);
+		NSString *encodedString = [[TapjoyConnect sharedTapjoyConnect] createQueryStringFromString:value];
 		
 		NSString *part = [NSString stringWithFormat: @"%@=%@", key, encodedString];
 		
@@ -223,73 +225,131 @@ static NSString *orignalRequest = TJC_SERVICE_URL;
 }
 
 
-- (void)connectWithParam:(NSMutableDictionary*)genericDict
+- (NSString*)createQueryStringFromString:(NSString*)string
 {
-	NSString *requestString = [NSString stringWithFormat:@"%@%@?%@", orignalRequest, TJC_CONNECT_API, [self createQueryStringFromDict:genericDict]];
+	NSString *encodedString = (NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
+																										  (CFStringRef)string,
+																										  NULL,
+																										  (CFStringRef)@"!*'();:@&=+$,/?%#[]|",
+																										  kCFStringEncodingUTF8);
 	
-	NSURL * myURL = [[NSURL alloc] initWithString:requestString];
-	NSMutableURLRequest *myRequest = [NSMutableURLRequest requestWithURL: myURL
-																				cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-																		  timeoutInterval: 30];
+	return encodedString;
+}
+
+
++ (NSString*)createQueryStringFromString:(NSString*)string
+{
+	return [[TapjoyConnect sharedTapjoyConnect] createQueryStringFromString:string];
+}
+
+
+- (void)connectWithType:(int)connectionType withParams:(NSDictionary*)params
+{	
+	NSString *URLString = [self getURLStringWithConnectionType:connectionType];
+	
+	NSString *requestString = [NSString stringWithFormat:@"%@?%@", URLString, [self createQueryStringFromDict:params]];
+	
+	[self initiateConnectionWithConnectionType:connectionType requestString:requestString];
+}
+
+
+- (NSString*)getURLStringWithConnectionType:(int)connectionType
+{
+	NSString *URLString = nil;
+	
+	switch (connectionType)
+	{			
+		case TJC_CONNECT_TYPE_SDK_LESS:
+		{
+			URLString = [NSString stringWithFormat:@"%@%@", TJC_SERVICE_URL, TJC_SDK_LESS_CONNECT_API];	
+		}
+			break;
+			
+		case TJC_CONNECT_TYPE_USER_ID:
+		{
+			URLString = [NSString stringWithFormat:@"%@%@", TJC_SERVICE_URL, TJC_SET_USER_ID_API];
+		}
+			break;
+			
+		case TJC_CONNECT_TYPE_ALT_CONNECT:
+		{
+			URLString = [NSString stringWithFormat:@"%@%@", TJC_SERVICE_URL_ALTERNATE, TJC_CONNECT_API];
+		}
+			break;
+			
+		case TJC_CONNECT_TYPE_CONNECT:
+		default:
+		{
+			URLString = [NSString stringWithFormat:@"%@%@", TJC_SERVICE_URL, TJC_CONNECT_API];
+		}
+			break;
+	}
+	
+	return URLString;
+}
+
+
+- (void)initiateConnectionWithConnectionType:(int)connectionType requestString:(NSString*)requestString
+{
+	NSURL *myURL = [[NSURL alloc] initWithString:requestString];
+	NSMutableURLRequest *myRequest = [NSMutableURLRequest requestWithURL:myURL
+																				cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+																		  timeoutInterval:30];
+	
 	[myURL release];
 	
 	if (data_)
 	{
 		[data_ release];
 		data_ = nil;
-	}
-	
-	if (connection_)
-	{
-		[connection_ cancel];
-		[connection_ release];
-		connection_ = nil;
 	}
 	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
 	dispatch_async(dispatch_get_main_queue(), ^{
-		connection_ = [[NSURLConnection alloc] initWithRequest: myRequest delegate: self];
+#endif
+		switch (connectionType)
+		{			
+			case TJC_CONNECT_TYPE_SDK_LESS:
+			{
+				if (SDKLessConnection_)
+				{
+					[SDKLessConnection_ release];
+					SDKLessConnection_ = nil;
+				}
+				SDKLessConnection_ = [[NSURLConnection alloc] initWithRequest:myRequest delegate:self];
+			}
+				break;
+				
+			case TJC_CONNECT_TYPE_USER_ID:
+			{
+				if (userIDConnection_)
+				{
+					[userIDConnection_ release];
+					userIDConnection_ = nil;
+				}
+				userIDConnection_ = [[NSURLConnection alloc] initWithRequest:myRequest delegate:self];
+			}
+				break;
+				
+			case TJC_CONNECT_TYPE_ALT_CONNECT:
+			case TJC_CONNECT_TYPE_CONNECT:
+			default:
+			{
+				if (connectConnection_)
+				{
+					[connectConnection_ release];
+					connectConnection_ = nil;
+					
+				}
+				connectConnection_ = [[NSURLConnection alloc] initWithRequest:myRequest delegate:self];
+			}
+				break;
+		}
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
 	});
-#else
-	connection_ = [[NSURLConnection alloc] initWithRequest: myRequest delegate: self];
 #endif
 	
-	connectAttempts_++;	
-}
-
-
-- (void)setUserIDWithParam:(NSMutableDictionary*)genericDict
-{
-	// Set user ID in the dictionary before creating the URL.
-	if (![TapjoyConnect getUserID])
-	{
-		return;
-	}
-	
-	[genericDict setObject:[TapjoyConnect getUserID] forKey:TJC_URL_PARAM_USER_ID];
-	NSString *requestString = [NSString stringWithFormat:@"%@%@?%@", orignalRequest, TJC_SET_USER_ID_API, [self createQueryStringFromDict:genericDict]];
-	
-	NSURL * myURL = [[NSURL alloc] initWithString:requestString];
-	NSMutableURLRequest *myRequest = [NSMutableURLRequest requestWithURL: myURL
-																				cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-																		  timeoutInterval: 30];
-	[myURL release];
-	
-	if (data_)
-	{
-		[data_ release];
-		data_ = nil;
-	}
-	
-	if (connection_)
-	{
-		[connection_ cancel];
-		[connection_ release];
-		connection_ = nil;
-	}
-	
-	connection_ = [[NSURLConnection alloc] initWithRequest: myRequest delegate: self];
-	connectAttempts_++;	
+	connectAttempts_++;
 }
 
 
@@ -348,10 +408,12 @@ static const char* jailbreak_apps[] =
 	appID_ = [appID retain];
 	secretKey_ = [secretKey retain];
 	connectAttempts_ = 0;
-	if (connection_)
+	
+	if (connectConnection_)
 	{
-		[connection_ release];
-		connection_ = nil;
+		[connectConnection_ cancel];
+		[connectConnection_ release];
+		connectConnection_ = nil;
 	}
 }
 
@@ -366,16 +428,16 @@ static const char* jailbreak_apps[] =
 	}
 	else
 	{
-		// Call connect when the app 
-		[[TapjoyConnect sharedTapjoyConnect] connectWithParam:[[TapjoyConnect sharedTapjoyConnect] genericParameters]];
+		[[TapjoyConnect sharedTapjoyConnect] connectWithType:TJC_CONNECT_TYPE_CONNECT 
+																withParams:[[TapjoyConnect sharedTapjoyConnect] genericParameters]];
 	}
 	
 #if !defined (TJC_CONNECT_SDK)
 	// When the app goes into the background, refresh the offers web view to clear out stale offers.
-	if ([[TJCOffersWebView sharedTJCOffersWebView] isViewVisible])
+	if ([[[TJCOffersViewHandler sharedTJCOffersViewHandler] offersWebView] isViewVisible] &&
+		 ![[[TJCOffersViewHandler sharedTJCOffersViewHandler] offersWebView] isAlertViewVisible])
 	{
-		//[[TJCOffersWebView sharedTJCOffersWebView] loadView];
-		[[TJCOffersWebView sharedTJCOffersWebView] refreshWebView];
+		[[[TJCOffersViewHandler sharedTJCOffersViewHandler] offersWebView] refreshWebView];
 	}
 	
 	// iOS5 apparently automatically pauses videos on app resume.
@@ -418,7 +480,8 @@ static const char* jailbreak_apps[] =
 	// This should really only be set to YES here ever.
 	[TapjoyConnect sharedTapjoyConnect].isInitialConnect = YES;
 	
-	[[TapjoyConnect sharedTapjoyConnect] connectWithParam:[[TapjoyConnect sharedTapjoyConnect] genericParameters]];
+	[[TapjoyConnect sharedTapjoyConnect] connectWithType:TJC_CONNECT_TYPE_CONNECT 
+															withParams:[[TapjoyConnect sharedTapjoyConnect] genericParameters]];
 	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
 	[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -491,8 +554,8 @@ static const char* jailbreak_apps[] =
 	// Overwrite the appID with the actionID. This is how actions are sent.
 	[paramDict setObject:[NSString stringWithString:actionID] forKey:TJC_APP_ID_NAME];
 	
-	// Ping the server.
-	[[TapjoyConnect sharedTapjoyConnect] connectWithParam:paramDict];
+	[[TapjoyConnect sharedTapjoyConnect] connectWithType:TJC_CONNECT_TYPE_CONNECT 
+															withParams:paramDict];
 	
 	return [TapjoyConnect sharedTapjoyConnect];
 }
@@ -508,13 +571,29 @@ static const char* jailbreak_apps[] =
 {
 	[[TapjoyConnect sharedTapjoyConnect] setUserID:theUserID];
 	
+	NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:[[TapjoyConnect sharedTapjoyConnect] genericParameters]];
+	
+	[params setObject:[TapjoyConnect createQueryStringFromString:[TapjoyConnect getUserID]] forKey:TJC_URL_PARAM_USER_ID];
+	
 	// Ping server with user id.
-	[[TapjoyConnect sharedTapjoyConnect] setUserIDWithParam:[[TapjoyConnect sharedTapjoyConnect] genericParameters]];
+	[[TapjoyConnect sharedTapjoyConnect] connectWithType:TJC_CONNECT_TYPE_USER_ID 
+															withParams:params];
+	
+	[params release];
 }
 
 
 + (NSString*)getUserID
-{	
+{
+	if (![[TapjoyConnect sharedTapjoyConnect] userID])
+	{
+		NSString *uniqueID = [[TapjoyConnect getUniqueIdentifier] lowercaseString];
+		if (uniqueID)
+		{
+			[[TapjoyConnect sharedTapjoyConnect] setUserID:uniqueID];
+		}		
+	}
+	
 	return [[TapjoyConnect sharedTapjoyConnect] userID];
 }
 
@@ -564,7 +643,7 @@ static const char* jailbreak_apps[] =
 	NSString *deviceID = [TapjoyConnect getUniqueIdentifier];
 	if (!deviceID)
 	{
-		deviceID = [TapjoyConnect getMACAddress];
+		deviceID = [TapjoyConnect getMACID];
 	}
 	
 	NSString *verifierStr = [NSString stringWithFormat:@"%@:%@:%@:%@",
@@ -588,7 +667,7 @@ static const char* jailbreak_apps[] =
 	NSString *deviceID = [TapjoyConnect getUniqueIdentifier];
 	if (!deviceID)
 	{
-		deviceID = [TapjoyConnect getMACAddress];
+		deviceID = [TapjoyConnect getMACID];
 	}
 	
 	NSString *amountStr = [NSString stringWithFormat:@"%d", points];
@@ -607,6 +686,31 @@ static const char* jailbreak_apps[] =
 }
 
 
++ (NSString*)TJCSHA256CommonParamsWithTimeStamp:(NSString *)timeStamp packageNames:(NSString*)packageNames
+{
+	NSString *appID = [TapjoyConnect getAppID];
+	
+	NSString *deviceID = [TapjoyConnect getUniqueIdentifier];
+	if (!deviceID)
+	{
+		deviceID = [TapjoyConnect getMACID];
+	}
+	
+	NSString *keyStr = [TapjoyConnect getSecretKey];
+	
+	NSString *verifierStr = [NSString stringWithFormat:@"%@:%@:%@:%@:%@",
+									 appID,
+									 deviceID,
+									 timeStamp,
+									 keyStr,
+									 packageNames];
+	
+	NSString *hashStr = [TapjoyConnect TJCSHA256WithString:verifierStr];    
+	
+	return hashStr;
+}
+
+
 + (NSString*)TJCSHA256WithString:(NSString*)dataStr
 {
 	unsigned char SHAStr[CC_SHA256_DIGEST_LENGTH];
@@ -618,7 +722,6 @@ static const char* jailbreak_apps[] =
 	NSData *SHAData = [[NSData alloc] initWithBytes:SHAStr
 														  length:sizeof(SHAStr)];
 	
-	//NSString *result = [HMAC TJCBase64EncodedString];
 	NSString *result = [[SHAData description] stringByReplacingOccurrencesOfString:@" " withString:@""];
 	result = [result substringWithRange:NSMakeRange(1, [result length] - 2)];
 	
@@ -635,8 +738,6 @@ static const char* jailbreak_apps[] =
 	[userID_ release];
 	[sharedInstance_ release];
 	[data_ release];
-	[connection_ release];
-	
 	[super dealloc];
 }
 
@@ -648,99 +749,130 @@ static const char* jailbreak_apps[] =
 
 #pragma mark delegate methods for asynchronous requests
 
-- (void)connection:(NSURLConnection*) myConnection didReceiveResponse:(NSURLResponse*) myResponse;
+- (void)connection:(NSURLConnection*)myConnection didReceiveResponse:(NSURLResponse*)myResponse
 {
-#if !defined (TJC_CONNECT_SDK)	
 	NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse*)myResponse;
 	
-	int responseCode = [HTTPResponse statusCode];
-	
-	[TJCLog logWithLevel:LOG_DEBUG format:@"RequestTapjoyConnect response code:%d", responseCode];
-#endif
+	responseCode_ = [HTTPResponse statusCode];
+	//NSLog(@"Tapjoy Connect reponse:%d", responseCode_);
 }
 
 
-- (void)connection:(NSURLConnection*) myConnection didReceiveData:(NSData*) myData;
+- (void)connection:(NSURLConnection*)myConnection didReceiveData:(NSData*)myData
 {
-	if (!data_) 
+	if (myConnection == connectConnection_)
 	{
-		data_ = [[NSMutableData alloc] init];
-	}
-	
-	[data_ appendData: myData];
-}
-
-
-- (void)connection:(NSURLConnection*) myConnection didFailWithError:(NSError*) myError;
-{
-	[connection_ release];
-	connection_ = nil;
-	
-	if (connectAttempts_ >=2)
-	{	
-		[[NSNotificationCenter defaultCenter] postNotificationName:TJC_CONNECT_FAILED object:nil];
-		return;
-	}
-	
-	if (connectAttempts_ < 2)
-	{	
-		orignalRequest = TJC_SERVICE_URL_ALTERNATE;
-		[[TapjoyConnect sharedTapjoyConnect] connectWithParam:[[TapjoyConnect sharedTapjoyConnect] genericParameters]];
+		if (!data_) 
+		{
+			data_ = [[NSMutableData alloc] init];
+		}
+		
+		[data_ appendData: myData];
 	}
 }
 
 
-- (void)connectionDidFinishLoading:(NSURLConnection*) myConnection;
+- (void)connection:(NSURLConnection*)myConnection didFailWithError:(NSError*)myError
 {
-	[connection_ release];
-	connection_ = nil;
-	
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
-	[self startParsing:data_];
-#else
+	if (myConnection == connectConnection_)
+	{
+		if (connectAttempts_ >=2)
+		{	
+			[[NSNotificationCenter defaultCenter] postNotificationName:TJC_CONNECT_FAILED object:nil];
+			return;
+		}
+		
+		if (connectAttempts_ < 2)
+		{
+			[[TapjoyConnect sharedTapjoyConnect] connectWithType:TJC_CONNECT_TYPE_CONNECT 
+																	withParams:[[TapjoyConnect sharedTapjoyConnect] genericParameters]];
+		}
+	}
+}
+
+
+- (void)connectionDidFinishLoading:(NSURLConnection*)myConnection;
+{
+#if defined(TJC_CONNECT_SDK)
 	[[NSNotificationCenter defaultCenter] postNotificationName:TJC_CONNECT_SUCCESS object:nil];
-#endif
-}
-
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_0
-- (void)startParsing:(NSData*) myData 
-{
-	NSData *xmlData = myData;//(Get XML as NSData)
-	NSXMLParser *parser = [[[NSXMLParser alloc] initWithData:xmlData] autorelease];
-	[parser setDelegate:self];
-	[parser parse];
-}
-
-
-- (void)parser:(NSXMLParser*)parser didStartElement:(NSString*)elementName namespaceURI:(NSString*)namespaceURI qualifiedName:(NSString*)qualifiedName attributes:(NSDictionary*)attributeDict 
-{
-	currentXMLElement_ = elementName;
-	if ([elementName isEqualToString:@"ErrorMessage"])
+#else
+	if (responseCode_ == 200)
+	{
+		if (myConnection == connectConnection_)
+		{
+			TJCTBXML *responseXML = [TJCTBXML tbxmlWithXMLData:data_];
+			
+			if (responseXML && [responseXML rootXMLElement])
+			{
+				TJCTBXMLElement *connectReturnObj = [TJCTBXML childElementNamed:@"ConnectReturnObject" parentElement:[responseXML rootXMLElement]];
+				
+				// The package names contains all the URL schemes, comma separated.
+				NSString *packageNames = [TJCTBXML textForElement:[TJCTBXML childElementNamed:@"PackageNames" parentElement:connectReturnObj]];
+				
+				if ([packageNames length] > 0)
+				{
+					// Remove any possible whitespace.
+					NSString *trimmedPackageNames = [packageNames stringByReplacingOccurrencesOfString:@" " withString:@""];
+					NSArray *parts = [trimmedPackageNames componentsSeparatedByString:@","];
+					NSMutableString *installedApps = [[NSMutableString alloc] init];
+					
+					for (NSString *URLScheme in parts)
+					{
+						NSURL *theURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://", URLScheme]];
+						// Check for existing apps installed on the device and create a comma separated list to send back to the server.
+						if ([[UIApplication sharedApplication] canOpenURL:theURL])
+						{
+							[installedApps appendFormat:@"%@,", URLScheme];
+						}
+					}
+					
+					if ([installedApps length] > 0)
+					{
+						// Remove last comma.
+						NSString *trimmedString = [installedApps substringToIndex:[installedApps length] - 1];
+						NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:[[TapjoyConnect sharedTapjoyConnect] genericParameters]];
+						[params setObject:trimmedString forKey:TJC_PACKAGE_NAMES];						
+						
+						// Get seconds since Jan 1st, 1970.
+						NSString *timeStamp = [TapjoyConnect getTimeStamp];
+						// Computer special verifier for SDKless API.
+						NSString *verifier = [TapjoyConnect TJCSHA256CommonParamsWithTimeStamp:timeStamp packageNames:trimmedString];
+						[params setObject:verifier forKey:TJC_VERIFIER];
+						
+						[[TapjoyConnect sharedTapjoyConnect] connectWithType:TJC_CONNECT_TYPE_SDK_LESS 
+																				withParams:params];
+						
+						[params release];
+					}
+					
+					[installedApps release];
+				}
+			}
+			
+			// Only fired for connect, not other APIs.
+			[[NSNotificationCenter defaultCenter] postNotificationName:TJC_CONNECT_SUCCESS object:nil];
+			
+			[connectConnection_ release];
+			connectConnection_ = nil;
+		}
+		else if (myConnection == userIDConnection_)
+		{
+			[userIDConnection_ release];
+			userIDConnection_ = nil;
+		}
+		else if (myConnection == SDKLessConnection_)
+		{
+			[SDKLessConnection_ release];
+			SDKLessConnection_ = nil;
+		}
+	}
+	else
 	{
 		[[NSNotificationCenter defaultCenter] postNotificationName:TJC_CONNECT_FAILED object:nil];
 	}
-}
-
-
-- (void)parser:(NSXMLParser*)parser foundCharacters:(NSString*)string
-{
-	if([currentXMLElement_ isEqualToString:@"Success"] && [string isEqualToString:@"true"])
-	{
-		[[NSNotificationCenter defaultCenter] postNotificationName:TJC_CONNECT_SUCCESS object:nil];
-	}
-}
-
-
-- (void) parser:(NSXMLParser*)parser 
-  didEndElement:(NSString*)elementName
-   namespaceURI:(NSString*)namespaceURI 
-  qualifiedName:(NSString*)qName
-{
+#endif
 	
 }
-#endif
-
-
 
 
 + (NSString*)getMACAddress
@@ -785,12 +917,43 @@ static const char* jailbreak_apps[] =
 	ifm = (struct if_msghdr *)buf;
 	sdl = (struct sockaddr_dl *)(ifm + 1);
 	ptr = (unsigned char *)LLADDR(sdl);
-	NSString *macAddress = [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X", 
+	NSString *macAddress = [NSString stringWithFormat:@"%02X:%02X:%02X:%02X:%02X:%02X", 
 									*ptr, *(ptr+1), *(ptr+2), *(ptr+3), *(ptr+4), *(ptr+5)];
 	macAddress = [macAddress lowercaseString];
 	free(buf);
 	
 	return macAddress;
+}
+
+
++ (NSString*)getMACID
+{
+	NSString *macID = [[TapjoyConnect getMACAddress] stringByReplacingOccurrencesOfString:@":" withString:@""];
+	
+	return macID;
+}
+
+
++ (NSString*)getSHA1MacAddress
+{
+	NSString *dataStr = [[TapjoyConnect getMACAddress] uppercaseString];
+	
+	unsigned char SHAStr[CC_SHA1_DIGEST_LENGTH];
+	
+	CC_SHA1([dataStr UTF8String],
+			  [dataStr lengthOfBytesUsingEncoding:NSUTF8StringEncoding],
+			  SHAStr);
+	
+	NSData *SHAData = [[NSData alloc] initWithBytes:SHAStr
+														  length:sizeof(SHAStr)];
+	
+	NSString *result = [[SHAData description] stringByReplacingOccurrencesOfString:@" " withString:@""];
+	// Chop off '<' and '>'
+	result = [result substringWithRange:NSMakeRange(1, [result length] - 2)];
+	
+	[SHAData release];
+	
+	return result;
 }
 
 
@@ -806,6 +969,25 @@ static const char* jailbreak_apps[] =
 #else
 	return nil;
 #endif
+}
+
+
++ (NSString*)getTimeStamp
+{
+	NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
+	// Get seconds since Jan 1st, 1970.
+	NSString *timeStamp = [NSString stringWithFormat:@"%d", (int)timeInterval];
+	
+	return timeStamp;
+}
+
+
++ (void)clearCache
+{
+	NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:0 diskCapacity:0 diskPath:nil];
+	[NSURLCache setSharedURLCache:sharedCache];
+	[sharedCache removeAllCachedResponses];
+	[sharedCache release];
 }
 
 @end

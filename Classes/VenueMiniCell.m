@@ -83,18 +83,22 @@ categoryLabel = _categoryLabel;
 
 - (void)tableView:(UITableView *)tableView fillCellWithObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dict = (NSDictionary *)object;
+//    NSDictionary *user = [dict objectForKey:@"user"];
+    NSDictionary *venue = [dict objectForKey:@"venue"];
     
     // Picture
-    NSURL *categoryURL = [NSURL URLWithString:[dict objectForKey:@"venueCategoryUrl"]];
+    NSURL *categoryURL = [NSURL URLWithString:[venue objectForKey:@"categoryUrl"]];
     [self.psImageView loadImageWithURL:categoryURL];
     
-    self.nameLabel.text = [dict objectForKey:@"venueName"];
-    self.addressLabel.text = [dict objectForKey:@"venueAddress"];
-    self.categoryLabel.text = [dict objectForKey:@"venueCategory"];
+    self.nameLabel.text = [venue objectForKey:@"name"];
+    self.addressLabel.text = [venue objectForKey:@"address"];
+    self.categoryLabel.text = [venue objectForKey:@"category"];
 }
 
 + (CGFloat)rowHeightForObject:(id)object atIndexPath:(NSIndexPath *)indexPath forInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     NSDictionary *dict = (NSDictionary *)object;
+//    NSDictionary *user = [dict objectForKey:@"user"];
+    NSDictionary *venue = [dict objectForKey:@"venue"];
     
     CGFloat height = 0.0;
     CGFloat width = 268.0 - MARGIN * 2;
@@ -102,13 +106,13 @@ categoryLabel = _categoryLabel;
     
     CGSize labelSize = CGSizeZero;
     
-    labelSize = [PSStyleSheet sizeForText:[dict objectForKey:@"venueName"] width:width style:@"titleLabel"];
+    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"name"] width:width style:@"titleLabel"];
     height += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[dict objectForKey:@"venueAddress"] width:width style:@"subtitleLabel"];
+    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"address"] width:width style:@"subtitleLabel"];
     height += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[dict objectForKey:@"venueCategory"] width:width style:@"metaLabel"];
+    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"category"] width:width style:@"metaLabel"];
     height += labelSize.height;
     
     height += MARGIN * 2;

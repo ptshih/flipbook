@@ -413,6 +413,18 @@
 		2829B41F156CE1EB002F9CB3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2829B415156CE1EB002F9CB3 /* Default@2x.png */; };
 		2829B420156CE1EB002F9CB3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2829B415156CE1EB002F9CB3 /* Default@2x.png */; };
 		2829B421156CE1EB002F9CB3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2829B415156CE1EB002F9CB3 /* Default@2x.png */; };
+		2829B42B156CE6CE002F9CB3 /* TJCOpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B426156CE6CE002F9CB3 /* TJCOpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2829B42C156CE6CE002F9CB3 /* TJCOpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B426156CE6CE002F9CB3 /* TJCOpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2829B42D156CE6CE002F9CB3 /* TJCOpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B426156CE6CE002F9CB3 /* TJCOpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2829B42E156CE6CE002F9CB3 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B428156CE6CE002F9CB3 /* TapjoyConnect.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2829B42F156CE6CE002F9CB3 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B428156CE6CE002F9CB3 /* TapjoyConnect.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2829B430156CE6CE002F9CB3 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B428156CE6CE002F9CB3 /* TapjoyConnect.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2829B433156D6840002F9CB3 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B432156D6840002F9CB3 /* UserViewController.m */; };
+		2829B434156D6840002F9CB3 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B432156D6840002F9CB3 /* UserViewController.m */; };
+		2829B435156D6840002F9CB3 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B432156D6840002F9CB3 /* UserViewController.m */; };
+		2829B445156D687B002F9CB3 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B444156D687B002F9CB3 /* UserCell.m */; };
+		2829B446156D687B002F9CB3 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B444156D687B002F9CB3 /* UserCell.m */; };
+		2829B447156D687B002F9CB3 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B444156D687B002F9CB3 /* UserCell.m */; };
 		2843A5CC1545B9510089FC73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818CE14723F1D007E4827 /* main.m */; };
 		2843A5CD1545B9510089FC73 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818D214723F1D007E4827 /* AppDelegate.m */; };
 		2843A5CE1545B9510089FC73 /* NSArray+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 286987401475CEEC00B40860 /* NSArray+PSKit.m */; };
@@ -889,8 +901,6 @@
 		28A391351554DA37002696FD /* CategoryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284B1DBD152F6296000F2BAE /* CategoryListViewController.m */; };
 		28A391361554DA37002696FD /* YelpPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28DEE592152FA06500458D8D /* YelpPopoverView.m */; };
 		28A391371554DA37002696FD /* PSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28888D2315358071001743CA /* PSAlertView.m */; };
-		28A391381554DA37002696FD /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		28A391391554DA37002696FD /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		28A3913A1554DA37002696FD /* PhotoTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 280F5F6F154FA2C800DA05AF /* PhotoTagsViewController.m */; };
 		28A3913C1554DA37002696FD /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28150469151ACC050028A0B6 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		28A3913D1554DA37002696FD /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F6CAD114FD903B00CCF2B4 /* AddressBook.framework */; };
@@ -1131,10 +1141,6 @@
 		28F1F5EF1563200500142939 /* PSFacepileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5EE1563200500142939 /* PSFacepileView.m */; };
 		28F1F5F01563200500142939 /* PSFacepileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5EE1563200500142939 /* PSFacepileView.m */; };
 		28F1F5F11563200500142939 /* PSFacepileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5EE1563200500142939 /* PSFacepileView.m */; };
-		D0BBA7B01548819D006CD0B7 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; };
-		D0BBA7B11548819D006CD0B7 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D0BBA7B31548819D006CD0B7 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */; };
-		D0BBA7B41548819D006CD0B7 /* TapjoyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1248,6 +1254,16 @@
 		2829B413156CE1EB002F9CB3 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		2829B414156CE1EB002F9CB3 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		2829B415156CE1EB002F9CB3 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		2829B425156CE6CE002F9CB3 /* TJCOpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJCOpenUDID.h; sourceTree = "<group>"; };
+		2829B426156CE6CE002F9CB3 /* TJCOpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TJCOpenUDID.m; sourceTree = "<group>"; };
+		2829B427156CE6CE002F9CB3 /* TapjoyConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapjoyConnect.h; sourceTree = "<group>"; };
+		2829B428156CE6CE002F9CB3 /* TapjoyConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapjoyConnect.m; sourceTree = "<group>"; };
+		2829B429156CE6CE002F9CB3 /* TapjoyConnectConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapjoyConnectConstants.h; sourceTree = "<group>"; };
+		2829B42A156CE6CE002F9CB3 /* TJCConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJCConfig.h; sourceTree = "<group>"; };
+		2829B431156D6840002F9CB3 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
+		2829B432156D6840002F9CB3 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
+		2829B443156D687B002F9CB3 /* UserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCell.h; sourceTree = "<group>"; };
+		2829B444156D687B002F9CB3 /* UserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
 		282E821D1515F0E8000B8566 /* PSCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCollectionViewCell.h; sourceTree = "<group>"; };
 		282E821E1515F0E8000B8566 /* PSCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCollectionViewCell.m; sourceTree = "<group>"; };
 		283818C214723F1D007E4827 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -1652,12 +1668,6 @@
 		D0ACA539150043FF00681176 /* NavButtonRightBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavButtonRightBlack@2x.png"; sourceTree = "<group>"; };
 		D0ACA53A150043FF00681176 /* NavButtonRightWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavButtonRightWhite.png; sourceTree = "<group>"; };
 		D0ACA53B150043FF00681176 /* NavButtonRightWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavButtonRightWhite@2x.png"; sourceTree = "<group>"; };
-		D0BBA7A91548819D006CD0B7 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
-		D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
-		D0BBA7AB1548819D006CD0B7 /* TapjoyConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapjoyConnect.h; sourceTree = "<group>"; };
-		D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapjoyConnect.m; sourceTree = "<group>"; };
-		D0BBA7AD1548819D006CD0B7 /* TapjoyConnectConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapjoyConnectConstants.h; sourceTree = "<group>"; };
-		D0BBA7AE1548819D006CD0B7 /* TJCConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TJCConfig.h; sourceTree = "<group>"; };
 		D0C5BFF514F764290041A364 /* BackgroundPaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundPaper.png; sourceTree = "<group>"; };
 		D0C5BFF614F764290041A364 /* BackgroundPaper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackgroundPaper@2x.png"; sourceTree = "<group>"; };
 		D0C5C01414F76F910041A364 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -1942,6 +1952,35 @@
 				281EEB071564428600B3E7D3 /* DistancePickerView.m */,
 			);
 			path = Pickers;
+			sourceTree = "<group>";
+		};
+		2829B422156CE6CE002F9CB3 /* TapjoyConnect */ = {
+			isa = PBXGroup;
+			children = (
+				2829B423156CE6CE002F9CB3 /* Components */,
+				2829B427156CE6CE002F9CB3 /* TapjoyConnect.h */,
+				2829B428156CE6CE002F9CB3 /* TapjoyConnect.m */,
+				2829B429156CE6CE002F9CB3 /* TapjoyConnectConstants.h */,
+				2829B42A156CE6CE002F9CB3 /* TJCConfig.h */,
+			);
+			path = TapjoyConnect;
+			sourceTree = "<group>";
+		};
+		2829B423156CE6CE002F9CB3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2829B424156CE6CE002F9CB3 /* TJCExtensions */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		2829B424156CE6CE002F9CB3 /* TJCExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				2829B425156CE6CE002F9CB3 /* TJCOpenUDID.h */,
+				2829B426156CE6CE002F9CB3 /* TJCOpenUDID.m */,
+			);
+			path = TJCExtensions;
 			sourceTree = "<group>";
 		};
 		283818B314723F1C007E4827 = {
@@ -2415,6 +2454,8 @@
 				28603B5A14AC4A1D00541BB1 /* VenueListViewController.m */,
 				D08E516E14E8ABB400B5CCCD /* VenueDetailViewController.h */,
 				D08E516F14E8ABB400B5CCCD /* VenueDetailViewController.m */,
+				2829B431156D6840002F9CB3 /* UserViewController.h */,
+				2829B432156D6840002F9CB3 /* UserViewController.m */,
 				D0F6CA9B14FD653700CCF2B4 /* TipListViewController.h */,
 				D0F6CA9C14FD653700CCF2B4 /* TipListViewController.m */,
 				284ABD95150E8FAF0040B250 /* CheckinViewController.h */,
@@ -2466,6 +2507,8 @@
 				28C2D978156B82800054684B /* VenueMiniCell.m */,
 				2846CD7E1563B1040056B8AC /* SettingCell.h */,
 				2846CD7F1563B1040056B8AC /* SettingCell.m */,
+				2829B443156D687B002F9CB3 /* UserCell.h */,
+				2829B444156D687B002F9CB3 /* UserCell.m */,
 				D0FE068014F9C64B00140D9E /* VenueAnnotationView.h */,
 				D0FE068114F9C64B00140D9E /* VenueAnnotationView.m */,
 				D0F6CABC14FD772900CCF2B4 /* CategoryChooserView.h */,
@@ -2776,9 +2819,9 @@
 		D07B2DBD14F750F400304E62 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				2829B422156CE6CE002F9CB3 /* TapjoyConnect */,
 				281EEAFB1564428600B3E7D3 /* ActionSheetPicker */,
 				2874F49E1560CDE20059E916 /* Facebook */,
-				D0BBA7A61548819D006CD0B7 /* TapjoyConnect */,
 				28F84E7D1534FC13003F698F /* FlurryAnalytics */,
 				28F84E801534FC13003F698F /* FlurryAppCircle */,
 				D0C5C00914F76E520041A364 /* Localytics */,
@@ -2822,35 +2865,6 @@
 				D0ACA53B150043FF00681176 /* NavButtonRightWhite@2x.png */,
 			);
 			name = Nav;
-			sourceTree = "<group>";
-		};
-		D0BBA7A61548819D006CD0B7 /* TapjoyConnect */ = {
-			isa = PBXGroup;
-			children = (
-				D0BBA7A71548819D006CD0B7 /* Components */,
-				D0BBA7AB1548819D006CD0B7 /* TapjoyConnect.h */,
-				D0BBA7AC1548819D006CD0B7 /* TapjoyConnect.m */,
-				D0BBA7AD1548819D006CD0B7 /* TapjoyConnectConstants.h */,
-				D0BBA7AE1548819D006CD0B7 /* TJCConfig.h */,
-			);
-			path = TapjoyConnect;
-			sourceTree = "<group>";
-		};
-		D0BBA7A71548819D006CD0B7 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				D0BBA7A81548819D006CD0B7 /* TJCExtensions */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		D0BBA7A81548819D006CD0B7 /* TJCExtensions */ = {
-			isa = PBXGroup;
-			children = (
-				D0BBA7A91548819D006CD0B7 /* OpenUDID.h */,
-				D0BBA7AA1548819D006CD0B7 /* OpenUDID.m */,
-			);
-			path = TJCExtensions;
 			sourceTree = "<group>";
 		};
 		D0C5C00914F76E520041A364 /* Localytics */ = {
@@ -3849,8 +3863,6 @@
 				281F49ED1545BCC10066DD70 /* CategoryListViewController.m in Sources */,
 				281F49EE1545BCC10066DD70 /* YelpPopoverView.m in Sources */,
 				281F49EF1545BCC10066DD70 /* PSAlertView.m in Sources */,
-				D0BBA7B11548819D006CD0B7 /* OpenUDID.m in Sources */,
-				D0BBA7B41548819D006CD0B7 /* TapjoyConnect.m in Sources */,
 				280F5F72154FA2C800DA05AF /* PhotoTagsViewController.m in Sources */,
 				28488ED11560EF260012C7D0 /* NotificationViewController.m in Sources */,
 				28488EF915610AC70012C7D0 /* FBConnectViewController.m in Sources */,
@@ -3872,6 +3884,10 @@
 				28BBDA8D156B756500BDE844 /* BookmarkCell.m in Sources */,
 				28C2D976156B81FB0054684B /* BookmarkViewController.m in Sources */,
 				28C2D97B156B82800054684B /* VenueMiniCell.m in Sources */,
+				2829B42D156CE6CE002F9CB3 /* TJCOpenUDID.m in Sources */,
+				2829B430156CE6CE002F9CB3 /* TapjoyConnect.m in Sources */,
+				2829B435156D6840002F9CB3 /* UserViewController.m in Sources */,
+				2829B447156D687B002F9CB3 /* UserCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3982,8 +3998,6 @@
 				2843A6351545B9510089FC73 /* CategoryListViewController.m in Sources */,
 				2843A6361545B9510089FC73 /* YelpPopoverView.m in Sources */,
 				2843A6371545B9510089FC73 /* PSAlertView.m in Sources */,
-				D0BBA7B01548819D006CD0B7 /* OpenUDID.m in Sources */,
-				D0BBA7B31548819D006CD0B7 /* TapjoyConnect.m in Sources */,
 				280F5F71154FA2C800DA05AF /* PhotoTagsViewController.m in Sources */,
 				28488ED01560EF260012C7D0 /* NotificationViewController.m in Sources */,
 				28488EF815610AC70012C7D0 /* FBConnectViewController.m in Sources */,
@@ -4005,6 +4019,10 @@
 				28BBDA8C156B756500BDE844 /* BookmarkCell.m in Sources */,
 				28C2D975156B81FB0054684B /* BookmarkViewController.m in Sources */,
 				28C2D97A156B82800054684B /* VenueMiniCell.m in Sources */,
+				2829B42C156CE6CE002F9CB3 /* TJCOpenUDID.m in Sources */,
+				2829B42F156CE6CE002F9CB3 /* TapjoyConnect.m in Sources */,
+				2829B434156D6840002F9CB3 /* UserViewController.m in Sources */,
+				2829B446156D687B002F9CB3 /* UserCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4115,8 +4133,6 @@
 				28A391351554DA37002696FD /* CategoryListViewController.m in Sources */,
 				28A391361554DA37002696FD /* YelpPopoverView.m in Sources */,
 				28A391371554DA37002696FD /* PSAlertView.m in Sources */,
-				28A391381554DA37002696FD /* OpenUDID.m in Sources */,
-				28A391391554DA37002696FD /* TapjoyConnect.m in Sources */,
 				28A3913A1554DA37002696FD /* PhotoTagsViewController.m in Sources */,
 				28488ECF1560EF260012C7D0 /* NotificationViewController.m in Sources */,
 				28488EF715610AC70012C7D0 /* FBConnectViewController.m in Sources */,
@@ -4138,6 +4154,10 @@
 				28BBDA8B156B756500BDE844 /* BookmarkCell.m in Sources */,
 				28C2D974156B81FB0054684B /* BookmarkViewController.m in Sources */,
 				28C2D979156B82800054684B /* VenueMiniCell.m in Sources */,
+				2829B42B156CE6CE002F9CB3 /* TJCOpenUDID.m in Sources */,
+				2829B42E156CE6CE002F9CB3 /* TapjoyConnect.m in Sources */,
+				2829B433156D6840002F9CB3 /* UserViewController.m in Sources */,
+				2829B445156D687B002F9CB3 /* UserCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

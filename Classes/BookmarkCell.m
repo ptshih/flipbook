@@ -33,10 +33,10 @@ timestampLabel = _timestampLabel;
         self.messageLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         self.messageLabel.backgroundColor = [UIColor clearColor];
         self.messageLabel.userInteractionEnabled = NO;
-        [PSStyleSheet applyStyle:@"eventMessageLabel" forLabel:self.messageLabel];
+        [PSStyleSheet applyStyle:@"bookmarkMessageLabel" forLabel:self.messageLabel];
         [self.contentView addSubview:self.messageLabel];
         
-        self.timestampLabel = [UILabel labelWithStyle:@"metaLabel"];
+        self.timestampLabel = [UILabel labelWithStyle:@"bookmarkTimestampLabel"];
         [self.contentView addSubview:self.timestampLabel];
         
         self.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -66,26 +66,28 @@ timestampLabel = _timestampLabel;
     left = self.psImageView.right + MARGIN;
     width -= self.psImageView.width + MARGIN;
     
-    labelSize = [PSStyleSheet sizeForText:self.messageLabel.text width:width style:@"eventMessageLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.messageLabel.text width:width style:@"bookmarkMessageLabel"];
     self.messageLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.messageLabel.bottom;
     
-    labelSize = [PSStyleSheet sizeForText:self.timestampLabel.text width:width style:@"metaLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.timestampLabel.text width:width style:@"bookmarkTimestampLabel"];
     self.timestampLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
 }
 
 - (void)tableView:(UITableView *)tableView fillCellWithObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dict = (NSDictionary *)object;
-
+    NSDictionary *user = [dict objectForKey:@"user"];
+    NSDictionary *venue = [dict objectForKey:@"venue"];
+    
     // Picture
-    NSURL *profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", [dict objectForKey:@"fbId"]]];
+    NSURL *profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", [user objectForKey:@"fbId"]]];
     [self.psImageView loadImageWithURL:profileURL];
     
     // Attributed message
-    NSString *userName = [dict objectForKey:@"fbName"];
-    NSString *venueName = [dict objectForKey:@"venueName"];
-    NSString *venueAddress = [dict objectForKey:@"venueAddress"];
+    NSString *userName = [user objectForKey:@"fbName"];
+    NSString *venueName = [venue objectForKey:@"name"];
+    NSString *venueAddress = [venue objectForKey:@"address"];
     NSString *message = [NSString stringWithFormat:@"%@ saved %@ located at %@", userName, venueName, venueAddress];
     
     [self.messageLabel setText:message afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
@@ -107,6 +109,8 @@ timestampLabel = _timestampLabel;
 
 + (CGFloat)rowHeightForObject:(id)object atIndexPath:(NSIndexPath *)indexPath forInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     NSDictionary *dict = (NSDictionary *)object;
+    NSDictionary *user = [dict objectForKey:@"user"];
+    NSDictionary *venue = [dict objectForKey:@"venue"];
     
     CGFloat height = 0.0;
     CGFloat width = 268.0 - MARGIN * 2;
@@ -114,16 +118,16 @@ timestampLabel = _timestampLabel;
     
     
     // Attributed message
-    NSString *userName = [dict objectForKey:@"fbName"];
-    NSString *venueName = [dict objectForKey:@"venueName"];
-    NSString *venueAddress = [dict objectForKey:@"venueAddress"];
+    NSString *userName = [user objectForKey:@"fbName"];
+    NSString *venueName = [venue objectForKey:@"name"];
+    NSString *venueAddress = [venue objectForKey:@"address"];
     NSString *message = [NSString stringWithFormat:@"%@ saved %@ located at %@", userName, venueName, venueAddress];
     
-    CGSize labelSize = [PSStyleSheet sizeForText:message width:width style:@"eventMessageLabel"];
+    CGSize labelSize = [PSStyleSheet sizeForText:message width:width style:@"bookmarkMessageLabel"];
     height += labelSize.height;
     
     NSString *timestamp = [[PSDateFormatter sharedDateFormatter] shortRelativeStringFromDate:[NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"timestamp"] doubleValue]] includeTime:PSDateFormatterIncludeTimeLast24Hours useShortDate:YES];
-    labelSize = [PSStyleSheet sizeForText:timestamp width:width style:@"metaLabel"];
+    labelSize = [PSStyleSheet sizeForText:timestamp width:width style:@"bookmarkTimestampLabel"];
     height += labelSize.height;
         
     height += MARGIN * 2;

@@ -7,12 +7,13 @@
 //
 
 #import "VenueDetailViewController.h"
+#import "PSWebViewController.h"
 #import "TipListViewController.h"
-#import "NewEventViewController.h"
-#import "EventViewController.h"
+#import "UserViewController.h"
+//#import "NewEventViewController.h"
+//#import "EventViewController.h"
 //#import "CheckinViewController.h"
 //#import "PhotoTagsViewController.h"
-#import "PSWebViewController.h"
 
 #import "PhotoView.h"
 #import "PSZoomView.h"
@@ -419,7 +420,7 @@ footerLabel = _footerLabel;
     self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.footerView];
     
-    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushUsers:)];
     [self.footerView addGestureRecognizer:gr];
     
     UIImageView *bookmarkIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconGroupWhite"]];
@@ -428,14 +429,14 @@ footerLabel = _footerLabel;
     bookmarkIcon.frame = CGRectMake(8, 0, bookmarkIcon.width, self.footerView.height);
     [self.footerView addSubview:bookmarkIcon];
     
-//    UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrow"]];
-//    disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-//    disclosure.contentMode = UIViewContentModeCenter;
-//    disclosure.frame = CGRectMake(self.footerView.width - disclosure.width - 8, 0, disclosure.width, self.footerView.height);
-//    [self.footerView addSubview:disclosure];
+    UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrow"]];
+    disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    disclosure.contentMode = UIViewContentModeCenter;
+    disclosure.frame = CGRectMake(self.footerView.width - disclosure.width - 8, 0, disclosure.width, self.footerView.height);
+    [self.footerView addSubview:disclosure];
     
     self.footerLabel = [UILabel labelWithStyle:@"eventLabel"];
-    self.footerLabel.frame = CGRectMake(bookmarkIcon.right + 8.0, 0, self.footerView.width - bookmarkIcon.width - 24.0, self.footerView.height);
+    self.footerLabel.frame = CGRectMake(bookmarkIcon.right + 8.0, 0, self.footerView.width - bookmarkIcon.width - disclosure.width - 32.0, self.footerView.height);
     self.footerLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [self.footerView addSubview:self.footerLabel];
     
@@ -463,7 +464,7 @@ footerLabel = _footerLabel;
         }
         
 //        NSString *hasOrHave = (self.bookmarks.count == 1) ? @"has" : @"have";
-        self.footerLabel.text = [NSString stringWithFormat:@"%@ saved this place to their Lunchbox.", [[self.bookmarks valueForKey:@"fbName"] stringWithLengthAndCount:3]];
+        self.footerLabel.text = [NSString stringWithFormat:@"%@ saved this place to their Lunchbox.", [[self.bookmarks valueForKeyPath:@"user.fbName"] stringWithLengthAndCount:3]];
     } else {
         // animate hide footer
         if (self.footerView.top == self.view.bottom - self.footerView.height) {
@@ -536,6 +537,14 @@ footerLabel = _footerLabel;
 - (void)pushTips:(UITapGestureRecognizer *)gr {
     TipListViewController *vc = [[TipListViewController alloc] initWithDictionary:self.venueDict];
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+}
+
+- (void)pushUsers:(UITapGestureRecognizer *)gr {
+    if (self.bookmarks && self.bookmarks.count > 0) {
+        NSArray *users = [self.bookmarks valueForKey:@"user"];
+        UserViewController *vc = [[UserViewController alloc] initWithUsers:users];
+        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    }
 }
 
 

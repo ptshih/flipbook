@@ -1,34 +1,46 @@
 //
-//  BookmarkViewController.m
+//  UserViewController.m
 //  Lunchbox
 //
-//  Created by Peter Shih on 5/22/12.
+//  Created by Peter Shih on 5/23/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "BookmarkViewController.h"
-#import "VenueDetailViewController.h"
+#import "UserViewController.h"
 
-#import "VenueMiniCell.h"
+#import "UserCell.h"
 
-@interface BookmarkViewController ()
+@interface UserViewController ()
+
+@property (nonatomic, copy) NSArray *users;
 
 @end
 
-@implementation BookmarkViewController
+@implementation UserViewController
+
+@synthesize
+users = _users;
 
 #pragma mark - Init
+
+- (id)initWithUsers:(NSArray *)users {
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        self.users = users;
+    }
+    return self;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.shouldAddRoundedCorners = YES;
-        self.shouldPullRefresh = YES;
+        self.shouldPullRefresh = NO;
         self.tableViewStyle = UITableViewStylePlain;
         self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.separatorColor = [UIColor lightGrayColor];
         
-        self.title = @"Bookmarks";
+        self.title = @"Friends";
     }
     return self;
 }
@@ -49,13 +61,11 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     
     // Load
-//    [self loadDataSource];
+    [self loadDataSource];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    [self reloadDataSource];
 }
 
 #pragma mark - Config Subviews
@@ -112,51 +122,12 @@
 - (void)loadDataSource {
     [super loadDataSource];
     
-    [self loadDataSourceFromRemoteUsingCache:NO];
+    [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:self.users] animated:NO];
+    [self dataSourceDidLoad];
 }
 
 - (void)reloadDataSource {
     [super reloadDataSource];
-        
-    [self loadDataSourceFromRemoteUsingCache:NO];
-}
-
-- (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    
-    // FB
-    NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
-    NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
-    NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
-    [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
-    [parameters setObject:fbId forKey:@"fbId"];
-    [parameters setObject:fbName forKey:@"fbName"];
-    
-    // Request
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/bookmarks", API_BASE_URL];
-    NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
-    
-    BLOCK_SELF;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
-        
-        NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
-        
-        if (!error && responseCode == 200) {
-            id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            if (res && [res isKindOfClass:[NSArray class]]) {
-                [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:res] animated:NO];
-                [self dataSourceDidLoad];
-            } else {
-                [self dataSourceDidError];
-            }
-        } else {
-            [self dataSourceDidError];
-        }
-    }];
 }
 
 - (void)dataSourceDidLoad {
@@ -181,7 +152,7 @@
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         default:
-            return [VenueMiniCell class];
+            return [UserCell class];
             break;
     }
 }
@@ -199,12 +170,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    id object = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSString *venueId = [[object objectForKey:@"venue"] objectForKey:@"id"];
-    
-    VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:venueId];
-    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Refresh

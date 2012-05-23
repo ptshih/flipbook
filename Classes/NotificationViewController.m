@@ -134,7 +134,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     id object = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSString *venueId = [object objectForKey:@"venueId"];
+    NSString *venueId = [[object objectForKey:@"venue"] objectForKey:@"id"];
     if ([self.nextResponder.nextResponder isKindOfClass:[PSPopoverView class]]) {
         [(PSPopoverView *)self.nextResponder.nextResponder dismiss];
         [(AppDelegate *)APP_DELEGATE pushVenueWithId:venueId];

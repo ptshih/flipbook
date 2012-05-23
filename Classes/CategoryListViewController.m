@@ -11,6 +11,7 @@
 #import "NotificationViewController.h"
 #import "FBConnectViewController.h"
 #import "SettingsViewController.h"
+#import "BookmarkViewController.h"
 
 #import "PSPopoverView.h"
 #import "InfoPopoverView.h"
@@ -204,12 +205,8 @@ contentView = _contentView;
 
 - (void)rightAction {
     if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
-        NotificationViewController *vc = [[NotificationViewController alloc] initWithNibName:nil bundle:nil];
-        vc.view.frame = CGRectMake(0, 0, 288, 356);
-        PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Notifications" contentController:vc];
-        popoverView.tag = kPopoverNotifications;
-        popoverView.delegate = self;
-        [popoverView showWithSize:vc.view.bounds.size inView:self.view];
+        BookmarkViewController *vc = [[BookmarkViewController alloc] initWithNibName:nil bundle:nil];
+        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     } else {
         FBConnectViewController *vc = [[FBConnectViewController alloc] initWithNibName:nil bundle:nil];
         [(PSNavigationController *)self.parentViewController pushViewController:vc direction:PSNavigationControllerDirectionUp animated:YES];

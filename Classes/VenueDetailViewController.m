@@ -30,6 +30,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 @property (nonatomic, copy) NSString *venueId;
 @property (nonatomic, copy) NSString *bookmarkId;
+@property (nonatomic, copy) NSArray *bookmarks;
 @property (nonatomic, strong) NSDictionary *venueDict;
 @property (nonatomic, strong) MKMapView *mapView;
 
@@ -44,6 +45,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 @synthesize
 venueId = _venueId,
 bookmarkId = _bookmarkId,
+bookmarks = _bookmarks,
 venueDict = _venueDict,
 mapView = _mapView;
 
@@ -420,20 +422,20 @@ footerLabel = _footerLabel;
     UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
     [self.footerView addGestureRecognizer:gr];
     
-    UIImageView *bookmarkIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconCalendarWhite"]];
+    UIImageView *bookmarkIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconGroupWhite"]];
     bookmarkIcon.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
     bookmarkIcon.contentMode = UIViewContentModeCenter;
     bookmarkIcon.frame = CGRectMake(8, 0, bookmarkIcon.width, self.footerView.height);
     [self.footerView addSubview:bookmarkIcon];
     
-    UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrow"]];
-    disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    disclosure.contentMode = UIViewContentModeCenter;
-    disclosure.frame = CGRectMake(self.footerView.width - disclosure.width - 8, 0, disclosure.width, self.footerView.height);
-    [self.footerView addSubview:disclosure];
+//    UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrow"]];
+//    disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+//    disclosure.contentMode = UIViewContentModeCenter;
+//    disclosure.frame = CGRectMake(self.footerView.width - disclosure.width - 8, 0, disclosure.width, self.footerView.height);
+//    [self.footerView addSubview:disclosure];
     
     self.footerLabel = [UILabel labelWithStyle:@"eventLabel"];
-    self.footerLabel.frame = CGRectMake(bookmarkIcon.right + 8.0, 0, self.footerView.width - bookmarkIcon.width - disclosure.width - 32.0, self.footerView.height);
+    self.footerLabel.frame = CGRectMake(bookmarkIcon.right + 8.0, 0, self.footerView.width - bookmarkIcon.width - 24.0, self.footerView.height);
     self.footerLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [self.footerView addSubview:self.footerLabel];
     
@@ -450,21 +452,27 @@ footerLabel = _footerLabel;
 
 - (void)updateFooter {
     // TODO: Footer should only show if friends have a bookmark here too
-    
-    // animate footer
-    if (self.footerView.top == self.view.bottom) {
-        self.footerView.height = 44.0;
-        [UIView animateWithDuration:0.4 animations:^{
-            [self updateSubviews];
-            self.footerView.top -= self.footerView.height;
-        } completion:^(BOOL finished) {
-        }];
-    }
-    
-    if (self.bookmarkId) {
-        self.footerLabel.text = @"Remove your bookmark here";
+    if (self.bookmarks && self.bookmarks.count > 0) {
+        // animate show footer
+        if (self.footerView.top == self.view.bottom) {
+            [UIView animateWithDuration:0.4 animations:^{
+                self.footerView.frame = CGRectMake(0, self.view.bottom - 44.0, self.footerView.width, 44.0);
+                [self updateSubviews];
+            } completion:^(BOOL finished) {
+            }];
+        }
+        
+//        NSString *hasOrHave = (self.bookmarks.count == 1) ? @"has" : @"have";
+        self.footerLabel.text = [NSString stringWithFormat:@"%@ saved this place to their Lunchbox.", [[self.bookmarks valueForKey:@"fbName"] stringWithLengthAndCount:3]];
     } else {
-        self.footerLabel.text = @"Bookmark this place";
+        // animate hide footer
+        if (self.footerView.top == self.view.bottom - self.footerView.height) {
+            [UIView animateWithDuration:0.4 animations:^{
+                self.footerView.frame = CGRectMake(0, self.view.bottom, self.footerView.width, 0.0);
+                [self updateSubviews];                
+            } completion:^(BOOL finished) {
+            }];
+        }
     }
 }
 
@@ -481,7 +489,7 @@ footerLabel = _footerLabel;
 }
 
 - (void)rightAction {
-    NSString *avTitle = (self.bookmarkId) ? @"Remove Bookmark?" : @"Add Bookmark?";
+    NSString *avTitle = (self.bookmarkId) ? @"Remove from Lunchbox?" : @"Save to Lunchbox?";
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:avTitle message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     av.tag = kAlertTagBookmark;
     [av show];
@@ -553,11 +561,14 @@ footerLabel = _footerLabel;
         // Show empty view
     }
     
-    // Check for bookmarks
-    [self findBookmark];
-    
-    // Find friends who also bookmarked
-    [self findBookmarksFromFriends];
+    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
+        // Check for bookmarks
+        [self findBookmark];
+    } else {
+        // enable bookmark button
+        [self.spinnerView stopAnimating];
+        self.rightButton.userInteractionEnabled = NO;
+    }
 }
 
 - (void)dataSourceDidError {
@@ -573,7 +584,42 @@ footerLabel = _footerLabel;
 #pragma mark - Bookmarks
 
 - (void)findBookmarksFromFriends {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
+    // FB
+    NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
+    NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
+    NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
+    [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
+    [parameters setObject:fbId forKey:@"fbId"];
+    [parameters setObject:fbName forKey:@"fbName"];
+    
+    // Venue
+    [parameters setObject:[self.venueDict objectForKey:@"id"] forKey:@"venueId"];
+    
+    [parameters setObject:[NSNumber numberWithInteger:1] forKey:@"friends"];
+    
+    // Request
+    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/bookmarks", API_BASE_URL];
+    NSURL *URL = [NSURL URLWithString:URLPath];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
+    
+    BLOCK_SELF;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
+        
+        NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
+        
+        if (!error && responseCode == 200) {
+            id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            if (res && [res isKindOfClass:[NSArray class]]) {
+                self.bookmarks = res;
+                [self updateFooter];
+            }
+        }
+    }];
 }
 
 - (void)findBookmark {
@@ -613,6 +659,8 @@ footerLabel = _footerLabel;
                 [self.spinnerView stopAnimating];
                 [self.rightButton setImage:[UIImage imageNamed:@"IconBookmarkWhite"] forState:UIControlStateNormal];
                 self.rightButton.userInteractionEnabled = YES;
+                
+                [self findBookmarksFromFriends];
             }
         }
     }];
@@ -636,10 +684,13 @@ footerLabel = _footerLabel;
         formattedAddress = [formattedAddress stringByAppendingFormat:@" %@", [location objectForKey:@"postalCode"]];
     }
     NSString *primaryCategory = [[[self.venueDict objectForKey:@"categories"] objectAtIndexOrNil:0] objectForKey:@"shortName"];
+    NSDictionary *icon = [[[self.venueDict objectForKey:@"categories"] objectAtIndexOrNil:0] objectForKey:@"icon"];
+    NSString *categoryUrl = [[icon objectForKey:@"prefix"] stringByAppendingFormat:@"%@%@", [[icon objectForKey:@"sizes"] lastObject], [icon objectForKey:@"name"]];
     [parameters setObject:[self.venueDict objectForKey:@"id"] forKey:@"venueId"];
     [parameters setObject:[self.venueDict objectForKey:@"name"] forKey:@"venueName"];
     [parameters setObject:formattedAddress forKey:@"venueAddress"];
     [parameters setObject:primaryCategory forKey:@"venueCategory"];
+    [parameters setObject:categoryUrl forKey:@"venueCategoryUrl"];
     
     // Request
     NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/bookmarks/add", API_BASE_URL];
@@ -659,6 +710,8 @@ footerLabel = _footerLabel;
             if (res && [res isKindOfClass:[NSDictionary class]]) {
                 // bookmark added
                 self.bookmarkId = [res objectForKey:@"_id"];
+                
+                [self findBookmarksFromFriends];
             }
         }
     }];
@@ -685,6 +738,8 @@ footerLabel = _footerLabel;
         if (!error && responseCode == 200) {
             // Bookmark removed
             self.bookmarkId = nil;
+            
+            [self findBookmarksFromFriends];
         }
     }];
 }

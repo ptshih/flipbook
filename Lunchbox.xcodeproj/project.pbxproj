@@ -1083,6 +1083,24 @@
 		28BBDA8B156B756500BDE844 /* BookmarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBDA8A156B756500BDE844 /* BookmarkCell.m */; };
 		28BBDA8C156B756500BDE844 /* BookmarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBDA8A156B756500BDE844 /* BookmarkCell.m */; };
 		28BBDA8D156B756500BDE844 /* BookmarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBDA8A156B756500BDE844 /* BookmarkCell.m */; };
+		28C2D974156B81FB0054684B /* BookmarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C2D973156B81FB0054684B /* BookmarkViewController.m */; };
+		28C2D975156B81FB0054684B /* BookmarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C2D973156B81FB0054684B /* BookmarkViewController.m */; };
+		28C2D976156B81FB0054684B /* BookmarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C2D973156B81FB0054684B /* BookmarkViewController.m */; };
+		28C2D979156B82800054684B /* VenueMiniCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C2D978156B82800054684B /* VenueMiniCell.m */; };
+		28C2D97A156B82800054684B /* VenueMiniCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C2D978156B82800054684B /* VenueMiniCell.m */; };
+		28C2D97B156B82800054684B /* VenueMiniCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C2D978156B82800054684B /* VenueMiniCell.m */; };
+		28CB7385156CBFA500BA86A2 /* IconGroupWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 28CB7383156CBFA500BA86A2 /* IconGroupWhite.png */; };
+		28CB7386156CBFA500BA86A2 /* IconGroupWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 28CB7383156CBFA500BA86A2 /* IconGroupWhite.png */; };
+		28CB7387156CBFA500BA86A2 /* IconGroupWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 28CB7383156CBFA500BA86A2 /* IconGroupWhite.png */; };
+		28CB7388156CBFA500BA86A2 /* IconGroupWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28CB7384156CBFA500BA86A2 /* IconGroupWhite@2x.png */; };
+		28CB7389156CBFA500BA86A2 /* IconGroupWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28CB7384156CBFA500BA86A2 /* IconGroupWhite@2x.png */; };
+		28CB738A156CBFA500BA86A2 /* IconGroupWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28CB7384156CBFA500BA86A2 /* IconGroupWhite@2x.png */; };
+		28CB738D156CBFDE00BA86A2 /* IconGroupBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 28CB738B156CBFDE00BA86A2 /* IconGroupBlack.png */; };
+		28CB738E156CBFDE00BA86A2 /* IconGroupBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 28CB738B156CBFDE00BA86A2 /* IconGroupBlack.png */; };
+		28CB738F156CBFDE00BA86A2 /* IconGroupBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 28CB738B156CBFDE00BA86A2 /* IconGroupBlack.png */; };
+		28CB7390156CBFDE00BA86A2 /* IconGroupBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28CB738C156CBFDE00BA86A2 /* IconGroupBlack@2x.png */; };
+		28CB7391156CBFDE00BA86A2 /* IconGroupBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28CB738C156CBFDE00BA86A2 /* IconGroupBlack@2x.png */; };
+		28CB7392156CBFDE00BA86A2 /* IconGroupBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28CB738C156CBFDE00BA86A2 /* IconGroupBlack@2x.png */; };
 		28DA3CD91554E2330050D215 /* IconFoodBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 28DA3CD51554E2330050D215 /* IconFoodBlack.png */; };
 		28DA3CDA1554E2330050D215 /* IconFoodBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 28DA3CD51554E2330050D215 /* IconFoodBlack.png */; };
 		28DA3CDB1554E2330050D215 /* IconFoodBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 28DA3CD51554E2330050D215 /* IconFoodBlack.png */; };
@@ -1443,6 +1461,14 @@
 		28BBDA7C156B732B00BDE844 /* IconBookmarkWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconBookmarkWhite@2x.png"; sourceTree = "<group>"; };
 		28BBDA89156B756500BDE844 /* BookmarkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarkCell.h; sourceTree = "<group>"; };
 		28BBDA8A156B756500BDE844 /* BookmarkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarkCell.m; sourceTree = "<group>"; };
+		28C2D972156B81FB0054684B /* BookmarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarkViewController.h; sourceTree = "<group>"; };
+		28C2D973156B81FB0054684B /* BookmarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarkViewController.m; sourceTree = "<group>"; };
+		28C2D977156B82800054684B /* VenueMiniCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueMiniCell.h; sourceTree = "<group>"; };
+		28C2D978156B82800054684B /* VenueMiniCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueMiniCell.m; sourceTree = "<group>"; };
+		28CB7383156CBFA500BA86A2 /* IconGroupWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconGroupWhite.png; sourceTree = "<group>"; };
+		28CB7384156CBFA500BA86A2 /* IconGroupWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconGroupWhite@2x.png"; sourceTree = "<group>"; };
+		28CB738B156CBFDE00BA86A2 /* IconGroupBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconGroupBlack.png; sourceTree = "<group>"; };
+		28CB738C156CBFDE00BA86A2 /* IconGroupBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconGroupBlack@2x.png"; sourceTree = "<group>"; };
 		28DA3CD51554E2330050D215 /* IconFoodBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconFoodBlack.png; sourceTree = "<group>"; };
 		28DA3CD61554E2330050D215 /* IconFoodBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconFoodBlack@2x.png"; sourceTree = "<group>"; };
 		28DA3CE51554E47F0050D215 /* IconReservationsBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconReservationsBlack.png; sourceTree = "<group>"; };
@@ -2391,6 +2417,8 @@
 				28834C581566364F0049AE37 /* NewEventViewController.m */,
 				28834C5C156636640049AE37 /* EventViewController.h */,
 				28834C5D156636640049AE37 /* EventViewController.m */,
+				28C2D972156B81FB0054684B /* BookmarkViewController.h */,
+				28C2D973156B81FB0054684B /* BookmarkViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2418,6 +2446,8 @@
 				D0269E4314E1B5E100B690A2 /* EventCell.m */,
 				28BBDA89156B756500BDE844 /* BookmarkCell.h */,
 				28BBDA8A156B756500BDE844 /* BookmarkCell.m */,
+				28C2D977156B82800054684B /* VenueMiniCell.h */,
+				28C2D978156B82800054684B /* VenueMiniCell.m */,
 				2846CD7E1563B1040056B8AC /* SettingCell.h */,
 				2846CD7F1563B1040056B8AC /* SettingCell.m */,
 				D0FE068014F9C64B00140D9E /* VenueAnnotationView.h */,
@@ -2439,6 +2469,10 @@
 		28F38D4A149839B9009D58BA /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				28CB7383156CBFA500BA86A2 /* IconGroupWhite.png */,
+				28CB7384156CBFA500BA86A2 /* IconGroupWhite@2x.png */,
+				28CB738B156CBFDE00BA86A2 /* IconGroupBlack.png */,
+				28CB738C156CBFDE00BA86A2 /* IconGroupBlack@2x.png */,
 				28BBDA79156B732B00BDE844 /* IconBookmarkBlack.png */,
 				28BBDA7A156B732B00BDE844 /* IconBookmarkBlack@2x */,
 				28BBDA7B156B732B00BDE844 /* IconBookmarkWhite.png */,
@@ -3166,6 +3200,10 @@
 				28BBDA82156B732B00BDE844 /* IconBookmarkBlack@2x in Resources */,
 				28BBDA85156B732B00BDE844 /* IconBookmarkWhite.png in Resources */,
 				28BBDA88156B732B00BDE844 /* IconBookmarkWhite@2x.png in Resources */,
+				28CB7387156CBFA500BA86A2 /* IconGroupWhite.png in Resources */,
+				28CB738A156CBFA500BA86A2 /* IconGroupWhite@2x.png in Resources */,
+				28CB738F156CBFDE00BA86A2 /* IconGroupBlack.png in Resources */,
+				28CB7392156CBFDE00BA86A2 /* IconGroupBlack@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3391,6 +3429,10 @@
 				28BBDA81156B732B00BDE844 /* IconBookmarkBlack@2x in Resources */,
 				28BBDA84156B732B00BDE844 /* IconBookmarkWhite.png in Resources */,
 				28BBDA87156B732B00BDE844 /* IconBookmarkWhite@2x.png in Resources */,
+				28CB7386156CBFA500BA86A2 /* IconGroupWhite.png in Resources */,
+				28CB7389156CBFA500BA86A2 /* IconGroupWhite@2x.png in Resources */,
+				28CB738E156CBFDE00BA86A2 /* IconGroupBlack.png in Resources */,
+				28CB7391156CBFDE00BA86A2 /* IconGroupBlack@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3616,6 +3658,10 @@
 				28BBDA80156B732B00BDE844 /* IconBookmarkBlack@2x in Resources */,
 				28BBDA83156B732B00BDE844 /* IconBookmarkWhite.png in Resources */,
 				28BBDA86156B732B00BDE844 /* IconBookmarkWhite@2x.png in Resources */,
+				28CB7385156CBFA500BA86A2 /* IconGroupWhite.png in Resources */,
+				28CB7388156CBFA500BA86A2 /* IconGroupWhite@2x.png in Resources */,
+				28CB738D156CBFDE00BA86A2 /* IconGroupBlack.png in Resources */,
+				28CB7390156CBFDE00BA86A2 /* IconGroupBlack@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3792,6 +3838,8 @@
 				28834C9A1566A0DD0049AE37 /* VenueMiniView.m in Sources */,
 				289E397C15675C1900275EFE /* UIImageView+PSKit.m in Sources */,
 				28BBDA8D156B756500BDE844 /* BookmarkCell.m in Sources */,
+				28C2D976156B81FB0054684B /* BookmarkViewController.m in Sources */,
+				28C2D97B156B82800054684B /* VenueMiniCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3923,6 +3971,8 @@
 				28834C991566A0DD0049AE37 /* VenueMiniView.m in Sources */,
 				289E397B15675C1900275EFE /* UIImageView+PSKit.m in Sources */,
 				28BBDA8C156B756500BDE844 /* BookmarkCell.m in Sources */,
+				28C2D975156B81FB0054684B /* BookmarkViewController.m in Sources */,
+				28C2D97A156B82800054684B /* VenueMiniCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4054,6 +4104,8 @@
 				28834C981566A0DD0049AE37 /* VenueMiniView.m in Sources */,
 				289E397A15675C1900275EFE /* UIImageView+PSKit.m in Sources */,
 				28BBDA8B156B756500BDE844 /* BookmarkCell.m in Sources */,
+				28C2D974156B81FB0054684B /* BookmarkViewController.m in Sources */,
+				28C2D979156B82800054684B /* VenueMiniCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

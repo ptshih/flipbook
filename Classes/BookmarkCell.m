@@ -9,18 +9,20 @@
 #import "BookmarkCell.h"
 
 #define MARGIN 8.0
-#define IMAGE_SIZE 28.0
+#define IMAGE_SIZE 32.0
 
 @interface BookmarkCell ()
 
 @property (nonatomic, strong) TTTAttributedLabel *messageLabel;
+@property (nonatomic, strong) UILabel *timestampLabel;
 
 @end
 
 @implementation BookmarkCell
 
 @synthesize
-messageLabel = _messageLabel;
+messageLabel = _messageLabel,
+timestampLabel = _timestampLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -34,6 +36,9 @@ messageLabel = _messageLabel;
         [PSStyleSheet applyStyle:@"eventMessageLabel" forLabel:self.messageLabel];
         [self.contentView addSubview:self.messageLabel];
         
+        self.timestampLabel = [UILabel labelWithStyle:@"metaLabel"];
+        [self.contentView addSubview:self.timestampLabel];
+        
         self.selectionStyle = UITableViewCellSelectionStyleBlue;
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -44,6 +49,7 @@ messageLabel = _messageLabel;
     [super prepareForReuse];
     
     self.messageLabel.text = nil;
+    self.timestampLabel.text = nil;
 }
 
 - (void)layoutSubviews {
@@ -64,6 +70,9 @@ messageLabel = _messageLabel;
     self.messageLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.messageLabel.bottom;
+    
+    labelSize = [PSStyleSheet sizeForText:self.timestampLabel.text width:width style:@"metaLabel"];
+    self.timestampLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
 }
 
 - (void)tableView:(UITableView *)tableView fillCellWithObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
@@ -76,21 +85,24 @@ messageLabel = _messageLabel;
     // Attributed message
     NSString *userName = [dict objectForKey:@"fbName"];
     NSString *venueName = [dict objectForKey:@"venueName"];
-//    NSString *venueAddress = [dict objectForKey:@"venueAddress"];
-    NSString *message = [NSString stringWithFormat:@"%@ added %@ to his/her Lunchbox", userName, venueName];
+    NSString *venueAddress = [dict objectForKey:@"venueAddress"];
+    NSString *message = [NSString stringWithFormat:@"%@ saved %@ located at %@", userName, venueName, venueAddress];
     
     [self.messageLabel setText:message afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange userNameRange = [[mutableAttributedString string] rangeOfString:userName options:NSCaseInsensitiveSearch];
         NSRange venueNameRange = [[mutableAttributedString string] rangeOfString:venueName options:NSCaseInsensitiveSearch];
-//        NSRange venueAddressRange = [[mutableAttributedString string] rangeOfString:venueAddress options:NSCaseInsensitiveSearch];
+        NSRange venueAddressRange = [[mutableAttributedString string] rangeOfString:venueAddress options:NSCaseInsensitiveSearch];
         
         //Color
         [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:userNameRange];
         [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:venueNameRange];
-//        [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:venueAddressRange];
+        [mutableAttributedString addAttribute:(NSString *)kCTForegroundColorAttributeName value:(id)[[UIColor colorWithRGBHex:0x3B5998] CGColor] range:venueAddressRange];
         
         return mutableAttributedString;
     }];
+    
+    NSString *timestamp = [[PSDateFormatter sharedDateFormatter] shortRelativeStringFromDate:[NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"timestamp"] doubleValue]] includeTime:PSDateFormatterIncludeTimeLast24Hours useShortDate:YES];
+    self.timestampLabel.text = timestamp;
 }
 
 + (CGFloat)rowHeightForObject:(id)object atIndexPath:(NSIndexPath *)indexPath forInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -104,10 +116,14 @@ messageLabel = _messageLabel;
     // Attributed message
     NSString *userName = [dict objectForKey:@"fbName"];
     NSString *venueName = [dict objectForKey:@"venueName"];
-//    NSString *venueAddress = [dict objectForKey:@"venueAddress"];
-    NSString *message = [NSString stringWithFormat:@"%@ added %@ to his/her Lunchbox", userName, venueName];
+    NSString *venueAddress = [dict objectForKey:@"venueAddress"];
+    NSString *message = [NSString stringWithFormat:@"%@ saved %@ located at %@", userName, venueName, venueAddress];
     
     CGSize labelSize = [PSStyleSheet sizeForText:message width:width style:@"eventMessageLabel"];
+    height += labelSize.height;
+    
+    NSString *timestamp = [[PSDateFormatter sharedDateFormatter] shortRelativeStringFromDate:[NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"timestamp"] doubleValue]] includeTime:PSDateFormatterIncludeTimeLast24Hours useShortDate:YES];
+    labelSize = [PSStyleSheet sizeForText:timestamp width:width style:@"metaLabel"];
     height += labelSize.height;
         
     height += MARGIN * 2;

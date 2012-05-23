@@ -54,9 +54,9 @@ contentView = _contentView;
 }
 
 #pragma mark - View Config
-- (UIColor *)baseBackgroundColor {
-    return [UIColor blackColor];
-}
+//- (UIColor *)baseBackgroundColor {
+//    return [UIColor blackColor];
+//}
 
 #pragma mark - View
 - (void)viewDidLoad {

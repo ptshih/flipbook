@@ -183,7 +183,7 @@ shouldReloadInterface = _shouldReloadInterface;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window makeKeyAndVisible];
     self.window.backgroundColor = [UIColor blackColor];
-//    self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLeather.jpg"]];
+//    self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLinen"]];
     
     // Root view controller
     id controller = nil;
@@ -193,26 +193,26 @@ shouldReloadInterface = _shouldReloadInterface;
     self.window.rootViewController = self.navigationController;
     
     // Splash Image
-    NSString *splashImageName = nil;
-    CGFloat splashTop = 0.0;
-    if (isDeviceIPad()) {
-        splashImageName = @"Default-Portrait";
-        splashTop = 20.0;
-    } else {
-        splashImageName = @"Default";
-        splashTop = 0.0;
-    }
-    self.splashImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:splashImageName]];
-    self.splashImage.top = splashTop;
-    [self.window addSubview:self.splashImage];
-    
-    BLOCK_SELF;
-    [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        blockSelf.splashImage.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        [blockSelf.splashImage removeFromSuperview];
-        blockSelf.splashImage = nil;
-    }];
+//    NSString *splashImageName = nil;
+//    CGFloat splashTop = 0.0;
+//    if (isDeviceIPad()) {
+//        splashImageName = @"Default-Portrait";
+//        splashTop = 20.0;
+//    } else {
+//        splashImageName = @"Default";
+//        splashTop = 0.0;
+//    }
+//    self.splashImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:splashImageName]];
+//    self.splashImage.top = splashTop;
+//    [self.window addSubview:self.splashImage];
+//    
+//    BLOCK_SELF;
+//    [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//        blockSelf.splashImage.alpha = 0.0;
+//    } completion:^(BOOL finished) {
+//        [blockSelf.splashImage removeFromSuperview];
+//        blockSelf.splashImage = nil;
+//    }];
     
     return YES;
 }

@@ -29,10 +29,11 @@
         UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"InfoPopover"]];
         bg.center = self.center;
         bg.top = 44.0;
+        bg.height = 260;
         [self addSubview:bg];
         
         UILabel *infoLabel = [UILabel labelWithStyle:@"infoPopoverLabel"];
-        infoLabel.text = @"Tap the Navigation Bar to Start!\r\n\r\nYou can now tell your friends that you plan on going somewhere later.\r\n\r\nYou can also join your friends who have already made plans.";
+        infoLabel.text = @"Tap Above to Try!\r\n\r\nYou can now save places you like to your Lunchbox for easy viewing at a later time.\r\n\r\nWe can also let your friends know that you saved a place to your Lunchbox!";
         infoLabel.frame = UIEdgeInsetsInsetRect(bg.bounds, UIEdgeInsetsMake(30, 30, 42, 30));
         [bg addSubview:infoLabel];
         

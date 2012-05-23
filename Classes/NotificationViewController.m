@@ -48,6 +48,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Config Table
+    self.tableView.backgroundColor = [UIColor clearColor];
+    
     // Load
     [self loadDataSource];
 }

@@ -9,7 +9,7 @@
 #import "UserCell.h"
 
 #define MARGIN 8.0
-#define PROFILE_SIZE 30.0
+#define PROFILE_SIZE 32.0
 
 @implementation UserCell
 
@@ -17,6 +17,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.psImageView = [[PSCachedImageView alloc] initWithFrame:CGRectZero];
+        self.psImageView.layer.cornerRadius = 2.0;
+        self.psImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:self.psImageView];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -31,7 +33,7 @@
 }
 
 + (CGFloat)rowHeight {
-    return 46.0;
+    return 48.0;
 }
 
 - (void)layoutSubviews {

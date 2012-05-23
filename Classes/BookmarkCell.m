@@ -28,6 +28,8 @@ timestampLabel = _timestampLabel;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.psImageView = [[PSCachedImageView alloc] initWithFrame:CGRectZero];
+        self.psImageView.layer.cornerRadius = 2.0;
+        self.psImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:self.psImageView];
         
         self.messageLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
@@ -67,7 +69,7 @@ timestampLabel = _timestampLabel;
     width -= self.psImageView.width + MARGIN;
     
     labelSize = [PSStyleSheet sizeForText:self.messageLabel.text width:width style:@"bookmarkMessageLabel"];
-    self.messageLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
+    self.messageLabel.frame = CGRectMake(left, top - 4.0, labelSize.width, labelSize.height);
     
     top = self.messageLabel.bottom;
     
@@ -116,7 +118,6 @@ timestampLabel = _timestampLabel;
     CGFloat width = 268.0 - MARGIN * 2;
     width -= IMAGE_SIZE + MARGIN;
     
-    
     // Attributed message
     NSString *userName = [user objectForKey:@"fbName"];
     NSString *venueName = [venue objectForKey:@"name"];
@@ -131,6 +132,8 @@ timestampLabel = _timestampLabel;
     height += labelSize.height;
         
     height += MARGIN * 2;
+    
+    height -= 4.0; // label top adjustment
     
     height = MAX(IMAGE_SIZE + MARGIN * 2, height);
     

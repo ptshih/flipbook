@@ -464,7 +464,7 @@ footerLabel = _footerLabel;
         }
         
 //        NSString *hasOrHave = (self.bookmarks.count == 1) ? @"has" : @"have";
-        self.footerLabel.text = [NSString stringWithFormat:@"%@ saved this place to their Lunchbox.", [[self.bookmarks valueForKeyPath:@"user.fbName"] stringWithLengthAndCount:3]];
+        self.footerLabel.text = [NSString stringWithFormat:@"%@ saved this place.", [[self.bookmarks valueForKeyPath:@"user.fbName"] stringWithLengthAndCount:3]];
     } else {
         // animate hide footer
         if (self.footerView.top == self.view.bottom - self.footerView.height) {

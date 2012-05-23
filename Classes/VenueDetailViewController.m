@@ -673,9 +673,11 @@ footerLabel = _footerLabel;
     NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
     NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
     NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
+    BOOL shouldPost = [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldPostToFacebook"];
     [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
     [parameters setObject:fbId forKey:@"fbId"];
     [parameters setObject:fbName forKey:@"fbName"];
+    [parameters setObject:[NSNumber numberWithBool:shouldPost] forKey:@"shouldPostToFacebook"];
     
     // Venue (denormalized)
     NSDictionary *location = [self.venueDict objectForKey:@"location"];

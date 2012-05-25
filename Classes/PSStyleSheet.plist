@@ -115,6 +115,10 @@
 		<string>{0, 0}</string>
 		<key>numberOfLines</key>
 		<integer>1</integer>
+		<key>minimumFontSize</key>
+		<integer>14</integer>
+		<key>adjustsFontSizeToFitWidth</key>
+		<true/>
 	</dict>
 	<key>navigationButton</key>
 	<dict>

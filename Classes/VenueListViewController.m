@@ -239,10 +239,6 @@ hasLoadedOnce = _hasLoadedOnce;
     [super dataSourceDidError];
 }
 
-- (BOOL)dataSourceIsEmpty {
-    return ([self.items count] == 0);
-}
-
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     if (![[PSLocationCenter defaultCenter] hasAcquiredLocation]) {
         self.hasLoadedOnce = NO;

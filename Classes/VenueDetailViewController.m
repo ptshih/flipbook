@@ -585,11 +585,6 @@ footerLabel = _footerLabel;
     [super dataSourceDidError];
 }
 
-- (BOOL)dataSourceIsEmpty {
-    return ([self.items count] == 0);
-}
-
-
 #pragma mark - Bookmarks
 
 - (void)findBookmarksFromFriends {

@@ -151,11 +151,6 @@ rightButton = _rightButton;
     [super dataSourceDidError];
 }
 
-- (BOOL)dataSourceIsEmpty {
-    return ([self.items count] == 0);
-}
-
-
 #pragma mark - PSCollectionViewDelegate
 - (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView viewAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];

@@ -439,9 +439,6 @@ footerLabel = _footerLabel;
     self.footerLabel.frame = CGRectMake(bookmarkIcon.right + 8.0, 0, self.footerView.width - bookmarkIcon.width - disclosure.width - 32.0, self.footerView.height);
     self.footerLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [self.footerView addSubview:self.footerLabel];
-    
-    // Hide the footer
-    self.footerView.height = 0.0;
 }
 
 - (void)updateHeader {
@@ -457,7 +454,7 @@ footerLabel = _footerLabel;
         // animate show footer
         if (self.footerView.top == self.view.bottom) {
             [UIView animateWithDuration:0.4 animations:^{
-                self.footerView.frame = CGRectMake(0, self.view.bottom - 44.0, self.footerView.width, 44.0);
+                self.footerView.frame = CGRectMake(0, self.view.bottom - self.footerView.height, self.footerView.width, self.footerView.height);
                 [self updateSubviews];
             } completion:^(BOOL finished) {
             }];
@@ -469,7 +466,7 @@ footerLabel = _footerLabel;
         // animate hide footer
         if (self.footerView.top == self.view.bottom - self.footerView.height) {
             [UIView animateWithDuration:0.4 animations:^{
-                self.footerView.frame = CGRectMake(0, self.view.bottom, self.footerView.width, 0.0);
+                self.footerView.frame = CGRectMake(0, self.view.bottom, self.footerView.width, self.footerView.height);
                 [self updateSubviews];                
             } completion:^(BOOL finished) {
             }];

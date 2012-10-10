@@ -131,13 +131,16 @@ shouldReloadInterface = _shouldReloadInterface;
     
     self.shouldReloadInterface = NO;
     
-    // HOCKEY
+    // Hockey
     // 4fda551a3f254b914082b05e2d8d76fd
     
 #ifdef RELEASE
     [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"4fda551a3f254b914082b05e2d8d76fd" liveIdentifier:@"4fda551a3f254b914082b05e2d8d76fd" delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
 #endif
+    
+    // Localytics
+    // 84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc
     
     [Appirater appLaunched:YES];
     

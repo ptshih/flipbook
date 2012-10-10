@@ -229,7 +229,9 @@ peopleIcon = _peopleIcon;
     }
 }
 
-+ (CGFloat)heightForViewWithObject:(NSDictionary *)venue inColumnWidth:(CGFloat)columnWidth {
++ (CGFloat)rowHeightForObject:(id)object inColumnWidth:(CGFloat)columnWidth {
+    NSDictionary *venue = (NSDictionary *)object;
+    
     CGFloat height = 0.0;
     CGFloat width = columnWidth - MARGIN * 2;
     

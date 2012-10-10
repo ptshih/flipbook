@@ -127,7 +127,7 @@ divider = _divider;
     [self.imageView loadImageWithURL:[NSURL URLWithString:[user objectForKey:@"photo"]] cacheType:PSURLCacheTypePermanent];
 }
 
-+ (CGFloat)heightForViewWithObject:(id)object inColumnWidth:(CGFloat)columnWidth {
++ (CGFloat)rowHeightForObject:(id)object inColumnWidth:(CGFloat)columnWidth {
     CGFloat height = 0.0;
     CGFloat width = columnWidth - MARGIN * 2;
     CGSize labelSize = CGSizeZero;

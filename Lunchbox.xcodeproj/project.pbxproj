@@ -428,6 +428,9 @@
 		28AD408016250FFC0066F6A5 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 28AD407616250FFC0066F6A5 /* UIImageView+AFNetworking.m */; };
 		28AD40831625106C0066F6A5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AD40821625106C0066F6A5 /* FacebookSDK.framework */; };
 		28AD4085162510E80066F6A5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AD4084162510E80066F6A5 /* SystemConfiguration.framework */; };
+		28AD40B8162513CF0066F6A5 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AD40B5162513CE0066F6A5 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		28AD40B9162513CF0066F6A5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AD40B6162513CE0066F6A5 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		28AD40BA162513CF0066F6A5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AD40B7162513CF0066F6A5 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		28BBDA8B156B756500BDE844 /* BookmarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBDA8A156B756500BDE844 /* BookmarkCell.m */; };
 		28C2D974156B81FB0054684B /* BookmarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C2D973156B81FB0054684B /* BookmarkViewController.m */; };
 		28C2D979156B82800054684B /* VenueMiniCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C2D978156B82800054684B /* VenueMiniCell.m */; };
@@ -938,6 +941,9 @@
 		28AD407716250FFC0066F6A5 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
 		28AD40821625106C0066F6A5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		28AD4084162510E80066F6A5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		28AD40B5162513CE0066F6A5 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		28AD40B6162513CE0066F6A5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		28AD40B7162513CF0066F6A5 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		28BBDA89156B756500BDE844 /* BookmarkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarkCell.h; sourceTree = "<group>"; };
 		28BBDA8A156B756500BDE844 /* BookmarkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarkCell.m; sourceTree = "<group>"; };
 		28C2D972156B81FB0054684B /* BookmarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarkViewController.h; sourceTree = "<group>"; };
@@ -993,6 +999,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28AD40B8162513CF0066F6A5 /* Accounts.framework in Frameworks */,
+				28AD40B9162513CF0066F6A5 /* AdSupport.framework in Frameworks */,
+				28AD40BA162513CF0066F6A5 /* Social.framework in Frameworks */,
 				28AD4085162510E80066F6A5 /* SystemConfiguration.framework in Frameworks */,
 				28A3913C1554DA37002696FD /* CoreTelephony.framework in Frameworks */,
 				28A3913D1554DA37002696FD /* AddressBook.framework in Frameworks */,
@@ -1775,6 +1784,9 @@
 			children = (
 				D0C5C01414F76F910041A364 /* libz.dylib */,
 				28381A911472F88A007E4827 /* libsqlite3.dylib */,
+				28AD40B5162513CE0066F6A5 /* Accounts.framework */,
+				28AD40B6162513CE0066F6A5 /* AdSupport.framework */,
+				28AD40B7162513CF0066F6A5 /* Social.framework */,
 				28AD4084162510E80066F6A5 /* SystemConfiguration.framework */,
 				28150469151ACC050028A0B6 /* CoreTelephony.framework */,
 				D0F6CAD114FD903B00CCF2B4 /* AddressBook.framework */,

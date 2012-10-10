@@ -97,6 +97,44 @@
 		<key>textAlignment</key>
 		<string>center</string>
 	</dict>
+	<key>loadingLightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue-Bold</string>
+		<key>fontSize</key>
+		<integer>20</integer>
+		<key>textColor</key>
+		<string>0xefefef</string>
+		<key>highlightedTextColor</key>
+		<string>0xefefef</string>
+		<key>textAlignment</key>
+		<string>center</string>
+		<key>shadowColor</key>
+		<string>0x222222</string>
+		<key>shadowOffset</key>
+		<string>{1,1}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>loadingDarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue-Bold</string>
+		<key>fontSize</key>
+		<integer>20</integer>
+		<key>textColor</key>
+		<string>0x70695A</string>
+		<key>highlightedTextColor</key>
+		<string>0x70695A</string>
+		<key>textAlignment</key>
+		<string>center</string>
+		<key>shadowColor</key>
+		<string>0xefefef</string>
+		<key>shadowOffset</key>
+		<string>{1,1}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
 	<key>navigationTitleLabel</key>
 	<dict>
 		<key>fontName</key>

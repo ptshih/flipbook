@@ -94,6 +94,14 @@ hasLoadedOnce = _hasLoadedOnce;
 - (void)setupSubviews {
     [super setupSubviews];
     
+    if (isDeviceIPad()) {
+        self.collectionView.numColsPortrait = 3;
+        self.collectionView.numColsLandscape = 4;
+    } else {
+        self.collectionView.numColsPortrait = 2;
+        self.collectionView.numColsLandscape = 3;
+    }
+    
     // 4sq attribution
     UIImageView *pb4sq = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]];
     pb4sq.contentMode = UIViewContentModeCenter;
@@ -428,13 +436,13 @@ hasLoadedOnce = _hasLoadedOnce;
     return v;
 }
 
-- (CGFloat)heightForViewAtIndex:(NSInteger)index {
+- (CGFloat)heightForRowAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
     return [VenueView rowHeightForObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
-- (void)collectionView:(PSCollectionView *)collectionView didSelectView:(PSCollectionViewCell *)view atIndex:(NSInteger)index {
+- (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
     VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:[item objectForKey:@"id"]];

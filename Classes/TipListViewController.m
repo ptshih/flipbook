@@ -161,13 +161,13 @@ rightButton = _rightButton;
     return v;
 }
 
-- (CGFloat)heightForViewAtIndex:(NSInteger)index {
+- (CGFloat)heightForRowAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
     return [TipView rowHeightForObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
-- (void)collectionView:(PSCollectionView *)collectionView didSelectView:(PSCollectionViewCell *)view atIndex:(NSInteger)index {    
+- (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index {
 }
 
 @end

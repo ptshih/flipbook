@@ -110,14 +110,6 @@ footerLabel = _footerLabel;
 - (void)setupVenueSubviews {
     [self updateHeader];
     
-    // 4sq attribution
-    UIImageView *pb4sq = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]];
-    pb4sq.contentMode = UIViewContentModeCenter;
-    pb4sq.frame = CGRectMake(0, 0, self.collectionView.width, pb4sq.height);
-    // Add gradient
-    [pb4sq addGradientLayerWithFrame:CGRectMake(0, 0, pb4sq.width, 8.0) colors:[NSArray arrayWithObjects:(id)RGBACOLOR(0, 0, 0, 0.3).CGColor, (id)RGBACOLOR(0, 0, 0, 0.2).CGColor, (id)RGBACOLOR(0, 0, 0, 0.1).CGColor, (id)RGBACOLOR(0, 0, 0, 0.0).CGColor, nil] locations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.1], [NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:1.0], nil] startPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 1.0)];
-    self.collectionView.footerView = pb4sq;
-    
     CGFloat mapHeight;
     if (isDeviceIPad()) {
         mapHeight = 320;
@@ -367,6 +359,22 @@ footerLabel = _footerLabel;
 
 - (void)setupSubviews {
     [super setupSubviews];
+    
+    if (isDeviceIPad()) {
+        self.collectionView.numColsPortrait = 3;
+        self.collectionView.numColsLandscape = 4;
+    } else {
+        self.collectionView.numColsPortrait = 2;
+        self.collectionView.numColsLandscape = 3;
+    }
+    
+    // 4sq attribution
+    UIImageView *pb4sq = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]];
+    pb4sq.contentMode = UIViewContentModeCenter;
+    pb4sq.frame = CGRectMake(0, 0, self.collectionView.width, pb4sq.height);
+    // Add gradient
+    [pb4sq addGradientLayerWithFrame:CGRectMake(0, 0, pb4sq.width, 8.0) colors:[NSArray arrayWithObjects:(id)RGBACOLOR(0, 0, 0, 0.3).CGColor, (id)RGBACOLOR(0, 0, 0, 0.2).CGColor, (id)RGBACOLOR(0, 0, 0, 0.1).CGColor, (id)RGBACOLOR(0, 0, 0, 0.0).CGColor, nil] locations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.1], [NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:1.0], nil] startPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 1.0)];
+    self.collectionView.footerView = pb4sq;
 }
 
 - (void)setupHeader {
@@ -837,14 +845,14 @@ footerLabel = _footerLabel;
     return v;
 }
 
-- (CGFloat)heightForViewAtIndex:(NSInteger)index {
+- (CGFloat)heightForRowAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
     return [PhotoView rowHeightForObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
-- (void)collectionView:(PSCollectionView *)collectionView didSelectView:(PSCollectionViewCell *)view atIndex:(NSInteger)index {
-    PhotoView *v = (PhotoView *)view;
+- (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index {
+    PhotoView *v = (PhotoView *)cell;
     
     // If the image hasn't loaded, don't allow zoom
     PSCachedImageView *imageView = v.imageView;

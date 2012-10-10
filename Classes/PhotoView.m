@@ -93,7 +93,7 @@ homeCityLabel = _homeCityLabel;
     self.homeCityLabel.text = [self.object objectForKey:@"homeCity"];
 }
 
-+ (CGFloat)heightForViewWithObject:(id)object inColumnWidth:(CGFloat)columnWidth {
++ (CGFloat)rowHeightForObject:(id)object inColumnWidth:(CGFloat)columnWidth {
     CGFloat height = 0.0;
     CGFloat width = columnWidth - MARGIN * 2;
     

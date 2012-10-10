@@ -66,24 +66,24 @@ contentView = _contentView;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    NSDate *showDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"showEventPopover"];
-    
-    if ([[showDate earlierDate:[NSDate date]] isEqualToDate:showDate] && ![[PSFacebookCenter defaultCenter] isLoggedIn]) {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:kTimeInterval1Day] forKey:@"showEventPopover"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        InfoPopoverView *pv = [[InfoPopoverView alloc] initWithFrame:self.view.bounds];
-        pv.alpha = 0.0;
-        
-        [UIView animateWithDuration:0.4 animations:^{
-            pv.alpha = 1.0;
-        } completion:^(BOOL finished) {
-            [self.view addSubview:pv];
-        }];
-    }
-    
-    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
-        [self updateNotifications];
-    }
+//    NSDate *showDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"showEventPopover"];
+//    
+//    if ([[showDate earlierDate:[NSDate date]] isEqualToDate:showDate] && ![[PSFacebookCenter defaultCenter] isLoggedIn]) {
+//        [[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceNow:kTimeInterval1Day] forKey:@"showEventPopover"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        InfoPopoverView *pv = [[InfoPopoverView alloc] initWithFrame:self.view.bounds];
+//        pv.alpha = 0.0;
+//        
+//        [UIView animateWithDuration:0.4 animations:^{
+//            pv.alpha = 1.0;
+//        } completion:^(BOOL finished) {
+//            [self.view addSubview:pv];
+//        }];
+//    }
+//    
+//    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
+//        [self updateNotifications];
+//    }
 }
 
 - (void)setupSubviews {
@@ -190,27 +190,27 @@ contentView = _contentView;
 }
 
 - (void)centerAction {
-    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
-        NotificationViewController *vc = [[NotificationViewController alloc] initWithNibName:nil bundle:nil];
-        vc.view.frame = CGRectMake(0, 0, 288, 356);
-        PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Notifications" contentController:vc];
-        popoverView.tag = kPopoverNotifications;
-        popoverView.delegate = self;
-        [popoverView showWithSize:vc.view.bounds.size inView:self.view];
-    } else {
-        FBConnectViewController *vc = [[FBConnectViewController alloc] initWithNibName:nil bundle:nil];
-        [(PSNavigationController *)self.parentViewController pushViewController:vc direction:PSNavigationControllerDirectionUp animated:YES];
-    }
+//    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
+//        NotificationViewController *vc = [[NotificationViewController alloc] initWithNibName:nil bundle:nil];
+//        vc.view.frame = CGRectMake(0, 0, 288, 356);
+//        PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Notifications" contentController:vc];
+//        popoverView.tag = kPopoverNotifications;
+//        popoverView.delegate = self;
+//        [popoverView showWithSize:vc.view.bounds.size inView:self.view];
+//    } else {
+//        FBConnectViewController *vc = [[FBConnectViewController alloc] initWithNibName:nil bundle:nil];
+//        [(PSNavigationController *)self.parentViewController pushViewController:vc direction:PSNavigationControllerDirectionUp animated:YES];
+//    }
 }
 
 - (void)rightAction {
-    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
-        BookmarkViewController *vc = [[BookmarkViewController alloc] initWithNibName:nil bundle:nil];
-        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-    } else {
-        FBConnectViewController *vc = [[FBConnectViewController alloc] initWithNibName:nil bundle:nil];
-        [(PSNavigationController *)self.parentViewController pushViewController:vc direction:PSNavigationControllerDirectionUp animated:YES];
-    }
+//    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
+//        BookmarkViewController *vc = [[BookmarkViewController alloc] initWithNibName:nil bundle:nil];
+//        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+//    } else {
+//        FBConnectViewController *vc = [[FBConnectViewController alloc] initWithNibName:nil bundle:nil];
+//        [(PSNavigationController *)self.parentViewController pushViewController:vc direction:PSNavigationControllerDirectionUp animated:YES];
+//    }
 }
 
 #pragma mark - Notifications

@@ -61,11 +61,6 @@ rightButton = _rightButton;
 - (void)setupSubviews {
     [super setupSubviews];
     
-    // Empty Label
-    UILabel *emptyLabel = [UILabel labelWithText:@"No Tips Found" style:@"emptyLabel"];
-    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.collectionView.emptyView = emptyLabel;
-    
     // 4sq attribution
     UIImageView *pb4sq = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]];
     pb4sq.contentMode = UIViewContentModeCenter;
@@ -152,22 +147,24 @@ rightButton = _rightButton;
 }
 
 #pragma mark - PSCollectionViewDelegate
-- (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView viewAtIndex:(NSInteger)index {
+
+- (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView cellForRowAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    TipView *v = (TipView *)[self.collectionView dequeueReusableView];
+    TipView *v = (TipView *)[self.collectionView dequeueReusableViewForClass:[TipView class]];
     if (!v) {
         v = [[TipView alloc] initWithFrame:CGRectZero];
     }
     
-    [v fillViewWithObject:item];
+    [v collectionView:collectionView fillCellWithObject:item atIndex:index];
     
     return v;
 }
 
 - (CGFloat)heightForViewAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
-    return [TipView heightForViewWithObject:item inColumnWidth:self.collectionView.colWidth];
+    
+    return [TipView rowHeightForObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(PSCollectionViewCell *)view atIndex:(NSInteger)index {    

@@ -200,8 +200,9 @@ peopleIcon = _peopleIcon;
     self.categoryLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
 }
 
-- (void)fillViewWithObject:(NSDictionary *)venue {
-    [super fillViewWithObject:venue];
+- (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
+    [super collectionView:collectionView fillCellWithObject:object atIndex:index];
+    NSDictionary *venue = (NSDictionary *)object;
     
     [self.imageView setOriginalURL:[NSURL URLWithString:[venue objectForKey:@"photoURLPath"]]];
     [self.imageView setThumbnailURL:[NSURL URLWithString:[venue objectForKey:@"photoURLPath"]]];

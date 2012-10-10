@@ -110,11 +110,11 @@
     [section addObject:@"Review Lunchbox on iTunes"];
     [items addObject:section];
     
-    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
-        section =[NSMutableArray array];
-        [section addObject:@"Post to Facebook"];
-        [items addObject:section];
-    }
+//    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
+//        section =[NSMutableArray array];
+//        [section addObject:@"Post to Facebook"];
+//        [items addObject:section];
+//    }
     
     [self dataSourceShouldLoadObjects:items animated:NO];
     [self dataSourceDidLoad];

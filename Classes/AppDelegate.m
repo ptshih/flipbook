@@ -14,15 +14,9 @@
 
 #import "PSZoomView.h"
 
-#import "BWHockeyManager.h"
-#import "BWQuincyManager.h"
+#import <HockeySDK/HockeySDK.h>
 
-#import "FlurryAnalytics.h"
-#import "FlurryAppCircle.h"
-
-#import "TapjoyConnect.h"
-
-@interface AppDelegate () <BWHockeyManagerDelegate, BWQuincyManagerDelegate>
+@interface AppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate>
 
 @property (nonatomic, strong) UIImageView *splashImage;
 
@@ -62,6 +56,15 @@ shouldReloadInterface = _shouldReloadInterface;
         // Perform any version migrations here
         //
     }
+}
+
+#pragma mark - BITUpdateManagerDelegate
+- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
+#ifndef DISTRIBUTION
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
+        return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+#endif
+    return nil;
 }
 
 #pragma mark - Global Statics
@@ -104,10 +107,10 @@ shouldReloadInterface = _shouldReloadInterface;
                 [self pushVenueWithId:venueId];
                 return YES;
             } else {
-                return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
+//                return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
             }
         } else {
-            return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
+//            return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
         }
     } else {
         return NO;
@@ -129,44 +132,19 @@ shouldReloadInterface = _shouldReloadInterface;
     self.shouldReloadInterface = NO;
     
     // HOCKEY
+    // 4fda551a3f254b914082b05e2d8d76fd
+    
 #ifdef RELEASE
-    
-#ifdef BETA
-    [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"113eebcc5c0fdfb14a3508233c3d2a4b"];
-#elif PRO
-    [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"b238fc47fd27c516ed929710209f3f91"];
-#else
-    [[BWHockeyManager sharedHockeyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];
+    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"4fda551a3f254b914082b05e2d8d76fd" liveIdentifier:@"4fda551a3f254b914082b05e2d8d76fd" delegate:self];
+    [[BITHockeyManager sharedHockeyManager] startManager];
 #endif
-    
-    [[BWHockeyManager sharedHockeyManager] setAlwaysShowUpdateReminder:YES];
-    [[BWHockeyManager sharedHockeyManager] setDelegate:self];
-#endif
-    
-    // QUINCY
-#ifdef BETA
-    [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"113eebcc5c0fdfb14a3508233c3d2a4b"];
-#elif PRO
-    [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"b238fc47fd27c516ed929710209f3f91"];
-#else
-    [[BWQuincyManager sharedQuincyManager] setAppIdentifier:@"4fda551a3f254b914082b05e2d8d76fd"];
-#endif
-    
-    // Vendor analytics
-    [[LocalyticsSession sharedLocalyticsSession] startSession:@"84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc"];
-    
-    [FlurryAppCircle setAppCircleEnabled:YES];
-    [FlurryAnalytics startSession:@"UTWDBDPVIEUCJ9PNBI2H"];
-    
-    // TapJoy
-    [TapjoyConnect requestTapjoyConnect:@"af5f1a49-b4bb-4f7f-8482-01489f1be53b" secretKey:@"1xRqieVumpivrDFdOHrF"];
     
     [Appirater appLaunched:YES];
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     // PSFacebookCenter
-    [PSFacebookCenter defaultCenter];
+//    [PSFacebookCenter defaultCenter];
     
     // Prime Notification Manager
     [NotificationManager sharedManager];
@@ -222,8 +200,6 @@ shouldReloadInterface = _shouldReloadInterface;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     self.backgroundDate = [NSDate date];
-    [[LocalyticsSession sharedLocalyticsSession] close];
-    [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -239,9 +215,6 @@ shouldReloadInterface = _shouldReloadInterface;
         // Purge session cache
         [[PSURLCache sharedCache] purgeCacheWithCacheType:PSURLCacheTypeSession];
     }
-    
-    [[LocalyticsSession sharedLocalyticsSession] resume];
-    [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {    
@@ -257,8 +230,6 @@ shouldReloadInterface = _shouldReloadInterface;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    [[LocalyticsSession sharedLocalyticsSession] close];
-    [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
 - (NSString *)customDeviceIdentifier {

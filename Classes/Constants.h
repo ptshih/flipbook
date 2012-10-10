@@ -6,11 +6,9 @@
 #import "NotificationManager.h"
 
 // Vendor imports
-#import "PSFacebookCenter.h"
 #import "SVProgressHUD.h"
 #import "AFNetworking.h"
 #import "Appirater.h"
-#import "LocalyticsSession.h"
 #import "PSLocationCenter.h"
 #import "TTTAttributedLabel.h"
 
@@ -82,9 +80,32 @@
 #define CELL_BLACK_COLOR [UIColor blackColor]
 #define CELL_BLUE_COLOR RGBCOLOR(45.0,147.0,204.0)
 
+#define KUPO_LIGHT_GREEN_COLOR RGBCOLOR(205,225,200)
+#define KUPO_BLUE_COLOR RGBCOLOR(45.0,147.0,204.0)
+#define KUPO_LIGHT_BLUE_COLOR RGBCOLOR(0,179,249)
+
+#define FB_BLUE_COLOR RGBCOLOR(59.0,89.0,152.0)
+#define FB_COLOR_DARK_GRAY_BLUE RGBCOLOR(79.0,92.0,117.0)
+#define FB_COLOR_VERY_LIGHT_BLUE RGBCOLOR(220.0,225.0,235.0)
+#define FB_COLOR_LIGHT_BLUE RGBCOLOR(161.0,176.0,206.0)
+#define FB_COLOR_DARK_BLUE RGBCOLOR(51.0,78.0,141.0)
+#define LIGHT_GRAY RGBCOLOR(247.0,247.0,247.0)
+#define VERY_LIGHT_GRAY RGBCOLOR(226.0,231.0,237.0)
+#define GRAY_COLOR RGBCOLOR(87.0,108.0,137.0)
+
 // Custom Colors
-#define CELL_BACKGROUND_COLOR CELL_BLACK_COLOR
-#define CELL_SELECTED_COLOR CELL_BLUE_COLOR
+#define WINDOW_BG_COLOR [UIColor blackColor]
+#define BASE_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureAluminum"]]
+#define TABLE_BG_COLOR [UIColor clearColor]
+#define HEADER_BG_COLOR [UIColor whiteColor]
+#define FOOTER_BG_COLOR [UIColor whiteColor]
+#define CELL_BG_COLOR RGBACOLOR(240,240,240,1)
+#define SECTION_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"BGTableSection"]]
+
+#define HEADER_BAR_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"BGHeaderBar"]]
+
+#define TEXTURE_DARK_LINEN [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureDarkLinen"]]
+#define TEXTURE_DARK_WOOD [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureDarkWood"]]
 
 #if TARGET_IPHONE_SIMULATOR
   #define USE_LOCALHOST

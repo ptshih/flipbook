@@ -23,8 +23,6 @@
 #import "VenueAnnotation.h"
 #import "VenueAnnotationView.h"
 
-#import "ActionSheetPicker.h"
-
 static NSNumberFormatter *__numberFormatter = nil;
 
 @interface VenueDetailViewController () <PSPopoverViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, MKMapViewDelegate>
@@ -111,11 +109,6 @@ footerLabel = _footerLabel;
 #pragma mark - Config Subviews
 - (void)setupVenueSubviews {
     [self updateHeader];
-    
-    // Empty Label
-    UILabel *emptyLabel = [UILabel labelWithText:@"No Photos Found" style:@"emptyLabel"];
-    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.collectionView.emptyView = emptyLabel;
     
     // 4sq attribution
     UIImageView *pb4sq = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]];
@@ -566,15 +559,6 @@ footerLabel = _footerLabel;
     if ([self dataSourceIsEmpty]) {
         // Show empty view
     }
-    
-    if ([[PSFacebookCenter defaultCenter] isLoggedIn]) {
-        // Check for bookmarks
-        [self findBookmark];
-    } else {
-        // enable bookmark button
-        [self.spinnerView stopAnimating];
-        self.rightButton.userInteractionEnabled = NO;
-    }
 }
 
 - (void)dataSourceDidError {
@@ -839,15 +823,16 @@ footerLabel = _footerLabel;
 }
 
 #pragma mark - PSCollectionViewDelegate
-- (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView viewAtIndex:(NSInteger)index {
+
+- (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView cellForRowAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    PhotoView *v = (PhotoView *)[self.collectionView dequeueReusableView];
+    PhotoView *v = (PhotoView *)[self.collectionView dequeueReusableViewForClass:[PhotoView class]];
     if (!v) {
         v = [[PhotoView alloc] initWithFrame:CGRectZero];
     }
     
-    [v fillViewWithObject:item];
+    [v collectionView:collectionView fillCellWithObject:item atIndex:index];
     
     return v;
 }
@@ -855,7 +840,7 @@ footerLabel = _footerLabel;
 - (CGFloat)heightForViewAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    return [PhotoView heightForViewWithObject:item inColumnWidth:self.collectionView.colWidth];
+    return [PhotoView rowHeightForObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(PSCollectionViewCell *)view atIndex:(NSInteger)index {

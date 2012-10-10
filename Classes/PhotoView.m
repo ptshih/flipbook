@@ -82,8 +82,8 @@ homeCityLabel = _homeCityLabel;
     self.homeCityLabel.height = labelSize.height;
 }
 
-- (void)fillViewWithObject:(id)object {
-    [super fillViewWithObject:object];
+- (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
+    [super collectionView:collectionView fillCellWithObject:object atIndex:index];
     
     [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"source"]]];
     [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"source"]]];

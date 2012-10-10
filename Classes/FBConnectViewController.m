@@ -18,17 +18,17 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidBegin:) name:kPSFacebookCenterDialogDidBegin object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidLogin:) name:kPSFacebookCenterDialogDidSucceed object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidNotLogin:) name:kPSFacebookCenterDialogDidFail object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidBegin:) name:kPSFacebookCenterDialogDidBegin object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidLogin:) name:kPSFacebookCenterDialogDidSucceed object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidNotLogin:) name:kPSFacebookCenterDialogDidFail object:nil];
     }
     return self;
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSFacebookCenterDialogDidBegin object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSFacebookCenterDialogDidSucceed object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSFacebookCenterDialogDidFail object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSFacebookCenterDialogDidBegin object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSFacebookCenterDialogDidSucceed object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPSFacebookCenterDialogDidFail object:nil];
 }
 
 #pragma mark - View Config
@@ -104,7 +104,7 @@
 
 #pragma mark - Actions
 - (void)login:(UIButton *)button {
-    [[PSFacebookCenter defaultCenter] authorizeWithPermissions:FB_PERMISSIONS];
+//    [[PSFacebookCenter defaultCenter] authorizeWithPermissions:FB_PERMISSIONS];
 }
 
 - (void)dismiss {
@@ -116,8 +116,8 @@
     NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/fbconnect", API_BASE_URL];
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:[[PSFacebookCenter defaultCenter] accessToken] forKey:@"fbAccessToken"];
-    [parameters setObject:[NSNumber numberWithDouble:[[[PSFacebookCenter defaultCenter] expirationDate] timeIntervalSince1970]] forKey:@"fbExpirationDate"];
+//    [parameters setObject:[[PSFacebookCenter defaultCenter] accessToken] forKey:@"fbAccessToken"];
+//    [parameters setObject:[NSNumber numberWithDouble:[[[PSFacebookCenter defaultCenter] expirationDate] timeIntervalSince1970]] forKey:@"fbExpirationDate"];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
@@ -159,7 +159,7 @@
 
 - (void)loginDidNotSucceed {
     [SVProgressHUD dismissWithError:@"Facebook dropped the ball, please try again."];
-    [[PSFacebookCenter defaultCenter] logout];
+//    [[PSFacebookCenter defaultCenter] logout];
 }
 
 #pragma mark - Notifications

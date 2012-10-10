@@ -113,8 +113,8 @@ divider = _divider;
     self.homeCityLabel.height = labelSize.height;
 }
 
-- (void)fillViewWithObject:(id)object {
-    [super fillViewWithObject:object];
+- (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
+    [super collectionView:collectionView fillCellWithObject:object atIndex:index];
     
     NSDictionary *user = [self.object objectForKey:@"user"];
     NSString *name = [user objectForKey:@"firstName"];

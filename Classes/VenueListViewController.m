@@ -94,11 +94,6 @@ hasLoadedOnce = _hasLoadedOnce;
 - (void)setupSubviews {
     [super setupSubviews];
     
-    // Empty Label
-    UILabel *emptyLabel = [UILabel labelWithText:@"No Places Found\r\nTry Searching Again" style:@"emptyLabel"];
-    emptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.collectionView.emptyView = emptyLabel;
-    
     // 4sq attribution
     UIImageView *pb4sq = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]];
     pb4sq.contentMode = UIViewContentModeCenter;
@@ -420,15 +415,15 @@ hasLoadedOnce = _hasLoadedOnce;
 }
 
 #pragma mark - PSCollectionViewDelegate
-- (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView viewAtIndex:(NSInteger)index {
+- (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView cellForRowAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    VenueView *v = (VenueView *)[self.collectionView dequeueReusableView];
+    VenueView *v = (VenueView *)[self.collectionView dequeueReusableViewForClass:[VenueView class]];
     if (!v) {
         v = [[VenueView alloc] initWithFrame:CGRectZero];
     }
     
-    [v fillViewWithObject:item];
+    [v collectionView:collectionView fillCellWithObject:item atIndex:index];
     
     return v;
 }
@@ -436,7 +431,7 @@ hasLoadedOnce = _hasLoadedOnce;
 - (CGFloat)heightForViewAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    return [VenueView heightForViewWithObject:item inColumnWidth:self.collectionView.colWidth];
+    return [VenueView rowHeightForObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(PSCollectionViewCell *)view atIndex:(NSInteger)index {

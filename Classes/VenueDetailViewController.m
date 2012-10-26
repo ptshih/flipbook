@@ -10,10 +10,6 @@
 #import "PSWebViewController.h"
 #import "TipListViewController.h"
 #import "UserViewController.h"
-//#import "NewEventViewController.h"
-//#import "EventViewController.h"
-//#import "CheckinViewController.h"
-//#import "PhotoTagsViewController.h"
 
 #import "PhotoView.h"
 #import "PSZoomView.h"
@@ -44,6 +40,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 }
 
 #pragma mark - Init
+
 - (id)initWithVenueId:(NSString *)venueId {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
@@ -63,6 +60,8 @@ static NSNumberFormatter *__numberFormatter = nil;
         
         self.headerHeight = 44.0;
         self.footerHeight = 0.0;
+        
+        self.title = @"Venue Details";
     }
     return self;
 }
@@ -151,12 +150,12 @@ static NSNumberFormatter *__numberFormatter = nil;
         [mapView addSubview:peopleIcon];
         peopleIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
-        statsLabel = [UILabel labelWithStyle:@"h3Label"];
+        statsLabel = [UILabel labelWithStyle:@"boldDarkLabel"];
         [mapView addSubview:statsLabel];
         statsLabel.backgroundColor = mapView.backgroundColor;
         statsLabel.text = [NSString stringWithFormat:@"%@ people checked in here", [__numberFormatter stringFromNumber:[[self.venueDict objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
         
-        CGSize statsLabelSize = [PSStyleSheet sizeForText:statsLabel.text width:self.mapView.width - 16 style:@"h3Label"];
+        CGSize statsLabelSize = [PSStyleSheet sizeForText:statsLabel.text width:self.mapView.width - 16 style:@"h3DarkLabel"];
         statsLabel.frame = CGRectMake(8 + 16, mapTop, statsLabelSize.width, 16.0);
         
         mapTop += statsLabel.height + 4.0;
@@ -269,75 +268,75 @@ static NSNumberFormatter *__numberFormatter = nil;
     
     // Tip
     // Don't show if no tips
-    if (OBJ_NOT_NULL([self.venueDict objectForKey:@"tips"]) && [[self.venueDict objectForKey:@"tips"] count] > 0) {
-        UIView *tipView = [[UIView alloc] initWithFrame:CGRectMake(8, top, headerView.width - 16, 0.0)];
-        tipView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        tipView.backgroundColor = [UIColor whiteColor];
-        UIImage *tipShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
-        UIImageView *tipShadowView = [[UIImageView alloc] initWithImage:tipShadowImage];
-        tipShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        tipShadowView.frame = CGRectInset(tipView.bounds, -1, -2);
-        [tipView addSubview:tipShadowView];
-        UITapGestureRecognizer *tipGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushTips:)];
-        [tipView addGestureRecognizer:tipGR];
-        [headerView addSubview:tipView];
-        
-        UIImageView *divider = nil;
-        CGSize labelSize = CGSizeZero;
-        CGFloat tipWidth = tipView.width - 16 - 20;
-        
-        UILabel *tipUserLabel = [UILabel labelWithStyle:@"boldDarkLabel"];
-        tipUserLabel.backgroundColor = tipView.backgroundColor;
-        [tipView addSubview:tipUserLabel];
-        
-        UILabel *tipLabel = [UILabel labelWithStyle:@"textDarkLabel"];
-        tipLabel.backgroundColor = tipView.backgroundColor;
-        [tipView addSubview:tipLabel];
-        
-        // Tip
-        NSDictionary *tip = [[self.venueDict objectForKey:@"tips"] objectAtIndexOrNil:0];
-        NSDictionary *tipUser = [tip objectForKey:@"user"];
-        NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
-        tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
-        NSString *tipUserText = [NSString stringWithFormat:@"%@ says:", tipUserName];
-        NSString *tipText = [[tip objectForKey:@"text"] capitalizedString];
-        
-        tipUserLabel.text = tipUserText;
-        labelSize = [PSStyleSheet sizeForText:tipUserLabel.text width:(tipView.width - 16.0) style:@"boldDarkLabel"];
-        tipUserLabel.frame = CGRectMake(8, 4, tipWidth, labelSize.height);
-        
-        tipLabel.text = tipText;
-        labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"textDarkLabel"];
-        tipLabel.frame = CGRectMake(8, tipUserLabel.bottom, tipWidth, labelSize.height);
-        
-        divider = [[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]];
-        divider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        divider.frame = CGRectMake(8, tipLabel.bottom + 4, tipWidth, 1.0);
-        [tipView addSubview:divider];
-        
-        // Stats
-        NSDictionary *stats = [self.venueDict objectForKey:@"stats"];
-        
-        UILabel *countLabel = [UILabel labelWithStyle:@"boldDarkLabel"];
-        countLabel.backgroundColor = tipView.backgroundColor;
-        countLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        countLabel.text = [NSString stringWithFormat:@"View All %@ Tips", [stats objectForKey:@"tipCount"]];
-        labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"boldDarkLabel"];
-        countLabel.frame = CGRectMake(8, divider.bottom + 4, tipWidth, labelSize.height);
-        [tipView addSubview:countLabel];
-        
-        CGFloat tipHeight = countLabel.bottom + 4.0;
-        tipView.height = tipHeight;
-        
-        UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrowGray"]];
-        disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        disclosure.contentMode = UIViewContentModeCenter;
-        disclosure.frame = CGRectMake(tipView.width - 20, 0, 20, tipView.height);
-        [tipView addSubview:disclosure];
-        
-        
-        top += tipView.height + 8.0;
-    }
+//    if (OBJ_NOT_NULL([self.venueDict objectForKey:@"tips"]) && [[self.venueDict objectForKey:@"tips"] count] > 0) {
+//        UIView *tipView = [[UIView alloc] initWithFrame:CGRectMake(8, top, headerView.width - 16, 0.0)];
+//        tipView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//        tipView.backgroundColor = [UIColor whiteColor];
+//        UIImage *tipShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
+//        UIImageView *tipShadowView = [[UIImageView alloc] initWithImage:tipShadowImage];
+//        tipShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//        tipShadowView.frame = CGRectInset(tipView.bounds, -1, -2);
+//        [tipView addSubview:tipShadowView];
+//        UITapGestureRecognizer *tipGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushTips:)];
+//        [tipView addGestureRecognizer:tipGR];
+//        [headerView addSubview:tipView];
+//        
+//        UIImageView *divider = nil;
+//        CGSize labelSize = CGSizeZero;
+//        CGFloat tipWidth = tipView.width - 16 - 20;
+//        
+//        UILabel *tipUserLabel = [UILabel labelWithStyle:@"boldDarkLabel"];
+//        tipUserLabel.backgroundColor = tipView.backgroundColor;
+//        [tipView addSubview:tipUserLabel];
+//        
+//        UILabel *tipLabel = [UILabel labelWithStyle:@"textDarkLabel"];
+//        tipLabel.backgroundColor = tipView.backgroundColor;
+//        [tipView addSubview:tipLabel];
+//        
+//        // Tip
+//        NSDictionary *tip = [[self.venueDict objectForKey:@"tips"] objectAtIndexOrNil:0];
+//        NSDictionary *tipUser = [tip objectForKey:@"user"];
+//        NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
+//        tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
+//        NSString *tipUserText = [NSString stringWithFormat:@"%@ says:", tipUserName];
+//        NSString *tipText = [[tip objectForKey:@"text"] capitalizedString];
+//        
+//        tipUserLabel.text = tipUserText;
+//        labelSize = [PSStyleSheet sizeForText:tipUserLabel.text width:(tipView.width - 16.0) style:@"boldDarkLabel"];
+//        tipUserLabel.frame = CGRectMake(8, 4, tipWidth, labelSize.height);
+//        
+//        tipLabel.text = tipText;
+//        labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"textDarkLabel"];
+//        tipLabel.frame = CGRectMake(8, tipUserLabel.bottom, tipWidth, labelSize.height);
+//        
+//        divider = [[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]];
+//        divider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//        divider.frame = CGRectMake(8, tipLabel.bottom + 4, tipWidth, 1.0);
+//        [tipView addSubview:divider];
+//        
+//        // Stats
+//        NSDictionary *stats = [self.venueDict objectForKey:@"stats"];
+//        
+//        UILabel *countLabel = [UILabel labelWithStyle:@"boldDarkLabel"];
+//        countLabel.backgroundColor = tipView.backgroundColor;
+//        countLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//        countLabel.text = [NSString stringWithFormat:@"View All %@ Tips", [stats objectForKey:@"tipCount"]];
+//        labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"boldDarkLabel"];
+//        countLabel.frame = CGRectMake(8, divider.bottom + 4, tipWidth, labelSize.height);
+//        [tipView addSubview:countLabel];
+//        
+//        CGFloat tipHeight = countLabel.bottom + 4.0;
+//        tipView.height = tipHeight;
+//        
+//        UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrowGray"]];
+//        disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+//        disclosure.contentMode = UIViewContentModeCenter;
+//        disclosure.frame = CGRectMake(tipView.width - 20, 0, 20, tipView.height);
+//        [tipView addSubview:disclosure];
+//        
+//        
+//        top += tipView.height + 8.0;
+//    }
     
     headerView.height = top;
     
@@ -368,8 +367,14 @@ static NSNumberFormatter *__numberFormatter = nil;
     [super setupHeader];
     
     [self.leftButton setImage:[UIImage imageNamed:@"IconBackWhite"] forState:UIControlStateNormal];
+    [self.leftButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonLeftBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    
+    [PSStyleSheet applyStyle:@"navigationTitleLightLabel" forButton:self.centerButton];
     [self.centerButton setTitle:self.title forState:UIControlStateNormal];
-    [self.rightButton setImage:[UIImage imageNamed:@"IconSearchBlack"] forState:UIControlStateNormal];
+    [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    
+    [self.rightButton setImage:[UIImage imageNamed:@"IconSearchWhite"] forState:UIControlStateNormal];
+    [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
 }
 
 - (void)setupFooter {
@@ -382,9 +387,9 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 - (void)updateHeader {
     // Call this when venueDict is ready to re-enable header actions
-    self.title = [self.venueDict objectForKey:@"name"];
-    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
-    self.centerButton.userInteractionEnabled = YES;
+//    self.title = [self.venueDict objectForKey:@"name"];
+//    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
+//    self.centerButton.userInteractionEnabled = YES;
 }
 
 - (void)updateFooter {
@@ -455,7 +460,7 @@ static NSNumberFormatter *__numberFormatter = nil;
     
     [self.spinnerView startAnimating];
     
-    [self loadDataSourceFromRemoteUsingCache:YES];
+    [self loadDataSourceFromRemoteUsingCache:NO];
 }
 
 - (void)reloadDataSource {
@@ -481,17 +486,15 @@ static NSNumberFormatter *__numberFormatter = nil;
 }
 
 - (void)loadYelp {
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/yelp", API_BASE_URL];
+    NSString *URLPath = [NSString stringWithFormat:@"%@/v3/venues/%@/yelp", API_BASE_URL, [self.venueDict objectForKey:@"id"]];
     
     NSDictionary *location = [self.venueDict objectForKey:@"location"];
     NSString *ll = [NSString stringWithFormat:@"%@,%@", [location objectForKey:@"lat"], [location objectForKey:@"lng"]];
     NSString *q = [self.venueDict objectForKey:@"name"];
-    NSString *venueId = [self.venueDict objectForKey:@"id"];
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:ll forKey:@"ll"];
     [parameters setObject:q forKey:@"q"];
-    [parameters setObject:venueId forKey:@"venueId"];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
@@ -516,7 +519,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/venues/%@", API_BASE_URL, self.venueId];
+    NSString *URLPath = [NSString stringWithFormat:@"%@/v3/venues/%@", API_BASE_URL, self.venueId];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:nil];
@@ -536,36 +539,39 @@ static NSNumberFormatter *__numberFormatter = nil;
             
             if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
                 // Parse out venueDict
+                NSDictionary *venue = [apiResponse objectForKey:@"venue"];
+                NSDictionary *photos = [apiResponse objectForKey:@"photos"];
+                NSDictionary *tips = [apiResponse objectForKey:@"tips"];
                 
                 NSMutableDictionary *venueDict = [NSMutableDictionary dictionary];
                 
                 // id and name
-                [venueDict setObject:[apiResponse objectForKey:@"id"] forKey:@"id"];
-                [venueDict setObject:[apiResponse objectForKey:@"name"] forKey:@"name"];
+                [venueDict setObject:[venue objectForKey:@"id"] forKey:@"id"];
+                [venueDict setObject:[venue objectForKey:@"name"] forKey:@"name"];
                 
                 // location
-                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"location"]) forKey:@"location"];
+                [venueDict setObject:OBJ_OR_NULL([venue objectForKey:@"location"]) forKey:@"location"];
                 
                 // contact
-                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"contact"]) forKey:@"contact"];
+                [venueDict setObject:OBJ_OR_NULL([venue objectForKey:@"contact"]) forKey:@"contact"];
                 
                 // url
-                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"url"]) forKey:@"url"];
+                [venueDict setObject:OBJ_OR_NULL([venue objectForKey:@"url"]) forKey:@"url"];
                 
                 // categories
-                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"categories"]) forKey:@"categories"];
+                [venueDict setObject:OBJ_OR_NULL([venue objectForKey:@"categories"]) forKey:@"categories"];
                 
                 // stats
-                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"stats"]) forKey:@"stats"];
+                [venueDict setObject:OBJ_OR_NULL([venue objectForKey:@"stats"]) forKey:@"stats"];
                 
                 // menu
-                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"menu"]) forKey:@"menu"];
+                [venueDict setObject:OBJ_OR_NULL([venue objectForKey:@"menu"]) forKey:@"menu"];
                 
                 // reservations
-                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"reservations"]) forKey:@"reservations"];
+                [venueDict setObject:OBJ_OR_NULL([venue objectForKey:@"reservations"]) forKey:@"reservations"];
                 
                 // tips
-                [venueDict setObject:OBJ_OR_NULL([apiResponse objectForKey:@"tips"]) forKey:@"tips"];
+                [venueDict setObject:OBJ_OR_NULL([venue objectForKey:@"tips"]) forKey:@"tips"];
                 
                 blockSelf.venueDict = [NSDictionary dictionaryWithDictionary:venueDict];
                 
@@ -574,20 +580,19 @@ static NSNumberFormatter *__numberFormatter = nil;
                 
                 // Parse out the photos
                 NSMutableArray *items = [NSMutableArray array];
-                NSArray *photos = [apiResponse objectForKey:@"photos"];
                 for (NSDictionary *photo in photos) {
                     NSDictionary *user = [photo objectForKey:@"user"];
                     NSString *firstName = [NSString stringWithFormat:@"%@", [user objectForKey:@"firstName"]];
                     NSString *name = ([user objectForKey:@"lastName"]) ? [firstName stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : firstName;
-                    NSDictionary *sizes = [photo objectForKey:@"sizes"];
-                    NSDictionary *fullSize = [[sizes objectForKey:@"items"] objectAtIndexOrNil:0];
+                    
+                    NSString *href = [NSString stringWithFormat:@"%@original%@", [photo objectForKey:@"prefix"], [photo objectForKey:@"suffix"]];
                     
                     NSMutableDictionary *item = [NSMutableDictionary dictionary];
-                    [item setObject:[fullSize objectForKey:@"url"] forKey:@"source"];
-                    [item setObject:[fullSize objectForKey:@"width"] forKey:@"width"];
-                    [item setObject:[fullSize objectForKey:@"height"] forKey:@"height"];
+                    [item setObject:href forKey:@"href"];
+                    [item setObject:[photo objectForKey:@"width"] forKey:@"width"];
+                    [item setObject:[photo objectForKey:@"height"] forKey:@"height"];
                     [item setObject:name forKey:@"name"];
-                    [item setObject:[user objectForKey:@"homeCity"] forKey:@"homeCity"];
+//                    [item setObject:[user objectForKey:@"homeCity"] forKey:@"homeCity"];
                     [items addObject:item];
                 }
                 

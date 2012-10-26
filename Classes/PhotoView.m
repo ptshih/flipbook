@@ -85,9 +85,9 @@ homeCityLabel = _homeCityLabel;
 - (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
     [super collectionView:collectionView fillCellWithObject:object atIndex:index];
     
-    [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"source"]]];
-    [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"source"]]];
-    [self.imageView loadImageWithURL:[NSURL URLWithString:[self.object objectForKey:@"source"]] cacheType:PSURLCacheTypePermanent];
+    [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"href"]]];
+    [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"href"]]];
+    [self.imageView loadImageWithURL:[NSURL URLWithString:[self.object objectForKey:@"href"]] cacheType:PSURLCacheTypePermanent];
     
     self.nameLabel.text = [self.object objectForKey:@"name"];
     self.homeCityLabel.text = [self.object objectForKey:@"homeCity"];

@@ -46,7 +46,7 @@ loadingLabel = _loadingLabel;
         self.tableView.dataSource = self;
         [self addSubview:self.tableView];
         
-        self.loadingLabel = [UILabel labelWithText:@"Loading Yelp Rating..." style:@"emptyLabel"];
+        self.loadingLabel = [UILabel labelWithText:@"Loading Yelp Rating..." style:@"loadingDarkLabel"];
         self.loadingLabel.frame = self.bounds;
         [self addSubview:self.loadingLabel];
         

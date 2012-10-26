@@ -10,8 +10,7 @@
 #import "VenueDetailViewController.h"
 
 #import "PSPopoverView.h"
-#import "VenueView.h"
-#import "CategoryChooserView.h"
+#import "VenueCollectionViewCell.h"
 #import "LocationChooserView.h"
 
 #define kPopoverLocation 7001
@@ -32,6 +31,7 @@
 @implementation VenueListViewController
 
 #pragma mark - Init
+
 - (id)initWithCategory:(NSString *)category {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
@@ -44,19 +44,20 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.shouldShowHeader = YES;
-        self.shouldShowFooter = YES;
+        self.shouldShowFooter = NO;
         self.shouldPullRefresh = YES;
         self.shouldShowNullView = YES;
         self.pullRefreshStyle = PSPullRefreshStyleBlack;
         
         self.headerHeight = 44.0;
-        self.footerHeight = 32.0;
+        self.footerHeight = 0.0;
         
+        self.title = @"Locating...";
+        
+        // Location
         self.radius = 0;
         self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
         self.hasLoadedOnce = NO;
-        
-        self.title = @"Locating...";
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidUpdate) name:kPSLocationCenterDidUpdate object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidFail) name:kPSLocationCenterDidFail object:nil];
@@ -64,17 +65,37 @@
     return self;
 }
 
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - Location Notification
+
+- (void)locationDidUpdate {
+    self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
+    
+    if (!self.hasLoadedOnce) {
+        [self loadDataSource];
+    }
+}
+
+- (void)locationDidFail {
+    if (!self.hasLoadedOnce) {
+        [self dataSourceDidError];
+    }
+}
+
 
 #pragma mark - View Config
+
 - (UIColor *)baseBackgroundColor {
     return BASE_BG_COLOR;
 }
 
+
 #pragma mark - View
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -98,12 +119,16 @@
         self.collectionView.numColsLandscape = 3;
     }
     
-    // 4sq attribution
+    // 4sq attribution footer
     UIImageView *pb4sq = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]];
+    pb4sq.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     pb4sq.contentMode = UIViewContentModeCenter;
     pb4sq.frame = CGRectMake(0, 0, self.collectionView.width, pb4sq.height);
-    // Add gradient
-    [pb4sq addGradientLayerWithFrame:CGRectMake(0, 0, pb4sq.width, 8.0) colors:[NSArray arrayWithObjects:(id)RGBACOLOR(0, 0, 0, 0.3).CGColor, (id)RGBACOLOR(0, 0, 0, 0.2).CGColor, (id)RGBACOLOR(0, 0, 0, 0.1).CGColor, (id)RGBACOLOR(0, 0, 0, 0.0).CGColor, nil] locations:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:0.1], [NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:1.0], nil] startPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 1.0)];
+    
+    UIImageView *ds = [[UIImageView alloc] initWithFrame:CGRectMake(0, -8.0, pb4sq.width, 8.0) image:[[UIImage imageNamed:@"DropShadowInverted"] stretchableImageWithLeftCapWidth:1 topCapHeight:0]];
+    ds.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [pb4sq addSubview:ds];
+    
     self.collectionView.footerView = pb4sq;
 }
 
@@ -123,31 +148,17 @@
 
 - (void)setupFooter {
     [super setupFooter];
-    
-    self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
-    
-    UILabel *queryLabel = [UILabel labelWithText:[NSString stringWithFormat:@"Showing Results for \"%@\"", self.category] style:@"h4LightLabel"];
-    self.queryLabel = queryLabel;
-    queryLabel.frame = CGRectInset(self.footerView.bounds, 32, 0);
-    queryLabel.autoresizingMask = self.footerView.autoresizingMask;
-    
-    // Add to subviews
-    [self.footerView addSubview:queryLabel];
 }
 
+
 #pragma mark - Actions
+
 - (void)leftAction {
     [(PSNavigationController *)self.parentViewController popViewControllerWithDirection:PSNavigationControllerDirectionRight animated:YES];
 }
 
 - (void)centerAction {
-    CGFloat radius = self.radius > 0 ? self.radius : 400.0;
-    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, radius * 2, radius * 2);
-    LocationChooserView *cv = [[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion];
-    PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv];
-    popoverView.tag = kPopoverLocation;
-    popoverView.delegate = self;
-    [popoverView showWithSize:cv.frame.size inView:self.view];
+    [self rightAction];
 }
 
 - (void)rightAction {
@@ -158,33 +169,8 @@
     popoverView.tag = kPopoverLocation;
     popoverView.delegate = self;
     [popoverView showWithSize:cv.frame.size inView:self.view];
-    
-    return;
-    
-    //    CategoryChooserView *cv = [[[CategoryChooserView alloc] initWithFrame:CGRectMake(0, 0, 288, 152)] autorelease];
-    //    PSPopoverView *popoverView = [[[PSPopoverView alloc] initWithTitle:@"Choose a Category" contentView:cv] autorelease];
-    //    popoverView.tag = kPopoverCategory;
-    //    popoverView.delegate = self;
-    //    
-    //    [popoverView showWithSize:cv.frame.size inView:self.view];
 }
 
-
-
-#pragma mark - Location Notification
-- (void)locationDidUpdate {
-    self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] latitude], [[PSLocationCenter defaultCenter] longitude]);
-    
-    if (!self.hasLoadedOnce) {
-        [self loadDataSource];
-    }
-}
-
-- (void)locationDidFail {
-    if (!self.hasLoadedOnce) {
-        [self dataSourceDidError];
-    }
-}
 
 #pragma mark - State Machine
 - (void)loadDataSource {
@@ -201,11 +187,6 @@
 
 - (void)dataSourceDidLoad {
     [super dataSourceDidLoad];
-    
-    if ([self dataSourceIsEmpty]) {
-        // Show empty view
-        
-    }
 }
 
 - (void)dataSourceDidError {
@@ -267,126 +248,32 @@
         [parameters setObject:self.query forKey:@"query"];
     }
     
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/venues", API_BASE_URL];
+    NSString *URLPath = [NSString stringWithFormat:@"%@/v3/venues", API_BASE_URL];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
-    
-    BLOCK_SELF;
     
     [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
         ASSERT_MAIN_THREAD;
         if (error) {
             [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
-            [blockSelf.items removeAllObjects];
-            [blockSelf dataSourceDidError];
+            [self dataSourceDidError];
         } else {
+            // Parse apiResponse
             id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
             
             if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
-                NSNumber *suggestedRadius = [apiResponse objectForKey:@"suggestedRadius"];
-                if (suggestedRadius) {
-                    blockSelf.radius = [suggestedRadius floatValue];
+                id suggestedRadius = [apiResponse objectForKey:@"suggestedRadius"];
+                id apiData = [apiResponse objectForKey:@"venues"];
+                if (apiData && [apiData isKindOfClass:[NSArray class]]) {
+                    
+                    self.items = apiData;
+                    [self dataSourceDidLoad];
+                } else {
+                    [self dataSourceDidError];
                 }
-                NSArray *venues = [apiResponse objectForKey:@"venues"];
-                NSMutableArray *items = [NSMutableArray array];
-                for (NSDictionary *venueRec in venues) {
-                    NSMutableDictionary *item = [NSMutableDictionary dictionary];
-                    
-                    NSDictionary *venue = [venueRec objectForKey:@"venue"];
-                    NSArray *tips = [venueRec objectForKey:@"tips"];
-                    
-                    // Name
-                    [item setObject:[venue objectForKey:@"id"] forKey:@"id"];
-                    [item setObject:[venue objectForKey:@"name"] forKey:@"name"];
-                    
-                    // Location
-                    NSDictionary *location = [venue objectForKey:@"location"];
-                    if (location) {
-                        // If bad address, skip
-                        if (!NOT_NULL([location objectForKey:@"address"]) || !NOT_NULL([location objectForKey:@"city"]) || !NOT_NULL([location objectForKey:@"state"])) {
-                            continue;
-                        }
-                        
-                        [item setObject:location forKey:@"location"];
-                    } else {
-                        continue;
-                    }
-                    
-                    // Categories
-                    if ([venue objectForKey:@"categories"] && [[venue objectForKey:@"categories"] count] > 0) {
-                        [item setObject:[[[venue objectForKey:@"categories"] objectAtIndexOrNil:0] objectForKey:@"shortName"] forKey:@"primaryCategory"];
-                    } else {
-                        continue;
-                    }
-                    
-                    // Stats
-                    if ([venue objectForKey:@"stats"]) {
-                        [item setObject:[venue objectForKey:@"stats"] forKey:@"stats"];
-                    }
-                    
-                    // Photo
-                    NSString *photoURLPath = nil;
-                    NSNumber *photoWidth = nil;
-                    NSNumber *photoHeight = nil;
-                    BOOL hasPhoto = NO;
-                    if ([venue objectForKey:@"photos"]) {
-                        hasPhoto = YES;
-                        
-                        photoURLPath = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndexOrNil:0] objectForKey:@"items"] objectAtIndexOrNil:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndexOrNil:0] objectForKey:@"url"];
-                        
-                        photoWidth = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndexOrNil:0] objectForKey:@"items"] objectAtIndexOrNil:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndexOrNil:0] objectForKey:@"width"];
-                        
-                        photoHeight = [[[[[[[[[venue objectForKey:@"photos"] objectForKey:@"groups"] objectAtIndexOrNil:0] objectForKey:@"items"] objectAtIndexOrNil:0] objectForKey:@"sizes"] objectForKey:@"items"] objectAtIndexOrNil:0] objectForKey:@"height"];
-                    } else if ([venue objectForKey:@"categories"]) {
-                        NSDictionary *icon = [[[venue objectForKey:@"categories"] objectAtIndexOrNil:0] objectForKey:@"icon"];
-                        photoURLPath = [[icon objectForKey:@"prefix"] stringByAppendingFormat:@"%@%@", [[icon objectForKey:@"sizes"] lastObject], [icon objectForKey:@"name"]];
-                        
-                        photoWidth = [NSNumber numberWithInteger:256];
-                        photoHeight = [NSNumber numberWithInteger:256];
-                    } else {
-                        // no photo, no category
-                        continue;
-                    }
-                    
-                    if (photoURLPath) {
-                        [item setObject:photoURLPath forKey:@"photoURLPath"];
-                        [item setObject:photoWidth forKey:@"photoWidth"];
-                        [item setObject:photoHeight forKey:@"photoHeight"];
-                    } else {
-                        continue;
-                    }
-                    
-                    // Tip
-                    BOOL hasTip = NO;
-                    if (tips && tips.count > 0 && [tips notNull]) {
-                        hasTip = YES;
-                        
-                        NSDictionary *tip = [tips objectAtIndexOrNil:0];
-                        
-                        NSDictionary *tipUser = [tip objectForKey:@"user"];
-                        NSString *tipUserName = tipUser ? [tipUser objectForKey:@"firstName"] : nil;
-                        tipUserName = [tipUser objectForKey:@"lastName"] ? [tipUserName stringByAppendingFormat:@" %@", [tipUser objectForKey:@"lastName"]] : tipUserName;
-                        NSString *tipText = [[tip objectForKey:@"text"] capitalizedString];
-                        
-                        [item setObject:tipUserName forKey:@"tipUserName"];
-                        [item setObject:tipText forKey:@"tipText"];
-                    }
-                    
-                    // If no photo AND no tip, skip
-                    if (!hasTip && !hasPhoto) {
-                        continue;
-                    }
-                    
-                    [items addObject:item];
-                }
-                
-                [blockSelf.items removeAllObjects];
-                [blockSelf.items addObjectsFromArray:items];
-                [blockSelf dataSourceDidLoad];
             } else {
-                [blockSelf.items removeAllObjects];
-                [blockSelf dataSourceDidError];
+                [self dataSourceDidError];
             }
         }
     }];
@@ -396,9 +283,9 @@
 - (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView cellForRowAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    VenueView *v = (VenueView *)[self.collectionView dequeueReusableViewForClass:[VenueView class]];
+    VenueCollectionViewCell *v = (VenueCollectionViewCell *)[self.collectionView dequeueReusableViewForClass:[VenueCollectionViewCell class]];
     if (!v) {
-        v = [[VenueView alloc] initWithFrame:CGRectZero];
+        v = [[VenueCollectionViewCell alloc] initWithFrame:CGRectZero];
     }
     
     [v collectionView:collectionView fillCellWithObject:item atIndex:index];
@@ -409,7 +296,7 @@
 - (CGFloat)heightForRowAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    return [VenueView rowHeightForObject:item inColumnWidth:self.collectionView.colWidth];
+    return [VenueCollectionViewCell rowHeightForObject:item inColumnWidth:self.collectionView.colWidth];
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index {

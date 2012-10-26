@@ -341,6 +341,48 @@
 		<key>numberOfLines</key>
 		<integer>0</integer>
 	</dict>
+	<key>georgiaLightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>Georgia</string>
+		<key>fontSize</key>
+		<integer>14</integer>
+		<key>textColor</key>
+		<string>0xcdcdcd</string>
+		<key>highlightedTextColor</key>
+		<string>0xcdcdcd</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>georgiaDarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>Georgia</string>
+		<key>fontSize</key>
+		<integer>14</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
 	<key>boldLightLabel</key>
 	<dict>
 		<key>fontName</key>

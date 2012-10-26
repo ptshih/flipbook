@@ -359,7 +359,7 @@
 		28A390D11554DA37002696FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818CE14723F1D007E4827 /* main.m */; };
 		28A390D21554DA37002696FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818D214723F1D007E4827 /* AppDelegate.m */; };
 		28A390FA1554DA37002696FD /* VenueListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5A14AC4A1D00541BB1 /* VenueListViewController.m */; };
-		28A390FB1554DA37002696FD /* VenueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5E14AC4D9300541BB1 /* VenueView.m */; };
+		28A390FB1554DA37002696FD /* VenueCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5E14AC4D9300541BB1 /* VenueCollectionViewCell.m */; };
 		28A390FE1554DA37002696FD /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0269E4314E1B5E100B690A2 /* EventCell.m */; };
 		28A391011554DA37002696FD /* VenueDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E516F14E8ABB400B5CCCD /* VenueDetailViewController.m */; };
 		28A391111554DA37002696FD /* Appirater.m in Sources */ = {isa = PBXBuildFile; fileRef = D07B2DC014F750F500304E62 /* Appirater.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -901,8 +901,8 @@
 		2855FD88150CADEF00B6FC3A /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		28603B5914AC4A1D00541BB1 /* VenueListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueListViewController.h; sourceTree = "<group>"; };
 		28603B5A14AC4A1D00541BB1 /* VenueListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueListViewController.m; sourceTree = "<group>"; };
-		28603B5D14AC4D9300541BB1 /* VenueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueView.h; sourceTree = "<group>"; };
-		28603B5E14AC4D9300541BB1 /* VenueView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueView.m; sourceTree = "<group>"; };
+		28603B5D14AC4D9300541BB1 /* VenueCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueCollectionViewCell.h; sourceTree = "<group>"; };
+		28603B5E14AC4D9300541BB1 /* VenueCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueCollectionViewCell.m; sourceTree = "<group>"; };
 		28603B6414AD414E00541BB1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		28603B6614AD41ED00541BB1 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		28603B8014AFBD4D00541BB1 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -1912,6 +1912,8 @@
 		28B855DA147CDCC4004F84EA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				28EA494A163B04BE003C45B6 /* WelcomeViewController.h */,
+				28EA494B163B04BE003C45B6 /* WelcomeViewController.m */,
 				28603B5914AC4A1D00541BB1 /* VenueListViewController.h */,
 				28603B5A14AC4A1D00541BB1 /* VenueListViewController.m */,
 				D08E516E14E8ABB400B5CCCD /* VenueDetailViewController.h */,
@@ -1934,8 +1936,6 @@
 				281439621563A86500C573CE /* SettingsViewController.m */,
 				28C2D972156B81FB0054684B /* BookmarkViewController.h */,
 				28C2D973156B81FB0054684B /* BookmarkViewController.m */,
-				28EA494A163B04BE003C45B6 /* WelcomeViewController.h */,
-				28EA494B163B04BE003C45B6 /* WelcomeViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1943,8 +1943,8 @@
 		28E94A80147DA19C002E8343 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				28603B5D14AC4D9300541BB1 /* VenueView.h */,
-				28603B5E14AC4D9300541BB1 /* VenueView.m */,
+				28603B5D14AC4D9300541BB1 /* VenueCollectionViewCell.h */,
+				28603B5E14AC4D9300541BB1 /* VenueCollectionViewCell.m */,
 				D088EFCE14F99912006F7675 /* PhotoView.h */,
 				D088EFCF14F99912006F7675 /* PhotoView.m */,
 				D0F6CA9E14FD675E00CCF2B4 /* TipView.h */,
@@ -2415,7 +2415,7 @@
 				28A390D11554DA37002696FD /* main.m in Sources */,
 				28A390D21554DA37002696FD /* AppDelegate.m in Sources */,
 				28A390FA1554DA37002696FD /* VenueListViewController.m in Sources */,
-				28A390FB1554DA37002696FD /* VenueView.m in Sources */,
+				28A390FB1554DA37002696FD /* VenueCollectionViewCell.m in Sources */,
 				28A390FE1554DA37002696FD /* EventCell.m in Sources */,
 				28A391011554DA37002696FD /* VenueDetailViewController.m in Sources */,
 				28A391111554DA37002696FD /* Appirater.m in Sources */,

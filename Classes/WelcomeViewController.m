@@ -69,7 +69,7 @@
 - (void)loadDataSource {
     [super loadDataSource];
     
-    [self loadDataSourceFromRemoteUsingCache:YES];
+    [self loadDataSourceFromRemoteUsingCache:NO];
 }
 
 - (void)reloadDataSource {
@@ -118,14 +118,10 @@
 
 - (void)dataSourceDidLoad {
     [super dataSourceDidLoad];
-    
-    // Update VC if necessary
 }
 
 - (void)dataSourceDidError {
     [super dataSourceDidError];
-    
-    // Update VC if necessary
 }
 
 #pragma mark - TableView

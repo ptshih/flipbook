@@ -83,7 +83,7 @@ static CGSize margin() {
 
 
 + (CGFloat)rowHeightForObject:(NSDictionary *)dict atIndexPath:(NSIndexPath *)indexPath forInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return 200.0;
+    return isDeviceIPad() ? 320.0 : 160.0;
 }
 
 @end

@@ -1,26 +1,25 @@
 //
-//  VenueView.m
-//  OSnap
+//  VenueCollectionViewCell.m
+//  Lunchbox
 //
 //  Created by Peter Shih on 12/28/11.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "VenueView.h"
+#import "VenueCollectionViewCell.h"
 #import "PSCachedImageView.h"
 
 #define MARGIN 4.0
 
 static NSNumberFormatter *__numberFormatter = nil;
 
-@interface VenueView ()
+@interface VenueCollectionViewCell ()
 
 @property (nonatomic, strong) PSCachedImageView *imageView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *addressLabel;
 @property (nonatomic, strong) UILabel *categoryLabel;
 @property (nonatomic, strong) UILabel *distanceLabel;
-@property (nonatomic, strong) UILabel *tipUserLabel;
 @property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) UILabel *statsLabel;
 @property (nonatomic, strong) UIImageView *topDivider;
@@ -29,20 +28,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 @end
 
-@implementation VenueView
-
-@synthesize
-imageView = _imageView,
-nameLabel = _nameLabel,
-addressLabel = _addressLabel,
-categoryLabel = _categoryLabel,
-distanceLabel = _distanceLabel,
-tipUserLabel = _tipUserLabel,
-tipLabel = _tipLabel,
-statsLabel = _statsLabel,
-topDivider = _topDivider,
-divider = _divider,
-peopleIcon = _peopleIcon;
+@implementation VenueCollectionViewCell
 
 + (void)initialize {
     __numberFormatter = [[NSNumberFormatter alloc] init];
@@ -85,12 +71,7 @@ peopleIcon = _peopleIcon;
         self.statsLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.statsLabel];
         
-        self.tipUserLabel = [UILabel labelWithStyle:@"boldDarkLabel"];
-        self.tipUserLabel.backgroundColor = self.backgroundColor;
-        self.tipUserLabel.hidden = YES;
-        [self addSubview:self.tipUserLabel];
-        
-        self.tipLabel = [UILabel labelWithStyle:@"textDarkLabel"];
+        self.tipLabel = [UILabel labelWithStyle:@"georgiaDarkLabel"];
         self.tipLabel.backgroundColor = self.backgroundColor;
         self.tipLabel.hidden = YES;
         [self addSubview:self.tipLabel];
@@ -126,8 +107,6 @@ peopleIcon = _peopleIcon;
     self.addressLabel.text = nil;
     self.categoryLabel.text = nil;
     self.distanceLabel.text = nil;
-    self.tipUserLabel.text = nil;;
-    self.tipUserLabel.hidden = YES;
     self.tipLabel.text = nil;
     self.tipLabel.hidden = YES;
     self.statsLabel.text = nil;
@@ -145,13 +124,22 @@ peopleIcon = _peopleIcon;
     
     CGSize labelSize = CGSizeZero;
     
-    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"titleDarkLabel"];
+    labelSize = [self.nameLabel sizeForLabelInWidth:width];
     self.nameLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.nameLabel.bottom + MARGIN;
     
-    CGFloat objectWidth = [[self.object objectForKey:@"photoWidth"] floatValue];
-    CGFloat objectHeight = [[self.object objectForKey:@"photoHeight"] floatValue];
+    NSDictionary *photo = [self.object objectForKey:@"photo"];
+    CGFloat photoWidth, photoHeight;
+    if (photo) {
+        photoWidth = [[photo objectForKey:@"width"] floatValue];
+        photoHeight = [[photo objectForKey:@"height"] floatValue];
+    } else {
+        photoWidth = photoHeight = 256.0;
+    }
+    
+    CGFloat objectWidth = photoWidth;
+    CGFloat objectHeight = photoHeight;
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     self.imageView.frame = CGRectMake(left, top, width, scaledHeight);
     
@@ -159,7 +147,7 @@ peopleIcon = _peopleIcon;
     
     self.peopleIcon.frame = CGRectMake(left, top + 2, 10, 10);
     
-    labelSize = [PSStyleSheet sizeForText:self.statsLabel.text width:(width - 12) style:@"metaDarkLabel"];
+    labelSize = [self.statsLabel sizeForLabelInWidth:width];
     self.statsLabel.frame = CGRectMake(left + 12, top, labelSize.width, labelSize.height);
     
     top = self.statsLabel.bottom;
@@ -170,13 +158,7 @@ peopleIcon = _peopleIcon;
     top = self.topDivider.bottom + MARGIN;
     
     if ([self.tipLabel.text length] > 0) {
-        labelSize = [PSStyleSheet sizeForText:self.tipUserLabel.text width:width style:@"boldDarkLabel"];
-        self.tipUserLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
-        self.tipUserLabel.hidden = NO;
-        
-        top = self.tipUserLabel.bottom;
-        
-        labelSize = [PSStyleSheet sizeForText:self.tipLabel.text width:width style:@"textDarkLabel"];
+        labelSize = [self.tipLabel sizeForLabelInWidth:width];
         self.tipLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
         self.tipLabel.hidden = NO;
         
@@ -187,16 +169,16 @@ peopleIcon = _peopleIcon;
         top = self.divider.bottom + MARGIN;
     }
     
-    labelSize = [PSStyleSheet sizeForText:self.addressLabel.text width:width style:@"subtitleDarkLabel"];
+    labelSize = [self.addressLabel sizeForLabelInWidth:width];
     self.addressLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.addressLabel.bottom;
     
-    labelSize = [PSStyleSheet sizeForText:self.distanceLabel.text width:width style:@"metaDarkLabel"];
+    labelSize = [self.distanceLabel sizeForLabelInWidth:width];
     self.distanceLabel.frame = CGRectMake(right - labelSize.width, top, labelSize.width, labelSize.height);
     
+    labelSize = [self.categoryLabel sizeForLabelInWidth:(width - self.distanceLabel.width - MARGIN)];
     
-    labelSize = [PSStyleSheet sizeForText:self.categoryLabel.text width:(width - self.distanceLabel.width - MARGIN) style:@"metaDarkLabel"];
     self.categoryLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
 }
 
@@ -204,28 +186,40 @@ peopleIcon = _peopleIcon;
     [super collectionView:collectionView fillCellWithObject:object atIndex:index];
     NSDictionary *venue = (NSDictionary *)object;
     
-    [self.imageView setOriginalURL:[NSURL URLWithString:[venue objectForKey:@"photoURLPath"]]];
-    [self.imageView setThumbnailURL:[NSURL URLWithString:[venue objectForKey:@"photoURLPath"]]];
-    [self.imageView loadImageWithURL:[NSURL URLWithString:[venue objectForKey:@"photoURLPath"]] cacheType:PSURLCacheTypePermanent];
+    // Photo
+    NSDictionary *photo = [venue objectForKey:@"photo"];
+    if (photo) {
+        // Use venue photo
+        NSString *href = [photo objectForKey:@"href"];
+        [self.imageView setOriginalURL:[NSURL URLWithString:href]];
+        [self.imageView setThumbnailURL:[NSURL URLWithString:href]];
+        [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
+    } else {
+        // Use category icon
+        NSString *href = [venue objectForKey:@"categoryIcon"];
+        [self.imageView setOriginalURL:[NSURL URLWithString:href]];
+        [self.imageView setThumbnailURL:[NSURL URLWithString:href]];
+        [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
+    }
     
-    
+    // Labels
     self.nameLabel.text = [venue objectForKey:@"name"];
-    self.categoryLabel.text = [venue objectForKey:@"primaryCategory"];
+    self.categoryLabel.text = [venue objectForKey:@"category"];
     
-    if ([venue objectForKey:@"location"] && [[venue objectForKey:@"location"] objectForKey:@"address"]) {
-        self.addressLabel.text = [[venue objectForKey:@"location"] objectForKey:@"address"];
-    }
-    if ([venue objectForKey:@"location"] && [[venue objectForKey:@"location"] objectForKey:@"distance"]) {
-        self.distanceLabel.text = [NSString localizedStringForDistance:[[[venue objectForKey:@"location"] objectForKey:@"distance"] floatValue]];
-    }
-
-    if ([venue objectForKey:@"stats"] && [[venue objectForKey:@"stats"] objectForKey:@"checkinsCount"]) {
-        self.statsLabel.text = [NSString stringWithFormat:@"%@ people checked in", [__numberFormatter stringFromNumber:[[venue objectForKey:@"stats"] objectForKey:@"checkinsCount"] ]];
+    NSDictionary *location = [venue objectForKey:@"location"];
+    if (location) {
+        self.addressLabel.text = [NSString stringWithFormat:@"%@ (%@)", [location objectForKey:@"address"], [location objectForKey:@"crossStreet"]];
+        self.distanceLabel.text = [NSString localizedStringForDistance:[[location objectForKey:@"distance"] floatValue]];
     }
     
-    if ([venue objectForKey:@"tipUserName"] && [venue objectForKey:@"tipText"]) {
-        self.tipUserLabel.text = [venue objectForKey:@"tipUserName"];
-        self.tipLabel.text = [venue objectForKey:@"tipText"];
+    NSDictionary *stats = [venue objectForKey:@"stats"];
+    if (stats) {
+        self.statsLabel.text = [NSString stringWithFormat:@"%@ people checked in", [__numberFormatter stringFromNumber:[stats objectForKey:@"checkinsCount"] ]];
+    }
+    
+    NSString *tip = [venue objectForKey:@"tip"];
+    if (tip) {
+        self.tipLabel.text = tip;
     }
 }
 
@@ -237,36 +231,38 @@ peopleIcon = _peopleIcon;
     
     height += MARGIN;
     
-    CGFloat objectWidth = [[venue objectForKey:@"photoWidth"] floatValue];
-    CGFloat objectHeight = [[venue objectForKey:@"photoHeight"] floatValue];
+    // Photo
+    NSDictionary *photo = [object objectForKey:@"photo"];
+    CGFloat photoWidth, photoHeight;
+    if (photo) {
+        photoWidth = [[photo objectForKey:@"width"] floatValue];
+        photoHeight = [[photo objectForKey:@"height"] floatValue];
+    } else {
+        photoWidth = photoHeight = 256.0;
+    }
+    
+    CGFloat objectWidth = photoWidth;
+    CGFloat objectHeight = photoHeight;
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     height += scaledHeight;
     
     height += MARGIN;
     
+    
+    // Labels
     CGSize labelSize = CGSizeZero;
     labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"name"] width:width style:@"titleDarkLabel"];
     height += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"primaryCategory"] width:width style:@"metaDarkLabel"];
+    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"category"] width:width style:@"metaDarkLabel"];
     height += labelSize.height;
     
     height += MARGIN;
     
-    if ([venue objectForKey:@"stats"] && [[venue objectForKey:@"stats"] objectForKey:@"checkinsCount"]) {
-        labelSize = [PSStyleSheet sizeForText:[NSString stringWithFormat:@"%@ people checked in", [__numberFormatter stringFromNumber:[[venue objectForKey:@"stats"] objectForKey:@"checkinsCount"]]] width:width style:@"metaDarkLabel"];
-        height += labelSize.height;
-    }
-    
-    height += MARGIN;
-    height += 1.0;
-    height += MARGIN;
-    
-    if ([venue objectForKey:@"tipUserName"] && [venue objectForKey:@"tipText"]) {
-        labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"tipUserName"] width:width style:@"boldDarkLabel"];
-        height += labelSize.height;
-        
-        labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"tipText"] width:width style:@"textDarkLabel"];
+    NSDictionary *location = [venue objectForKey:@"location"];
+    if (location) {
+        NSString *locationText = [NSString stringWithFormat:@"%@ (%@)", [location objectForKey:@"address"], [location objectForKey:@"crossStreet"]];
+        labelSize = [PSStyleSheet sizeForText:locationText width:width style:@"subtitleDarkLabel"];
         height += labelSize.height;
         
         height += MARGIN;
@@ -274,11 +270,25 @@ peopleIcon = _peopleIcon;
         height += MARGIN;
     }
     
-    if ([venue objectForKey:@"location"] && [[venue objectForKey:@"location"] objectForKey:@"address"]) {
-        labelSize = [PSStyleSheet sizeForText:[[venue objectForKey:@"location"] objectForKey:@"address"] width:width style:@"subtitleDarkLabel"];
+    NSDictionary *stats = [venue objectForKey:@"stats"];
+    if (stats) {
+        NSString *statsText = [NSString stringWithFormat:@"%@ people checked in", [__numberFormatter stringFromNumber:[stats objectForKey:@"checkinsCount"] ]];
+        labelSize = [PSStyleSheet sizeForText:statsText width:width style:@"metaDarkLabel"];
         height += labelSize.height;
     }
-
+    
+    NSString *tip = [venue objectForKey:@"tip"];
+    if (tip) {
+        NSString *tipText = tip;
+        labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"georgiaDarkLabel"];
+        height += labelSize.height;
+        
+        height += MARGIN;
+        height += 1.0;
+        height += MARGIN;
+    }
+    
+    
     height += MARGIN;
     
     return height;

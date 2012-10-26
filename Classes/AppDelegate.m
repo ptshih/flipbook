@@ -7,40 +7,27 @@
 //
 
 #import "AppDelegate.h"
-#import "PSReachabilityCenter.h"
-#import "PSLocationCenter.h"
-#import "CategoryListViewController.h"
+
+#import "WelcomeViewController.h"
 #import "VenueDetailViewController.h"
 
 #import "PSZoomView.h"
 
-#import <HockeySDK/HockeySDK.h>
-
 @interface AppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate>
-
-@property (nonatomic, strong) UIImageView *splashImage;
 
 + (void)setupDefaults;
 
 @end
 
+
 @implementation AppDelegate
-
-@synthesize
-splashImage = _splashImage;
-
-@synthesize
-window = _window,
-navigationController = _navigationController,
-backgroundDate = _backgroundDate,
-foregroundDate = _foregroundDate,
-shouldReloadInterface = _shouldReloadInterface;
 
 + (void)initialize {
     [self setupDefaults];
 }
 
 #pragma mark - Initial Defaults
+
 + (void)setupDefaults {
     if ([self class] == [AppDelegate class]) {
         // Setup initial defaults
@@ -59,6 +46,7 @@ shouldReloadInterface = _shouldReloadInterface;
 }
 
 #pragma mark - BITUpdateManagerDelegate
+
 - (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
 #ifndef DISTRIBUTION
     if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
@@ -67,12 +55,32 @@ shouldReloadInterface = _shouldReloadInterface;
     return nil;
 }
 
+- (NSString *)customDeviceIdentifier {
+#ifndef DISTRIBUTION
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
+        return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+#endif
+    return nil;
+}
+
+
 #pragma mark - Global Statics
 
+
 #pragma mark - Push Controller
+
 - (void)pushVenueWithId:(NSString *)venueId {
     VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:venueId];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)setupViewControllers {
+    // Root view controller
+    id controller = nil;
+    controller = [[WelcomeViewController alloc] initWithNibName:nil bundle:nil];
+    
+    self.navigationController = [[PSNavigationController alloc] initWithRootViewController:controller];
+    self.window.rootViewController = self.navigationController;
 }
 
 #pragma mark - Application Lifecycle
@@ -89,51 +97,44 @@ shouldReloadInterface = _shouldReloadInterface;
 }
 
 
-- (BOOL)handleURL:(NSURL *)url {
-    NSLog(@"app handle open URL: %@", url);
-    
-    // Intercept for FB deep linking
-    NSString *scheme = url.scheme;
-    if ([scheme isEqualToString:@"fb456420417705188live"] || [scheme isEqualToString:@"fb456420417705188beta"] || [scheme isEqualToString:@"fb456420417705188pro"]) {
-        NSString *fragment = url.fragment;
-        NSDictionary *params = [self parseURLParams:fragment];
-        // Check if target URL exists
-        NSString *targetURLString = [params valueForKey:@"target_url"];
-        if (targetURLString) {
-            NSURL *targetURL = [NSURL URLWithString:targetURLString];
-            NSString *venueId = [targetURL lastPathComponent];
-            if (venueId) {
-                // Push venue
-                [self pushVenueWithId:venueId];
-                return YES;
-            } else {
-//                return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
-            }
-        } else {
-//            return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
-        }
-    } else {
-        return NO;
-    }
-}
+//- (BOOL)handleURL:(NSURL *)url {
+//    NSLog(@"app handle open URL: %@", url);
+//    
+//    // Intercept for FB deep linking
+//    NSString *scheme = url.scheme;
+//    if ([scheme isEqualToString:@"fb456420417705188live"] || [scheme isEqualToString:@"fb456420417705188beta"] || [scheme isEqualToString:@"fb456420417705188pro"]) {
+//        NSString *fragment = url.fragment;
+//        NSDictionary *params = [self parseURLParams:fragment];
+//        // Check if target URL exists
+//        NSString *targetURLString = [params valueForKey:@"target_url"];
+//        if (targetURLString) {
+//            NSURL *targetURL = [NSURL URLWithString:targetURLString];
+//            NSString *venueId = [targetURL lastPathComponent];
+//            if (venueId) {
+//                // Push venue
+//                [self pushVenueWithId:venueId];
+//                return YES;
+//            } else {
+////                return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
+//            }
+//        } else {
+////            return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
+//        }
+//    } else {
+//        return NO;
+//    }
+//}
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    return [self handleURL:url];
-}
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [self handleURL:url];
-}
+//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+//    return [self handleURL:url];
+//}
+//
+//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+//    return [self handleURL:url];
+//}
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    NSLog(@"Fonts: %@", [UIFont familyNames]);
-    
-    self.shouldReloadInterface = NO;
-    
-    // Hockey
-    // 4fda551a3f254b914082b05e2d8d76fd
-    
 #ifdef RELEASE
     [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"4fda551a3f254b914082b05e2d8d76fd" liveIdentifier:@"4fda551a3f254b914082b05e2d8d76fd" delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
@@ -142,15 +143,17 @@ shouldReloadInterface = _shouldReloadInterface;
     // Localytics
     // 84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc
     
+    // Appirater
     [Appirater appLaunched:YES];
     
+    // AFNetworking
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     // PSFacebookCenter
 //    [PSFacebookCenter defaultCenter];
     
     // Prime Notification Manager
-    [NotificationManager sharedManager];
+//    [NotificationManager sharedManager];
     
     // Set application stylesheet
     [PSStyleSheet setStyleSheet:@"PSStyleSheet"];
@@ -161,39 +164,12 @@ shouldReloadInterface = _shouldReloadInterface;
     // PSLocationCenter set default behavior
     [[PSLocationCenter defaultCenter] resumeUpdates]; // start it
     
+    // Window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = WINDOW_BG_COLOR;
     [self.window makeKeyAndVisible];
-    self.window.backgroundColor = [UIColor blackColor];
-//    self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLinen"]];
     
-    // Root view controller
-    id controller = nil;
-    controller = [[CategoryListViewController alloc] initWithNibName:nil bundle:nil];
-    
-    self.navigationController = [[PSNavigationController alloc] initWithRootViewController:controller];
-    self.window.rootViewController = self.navigationController;
-    
-    // Splash Image
-//    NSString *splashImageName = nil;
-//    CGFloat splashTop = 0.0;
-//    if (isDeviceIPad()) {
-//        splashImageName = @"Default-Portrait";
-//        splashTop = 20.0;
-//    } else {
-//        splashImageName = @"Default";
-//        splashTop = 0.0;
-//    }
-//    self.splashImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:splashImageName]];
-//    self.splashImage.top = splashTop;
-//    [self.window addSubview:self.splashImage];
-//    
-//    BLOCK_SELF;
-//    [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//        blockSelf.splashImage.alpha = 0.0;
-//    } completion:^(BOOL finished) {
-//        [blockSelf.splashImage removeFromSuperview];
-//        blockSelf.splashImage = nil;
-//    }];
+    [self setupViewControllers];
     
     return YES;
 }
@@ -235,16 +211,7 @@ shouldReloadInterface = _shouldReloadInterface;
 - (void)applicationWillTerminate:(UIApplication *)application {
 }
 
-- (NSString *)customDeviceIdentifier {
-#ifndef DISTRIBUTION
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
-        return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
-#endif
-    return nil;
-}
-
 - (void)dealloc {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

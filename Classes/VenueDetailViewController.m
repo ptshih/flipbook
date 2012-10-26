@@ -456,7 +456,6 @@ static NSNumberFormatter *__numberFormatter = nil;
     [self.spinnerView startAnimating];
     
     [self loadDataSourceFromRemoteUsingCache:YES];
-    [self loadYelp];
 }
 
 - (void)reloadDataSource {
@@ -467,6 +466,9 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 - (void)dataSourceDidLoad {
     [super dataSourceDidLoad];
+    
+    // Load Yelp
+    [self loadYelp];
     
     if ([self dataSourceIsEmpty]) {
         // Show empty view

@@ -1,5 +1,7 @@
 #import <MapKit/MapKit.h>
 
+#import <HockeySDK/HockeySDK.h>
+
 #import "PSConstants.h"
 
 // Notification manager
@@ -94,25 +96,27 @@
 #define GRAY_COLOR RGBCOLOR(87.0,108.0,137.0)
 
 // Custom Colors
-#define WINDOW_BG_COLOR [UIColor blackColor]
-#define BASE_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureAluminum"]]
-#define TABLE_BG_COLOR [UIColor clearColor]
-#define HEADER_BG_COLOR [UIColor blackColor]
-#define FOOTER_BG_COLOR [UIColor whiteColor]
-#define CELL_BG_COLOR RGBACOLOR(240,240,240,1)
-#define SECTION_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"BGTableSection"]]
-
-#define HEADER_BAR_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"BGHeaderBar"]]
-
 #define TEXTURE_DARK_LINEN [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureDarkLinen"]]
 #define TEXTURE_DARK_WOOD [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureDarkWood"]]
 
+// APP COLORS
+#define TABLE_BG_COLOR [UIColor clearColor]
+#define HEADER_BG_COLOR [UIColor blackColor]
+#define FOOTER_BG_COLOR [UIColor whiteColor]
+#define WINDOW_BG_COLOR [UIColor blackColor]
+#define BASE_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureAluminum"]]
+#define CELL_BG_COLOR RGBACOLOR(240,240,240,1)
+#define SECTION_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"BGTableSection"]]
+#define HEADER_BAR_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"BGHeaderBar"]]
+
+
+
 #if TARGET_IPHONE_SIMULATOR
-//  #define USE_LOCALHOST
+  #define USE_LOCALHOST
 #endif
 
-#define API_LOCALHOST @"http://localhost:5000"
-#define API_REMOTE @"http://www.petershih.com"
+#define API_LOCALHOST @"http://localhost:5007"
+#define API_REMOTE @"http://gangnam.herokuapp.com"
 
 #ifdef USE_LOCALHOST
   #define API_BASE_URL [NSString stringWithFormat:API_LOCALHOST]

@@ -46,7 +46,7 @@ divider = _divider;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.tipLabel = [UILabel labelWithStyle:@"textLabel"];
+        self.tipLabel = [UILabel labelWithStyle:@"textDarkLabel"];
         self.tipLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.tipLabel];
         
@@ -83,7 +83,7 @@ divider = _divider;
     
     CGSize labelSize = CGSizeZero;
     
-    labelSize = [PSStyleSheet sizeForText:self.tipLabel.text width:width style:@"textLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.tipLabel.text width:width style:@"textDarkLabel"];
     self.tipLabel.top = top;
     self.tipLabel.left = left;
     self.tipLabel.width = labelSize.width;
@@ -135,7 +135,7 @@ divider = _divider;
     height += MARGIN;
     
     NSString *tipText = [NSString stringWithFormat:@"%@", [object objectForKey:@"text"]];
-    labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"textLabel"];
+    labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"textDarkLabel"];
     height += labelSize.height;
     
     height += MARGIN;

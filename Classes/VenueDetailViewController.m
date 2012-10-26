@@ -25,34 +25,18 @@
 
 static NSNumberFormatter *__numberFormatter = nil;
 
-@interface VenueDetailViewController () <PSPopoverViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, MKMapViewDelegate>
+@interface VenueDetailViewController () <PSPopoverViewDelegate, MKMapViewDelegate>
 
 @property (nonatomic, copy) NSString *venueId;
-@property (nonatomic, copy) NSString *bookmarkId;
-@property (nonatomic, copy) NSArray *bookmarks;
 @property (nonatomic, strong) NSDictionary *venueDict;
+@property (nonatomic, strong) NSDictionary *yelpDict;
 @property (nonatomic, strong) MKMapView *mapView;
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinnerView;
 
-@property (nonatomic, strong) UILabel *footerLabel;
-
 @end
 
 @implementation VenueDetailViewController
-
-@synthesize
-venueId = _venueId,
-bookmarkId = _bookmarkId,
-bookmarks = _bookmarks,
-venueDict = _venueDict,
-mapView = _mapView;
-
-@synthesize
-spinnerView = _spinnerView;
-
-@synthesize
-footerLabel = _footerLabel;
 
 + (void)initialize {
     __numberFormatter = [[NSNumberFormatter alloc] init];
@@ -71,11 +55,14 @@ footerLabel = _footerLabel;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.shouldAddRoundedCorners = YES;
-        //        self.shouldPullRefresh = YES;
+        self.shouldShowHeader = YES;
+        self.shouldShowFooter = YES;
+        self.shouldPullRefresh = YES;
+        self.shouldShowNullView = YES;
+        self.pullRefreshStyle = PSPullRefreshStyleBlack;
         
-        self.title = @"Loading...";
-        
+        self.headerHeight = 44.0;
+        self.footerHeight = 0.0;
     }
     return self;
 }
@@ -91,7 +78,7 @@ footerLabel = _footerLabel;
 
 #pragma mark - View Config
 - (UIColor *)baseBackgroundColor {
-    return [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundPaper"]];
+    return BASE_BG_COLOR;
 }
 
 #pragma mark - View
@@ -299,11 +286,11 @@ footerLabel = _footerLabel;
         CGSize labelSize = CGSizeZero;
         CGFloat tipWidth = tipView.width - 16 - 20;
         
-        UILabel *tipUserLabel = [UILabel labelWithStyle:@"boldLabel"];
+        UILabel *tipUserLabel = [UILabel labelWithStyle:@"boldDarkLabel"];
         tipUserLabel.backgroundColor = tipView.backgroundColor;
         [tipView addSubview:tipUserLabel];
         
-        UILabel *tipLabel = [UILabel labelWithStyle:@"textLabel"];
+        UILabel *tipLabel = [UILabel labelWithStyle:@"textDarkLabel"];
         tipLabel.backgroundColor = tipView.backgroundColor;
         [tipView addSubview:tipLabel];
         
@@ -316,11 +303,11 @@ footerLabel = _footerLabel;
         NSString *tipText = [[tip objectForKey:@"text"] capitalizedString];
         
         tipUserLabel.text = tipUserText;
-        labelSize = [PSStyleSheet sizeForText:tipUserLabel.text width:(tipView.width - 16.0) style:@"boldLabel"];
+        labelSize = [PSStyleSheet sizeForText:tipUserLabel.text width:(tipView.width - 16.0) style:@"boldDarkLabel"];
         tipUserLabel.frame = CGRectMake(8, 4, tipWidth, labelSize.height);
         
         tipLabel.text = tipText;
-        labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"textLabel"];
+        labelSize = [PSStyleSheet sizeForText:tipLabel.text width:(tipView.width - 16.0) style:@"textDarkLabel"];
         tipLabel.frame = CGRectMake(8, tipUserLabel.bottom, tipWidth, labelSize.height);
         
         divider = [[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]];
@@ -331,11 +318,11 @@ footerLabel = _footerLabel;
         // Stats
         NSDictionary *stats = [self.venueDict objectForKey:@"stats"];
         
-        UILabel *countLabel = [UILabel labelWithStyle:@"boldLabel"];
+        UILabel *countLabel = [UILabel labelWithStyle:@"boldDarkLabel"];
         countLabel.backgroundColor = tipView.backgroundColor;
         countLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         countLabel.text = [NSString stringWithFormat:@"View All %@ Tips", [stats objectForKey:@"tipCount"]];
-        labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"boldLabel"];
+        labelSize = [PSStyleSheet sizeForText:countLabel.text width:(tipView.width - 16.0) style:@"boldDarkLabel"];
         countLabel.frame = CGRectMake(8, divider.bottom + 4, tipWidth, labelSize.height);
         [tipView addSubview:countLabel];
         
@@ -380,66 +367,17 @@ footerLabel = _footerLabel;
 - (void)setupHeader {
     [super setupHeader];
     
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
-    self.headerView.backgroundColor = [UIColor blackColor];
-    self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    
-    self.leftButton = [UIButton buttonWithFrame:CGRectMake(0, 0, 44, 44) andStyle:nil target:self action:@selector(leftAction)];
-    [self.leftButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonLeftBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     [self.leftButton setImage:[UIImage imageNamed:@"IconBackWhite"] forState:UIControlStateNormal];
-    self.leftButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
-    
-    self.centerButton = [UIButton buttonWithFrame:CGRectMake(44, 0, self.headerView.width - 88, 44) andStyle:@"navigationTitleLabel" target:self action:@selector(centerAction)];
-    [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     [self.centerButton setTitle:self.title forState:UIControlStateNormal];
-    self.centerButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-    self.centerButton.titleLabel.minimumFontSize = 12.0;
-    self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
-    self.centerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.centerButton.userInteractionEnabled = NO;
-    
-    self.rightButton = [UIButton buttonWithFrame:CGRectMake(self.headerView.width - 44, 0, 44, 44) andStyle:nil target:self action:@selector(rightAction)];
-    [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    self.spinnerView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    self.spinnerView.frame = self.rightButton.bounds;
-    self.spinnerView.hidesWhenStopped = YES;
-    [self.rightButton addSubview:self.spinnerView];
-    self.rightButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    self.rightButton.userInteractionEnabled = NO;
-    
-    [self.headerView addSubview:self.leftButton];
-    [self.headerView addSubview:self.centerButton];
-    [self.headerView addSubview:self.rightButton];
-    [self.view addSubview:self.headerView];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconSearchBlack"] forState:UIControlStateNormal];
 }
 
 - (void)setupFooter {
     [super setupFooter];
     
-    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, 44.0)];
-    self.footerView.backgroundColor = RGBCOLOR(33, 33, 33);
-    self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:self.footerView];
-    
-    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushUsers:)];
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushYelp:)];
     [self.footerView addGestureRecognizer:gr];
-    
-    UIImageView *bookmarkIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconGroupWhite"]];
-    bookmarkIcon.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
-    bookmarkIcon.contentMode = UIViewContentModeCenter;
-    bookmarkIcon.frame = CGRectMake(8, 0, bookmarkIcon.width, self.footerView.height);
-    [self.footerView addSubview:bookmarkIcon];
-    
-    UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrow"]];
-    disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    disclosure.contentMode = UIViewContentModeCenter;
-    disclosure.frame = CGRectMake(self.footerView.width - disclosure.width - 8, 0, disclosure.width, self.footerView.height);
-    [self.footerView addSubview:disclosure];
-    
-    self.footerLabel = [UILabel labelWithStyle:@"eventLabel"];
-    self.footerLabel.frame = CGRectMake(bookmarkIcon.right + 8.0, 0, self.footerView.width - bookmarkIcon.width - disclosure.width - 32.0, self.footerView.height);
-    self.footerLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    [self.footerView addSubview:self.footerLabel];
+
 }
 
 - (void)updateHeader {
@@ -451,7 +389,7 @@ footerLabel = _footerLabel;
 
 - (void)updateFooter {
     // TODO: Footer should only show if friends have a bookmark here too
-    if (self.bookmarks && self.bookmarks.count > 0) {
+    if (self.yelpDict) {
         // animate show footer
         if (self.footerView.top == self.view.bottom) {
             [UIView animateWithDuration:0.4 animations:^{
@@ -460,9 +398,6 @@ footerLabel = _footerLabel;
             } completion:^(BOOL finished) {
             }];
         }
-        
-//        NSString *hasOrHave = (self.bookmarks.count == 1) ? @"has" : @"have";
-        self.footerLabel.text = [NSString stringWithFormat:@"%@ saved this place.", [[self.bookmarks valueForKeyPath:@"user.fbName"] stringWithLengthAndCount:3]];
     } else {
         // animate hide footer
         if (self.footerView.top == self.view.bottom - self.footerView.height) {
@@ -488,35 +423,6 @@ footerLabel = _footerLabel;
 }
 
 - (void)rightAction {
-    NSString *avTitle = (self.bookmarkId) ? @"Remove from Lunchbox?" : @"Save to Lunchbox?";
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:avTitle message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    av.tag = kAlertTagBookmark;
-    [av show];
-    
-    // Take a photo
-//    PhotoTagsViewController *vc = [[PhotoTagsViewController alloc] initWithDictionary:self.venueDict];
-//    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-    
-    // Checkin
-//    CheckinViewController *vc = [[CheckinViewController alloc] initWithDictionary:self.venueDict];
-//    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-    
-//    return;
-    
-    
-    
-    //    
-    //    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Foursquare" message:[NSString stringWithFormat:@"Check in to %@ on Foursquare?", [self.venueDict objectForKey:@"name"]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] autorelease];
-    //    av.tag = kAlertTagFoursquare;
-    //    [av show];
-    //    
-    //    return;
-    //    
-    //    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
-    //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [self.venueDict objectForKey:@"id"]]]];
-    //    } else {
-    //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
-    //    }
 }
 
 - (void)zoomMap:(UITapGestureRecognizer *)gr {
@@ -537,29 +443,27 @@ footerLabel = _footerLabel;
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
 }
 
-- (void)pushUsers:(UITapGestureRecognizer *)gr {
-    if (self.bookmarks && self.bookmarks.count > 0) {
-        NSArray *users = [self.bookmarks valueForKey:@"user"];
-        UserViewController *vc = [[UserViewController alloc] initWithUsers:users];
-        [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
-    }
+- (void)pushYelp:(UITapGestureRecognizer *)gr {
+
 }
 
 
 #pragma mark - State Machine
+
 - (void)loadDataSource {
     [super loadDataSource];
     
     [self.spinnerView startAnimating];
     
     [self loadDataSourceFromRemoteUsingCache:YES];
+    [self loadYelp];
 }
 
-//- (void)reloadDataSource {
-//    [super reloadDataSource];
-//    
-//    [self loadDataSourceFromRemoteUsingCache:NO];
-//}
+- (void)reloadDataSource {
+    [super reloadDataSource];
+    
+    [self loadDataSourceFromRemoteUsingCache:NO];
+}
 
 - (void)dataSourceDidLoad {
     [super dataSourceDidLoad];
@@ -574,167 +478,37 @@ footerLabel = _footerLabel;
     [super dataSourceDidError];
 }
 
-#pragma mark - Bookmarks
-
-- (void)findBookmarksFromFriends {
+- (void)loadYelp {
+    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/yelp", API_BASE_URL];
+    
+    NSDictionary *location = [self.venueDict objectForKey:@"location"];
+    NSString *ll = [NSString stringWithFormat:@"%@,%@", [location objectForKey:@"lat"], [location objectForKey:@"lng"]];
+    NSString *q = [self.venueDict objectForKey:@"name"];
+    NSString *venueId = [self.venueDict objectForKey:@"id"];
+    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:ll forKey:@"ll"];
+    [parameters setObject:q forKey:@"q"];
+    [parameters setObject:venueId forKey:@"venueId"];
     
-    // FB
-    NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
-    NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
-    NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
-    [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
-    [parameters setObject:fbId forKey:@"fbId"];
-    [parameters setObject:fbName forKey:@"fbName"];
-    
-    // Venue
-    [parameters setObject:[self.venueDict objectForKey:@"id"] forKey:@"venueId"];
-    
-    [parameters setObject:[NSNumber numberWithInteger:1] forKey:@"friends"];
-    
-    // Request
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/bookmarks", API_BASE_URL];
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
     
-    BLOCK_SELF;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
-        
-        NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
-        
-        if (!error && responseCode == 200) {
-            id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            if (res && [res isKindOfClass:[NSArray class]]) {
-                self.bookmarks = res;
-                [self updateFooter];
-            }
-        }
-    }];
-}
-
-- (void)findBookmark {
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    
-    // FB
-    NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
-    NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
-    NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
-    [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
-    [parameters setObject:fbId forKey:@"fbId"];
-    [parameters setObject:fbName forKey:@"fbName"];
-    
-    // Venue
-    [parameters setObject:[self.venueDict objectForKey:@"id"] forKey:@"venueId"];
-    
-    // Request
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/bookmarks/find", API_BASE_URL];
-    NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
-    
-    BLOCK_SELF;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
-        
-        NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
-        
-        if (!error && responseCode == 200) {
-            id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            if (res && [res isKindOfClass:[NSDictionary class]]) {
-                // bookmark added
-                self.bookmarkId = [res objectForKey:@"_id"];
-                
-                // enable bookmark button
-                [self.spinnerView stopAnimating];
-                [self.rightButton setImage:[UIImage imageNamed:@"IconBookmarkWhite"] forState:UIControlStateNormal];
-                self.rightButton.userInteractionEnabled = YES;
-                
-                [self findBookmarksFromFriends];
-            }
-        }
-    }];
-}
-
-- (void)addBookmark {
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    
-    // FB
-    NSString *fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
-    NSString *fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbId"];
-    NSString *fbName = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbName"];
-    BOOL shouldPost = [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldPostToFacebook"];
-    [parameters setObject:fbAccessToken forKey:@"fbAccessToken"];
-    [parameters setObject:fbId forKey:@"fbId"];
-    [parameters setObject:fbName forKey:@"fbName"];
-    [parameters setObject:[NSNumber numberWithBool:shouldPost] forKey:@"shouldPostToFacebook"];
-    
-    // Venue (denormalized)
-    NSDictionary *location = [self.venueDict objectForKey:@"location"];
-    NSString *formattedAddress = [NSString stringWithFormat:@"%@ %@, %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"]];
-    if ([location objectForKey:@"postalCode"]) {
-        formattedAddress = [formattedAddress stringByAppendingFormat:@" %@", [location objectForKey:@"postalCode"]];
-    }
-    NSString *primaryCategory = [[[self.venueDict objectForKey:@"categories"] objectAtIndexOrNil:0] objectForKey:@"shortName"];
-    NSDictionary *icon = [[[self.venueDict objectForKey:@"categories"] objectAtIndexOrNil:0] objectForKey:@"icon"];
-    NSString *categoryUrl = [[icon objectForKey:@"prefix"] stringByAppendingFormat:@"%@%@", [[icon objectForKey:@"sizes"] lastObject], [icon objectForKey:@"name"]];
-    [parameters setObject:[self.venueDict objectForKey:@"id"] forKey:@"venueId"];
-    [parameters setObject:[self.venueDict objectForKey:@"name"] forKey:@"venueName"];
-    [parameters setObject:formattedAddress forKey:@"venueAddress"];
-    [parameters setObject:primaryCategory forKey:@"venueCategory"];
-    [parameters setObject:categoryUrl forKey:@"venueCategoryUrl"];
-    
-    // Request
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/bookmarks/add", API_BASE_URL];
-    NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
-    
-    BLOCK_SELF;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
-        
-        NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
-        
-        if (!error && responseCode == 200) {
-            id res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            if (res && [res isKindOfClass:[NSDictionary class]]) {
-                // bookmark added
-                self.bookmarkId = [res objectForKey:@"_id"];
-                
-                [self findBookmarksFromFriends];
-            }
-        }
-    }];
-}
-
-- (void)removeBookmark {
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    
-    [parameters setObject:self.bookmarkId forKey:@"bookmarkId"];
-    
-    // Request
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/bookmarks/remove", API_BASE_URL];
-    NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
-    
-    BLOCK_SELF;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:self];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:blockSelf];
-        
-        NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
-        
-        if (!error && responseCode == 200) {
-            // Bookmark removed
-            self.bookmarkId = nil;
+    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:YES completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+        ASSERT_MAIN_THREAD;
+        if (error) {
+            [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
+        } else {
+            // Parse apiResponse
+            id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
             
-            [self findBookmarksFromFriends];
+            [self updateFooter];
+            
+            if (apiResponse && [apiResponse isKindOfClass:[NSArray class]]) {
+
+            } else {
+
+            }
         }
     }];
 }
@@ -946,37 +720,6 @@ footerLabel = _footerLabel;
     [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
     
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
-}
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.cancelButtonIndex == buttonIndex) return;
-    
-    if (alertView.tag == kAlertTagDirections) {
-        // Show directions
-        CLLocationCoordinate2D currentLocation = [[PSLocationCenter defaultCenter] locationCoordinate];
-        NSDictionary *location = [self.venueDict objectForKey:@"location"];
-        NSString *lat = [location objectForKey:@"lat"];
-        NSString *lng = [location objectForKey:@"lng"];
-        
-        if (lat && lng) {
-            NSString *mapsUrl = [NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%@,%@", currentLocation.latitude, currentLocation.longitude, lat, lng];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mapsUrl]];
-        }
-    } else if (alertView.tag == kAlertTagFoursquare) {
-        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"foursquare:"]]) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"foursquare://venues/%@", [self.venueDict objectForKey:@"id"]]]];
-        } else {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://foursquare.com/touch/v/%@", [self.venueDict objectForKey:@"id"]]]];
-        }
-    } else if (alertView.tag == kAlertTagBookmark) {
-        if (self.bookmarkId) {
-            [self removeBookmark];
-        } else {
-            [self addBookmark];
-        }
-    }
 }
 
 @end

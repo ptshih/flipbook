@@ -18,13 +18,6 @@
 
 @implementation LocationChooserView
 
-@synthesize
-queryField = _queryField,
-searchButton = _searchButton,
-mapView = _mapView,
-query = _query,
-locationDidChange = _locationDidChange;
-
 - (id)initWithFrame:(CGRect)frame mapRegion:(MKCoordinateRegion)mapRegion {
     self = [super initWithFrame:frame];
     if (self) {
@@ -49,23 +42,15 @@ locationDidChange = _locationDidChange;
         queryView.layer.shouldRasterize = YES;
         queryView.layer.rasterizationScale = [UIScreen mainScreen].scale;
         
-        PSTextField *queryField = [[PSTextField alloc] initWithFrame:queryView.bounds withInset:UIEdgeInsetsMake(8, 8, 8, 8)];
-        [PSStyleSheet applyStyle:@"queryField" forTextField:queryField];
+        PSTextField *queryField = [[PSTextField alloc] initWithFrame:queryView.bounds withMargins:CGSizeMake(8, 8)];
+        [PSStyleSheet applyStyle:@"leadLightField" forTextField:queryField];
         
-        queryField.clearButtonMode = UITextFieldViewModeNever;
+        queryField.clearButtonMode = UITextFieldViewModeWhileEditing;
         
         queryField.leftViewMode = UITextFieldViewModeAlways;
         UIImageView *searchImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconSearchMiniWhite"]];
-        searchImageView.contentMode = UIViewContentModeLeft;
+        searchImageView.contentMode = UIViewContentModeCenter;
         queryField.leftView = searchImageView;
-        
-        // WTF BUG?
-        queryField.rightViewMode = UITextFieldViewModeAlways;
-        UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        clearButton.frame = CGRectMake(0, 0, 16, 16);
-        [clearButton setImage:[UIImage imageNamed:@"IconClear"] forState:UIControlStateNormal];
-        [clearButton addTarget:self action:@selector(clearField:) forControlEvents:UIControlEventTouchUpInside];
-        queryField.rightView = clearButton;
         
         queryField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         queryField.delegate = self;
@@ -108,7 +93,7 @@ locationDidChange = _locationDidChange;
         redoSearchButton.layer.rasterizationScale = [UIScreen mainScreen].scale;
         [redoSearchButton addTarget:self action:@selector(redoSearch) forControlEvents:UIControlEventTouchUpInside];
         [redoSearchButton setTitle:@"Search This Area" forState:UIControlStateNormal];
-        [PSStyleSheet applyStyle:@"popoverSearchLabel" forButton:redoSearchButton];
+        [PSStyleSheet applyStyle:@"leadLightLabel" forButton:redoSearchButton];
         redoSearchButton.frame = CGRectMake(self.mapView.width - 144.0 - 8.0, self.mapView.height - 8.0 - 31.0, 144.0, 31.0);
         [self.mapView addSubview:redoSearchButton];
         self.searchButton.alpha = 0.0;

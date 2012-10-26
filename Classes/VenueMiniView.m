@@ -65,12 +65,12 @@ mapView = _mapView;
         [self addSubview:nameLabel];
         
         NSString *formattedAddress = [NSString stringWithFormat:@"%@ %@, %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"]];
-        UILabel *addressLabel = [UILabel labelWithText:formattedAddress style:@"subtitleLabel"];
+        UILabel *addressLabel = [UILabel labelWithText:formattedAddress style:@"subtitleDarkLabel"];
         addressLabel.frame = CGRectMake(self.mapView.right + MARGIN, nameLabel.bottom + 2.0, labelWidth, 16.0);
         [self addSubview:addressLabel];
         
         NSString *primaryCategory = [[[self.venueDict objectForKey:@"categories"] objectAtIndexOrNil:0] objectForKey:@"shortName"];
-        UILabel *categoryLabel = [UILabel labelWithText:primaryCategory style:@"metaLabel"];
+        UILabel *categoryLabel = [UILabel labelWithText:primaryCategory style:@"metaDarkLabel"];
         categoryLabel.frame = CGRectMake(self.mapView.right + MARGIN, addressLabel.bottom + 2.0, labelWidth, 16.0);
         [self addSubview:categoryLabel];
     }

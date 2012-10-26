@@ -32,13 +32,13 @@ categoryLabel = _categoryLabel;
         self.psImageView = [[PSCachedImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:self.psImageView];
         
-        self.nameLabel = [UILabel labelWithStyle:@"titleLabel"];
+        self.nameLabel = [UILabel labelWithStyle:@"titleDarkLabel"];
         [self addSubview:self.nameLabel];
         
-        self.addressLabel = [UILabel labelWithStyle:@"subtitleLabel"];
+        self.addressLabel = [UILabel labelWithStyle:@"subtitleDarkLabel"];
         [self addSubview:self.addressLabel];
         
-        self.categoryLabel = [UILabel labelWithStyle:@"metaLabel"];
+        self.categoryLabel = [UILabel labelWithStyle:@"metaDarkLabel"];
         [self addSubview:self.categoryLabel];
         
         self.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -65,17 +65,17 @@ categoryLabel = _categoryLabel;
     left = self.psImageView.right + MARGIN;
     width -= self.psImageView.width + MARGIN;
     
-    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"titleLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"titleDarkLabel"];
     self.nameLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.nameLabel.bottom;
     
-    labelSize = [PSStyleSheet sizeForText:self.addressLabel.text width:width style:@"subtitleLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.addressLabel.text width:width style:@"subtitleDarkLabel"];
     self.addressLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.addressLabel.bottom;
     
-    labelSize = [PSStyleSheet sizeForText:self.categoryLabel.text width:width style:@"metaLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.categoryLabel.text width:width style:@"metaDarkLabel"];
     self.categoryLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.categoryLabel.bottom;
@@ -106,13 +106,13 @@ categoryLabel = _categoryLabel;
     
     CGSize labelSize = CGSizeZero;
     
-    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"name"] width:width style:@"titleLabel"];
+    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"name"] width:width style:@"titleDarkLabel"];
     height += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"address"] width:width style:@"subtitleLabel"];
+    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"address"] width:width style:@"subtitleDarkLabel"];
     height += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"category"] width:width style:@"metaLabel"];
+    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"category"] width:width style:@"metaDarkLabel"];
     height += labelSize.height;
     
     height += MARGIN * 2;

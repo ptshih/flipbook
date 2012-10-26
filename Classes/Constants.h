@@ -97,7 +97,7 @@
 #define WINDOW_BG_COLOR [UIColor blackColor]
 #define BASE_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureAluminum"]]
 #define TABLE_BG_COLOR [UIColor clearColor]
-#define HEADER_BG_COLOR [UIColor whiteColor]
+#define HEADER_BG_COLOR [UIColor blackColor]
 #define FOOTER_BG_COLOR [UIColor whiteColor]
 #define CELL_BG_COLOR RGBACOLOR(240,240,240,1)
 #define SECTION_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"BGTableSection"]]

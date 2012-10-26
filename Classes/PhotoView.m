@@ -34,11 +34,11 @@ homeCityLabel = _homeCityLabel;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.nameLabel = [UILabel labelWithStyle:@"titleLabel"];
+        self.nameLabel = [UILabel labelWithStyle:@"titleDarkLabel"];
         self.nameLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.nameLabel];
         
-        self.homeCityLabel = [UILabel labelWithStyle:@"subtitleLabel"];
+        self.homeCityLabel = [UILabel labelWithStyle:@"subtitleDarkLabel"];
         self.homeCityLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.homeCityLabel];
     }
@@ -69,13 +69,13 @@ homeCityLabel = _homeCityLabel;
     
     CGSize labelSize = CGSizeZero;
     
-    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"titleLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"titleDarkLabel"];
     self.nameLabel.top = self.imageView.bottom + MARGIN;
     self.nameLabel.left = left;
     self.nameLabel.width = labelSize.width;
     self.nameLabel.height = labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:self.homeCityLabel.text width:width style:@"subtitleLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.homeCityLabel.text width:width style:@"subtitleDarkLabel"];
     self.homeCityLabel.top = self.nameLabel.bottom;
     self.homeCityLabel.left = left;
     self.homeCityLabel.width = labelSize.width;
@@ -107,10 +107,10 @@ homeCityLabel = _homeCityLabel;
     height += MARGIN;
     
     CGSize labelSize = CGSizeZero;
-    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"name"] width:width style:@"titleLabel"];
+    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"name"] width:width style:@"titleDarkLabel"];
     height += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"homeCity"] width:width style:@"subtitleLabel"];
+    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"homeCity"] width:width style:@"subtitleDarkLabel"];
     height += labelSize.height;
     
     height += MARGIN;

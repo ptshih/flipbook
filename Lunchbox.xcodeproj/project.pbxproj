@@ -355,8 +355,6 @@
 		2846CD801563B1050056B8AC /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2846CD7F1563B1040056B8AC /* SettingCell.m */; };
 		28488ECF1560EF260012C7D0 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28488ECE1560EF260012C7D0 /* NotificationViewController.m */; };
 		28488EF715610AC70012C7D0 /* FBConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28488EF615610AC60012C7D0 /* FBConnectViewController.m */; };
-		28834C591566364F0049AE37 /* NewEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28834C581566364F0049AE37 /* NewEventViewController.m */; };
-		28834C5E156636640049AE37 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28834C5D156636640049AE37 /* EventViewController.m */; };
 		28834C981566A0DD0049AE37 /* VenueMiniView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28834C971566A0DD0049AE37 /* VenueMiniView.m */; };
 		28A390D11554DA37002696FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818CE14723F1D007E4827 /* main.m */; };
 		28A390D21554DA37002696FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818D214723F1D007E4827 /* AppDelegate.m */; };
@@ -397,7 +395,6 @@
 		28A3914E1554DA37002696FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 283818C414723F1D007E4827 /* Foundation.framework */; };
 		28A3914F1554DA37002696FD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 283818C614723F1D007E4827 /* CoreGraphics.framework */; };
 		28A391551554DA37002696FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 283818CB14723F1D007E4827 /* InfoPlist.strings */; };
-		28A391581554DA37002696FD /* PSStyleSheet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28698730147387C200B40860 /* PSStyleSheet.plist */; };
 		28A3915D1554DA37002696FD /* InitialDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 286988611475CF3500B40860 /* InitialDefaults.plist */; };
 		28A391851554DA37002696FD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D03447CD14F7250D00CE226A /* Icon.png */; };
 		28A391861554DA37002696FD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03447CF14F7251000CE226A /* Icon@2x.png */; };
@@ -434,6 +431,11 @@
 		28BBDA8B156B756500BDE844 /* BookmarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBDA8A156B756500BDE844 /* BookmarkCell.m */; };
 		28C2D974156B81FB0054684B /* BookmarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C2D973156B81FB0054684B /* BookmarkViewController.m */; };
 		28C2D979156B82800054684B /* VenueMiniCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C2D978156B82800054684B /* VenueMiniCell.m */; };
+		28EA49411639FC2A003C45B6 /* PSStyleSheet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28EA49401639FC2A003C45B6 /* PSStyleSheet.plist */; };
+		28EA49461639FC3C003C45B6 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28EA49421639FC3C003C45B6 /* Icon-Small-50@2x.png */; };
+		28EA49471639FC3C003C45B6 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28EA49431639FC3C003C45B6 /* Icon-Small@2x.png */; };
+		28EA49481639FC3C003C45B6 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 28EA49441639FC3C003C45B6 /* Icon-Small.png */; };
+		28EA49491639FC3C003C45B6 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 28EA49451639FC3C003C45B6 /* Icon-Small-50.png */; };
 		28F1F5D11562D4D100142939 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5D01562D4D100142939 /* NotificationManager.m */; };
 /* End PBXBuildFile section */
 
@@ -903,12 +905,7 @@
 		28603B6614AD41ED00541BB1 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		28603B8014AFBD4D00541BB1 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2869870814730F7200B40860 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		28698730147387C200B40860 /* PSStyleSheet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PSStyleSheet.plist; sourceTree = "<group>"; };
 		286988611475CF3500B40860 /* InitialDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InitialDefaults.plist; sourceTree = "<group>"; };
-		28834C571566364F0049AE37 /* NewEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewEventViewController.h; sourceTree = "<group>"; };
-		28834C581566364F0049AE37 /* NewEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEventViewController.m; sourceTree = "<group>"; };
-		28834C5C156636640049AE37 /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
-		28834C5D156636640049AE37 /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
 		28834C961566A0DD0049AE37 /* VenueMiniView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueMiniView.h; sourceTree = "<group>"; };
 		28834C971566A0DD0049AE37 /* VenueMiniView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueMiniView.m; sourceTree = "<group>"; };
 		28888D1A153576DE001743CA /* AddPhotoBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddPhotoBackground@2x.png"; sourceTree = "<group>"; };
@@ -953,6 +950,11 @@
 		28DEE591152FA06500458D8D /* YelpPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YelpPopoverView.h; sourceTree = "<group>"; };
 		28DEE592152FA06500458D8D /* YelpPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YelpPopoverView.m; sourceTree = "<group>"; };
 		28DEEFB215166E68007B8CF2 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		28EA49401639FC2A003C45B6 /* PSStyleSheet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PSStyleSheet.plist; sourceTree = SOURCE_ROOT; };
+		28EA49421639FC3C003C45B6 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		28EA49431639FC3C003C45B6 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		28EA49441639FC3C003C45B6 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		28EA49451639FC3C003C45B6 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
 		28EB001915178A01004C55DE /* PoweredByFoursquareBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoweredByFoursquareBlack.png; sourceTree = "<group>"; };
 		28EB001A15178A01004C55DE /* PoweredByFoursquareBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoweredByFoursquareBlack@2x.png"; sourceTree = "<group>"; };
 		28EB001B15178A01004C55DE /* PoweredByFoursquareWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoweredByFoursquareWhite.png; sourceTree = "<group>"; };
@@ -1835,7 +1837,7 @@
 				283818CB14723F1D007E4827 /* InfoPlist.strings */,
 				283818CE14723F1D007E4827 /* main.m */,
 				2869870814730F7200B40860 /* Constants.h */,
-				28698730147387C200B40860 /* PSStyleSheet.plist */,
+				28EA49401639FC2A003C45B6 /* PSStyleSheet.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1924,10 +1926,6 @@
 				28488EF615610AC60012C7D0 /* FBConnectViewController.m */,
 				281439611563A86500C573CE /* SettingsViewController.h */,
 				281439621563A86500C573CE /* SettingsViewController.m */,
-				28834C571566364F0049AE37 /* NewEventViewController.h */,
-				28834C581566364F0049AE37 /* NewEventViewController.m */,
-				28834C5C156636640049AE37 /* EventViewController.h */,
-				28834C5D156636640049AE37 /* EventViewController.m */,
 				28C2D972156B81FB0054684B /* BookmarkViewController.h */,
 				28C2D973156B81FB0054684B /* BookmarkViewController.m */,
 			);
@@ -1999,6 +1997,10 @@
 				D03447CD14F7250D00CE226A /* Icon.png */,
 				2855FD88150CADEF00B6FC3A /* Icon-72.png */,
 				28DEEFB215166E68007B8CF2 /* Icon-72@2x.png */,
+				28EA49421639FC3C003C45B6 /* Icon-Small-50@2x.png */,
+				28EA49431639FC3C003C45B6 /* Icon-Small@2x.png */,
+				28EA49441639FC3C003C45B6 /* Icon-Small.png */,
+				28EA49451639FC3C003C45B6 /* Icon-Small-50.png */,
 			);
 			name = AppStore;
 			sourceTree = "<group>";
@@ -2083,7 +2085,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				28A391551554DA37002696FD /* InfoPlist.strings in Resources */,
-				28A391581554DA37002696FD /* PSStyleSheet.plist in Resources */,
 				28A3915D1554DA37002696FD /* InitialDefaults.plist in Resources */,
 				28A391851554DA37002696FD /* Icon.png in Resources */,
 				28A391861554DA37002696FD /* Icon@2x.png in Resources */,
@@ -2370,6 +2371,11 @@
 				28266A0D162506C4000267D7 /* SVProgressHUD.bundle in Resources */,
 				28266A11162506F3000267D7 /* Default-568h@2x.png in Resources */,
 				28AD405D16250AE20066F6A5 /* HockeySDKResources.bundle in Resources */,
+				28EA49411639FC2A003C45B6 /* PSStyleSheet.plist in Resources */,
+				28EA49461639FC3C003C45B6 /* Icon-Small-50@2x.png in Resources */,
+				28EA49471639FC3C003C45B6 /* Icon-Small@2x.png in Resources */,
+				28EA49481639FC3C003C45B6 /* Icon-Small.png in Resources */,
+				28EA49491639FC3C003C45B6 /* Icon-Small-50.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2421,8 +2427,6 @@
 				2814395E15639D9C00C573CE /* InfoPopoverView.m in Sources */,
 				281439631563A86500C573CE /* SettingsViewController.m in Sources */,
 				2846CD801563B1050056B8AC /* SettingCell.m in Sources */,
-				28834C591566364F0049AE37 /* NewEventViewController.m in Sources */,
-				28834C5E156636640049AE37 /* EventViewController.m in Sources */,
 				28834C981566A0DD0049AE37 /* VenueMiniView.m in Sources */,
 				28BBDA8B156B756500BDE844 /* BookmarkCell.m in Sources */,
 				28C2D974156B81FB0054684B /* BookmarkViewController.m in Sources */,

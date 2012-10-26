@@ -50,7 +50,7 @@
     
     
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
-    UILabel *versionLabel = [UILabel labelWithText:[NSString stringWithFormat:@"Lunchbox Version %@", appVersion] style:@"metaLabel"];
+    UILabel *versionLabel = [UILabel labelWithText:[NSString stringWithFormat:@"Lunchbox Version %@", appVersion] style:@"metaDarkLabel"];
     versionLabel.textAlignment = UITextAlignmentCenter;
     versionLabel.frame = CGRectMake(0, 0, self.tableView.width, 20.0);
     self.tableView.tableFooterView = versionLabel;

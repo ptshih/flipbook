@@ -65,19 +65,19 @@ peopleIcon = _peopleIcon;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.nameLabel = [UILabel labelWithStyle:@"titleLabel"];
+        self.nameLabel = [UILabel labelWithStyle:@"titleDarkLabel"];
         self.nameLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.nameLabel];
         
-        self.addressLabel = [UILabel labelWithStyle:@"subtitleLabel"];
+        self.addressLabel = [UILabel labelWithStyle:@"subtitleDarkLabel"];
         self.addressLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.addressLabel];
         
-        self.categoryLabel = [UILabel labelWithStyle:@"metaLabel"];
+        self.categoryLabel = [UILabel labelWithStyle:@"metaDarkLabel"];
         self.categoryLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.categoryLabel];
         
-        self.distanceLabel = [UILabel labelWithStyle:@"metaLabel"];
+        self.distanceLabel = [UILabel labelWithStyle:@"metaDarkLabel"];
         self.distanceLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.distanceLabel];
         
@@ -85,12 +85,12 @@ peopleIcon = _peopleIcon;
         self.statsLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.statsLabel];
         
-        self.tipUserLabel = [UILabel labelWithStyle:@"boldLabel"];
+        self.tipUserLabel = [UILabel labelWithStyle:@"boldDarkLabel"];
         self.tipUserLabel.backgroundColor = self.backgroundColor;
         self.tipUserLabel.hidden = YES;
         [self addSubview:self.tipUserLabel];
         
-        self.tipLabel = [UILabel labelWithStyle:@"textLabel"];
+        self.tipLabel = [UILabel labelWithStyle:@"textDarkLabel"];
         self.tipLabel.backgroundColor = self.backgroundColor;
         self.tipLabel.hidden = YES;
         [self addSubview:self.tipLabel];
@@ -99,7 +99,7 @@ peopleIcon = _peopleIcon;
 //        self.tipLabel = [[[TTTAttributedLabel alloc] initWithFrame:CGRectZero] autorelease];
 //        self.tipLabel.backgroundColor = self.backgroundColor;
 //        self.tipLabel.userInteractionEnabled = NO;
-//        [PSStyleSheet applyStyle:@"textLabel" forLabel:self.tipLabel];
+//        [PSStyleSheet applyStyle:@"textDarkLabel" forLabel:self.tipLabel];
 //        [self addSubview:self.tipLabel];
         
         self.topDivider = [[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]];
@@ -145,7 +145,7 @@ peopleIcon = _peopleIcon;
     
     CGSize labelSize = CGSizeZero;
     
-    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"titleLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"titleDarkLabel"];
     self.nameLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.nameLabel.bottom + MARGIN;
@@ -170,13 +170,13 @@ peopleIcon = _peopleIcon;
     top = self.topDivider.bottom + MARGIN;
     
     if ([self.tipLabel.text length] > 0) {
-        labelSize = [PSStyleSheet sizeForText:self.tipUserLabel.text width:width style:@"boldLabel"];
+        labelSize = [PSStyleSheet sizeForText:self.tipUserLabel.text width:width style:@"boldDarkLabel"];
         self.tipUserLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
         self.tipUserLabel.hidden = NO;
         
         top = self.tipUserLabel.bottom;
         
-        labelSize = [PSStyleSheet sizeForText:self.tipLabel.text width:width style:@"textLabel"];
+        labelSize = [PSStyleSheet sizeForText:self.tipLabel.text width:width style:@"textDarkLabel"];
         self.tipLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
         self.tipLabel.hidden = NO;
         
@@ -187,16 +187,16 @@ peopleIcon = _peopleIcon;
         top = self.divider.bottom + MARGIN;
     }
     
-    labelSize = [PSStyleSheet sizeForText:self.addressLabel.text width:width style:@"subtitleLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.addressLabel.text width:width style:@"subtitleDarkLabel"];
     self.addressLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.addressLabel.bottom;
     
-    labelSize = [PSStyleSheet sizeForText:self.distanceLabel.text width:width style:@"metaLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.distanceLabel.text width:width style:@"metaDarkLabel"];
     self.distanceLabel.frame = CGRectMake(right - labelSize.width, top, labelSize.width, labelSize.height);
     
     
-    labelSize = [PSStyleSheet sizeForText:self.categoryLabel.text width:(width - self.distanceLabel.width - MARGIN) style:@"metaLabel"];
+    labelSize = [PSStyleSheet sizeForText:self.categoryLabel.text width:(width - self.distanceLabel.width - MARGIN) style:@"metaDarkLabel"];
     self.categoryLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
 }
 
@@ -245,10 +245,10 @@ peopleIcon = _peopleIcon;
     height += MARGIN;
     
     CGSize labelSize = CGSizeZero;
-    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"name"] width:width style:@"titleLabel"];
+    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"name"] width:width style:@"titleDarkLabel"];
     height += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"primaryCategory"] width:width style:@"metaLabel"];
+    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"primaryCategory"] width:width style:@"metaDarkLabel"];
     height += labelSize.height;
     
     height += MARGIN;
@@ -263,10 +263,10 @@ peopleIcon = _peopleIcon;
     height += MARGIN;
     
     if ([venue objectForKey:@"tipUserName"] && [venue objectForKey:@"tipText"]) {
-        labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"tipUserName"] width:width style:@"boldLabel"];
+        labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"tipUserName"] width:width style:@"boldDarkLabel"];
         height += labelSize.height;
         
-        labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"tipText"] width:width style:@"textLabel"];
+        labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"tipText"] width:width style:@"textDarkLabel"];
         height += labelSize.height;
         
         height += MARGIN;
@@ -275,7 +275,7 @@ peopleIcon = _peopleIcon;
     }
     
     if ([venue objectForKey:@"location"] && [[venue objectForKey:@"location"] objectForKey:@"address"]) {
-        labelSize = [PSStyleSheet sizeForText:[[venue objectForKey:@"location"] objectForKey:@"address"] width:width style:@"subtitleLabel"];
+        labelSize = [PSStyleSheet sizeForText:[[venue objectForKey:@"location"] objectForKey:@"address"] width:width style:@"subtitleDarkLabel"];
         height += labelSize.height;
     }
 

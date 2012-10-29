@@ -102,7 +102,7 @@
 // APP COLORS
 #define TABLE_BG_COLOR [UIColor clearColor]
 #define HEADER_BG_COLOR [UIColor blackColor]
-#define FOOTER_BG_COLOR [UIColor whiteColor]
+#define FOOTER_BG_COLOR RGBCOLOR(33.0,33.0,33.0)
 #define WINDOW_BG_COLOR [UIColor blackColor]
 #define BASE_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureAluminum"]]
 #define CELL_BG_COLOR RGBACOLOR(240,240,240,1)

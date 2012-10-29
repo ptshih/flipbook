@@ -59,7 +59,7 @@ static NSNumberFormatter *__numberFormatter = nil;
         self.pullRefreshStyle = PSPullRefreshStyleBlack;
         
         self.headerHeight = 44.0;
-        self.footerHeight = 0.0;
+        self.footerHeight = 28.0;
         
         self.title = @"Venue Details";
     }
@@ -380,6 +380,8 @@ static NSNumberFormatter *__numberFormatter = nil;
 - (void)setupFooter {
     [super setupFooter];
     
+    self.footerView.top = self.view.height;
+    
     UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushYelp:)];
     [self.footerView addGestureRecognizer:gr];
 
@@ -393,25 +395,42 @@ static NSNumberFormatter *__numberFormatter = nil;
 }
 
 - (void)updateFooter {
-    // TODO: Footer should only show if friends have a bookmark here too
     if (self.yelpDict) {
+        NSString *ratingHref = [self.yelpDict objectForKey:@"rating_img_url_large"];
+        
+        PSCachedImageView *iv = [[PSCachedImageView alloc] initWithFrame:CGRectMake(8, 4, 111, 20)];
+        iv.backgroundColor = [UIColor clearColor];
+        [iv loadImageWithURL:[NSURL URLWithString:ratingHref] cacheType:PSURLCacheTypePermanent];
+        [self.footerView addSubview:iv];
+        
+        NSString *reviewCount = [NSString stringWithFormat:@"%@ Reviews from Yelp", [self.yelpDict objectForKey:@"review_count"]];
+        UILabel *reviewCountLabel = [UILabel labelWithText:reviewCount style:@"leadLightLabel"];
+        reviewCountLabel.frame = CGRectMake(iv.right + 8, 4, 100, 20);
+        [self.footerView addSubview:reviewCountLabel];
+        
+        UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrowGray"]];
+        disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        disclosure.contentMode = UIViewContentModeCenter;
+        disclosure.frame = CGRectMake(self.footerView.width - disclosure.width - 8, 4, 20, 20);
+        [self.footerView addSubview:disclosure];
+        
         // animate show footer
-        if (self.footerView.top == self.view.bottom) {
+        if (self.footerView.top == self.view.height) {
             [UIView animateWithDuration:0.4 animations:^{
-                self.footerView.frame = CGRectMake(0, self.view.bottom - self.footerView.height, self.footerView.width, self.footerView.height);
+                self.footerView.frame = CGRectMake(0, self.view.height - self.footerView.height, self.footerView.width, self.footerView.height);
                 [self updateSubviews];
             } completion:^(BOOL finished) {
             }];
         }
     } else {
         // animate hide footer
-        if (self.footerView.top == self.view.bottom - self.footerView.height) {
-            [UIView animateWithDuration:0.4 animations:^{
-                self.footerView.frame = CGRectMake(0, self.view.bottom, self.footerView.width, self.footerView.height);
-                [self updateSubviews];                
-            } completion:^(BOOL finished) {
-            }];
-        }
+//        if (self.footerView.top == self.view.height - self.footerView.height) {
+//            [UIView animateWithDuration:0.4 animations:^{
+//                self.footerView.frame = CGRectMake(0, self.view.height, self.footerView.width, self.footerView.height);
+//                [self updateSubviews];                
+//            } completion:^(BOOL finished) {
+//            }];
+//        }
     }
 }
 
@@ -499,7 +518,7 @@ static NSNumberFormatter *__numberFormatter = nil;
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
     
-    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:YES completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:NO completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
         ASSERT_MAIN_THREAD;
         if (error) {
             [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
@@ -507,13 +526,13 @@ static NSNumberFormatter *__numberFormatter = nil;
             // Parse apiResponse
             id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
             
-            [self updateFooter];
-            
-            if (apiResponse && [apiResponse isKindOfClass:[NSArray class]]) {
-
+            if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
+                self.yelpDict = apiResponse;
             } else {
-
+                self.yelpDict = nil;
             }
+            
+            [self updateFooter];
         }
     }];
 }

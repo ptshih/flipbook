@@ -57,7 +57,7 @@ loadingLabel = _loadingLabel;
 }
 
 - (void)loadDataSource {
-    NSString *URLPath = [NSString stringWithFormat:@"%@/lunchbox/yelp", API_BASE_URL];
+    NSString *URLPath = [NSString stringWithFormat:@"%@/v3/%@/yelp", API_BASE_URL];
     
     NSDictionary *location = [self.venueDict objectForKey:@"location"];
     NSString *ll = [NSString stringWithFormat:@"%@,%@", [location objectForKey:@"lat"], [location objectForKey:@"lng"]];

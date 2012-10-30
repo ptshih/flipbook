@@ -847,9 +847,9 @@
 		<key>fontSize</key>
 		<integer>20</integer>
 		<key>textColor</key>
-		<string>0xcdcdcd</string>
+		<string>0xefefef</string>
 		<key>highlightedTextColor</key>
-		<string>0xcdcdcd</string>
+		<string>0xefefef</string>
 		<key>textAlignment</key>
 		<string>left</string>
 		<key>lineBreakMode</key>
@@ -927,9 +927,9 @@
 		<key>fontSize</key>
 		<integer>18</integer>
 		<key>textColor</key>
-		<string>0xcdcdcd</string>
+		<string>0xefefef</string>
 		<key>highlightedTextColor</key>
-		<string>0xcdcdcd</string>
+		<string>0xefefef</string>
 		<key>textAlignment</key>
 		<string>left</string>
 		<key>lineBreakMode</key>
@@ -962,6 +962,82 @@
 		<key>numberOfLines</key>
 		<integer>0</integer>
 	</dict>
+	<key>h5LightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0xefefef</string>
+		<key>highlightedTextColor</key>
+		<string>0xefefef</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h5DarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h5BoldLightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue-Bold</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0xefefef</string>
+		<key>highlightedTextColor</key>
+		<string>0xefefef</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h5BoldDarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue-Bold</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
 	<key>h5CondLightLabel</key>
 	<dict>
 		<key>fontName</key>
@@ -969,9 +1045,9 @@
 		<key>fontSize</key>
 		<integer>16</integer>
 		<key>textColor</key>
-		<string>0xcdcdcd</string>
+		<string>0xefefef</string>
 		<key>highlightedTextColor</key>
-		<string>0xcdcdcd</string>
+		<string>0xefefef</string>
 		<key>textAlignment</key>
 		<string>left</string>
 		<key>lineBreakMode</key>
@@ -1011,9 +1087,9 @@
 		<key>fontSize</key>
 		<integer>12</integer>
 		<key>textColor</key>
-		<string>0x70695A</string>
+		<string>0xefefef</string>
 		<key>highlightedTextColor</key>
-		<string>0x70695A</string>
+		<string>0xefefef</string>
 		<key>textAlignment</key>
 		<string>left</string>
 		<key>shadowColor</key>
@@ -1049,9 +1125,9 @@
 		<key>fontSize</key>
 		<integer>12</integer>
 		<key>textColor</key>
-		<string>0x70695A</string>
+		<string>0xefefef</string>
 		<key>highlightedTextColor</key>
-		<string>0x70695A</string>
+		<string>0xefefef</string>
 		<key>textAlignment</key>
 		<string>left</string>
 		<key>shadowColor</key>
@@ -1087,9 +1163,9 @@
 		<key>fontSize</key>
 		<integer>14</integer>
 		<key>textColor</key>
-		<string>0xcdcdcd</string>
+		<string>0xefefef</string>
 		<key>highlightedTextColor</key>
-		<string>0xcdcdcd</string>
+		<string>0xefefef</string>
 		<key>textAlignment</key>
 		<string>left</string>
 		<key>lineBreakMode</key>
@@ -1129,7 +1205,9 @@
 		<key>fontSize</key>
 		<integer>12</integer>
 		<key>textColor</key>
-		<string>0x70695A</string>
+		<string>0xefefef</string>
+		<key>New item</key>
+		<string>0xefefef</string>
 		<key>highlightedTextColor</key>
 		<string>0x70695A</string>
 		<key>textAlignment</key>

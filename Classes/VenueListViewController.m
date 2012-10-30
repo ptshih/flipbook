@@ -45,6 +45,7 @@
         self.shouldShowHeader = YES;
         self.shouldShowFooter = NO;
         self.shouldPullRefresh = YES;
+        self.shouldPullLoadMore = YES;
         self.shouldShowNullView = YES;
         self.pullRefreshStyle = PSPullRefreshStyleBlack;
         
@@ -128,7 +129,7 @@
     ds.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [pb4sq addSubview:ds];
     
-    self.collectionView.footerView = pb4sq;
+//    self.collectionView.footerView = pb4sq;
 }
 
 - (void)setupHeader {
@@ -164,7 +165,7 @@
     CGFloat radius = self.radius > 0 ? self.radius : 400.0;
     MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, radius * 2, radius * 2);
     LocationChooserView *cv = [[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion];
-    PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Searching for Places in Map Area" contentView:cv];
+    PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Searching in Map Area" contentView:cv];
     popoverView.tag = kPopoverLocation;
     popoverView.delegate = self;
     [popoverView showWithSize:cv.frame.size inView:self.view];
@@ -184,8 +185,18 @@
     [self loadDataSourceFromRemoteUsingCache:NO];
 }
 
+- (void)loadMoreDataSource {
+    [super loadMoreDataSource];
+    
+    [self loadDataSourceFromRemoteUsingCache:NO];
+}
+
 - (void)dataSourceDidLoad {
     [super dataSourceDidLoad];
+}
+
+- (void)dataSourceDidLoadMore {
+    [super dataSourceDidLoadMore];
 }
 
 - (void)dataSourceDidError {
@@ -247,6 +258,9 @@
         [parameters setObject:self.query forKey:@"query"];
     }
     
+    [parameters setObject:[NSNumber numberWithInteger:self.limit] forKey:@"limit"];
+    [parameters setObject:[NSNumber numberWithInteger:self.offset] forKey:@"offset"];
+    
     NSString *URLPath = [NSString stringWithFormat:@"%@/v3/venues", API_BASE_URL];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
@@ -269,8 +283,13 @@
                 // List of Venues
                 id apiData = [apiResponse objectForKey:@"venues"];
                 if (apiData && [apiData isKindOfClass:[NSArray class]]) {
-                    self.items = apiData;
-                    [self dataSourceDidLoad];
+                    if (self.loadingMore) {
+                        [self.items addObjectsFromArray:apiData];
+                        [self dataSourceDidLoadMore];
+                    } else {
+                        self.items = [NSMutableArray arrayWithArray:apiData];;
+                        [self dataSourceDidLoad];
+                    }
                 } else {
                     [self dataSourceDidError];
                 }

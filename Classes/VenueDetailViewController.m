@@ -59,7 +59,7 @@ static NSNumberFormatter *__numberFormatter = nil;
         self.pullRefreshStyle = PSPullRefreshStyleBlack;
         
         self.headerHeight = 44.0;
-        self.footerHeight = 28.0;
+        self.footerHeight = 32.0;
         
         self.title = @"Loading...";
     }
@@ -288,7 +288,7 @@ static NSNumberFormatter *__numberFormatter = nil;
         CGSize labelSize = CGSizeZero;
         CGFloat tipWidth = tipView.width - 16 - 20;
         
-        UILabel *tipUserLabel = [UILabel labelWithStyle:@"h6DarkLabel"];
+        UILabel *tipUserLabel = [UILabel labelWithStyle:@"h6BoldDarkLabel"];
         tipUserLabel.backgroundColor = tipView.backgroundColor;
         [tipView addSubview:tipUserLabel];
         
@@ -403,7 +403,7 @@ static NSNumberFormatter *__numberFormatter = nil;
         CGFloat rating = [[self.yelpDict objectForKey:@"rating"] floatValue];
         
         CGFloat left = 8.0;
-        CGFloat top = 4.0;
+        CGFloat top = 6.0;
         CGFloat width = self.footerView.width - 16.0;
         
         // Left
@@ -424,7 +424,7 @@ static NSNumberFormatter *__numberFormatter = nil;
         UIImageView *disclosure = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrowGray"]];
         disclosure.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         disclosure.contentMode = UIViewContentModeCenter;
-        disclosure.frame = CGRectMake(self.footerView.width - 20.0, 4, 20, 20);
+        disclosure.frame = CGRectMake(self.footerView.width - 20.0, top, 20, 20);
         [self.footerView addSubview:disclosure];
         
         // animate show footer

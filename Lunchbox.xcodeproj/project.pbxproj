@@ -352,6 +352,7 @@
 		2829B41F156CE1EB002F9CB3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2829B415156CE1EB002F9CB3 /* Default@2x.png */; };
 		2829B433156D6840002F9CB3 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B432156D6840002F9CB3 /* UserViewController.m */; };
 		2829B445156D687B002F9CB3 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829B444156D687B002F9CB3 /* UserCell.m */; };
+		28433115163F6D8300349014 /* PSPullLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28433114163F6D8300349014 /* PSPullLoadMoreView.m */; };
 		2846CD801563B1050056B8AC /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2846CD7F1563B1040056B8AC /* SettingCell.m */; };
 		28488ECF1560EF260012C7D0 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28488ECE1560EF260012C7D0 /* NotificationViewController.m */; };
 		28488EF715610AC70012C7D0 /* FBConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28488EF615610AC60012C7D0 /* FBConnectViewController.m */; };
@@ -884,6 +885,8 @@
 		28381A971472F8C8007E4827 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		28381A991472F8EF007E4827 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		28381A9B1472F914007E4827 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		28433113163F6D8300349014 /* PSPullLoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPullLoadMoreView.h; sourceTree = "<group>"; };
+		28433114163F6D8300349014 /* PSPullLoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPullLoadMoreView.m; sourceTree = "<group>"; };
 		2843A7071545B9920089FC73 /* Info-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Pro.plist"; sourceTree = SOURCE_ROOT; };
 		2846CD7E1563B1040056B8AC /* SettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
 		2846CD7F1563B1040056B8AC /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
@@ -1347,6 +1350,8 @@
 				28266770162506C4000267D7 /* PSPullRefreshView.bundle */,
 				28266771162506C4000267D7 /* PSPullRefreshView.h */,
 				28266772162506C4000267D7 /* PSPullRefreshView.m */,
+				28433113163F6D8300349014 /* PSPullLoadMoreView.h */,
+				28433114163F6D8300349014 /* PSPullLoadMoreView.m */,
 			);
 			path = PSPullRefreshView;
 			sourceTree = "<group>";
@@ -2527,6 +2532,7 @@
 				28AD408016250FFC0066F6A5 /* UIImageView+AFNetworking.m in Sources */,
 				28EA494C163B04BE003C45B6 /* WelcomeViewController.m in Sources */,
 				28EA494F163B0ED4003C45B6 /* ChannelCell.m in Sources */,
+				28433115163F6D8300349014 /* PSPullLoadMoreView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

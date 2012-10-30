@@ -43,7 +43,7 @@
         self.tipLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.tipLabel];
         
-        self.nameLabel = [UILabel labelWithStyle:@"h6DarkLabel"];
+        self.nameLabel = [UILabel labelWithStyle:@"h6BoldDarkLabel"];
         self.nameLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.nameLabel];
         
@@ -126,7 +126,7 @@
     
     CGFloat footerHeight = 0.0;
     
-    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"userName"] width:width style:@"h6DarkLabel"];
+    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"userName"] width:width style:@"h6BoldDarkLabel"];
     footerHeight += labelSize.height;
     
     labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"userHomeCity"] width:width style:@"h6DarkLabel"];

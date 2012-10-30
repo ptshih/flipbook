@@ -43,7 +43,7 @@
         queryView.layer.rasterizationScale = [UIScreen mainScreen].scale;
         
         PSTextField *queryField = [[PSTextField alloc] initWithFrame:queryView.bounds withMargins:CGSizeMake(8, 8)];
-        [PSStyleSheet applyStyle:@"leadLightField" forTextField:queryField];
+        [PSStyleSheet applyStyle:@"h5BoldLightLabel" forTextField:queryField];
         
         queryField.clearButtonMode = UITextFieldViewModeWhileEditing;
         
@@ -93,8 +93,9 @@
         redoSearchButton.layer.rasterizationScale = [UIScreen mainScreen].scale;
         [redoSearchButton addTarget:self action:@selector(redoSearch) forControlEvents:UIControlEventTouchUpInside];
         [redoSearchButton setTitle:@"Search This Area" forState:UIControlStateNormal];
-        [PSStyleSheet applyStyle:@"leadLightLabel" forButton:redoSearchButton];
-        redoSearchButton.frame = CGRectMake(self.mapView.width - 144.0 - 8.0, self.mapView.height - 8.0 - 31.0, 144.0, 31.0);
+        [PSStyleSheet applyStyle:@"h5BoldLightLabel" forButton:redoSearchButton];
+        redoSearchButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        redoSearchButton.frame = CGRectMake(self.mapView.width - 160.0 - 8.0, self.mapView.height - 8.0 - 31.0, 160.0, 31.0);
         [self.mapView addSubview:redoSearchButton];
         self.searchButton.alpha = 0.0;
     }

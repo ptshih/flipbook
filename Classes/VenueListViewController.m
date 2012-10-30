@@ -52,6 +52,8 @@
         self.headerHeight = 44.0;
         self.footerHeight = 0.0;
         
+        self.limit = 25;
+        
         self.title = @"Locating...";
         
         // Location
@@ -125,11 +127,7 @@
     pb4sq.contentMode = UIViewContentModeCenter;
     pb4sq.frame = CGRectMake(0, 0, self.collectionView.width, pb4sq.height);
     
-    UIImageView *ds = [[UIImageView alloc] initWithFrame:CGRectMake(0, -8.0, pb4sq.width, 8.0) image:[[UIImage imageNamed:@"DropShadowInverted"] stretchableImageWithLeftCapWidth:1 topCapHeight:0]];
-    ds.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [pb4sq addSubview:ds];
-    
-//    self.collectionView.footerView = pb4sq;
+    self.collectionView.footerView = pb4sq;
 }
 
 - (void)setupHeader {

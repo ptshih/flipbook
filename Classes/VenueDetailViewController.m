@@ -699,4 +699,18 @@ static NSNumberFormatter *__numberFormatter = nil;
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
+#pragma mark - Rotation
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    if (isDeviceIPad()) {
+        if ([[PSZoomView sharedView] isZooming]) {
+            return NO;
+        } else {
+            return YES;
+        }
+    } else {
+        return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    }
+}
+
 @end

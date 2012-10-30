@@ -299,6 +299,90 @@
 		<key>numberOfLines</key>
 		<integer>0</integer>
 	</dict>
+	<key>condLightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-MediumCond</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0xcdcdcd</string>
+		<key>highlightedTextColor</key>
+		<string>0xcdcdcd</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>condDarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-MediumCond</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>condBoldLightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-BoldCond</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0xcdcdcd</string>
+		<key>highlightedTextColor</key>
+		<string>0xcdcdcd</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>condBoldDarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-BoldCond</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
 	<key>leadLightLabel</key>
 	<dict>
 		<key>fontName</key>
@@ -638,27 +722,6 @@
 		<key>numberOfLines</key>
 		<integer>1</integer>
 	</dict>
-	<key>h1DarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>24</integer>
-		<key>textColor</key>
-		<string>0x2a2a2a</string>
-		<key>highlightedTextColor</key>
-		<string>0x2a2a2a</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
 	<key>h1LightLabel</key>
 	<dict>
 		<key>fontName</key>
@@ -680,18 +743,20 @@
 		<key>numberOfLines</key>
 		<integer>0</integer>
 	</dict>
-	<key>h2DarkLabel</key>
+	<key>h1DarkLabel</key>
 	<dict>
 		<key>fontName</key>
 		<string>HelveticaNeue-Bold</string>
 		<key>fontSize</key>
-		<integer>22</integer>
+		<integer>24</integer>
 		<key>textColor</key>
-		<string>0x222222</string>
+		<string>0x2a2a2a</string>
 		<key>highlightedTextColor</key>
-		<string>0x222222</string>
+		<string>0x2a2a2a</string>
 		<key>textAlignment</key>
 		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
 		<key>shadowColor</key>
 		<string>0x999999</string>
 		<key>shadowOffset</key>
@@ -718,12 +783,12 @@
 		<key>numberOfLines</key>
 		<integer>0</integer>
 	</dict>
-	<key>h3DarkLabel</key>
+	<key>h2DarkLabel</key>
 	<dict>
 		<key>fontName</key>
 		<string>HelveticaNeue-Bold</string>
 		<key>fontSize</key>
-		<integer>20</integer>
+		<integer>22</integer>
 		<key>textColor</key>
 		<string>0x222222</string>
 		<key>highlightedTextColor</key>
@@ -756,6 +821,86 @@
 		<key>numberOfLines</key>
 		<integer>0</integer>
 	</dict>
+	<key>h3DarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue-Bold</string>
+		<key>fontSize</key>
+		<integer>20</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h3CondLightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-BoldCond</string>
+		<key>fontSize</key>
+		<integer>20</integer>
+		<key>textColor</key>
+		<string>0xcdcdcd</string>
+		<key>highlightedTextColor</key>
+		<string>0xcdcdcd</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h3CondDarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-BoldCond</string>
+		<key>fontSize</key>
+		<integer>20</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h4LightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue-Bold</string>
+		<key>fontSize</key>
+		<integer>18</integer>
+		<key>textColor</key>
+		<string>0xefefef</string>
+		<key>highlightedTextColor</key>
+		<string>0xefefef</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
 	<key>h4DarkLabel</key>
 	<dict>
 		<key>fontName</key>
@@ -775,16 +920,237 @@
 		<key>numberOfLines</key>
 		<integer>0</integer>
 	</dict>
-	<key>h4LightLabel</key>
+	<key>h4CondLightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-BoldCond</string>
+		<key>fontSize</key>
+		<integer>18</integer>
+		<key>textColor</key>
+		<string>0xcdcdcd</string>
+		<key>highlightedTextColor</key>
+		<string>0xcdcdcd</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h4CondDarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-BoldCond</string>
+		<key>fontSize</key>
+		<integer>18</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h5CondLightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-BoldCond</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0xcdcdcd</string>
+		<key>highlightedTextColor</key>
+		<string>0xcdcdcd</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h5CondDarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-BoldCond</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h6LightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0x70695A</string>
+		<key>highlightedTextColor</key>
+		<string>0x70695A</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h6DarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h6BoldLightLabel</key>
 	<dict>
 		<key>fontName</key>
 		<string>HelveticaNeue-Bold</string>
 		<key>fontSize</key>
-		<integer>18</integer>
+		<integer>12</integer>
 		<key>textColor</key>
-		<string>0xefefef</string>
+		<string>0x70695A</string>
 		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
+		<string>0x70695A</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h6BoldDarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeue-Bold</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h6CondLightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-BoldCond</string>
+		<key>fontSize</key>
+		<integer>14</integer>
+		<key>textColor</key>
+		<string>0xcdcdcd</string>
+		<key>highlightedTextColor</key>
+		<string>0xcdcdcd</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h6CondDarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-BoldCond</string>
+		<key>fontSize</key>
+		<integer>14</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h6GeorgiaLightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>Georgia</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0x70695A</string>
+		<key>highlightedTextColor</key>
+		<string>0x70695A</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h6GeorgiaDarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>Georgia</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
 		<key>textAlignment</key>
 		<string>left</string>
 		<key>shadowColor</key>

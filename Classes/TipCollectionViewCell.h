@@ -1,5 +1,5 @@
 //
-//  TipView.h
+//  TipCollectionViewCell.h
 //  Lunchbox
 //
 //  Created by Peter on 2/28/12.
@@ -10,6 +10,6 @@
 
 @class PSCachedImageView;
 
-@interface TipView : PSCollectionViewCell
+@interface TipCollectionViewCell : PSCollectionViewCell
 
 @end

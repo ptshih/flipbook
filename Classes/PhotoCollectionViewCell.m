@@ -1,22 +1,23 @@
 //
-//  PhotoView.m
+//  PhotoCollectionViewCell.m
 //  Lunchbox
 //
 //  Created by Peter on 2/25/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "PhotoView.h"
-#import "PSCachedImageView.h"
+#import "PhotoCollectionViewCell.h"
 
 #define MARGIN 4.0
 
-@implementation PhotoView
+@interface PhotoCollectionViewCell ()
 
-@synthesize
-imageView = _imageView,
-nameLabel = _nameLabel,
-homeCityLabel = _homeCityLabel;
+@property (nonatomic, strong) PSCachedImageView *imageView;
+@property (nonatomic, strong) UILabel *dateLabel;
+
+@end
+
+@implementation PhotoCollectionViewCell
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -34,13 +35,10 @@ homeCityLabel = _homeCityLabel;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.nameLabel = [UILabel labelWithStyle:@"titleDarkLabel"];
-        self.nameLabel.backgroundColor = self.backgroundColor;
-        [self addSubview:self.nameLabel];
-        
-        self.homeCityLabel = [UILabel labelWithStyle:@"subtitleDarkLabel"];
-        self.homeCityLabel.backgroundColor = self.backgroundColor;
-        [self addSubview:self.homeCityLabel];
+        self.dateLabel = [UILabel labelWithStyle:@"georgiaDarkLabel"];
+        self.dateLabel.textAlignment = UITextAlignmentCenter;
+        self.dateLabel.backgroundColor = self.backgroundColor;
+        [self addSubview:self.dateLabel];
     }
     return self;
 }
@@ -50,8 +48,7 @@ homeCityLabel = _homeCityLabel;
     [super prepareForReuse];
     
     [self.imageView prepareForReuse];
-    self.nameLabel.text = nil;
-    self.homeCityLabel.text = nil;
+    self.dateLabel.text = nil;
 }
 
 - (void)layoutSubviews {
@@ -67,30 +64,25 @@ homeCityLabel = _homeCityLabel;
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     self.imageView.frame = CGRectMake(left, top, width, scaledHeight);
     
+    top += self.imageView.height + MARGIN;
+    
     CGSize labelSize = CGSizeZero;
     
-    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"titleDarkLabel"];
-    self.nameLabel.top = self.imageView.bottom + MARGIN;
-    self.nameLabel.left = left;
-    self.nameLabel.width = labelSize.width;
-    self.nameLabel.height = labelSize.height;
-    
-    labelSize = [PSStyleSheet sizeForText:self.homeCityLabel.text width:width style:@"subtitleDarkLabel"];
-    self.homeCityLabel.top = self.nameLabel.bottom;
-    self.homeCityLabel.left = left;
-    self.homeCityLabel.width = labelSize.width;
-    self.homeCityLabel.height = labelSize.height;
+    // Date
+    labelSize = [self.dateLabel sizeForLabelInWidth:width];
+    self.dateLabel.frame = CGRectMake(left, top, width, labelSize.height);
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
     [super collectionView:collectionView fillCellWithObject:object atIndex:index];
     
     [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"href"]]];
-    [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"href"]]];
+    [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"thumb"]]];
     [self.imageView loadImageWithURL:[NSURL URLWithString:[self.object objectForKey:@"href"]] cacheType:PSURLCacheTypePermanent];
     
-    self.nameLabel.text = [self.object objectForKey:@"name"];
-    self.homeCityLabel.text = [self.object objectForKey:@"homeCity"];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[object objectForKey:@"created"] doubleValue]];
+    NSString *dateText = [NSDate stringFromDate:date withFormat:@"MMMM d, yyyy"];
+    self.dateLabel.text = dateText;
 }
 
 + (CGFloat)rowHeightForObject:(id)object inColumnWidth:(CGFloat)columnWidth {
@@ -107,10 +99,10 @@ homeCityLabel = _homeCityLabel;
     height += MARGIN;
     
     CGSize labelSize = CGSizeZero;
-    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"name"] width:width style:@"titleDarkLabel"];
-    height += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"homeCity"] width:width style:@"subtitleDarkLabel"];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[object objectForKey:@"created"] doubleValue]];
+    NSString *dateText = [NSDate stringFromDate:date withFormat:@"MMM d, yyyy"];
+    labelSize = [PSStyleSheet sizeForText:dateText width:width style:@"georgiaDarkLabel"];
     height += labelSize.height;
     
     height += MARGIN;

@@ -1,17 +1,17 @@
 //
-//  TipView.m
+//  TipCollectionViewCell.m
 //  Lunchbox
 //
 //  Created by Peter on 2/28/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "TipView.h"
+#import "TipCollectionViewCell.h"
 #import "PSCachedImageView.h"
 
 #define MARGIN 4.0
 
-@interface TipView ()
+@interface TipCollectionViewCell ()
 
 @property (nonatomic, strong) PSCachedImageView *imageView;
 @property (nonatomic, strong) UILabel *tipLabel;
@@ -21,14 +21,7 @@
 
 @end
 
-@implementation TipView
-
-@synthesize
-imageView = _imageView,
-tipLabel = _tipLabel,
-nameLabel = _nameLabel,
-homeCityLabel = _homeCityLabel,
-divider = _divider;
+@implementation TipCollectionViewCell
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -46,15 +39,15 @@ divider = _divider;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.tipLabel = [UILabel labelWithStyle:@"textDarkLabel"];
+        self.tipLabel = [UILabel labelWithStyle:@"h6GeorgiaDarkLabel"];
         self.tipLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.tipLabel];
         
-        self.nameLabel = [UILabel labelWithStyle:@"h4Label"];
+        self.nameLabel = [UILabel labelWithStyle:@"h6DarkLabel"];
         self.nameLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.nameLabel];
         
-        self.homeCityLabel = [UILabel labelWithStyle:@"bodyLabel"];
+        self.homeCityLabel = [UILabel labelWithStyle:@"h6DarkLabel"];
         self.homeCityLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.homeCityLabel];
         
@@ -83,11 +76,8 @@ divider = _divider;
     
     CGSize labelSize = CGSizeZero;
     
-    labelSize = [PSStyleSheet sizeForText:self.tipLabel.text width:width style:@"textDarkLabel"];
-    self.tipLabel.top = top;
-    self.tipLabel.left = left;
-    self.tipLabel.width = labelSize.width;
-    self.tipLabel.height = labelSize.height;
+    labelSize = [self.tipLabel sizeForLabelInWidth:width];
+    self.tipLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.tipLabel.bottom + MARGIN;
     self.divider.frame = CGRectMake(left, top, width, 1.0);
@@ -98,33 +88,23 @@ divider = _divider;
     left += self.imageView.width + MARGIN;
     width -= self.imageView.width + MARGIN;
     
-    labelSize = [PSStyleSheet sizeForText:self.nameLabel.text width:width style:@"h4Label"];
-    self.nameLabel.top = top;
-    self.nameLabel.left = left;
-    self.nameLabel.width = labelSize.width;
-    self.nameLabel.height = labelSize.height;
+    labelSize = [self.nameLabel sizeForLabelInWidth:width];
+    self.nameLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.nameLabel.bottom;
     
-    labelSize = [PSStyleSheet sizeForText:self.homeCityLabel.text width:width style:@"bodyLabel"];
-    self.homeCityLabel.top = top;
-    self.homeCityLabel.left = left;
-    self.homeCityLabel.width = labelSize.width;
-    self.homeCityLabel.height = labelSize.height;
+    labelSize = [self.homeCityLabel sizeForLabelInWidth:width];
+    self.homeCityLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
     [super collectionView:collectionView fillCellWithObject:object atIndex:index];
     
-    NSDictionary *user = [self.object objectForKey:@"user"];
-    NSString *name = [user objectForKey:@"firstName"];
-    name = [user objectForKey:@"lastName"] ? [name stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : name;
+    self.tipLabel.text = [object objectForKey:@"text"];
+    self.nameLabel.text = [object objectForKey:@"userName"];
+    self.homeCityLabel.text = [object objectForKey:@"userHomeCity"];
     
-    self.tipLabel.text = [NSString stringWithFormat:@"%@", [object objectForKey:@"text"]];
-    self.nameLabel.text = name;
-    self.homeCityLabel.text = [user objectForKey:@"homeCity"];
-    
-    [self.imageView loadImageWithURL:[NSURL URLWithString:[user objectForKey:@"photo"]] cacheType:PSURLCacheTypePermanent];
+    [self.imageView loadImageWithURL:[NSURL URLWithString:[object objectForKey:@"userPhoto"]] cacheType:PSURLCacheTypePermanent];
 }
 
 + (CGFloat)rowHeightForObject:(id)object inColumnWidth:(CGFloat)columnWidth {
@@ -135,7 +115,7 @@ divider = _divider;
     height += MARGIN;
     
     NSString *tipText = [NSString stringWithFormat:@"%@", [object objectForKey:@"text"]];
-    labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"textDarkLabel"];
+    labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"h6GeorgiaDarkLabel"];
     height += labelSize.height;
     
     height += MARGIN;
@@ -146,13 +126,10 @@ divider = _divider;
     
     CGFloat footerHeight = 0.0;
     
-    NSDictionary *user = [object objectForKey:@"user"];
-    NSString *name = [user objectForKey:@"firstName"];
-    name = [user objectForKey:@"lastName"] ? [name stringByAppendingFormat:@" %@", [user objectForKey:@"lastName"]] : name;
-    labelSize = [PSStyleSheet sizeForText:name width:width style:@"h4Label"];
+    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"userName"] width:width style:@"h6DarkLabel"];
     footerHeight += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[user objectForKey:@"homeCity"] width:width style:@"bodyLabel"];
+    labelSize = [PSStyleSheet sizeForText:[object objectForKey:@"userHomeCity"] width:width style:@"h6DarkLabel"];
     footerHeight += labelSize.height;
     
     height += MAX(footerHeight, 30.0);

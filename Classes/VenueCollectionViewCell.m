@@ -7,11 +7,8 @@
 //
 
 #import "VenueCollectionViewCell.h"
-#import "PSCachedImageView.h"
 
 #define MARGIN 4.0
-
-static NSNumberFormatter *__numberFormatter = nil;
 
 @interface VenueCollectionViewCell ()
 
@@ -19,21 +16,14 @@ static NSNumberFormatter *__numberFormatter = nil;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *addressLabel;
 @property (nonatomic, strong) UILabel *categoryLabel;
-@property (nonatomic, strong) UILabel *distanceLabel;
 @property (nonatomic, strong) UILabel *tipLabel;
-@property (nonatomic, strong) UILabel *statsLabel;
+@property (nonatomic, strong) UILabel *ratingsLabel;
 @property (nonatomic, strong) UIImageView *topDivider;
 @property (nonatomic, strong) UIImageView *divider;
-@property (nonatomic, strong) UIImageView *peopleIcon;
 
 @end
 
 @implementation VenueCollectionViewCell
-
-+ (void)initialize {
-    __numberFormatter = [[NSNumberFormatter alloc] init];
-    [__numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-}
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -51,37 +41,26 @@ static NSNumberFormatter *__numberFormatter = nil;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.nameLabel = [UILabel labelWithStyle:@"titleDarkLabel"];
+        self.nameLabel = [UILabel labelWithStyle:@"h5CondDarkLabel"];
         self.nameLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.nameLabel];
         
-        self.addressLabel = [UILabel labelWithStyle:@"subtitleDarkLabel"];
+        self.addressLabel = [UILabel labelWithStyle:@"h6DarkLabel"];
         self.addressLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.addressLabel];
         
-        self.categoryLabel = [UILabel labelWithStyle:@"metaDarkLabel"];
+        self.categoryLabel = [UILabel labelWithStyle:@"h6DarkLabel"];
         self.categoryLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.categoryLabel];
         
-        self.distanceLabel = [UILabel labelWithStyle:@"metaDarkLabel"];
-        self.distanceLabel.backgroundColor = self.backgroundColor;
-        [self addSubview:self.distanceLabel];
+        self.ratingsLabel = [UILabel labelWithStyle:@"h6DarkLabel"];
+        self.ratingsLabel.backgroundColor = self.backgroundColor;
+        [self addSubview:self.ratingsLabel];
         
-        self.statsLabel = [UILabel labelWithStyle:@"metaDarkLabel"];
-        self.statsLabel.backgroundColor = self.backgroundColor;
-        [self addSubview:self.statsLabel];
-        
-        self.tipLabel = [UILabel labelWithStyle:@"georgiaDarkLabel"];
+        self.tipLabel = [UILabel labelWithStyle:@"h6GeorgiaDarkLabel"];
         self.tipLabel.backgroundColor = self.backgroundColor;
         self.tipLabel.hidden = YES;
         [self addSubview:self.tipLabel];
-        
-        // Must set to 0 lines and word wrap line break mode
-//        self.tipLabel = [[[TTTAttributedLabel alloc] initWithFrame:CGRectZero] autorelease];
-//        self.tipLabel.backgroundColor = self.backgroundColor;
-//        self.tipLabel.userInteractionEnabled = NO;
-//        [PSStyleSheet applyStyle:@"textDarkLabel" forLabel:self.tipLabel];
-//        [self addSubview:self.tipLabel];
         
         self.topDivider = [[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]];
         self.topDivider.hidden = YES;
@@ -90,10 +69,6 @@ static NSNumberFormatter *__numberFormatter = nil;
         self.divider = [[UIImageView alloc] initWithImage:[UIImage stretchableImageNamed:@"HorizontalLine" withLeftCapWidth:1 topCapWidth:1]];
         self.divider.hidden = YES;
         [self addSubview:self.divider];
-        
-        self.peopleIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPersonMiniBlack"]];
-        self.peopleIcon.contentMode = UIViewContentModeScaleToFill;
-        [self addSubview:self.peopleIcon];
     }
     return self;
 }
@@ -106,10 +81,9 @@ static NSNumberFormatter *__numberFormatter = nil;
     self.nameLabel.text = nil;
     self.addressLabel.text = nil;
     self.categoryLabel.text = nil;
-    self.distanceLabel.text = nil;
     self.tipLabel.text = nil;
     self.tipLabel.hidden = YES;
-    self.statsLabel.text = nil;
+    self.ratingsLabel.text = nil;
     self.topDivider.hidden = YES;
     self.divider.hidden = YES;
 }
@@ -120,15 +94,17 @@ static NSNumberFormatter *__numberFormatter = nil;
     CGFloat width = self.width - MARGIN * 2;
     CGFloat top = MARGIN;
     CGFloat left = MARGIN;
-    CGFloat right = self.width - MARGIN;
+//    CGFloat right = self.width - MARGIN;
     
     CGSize labelSize = CGSizeZero;
     
+    // Name
     labelSize = [self.nameLabel sizeForLabelInWidth:width];
     self.nameLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.nameLabel.bottom + MARGIN;
     
+    // Photo
     NSDictionary *photo = [self.object objectForKey:@"photo"];
     CGFloat photoWidth, photoHeight;
     if (photo) {
@@ -145,13 +121,19 @@ static NSNumberFormatter *__numberFormatter = nil;
     
     top = self.imageView.bottom + MARGIN;
     
-    self.peopleIcon.frame = CGRectMake(left, top + 2, 10, 10);
+    // Ratings
+    labelSize = [self.ratingsLabel sizeForLabelInWidth:width];
+    self.ratingsLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
-    labelSize = [self.statsLabel sizeForLabelInWidth:width];
-    self.statsLabel.frame = CGRectMake(left + 12, top, labelSize.width, labelSize.height);
+    top = self.ratingsLabel.bottom;
     
-    top = self.statsLabel.bottom;
+    // Category
+    labelSize = [self.categoryLabel sizeForLabelInWidth:width];
+    self.categoryLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
+    top = self.categoryLabel.bottom;
+    
+    // Tip
     top += MARGIN;
     self.topDivider.hidden = NO;
     self.topDivider.frame = CGRectMake(left, top, width, 1.0);
@@ -169,17 +151,11 @@ static NSNumberFormatter *__numberFormatter = nil;
         top = self.divider.bottom + MARGIN;
     }
     
+    // Address
     labelSize = [self.addressLabel sizeForLabelInWidth:width];
     self.addressLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
     top = self.addressLabel.bottom;
-    
-    labelSize = [self.distanceLabel sizeForLabelInWidth:width];
-    self.distanceLabel.frame = CGRectMake(right - labelSize.width, top, labelSize.width, labelSize.height);
-    
-    labelSize = [self.categoryLabel sizeForLabelInWidth:(width - self.distanceLabel.width - MARGIN)];
-    
-    self.categoryLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
@@ -204,22 +180,32 @@ static NSNumberFormatter *__numberFormatter = nil;
     
     // Labels
     self.nameLabel.text = [venue objectForKey:@"name"];
-    self.categoryLabel.text = [venue objectForKey:@"category"];
     
-    NSDictionary *location = [venue objectForKey:@"location"];
-    if (location) {
-        self.addressLabel.text = [NSString stringWithFormat:@"%@ (%@)", [location objectForKey:@"address"], [location objectForKey:@"crossStreet"]];
-        self.distanceLabel.text = [NSString localizedStringForDistance:[[location objectForKey:@"distance"] floatValue]];
-    }
+    NSString *categoryText = [NSString stringWithFormat:@"❖ %@", [venue objectForKey:@"category"]];
+    self.categoryLabel.text = categoryText;
     
-    NSDictionary *stats = [venue objectForKey:@"stats"];
-    if (stats) {
-        self.statsLabel.text = [NSString stringWithFormat:@"%@ people checked in", [__numberFormatter stringFromNumber:[stats objectForKey:@"checkinsCount"] ]];
-    }
+    // Rating
+    CGFloat rating = [[venue objectForKey:@"rating"] floatValue];
+    NSInteger ratingSignals = [[venue objectForKey:@"ratingSignals"] integerValue];
+    NSString *ratingText = [NSString stringWithFormat:@"★ %.1f out of %d ratings", rating, ratingSignals];
+    self.ratingsLabel.text = ratingText;
     
+    // Tip
     NSString *tip = [venue objectForKey:@"tip"];
     if (tip) {
-        self.tipLabel.text = tip;
+        NSString *tipText = [NSString stringWithFormat:@"%@", tip];
+        self.tipLabel.text = tipText;
+    }
+    
+    // Address
+    NSDictionary *location = [venue objectForKey:@"location"];
+    if (location) {
+        NSMutableString *locationText = [NSMutableString stringWithString:[location objectForKey:@"address"]];
+        [locationText appendFormat:@" (%@)", [NSString localizedStringForDistance:[[location objectForKey:@"distance"] floatValue]]];
+        if ([location objectForKey:@"crossStreet"]) {
+            [locationText appendFormat:@" (%@)", [location objectForKey:@"crossStreet"]];
+        }
+        self.addressLabel.text = locationText;
     }
 }
 
@@ -246,41 +232,33 @@ static NSNumberFormatter *__numberFormatter = nil;
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     height += scaledHeight;
     
-    height += MARGIN;
-    
+    height += MARGIN * 2;
     
     // Labels
     CGSize labelSize = CGSizeZero;
-    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"name"] width:width style:@"titleDarkLabel"];
+    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"name"] width:width style:@"h5CondDarkLabel"];
     height += labelSize.height;
     
-    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"category"] width:width style:@"metaDarkLabel"];
+    NSString *categoryText = [NSString stringWithFormat:@"❖ %@", [venue objectForKey:@"category"]];
+    labelSize = [PSStyleSheet sizeForText:categoryText width:width style:@"h6DarkLabel"];
     height += labelSize.height;
     
+    // Divider
+    height += MARGIN;
+    height += 1.0;
     height += MARGIN;
     
-    NSDictionary *location = [venue objectForKey:@"location"];
-    if (location) {
-        NSString *locationText = [NSString stringWithFormat:@"%@ (%@)", [location objectForKey:@"address"], [location objectForKey:@"crossStreet"]];
-        labelSize = [PSStyleSheet sizeForText:locationText width:width style:@"subtitleDarkLabel"];
-        height += labelSize.height;
-        
-        height += MARGIN;
-        height += 1.0;
-        height += MARGIN;
-    }
-    
-    NSDictionary *stats = [venue objectForKey:@"stats"];
-    if (stats) {
-        NSString *statsText = [NSString stringWithFormat:@"%@ people checked in", [__numberFormatter stringFromNumber:[stats objectForKey:@"checkinsCount"] ]];
-        labelSize = [PSStyleSheet sizeForText:statsText width:width style:@"metaDarkLabel"];
-        height += labelSize.height;
-    }
+    // Rating
+    CGFloat rating = [[venue objectForKey:@"rating"] floatValue];
+    NSInteger ratingSignals = [[venue objectForKey:@"ratingSignals"] integerValue];
+    NSString *ratingText = [NSString stringWithFormat:@"★ %.1f out of %d ratings", rating, ratingSignals];
+    labelSize = [PSStyleSheet sizeForText:ratingText width:width style:@"h6DarkLabel"];
+    height += labelSize.height;
     
     NSString *tip = [venue objectForKey:@"tip"];
     if (tip) {
-        NSString *tipText = tip;
-        labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"georgiaDarkLabel"];
+        NSString *tipText = [NSString stringWithFormat:@"%@", tip];
+        labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"h6GeorgiaDarkLabel"];
         height += labelSize.height;
         
         height += MARGIN;
@@ -288,6 +266,17 @@ static NSNumberFormatter *__numberFormatter = nil;
         height += MARGIN;
     }
     
+    // Address
+    NSDictionary *location = [venue objectForKey:@"location"];
+    if (location) {
+        NSMutableString *locationText = [NSMutableString stringWithString:[location objectForKey:@"address"]];
+        [locationText appendFormat:@" (%@)", [NSString localizedStringForDistance:[[location objectForKey:@"distance"] floatValue]]];
+        if ([location objectForKey:@"crossStreet"]) {
+            [locationText appendFormat:@" (%@)", [location objectForKey:@"crossStreet"]];
+        }
+        labelSize = [PSStyleSheet sizeForText:locationText width:width style:@"h6DarkLabel"];
+        height += labelSize.height;
+    }
     
     height += MARGIN;
     

@@ -9,7 +9,6 @@
 #import "VenueListViewController.h"
 #import "VenueDetailViewController.h"
 
-#import "PSPopoverView.h"
 #import "VenueCollectionViewCell.h"
 #import "LocationChooserView.h"
 
@@ -154,7 +153,7 @@
 #pragma mark - Actions
 
 - (void)leftAction {
-    [(PSNavigationController *)self.parentViewController popViewControllerWithDirection:PSNavigationControllerDirectionRight animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)centerAction {
@@ -263,10 +262,13 @@
             id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
             
             if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
+                // Suggested Radius
                 id suggestedRadius = [apiResponse objectForKey:@"suggestedRadius"];
+                self.radius = [suggestedRadius floatValue];
+                
+                // List of Venues
                 id apiData = [apiResponse objectForKey:@"venues"];
                 if (apiData && [apiData isKindOfClass:[NSArray class]]) {
-                    
                     self.items = apiData;
                     [self dataSourceDidLoad];
                 } else {

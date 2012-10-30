@@ -364,11 +364,11 @@
 		28A391011554DA37002696FD /* VenueDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08E516F14E8ABB400B5CCCD /* VenueDetailViewController.m */; };
 		28A391111554DA37002696FD /* Appirater.m in Sources */ = {isa = PBXBuildFile; fileRef = D07B2DC014F750F500304E62 /* Appirater.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		28A391121554DA37002696FD /* PSStyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = D031D2EB14F84B8700DEB789 /* PSStyleSheet.m */; };
-		28A3911F1554DA37002696FD /* PhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = D088EFCF14F99912006F7675 /* PhotoView.m */; };
+		28A3911F1554DA37002696FD /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D088EFCF14F99912006F7675 /* PhotoCollectionViewCell.m */; };
 		28A391201554DA37002696FD /* VenueAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FE068114F9C64B00140D9E /* VenueAnnotationView.m */; };
 		28A391211554DA37002696FD /* VenueAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FE068914F9C75100140D9E /* VenueAnnotation.m */; };
 		28A391221554DA37002696FD /* TipListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6CA9C14FD653700CCF2B4 /* TipListViewController.m */; };
-		28A391231554DA37002696FD /* TipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6CA9F14FD675E00CCF2B4 /* TipView.m */; };
+		28A391231554DA37002696FD /* TipCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6CA9F14FD675E00CCF2B4 /* TipCollectionViewCell.m */; };
 		28A391241554DA37002696FD /* CategoryChooserView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6CABD14FD772900CCF2B4 /* CategoryChooserView.m */; };
 		28A391251554DA37002696FD /* LocationChooserView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6CAC014FD7CE800CCF2B4 /* LocationChooserView.m */; };
 		28A391271554DA37002696FD /* CheckinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284ABD96150E8FAF0040B250 /* CheckinViewController.m */; };
@@ -981,15 +981,15 @@
 		D070C00914F85C0500E2D582 /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Info.h; sourceTree = SOURCE_ROOT; };
 		D07B2DBF14F750F500304E62 /* Appirater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Appirater.h; sourceTree = "<group>"; };
 		D07B2DC014F750F500304E62 /* Appirater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Appirater.m; sourceTree = "<group>"; };
-		D088EFCE14F99912006F7675 /* PhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoView.h; sourceTree = "<group>"; };
-		D088EFCF14F99912006F7675 /* PhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoView.m; sourceTree = "<group>"; };
+		D088EFCE14F99912006F7675 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		D088EFCF14F99912006F7675 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		D08E516E14E8ABB400B5CCCD /* VenueDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueDetailViewController.h; sourceTree = "<group>"; };
 		D08E516F14E8ABB400B5CCCD /* VenueDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueDetailViewController.m; sourceTree = "<group>"; };
 		D0C5C01414F76F910041A364 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D0F6CA9B14FD653700CCF2B4 /* TipListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipListViewController.h; sourceTree = "<group>"; };
 		D0F6CA9C14FD653700CCF2B4 /* TipListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipListViewController.m; sourceTree = "<group>"; };
-		D0F6CA9E14FD675E00CCF2B4 /* TipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipView.h; sourceTree = "<group>"; };
-		D0F6CA9F14FD675E00CCF2B4 /* TipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipView.m; sourceTree = "<group>"; };
+		D0F6CA9E14FD675E00CCF2B4 /* TipCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipCollectionViewCell.h; sourceTree = "<group>"; };
+		D0F6CA9F14FD675E00CCF2B4 /* TipCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipCollectionViewCell.m; sourceTree = "<group>"; };
 		D0F6CABC14FD772900CCF2B4 /* CategoryChooserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryChooserView.h; sourceTree = "<group>"; };
 		D0F6CABD14FD772900CCF2B4 /* CategoryChooserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryChooserView.m; sourceTree = "<group>"; };
 		D0F6CABF14FD7CE800CCF2B4 /* LocationChooserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationChooserView.h; sourceTree = "<group>"; };
@@ -1918,10 +1918,10 @@
 				28603B5A14AC4A1D00541BB1 /* VenueListViewController.m */,
 				D08E516E14E8ABB400B5CCCD /* VenueDetailViewController.h */,
 				D08E516F14E8ABB400B5CCCD /* VenueDetailViewController.m */,
-				2829B431156D6840002F9CB3 /* UserViewController.h */,
-				2829B432156D6840002F9CB3 /* UserViewController.m */,
 				D0F6CA9B14FD653700CCF2B4 /* TipListViewController.h */,
 				D0F6CA9C14FD653700CCF2B4 /* TipListViewController.m */,
+				2829B431156D6840002F9CB3 /* UserViewController.h */,
+				2829B432156D6840002F9CB3 /* UserViewController.m */,
 				284ABD95150E8FAF0040B250 /* CheckinViewController.h */,
 				284ABD96150E8FAF0040B250 /* CheckinViewController.m */,
 				284B1DBC152F6296000F2BAE /* CategoryListViewController.h */,
@@ -1945,10 +1945,10 @@
 			children = (
 				28603B5D14AC4D9300541BB1 /* VenueCollectionViewCell.h */,
 				28603B5E14AC4D9300541BB1 /* VenueCollectionViewCell.m */,
-				D088EFCE14F99912006F7675 /* PhotoView.h */,
-				D088EFCF14F99912006F7675 /* PhotoView.m */,
-				D0F6CA9E14FD675E00CCF2B4 /* TipView.h */,
-				D0F6CA9F14FD675E00CCF2B4 /* TipView.m */,
+				D088EFCE14F99912006F7675 /* PhotoCollectionViewCell.h */,
+				D088EFCF14F99912006F7675 /* PhotoCollectionViewCell.m */,
+				D0F6CA9E14FD675E00CCF2B4 /* TipCollectionViewCell.h */,
+				D0F6CA9F14FD675E00CCF2B4 /* TipCollectionViewCell.m */,
 				D0269E4214E1B5E100B690A2 /* EventCell.h */,
 				D0269E4314E1B5E100B690A2 /* EventCell.m */,
 				28BBDA89156B756500BDE844 /* BookmarkCell.h */,
@@ -2420,11 +2420,11 @@
 				28A391011554DA37002696FD /* VenueDetailViewController.m in Sources */,
 				28A391111554DA37002696FD /* Appirater.m in Sources */,
 				28A391121554DA37002696FD /* PSStyleSheet.m in Sources */,
-				28A3911F1554DA37002696FD /* PhotoView.m in Sources */,
+				28A3911F1554DA37002696FD /* PhotoCollectionViewCell.m in Sources */,
 				28A391201554DA37002696FD /* VenueAnnotationView.m in Sources */,
 				28A391211554DA37002696FD /* VenueAnnotation.m in Sources */,
 				28A391221554DA37002696FD /* TipListViewController.m in Sources */,
-				28A391231554DA37002696FD /* TipView.m in Sources */,
+				28A391231554DA37002696FD /* TipCollectionViewCell.m in Sources */,
 				28A391241554DA37002696FD /* CategoryChooserView.m in Sources */,
 				28A391251554DA37002696FD /* LocationChooserView.m in Sources */,
 				28A391271554DA37002696FD /* CheckinViewController.m in Sources */,

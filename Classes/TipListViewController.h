@@ -10,8 +10,6 @@
 
 @interface TipListViewController : PSCollectionViewController
 
-@property (nonatomic, copy) NSDictionary *venueDict;
-
-- (id)initWithDictionary:(NSDictionary *)dictionary;
+- (id)initWithVenueDict:(NSDictionary *)venueDict;
 
 @end

@@ -43,7 +43,7 @@
 #pragma mark - View Config
 
 - (UIColor *)baseBackgroundColor {
-    return TEXTURE_DARK_LINEN;
+    return BASE_BG_COLOR;
 }
 
 #pragma mark - View

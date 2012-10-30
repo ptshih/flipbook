@@ -350,6 +350,7 @@
 		2829B41F156CE1EB002F9CB3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2829B415156CE1EB002F9CB3 /* Default@2x.png */; };
 		28433115163F6D8300349014 /* PSPullLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28433114163F6D8300349014 /* PSPullLoadMoreView.m */; };
 		2843311D16405FE100349014 /* StreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843311C16405FE100349014 /* StreamViewController.m */; };
+		284331211640802400349014 /* ProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 284331201640802400349014 /* ProductCollectionViewCell.m */; };
 		28A390D11554DA37002696FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818CE14723F1D007E4827 /* main.m */; };
 		28A390D21554DA37002696FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818D214723F1D007E4827 /* AppDelegate.m */; };
 		28A390FA1554DA37002696FD /* VenueListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5A14AC4A1D00541BB1 /* VenueListViewController.m */; };
@@ -860,6 +861,8 @@
 		28433114163F6D8300349014 /* PSPullLoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPullLoadMoreView.m; sourceTree = "<group>"; };
 		2843311B16405FE100349014 /* StreamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamViewController.h; sourceTree = "<group>"; };
 		2843311C16405FE100349014 /* StreamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamViewController.m; sourceTree = "<group>"; };
+		2843311F1640802400349014 /* ProductCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCollectionViewCell.h; sourceTree = "<group>"; };
+		284331201640802400349014 /* ProductCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCollectionViewCell.m; sourceTree = "<group>"; };
 		2843A7071545B9920089FC73 /* Info-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Pro.plist"; sourceTree = SOURCE_ROOT; };
 		2855FD88150CADEF00B6FC3A /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		28603B5914AC4A1D00541BB1 /* VenueListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueListViewController.h; sourceTree = "<group>"; };
@@ -1813,6 +1816,21 @@
 			name = Old;
 			sourceTree = "<group>";
 		};
+		2843311E1640800600349014 /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				28603B5D14AC4D9300541BB1 /* VenueCollectionViewCell.h */,
+				28603B5E14AC4D9300541BB1 /* VenueCollectionViewCell.m */,
+				D088EFCE14F99912006F7675 /* PhotoCollectionViewCell.h */,
+				D088EFCF14F99912006F7675 /* PhotoCollectionViewCell.m */,
+				D0F6CA9E14FD675E00CCF2B4 /* TipCollectionViewCell.h */,
+				D0F6CA9F14FD675E00CCF2B4 /* TipCollectionViewCell.m */,
+				2843311F1640802400349014 /* ProductCollectionViewCell.h */,
+				284331201640802400349014 /* ProductCollectionViewCell.m */,
+			);
+			name = CollectionViewCells;
+			sourceTree = "<group>";
+		};
 		284EA205147CF5A600C4F3CE /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -1884,12 +1902,7 @@
 		28E94A80147DA19C002E8343 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				28603B5D14AC4D9300541BB1 /* VenueCollectionViewCell.h */,
-				28603B5E14AC4D9300541BB1 /* VenueCollectionViewCell.m */,
-				D088EFCE14F99912006F7675 /* PhotoCollectionViewCell.h */,
-				D088EFCF14F99912006F7675 /* PhotoCollectionViewCell.m */,
-				D0F6CA9E14FD675E00CCF2B4 /* TipCollectionViewCell.h */,
-				D0F6CA9F14FD675E00CCF2B4 /* TipCollectionViewCell.m */,
+				2843311E1640800600349014 /* CollectionViewCells */,
 				D0F6CABF14FD7CE800CCF2B4 /* LocationChooserView.h */,
 				D0F6CAC014FD7CE800CCF2B4 /* LocationChooserView.m */,
 				28EA494D163B0ED4003C45B6 /* ChannelCell.h */,
@@ -2433,6 +2446,7 @@
 				28EA494F163B0ED4003C45B6 /* ChannelCell.m in Sources */,
 				28433115163F6D8300349014 /* PSPullLoadMoreView.m in Sources */,
 				2843311D16405FE100349014 /* StreamViewController.m in Sources */,
+				284331211640802400349014 /* ProductCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -110,6 +110,7 @@
 }
 
 #pragma mark - Config Subviews
+
 - (void)setupSubviews {
     [super setupSubviews];
     
@@ -171,6 +172,7 @@
 
 
 #pragma mark - State Machine
+
 - (void)loadDataSource {
     [super loadDataSource];
     
@@ -299,49 +301,45 @@
 }
 
 #pragma mark - PSCollectionViewDelegate
+
+- (Class)collectionView:(PSCollectionView *)collectionView cellClassForRowAtIndex:(NSInteger)index {
+    return [VenueCollectionViewCell class];
+}
+
 - (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView cellForRowAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    VenueCollectionViewCell *v = (VenueCollectionViewCell *)[self.collectionView dequeueReusableViewForClass:[VenueCollectionViewCell class]];
-    if (!v) {
-        v = [[VenueCollectionViewCell alloc] initWithFrame:CGRectZero];
+    Class cellClass = [self collectionView:collectionView cellClassForRowAtIndex:index];
+    
+    id cell = [self.collectionView dequeueReusableViewForClass:[cellClass class]];
+    if (!cell) {
+        cell = [[cellClass alloc] initWithFrame:CGRectZero];
     }
     
-    [v collectionView:collectionView fillCellWithObject:item atIndex:index];
+    [cell collectionView:collectionView fillCellWithObject:item atIndex:index];
     
-    return v;
+    return cell;
 }
 
-- (CGFloat)heightForRowAtIndex:(NSInteger)index {
+- (CGFloat)collectionView:(PSCollectionView *)collectionView heightForRowAtIndex:(NSInteger)index {
+    Class cellClass = [self collectionView:collectionView cellClassForRowAtIndex:index];
+    
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    return [VenueCollectionViewCell rowHeightForObject:item inColumnWidth:self.collectionView.colWidth];
+    return [cellClass rowHeightForObject:item inColumnWidth:collectionView.colWidth];
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index {
+//    Class cellClass = [self collectionView:collectionView cellClassForRowAtIndex:index];
+    
     NSDictionary *item = [self.items objectAtIndex:index];
     
     VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:[item objectForKey:@"id"]];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-#pragma mark - PSErrorViewDelegate
-- (void)errorViewDidDismiss:(PSErrorView *)errorView {
-    [self reloadDataSource];
-}
-
-#pragma mark - Refresh
-- (void)beginRefresh {
-    [super beginRefresh];
-    //    [SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeNone];
-}
-
-- (void)endRefresh {
-    [super endRefresh];
-    //    [SVProgressHUD dismiss];
-}
-
 #pragma mark - PSPopoverViewDelegate
+
 - (void)popoverViewDidDismiss:(PSPopoverView *)popoverView {
     if (popoverView.tag == kPopoverCategory) {
         //        NSInteger newCategoryIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"categoryIndex"];
@@ -370,12 +368,6 @@
             [self reloadDataSource];
         }
     }
-}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (alertView.cancelButtonIndex == buttonIndex) return;
-    
-    [Appirater rateApp];
 }
 
 @end

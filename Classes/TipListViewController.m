@@ -141,26 +141,37 @@
 
 #pragma mark - PSCollectionViewDelegate
 
+- (Class)collectionView:(PSCollectionView *)collectionView cellClassForRowAtIndex:(NSInteger)index {
+    return [TipCollectionViewCell class];
+}
+
 - (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView cellForRowAtIndex:(NSInteger)index {
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    TipCollectionViewCell *v = (TipCollectionViewCell *)[self.collectionView dequeueReusableViewForClass:[TipCollectionViewCell class]];
-    if (!v) {
-        v = [[TipCollectionViewCell alloc] initWithFrame:CGRectZero];
+    Class cellClass = [self collectionView:collectionView cellClassForRowAtIndex:index];
+    
+    id cell = [self.collectionView dequeueReusableViewForClass:[cellClass class]];
+    if (!cell) {
+        cell = [[cellClass alloc] initWithFrame:CGRectZero];
     }
     
-    [v collectionView:collectionView fillCellWithObject:item atIndex:index];
+    [cell collectionView:collectionView fillCellWithObject:item atIndex:index];
     
-    return v;
+    return cell;
 }
 
-- (CGFloat)heightForRowAtIndex:(NSInteger)index {
+- (CGFloat)collectionView:(PSCollectionView *)collectionView heightForRowAtIndex:(NSInteger)index {
+    Class cellClass = [self collectionView:collectionView cellClassForRowAtIndex:index];
+    
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    return [TipCollectionViewCell rowHeightForObject:item inColumnWidth:self.collectionView.colWidth];
+    return [cellClass rowHeightForObject:item inColumnWidth:collectionView.colWidth];
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index {
+    //    Class cellClass = [self collectionView:collectionView cellClassForRowAtIndex:index];
+    
+    //    NSDictionary *item = [self.items objectAtIndex:index];
 }
 
 @end

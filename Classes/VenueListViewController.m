@@ -305,7 +305,7 @@
     NSDictionary *item = [self.items objectAtIndex:index];
     
     VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:[item objectForKey:@"id"]];
-    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - PSErrorViewDelegate

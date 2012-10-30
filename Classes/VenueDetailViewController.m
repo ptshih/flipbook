@@ -473,11 +473,19 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 - (void)pushTips:(UITapGestureRecognizer *)gr {
     TipListViewController *vc = [[TipListViewController alloc] initWithVenueDict:self.venueDict];
-    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)pushYelp:(UITapGestureRecognizer *)gr {
-
+    NSString *yelpUrlString = nil;
+    if (isYelpInstalled()) {
+        yelpUrlString = [NSString stringWithFormat:@"yelp:///biz/%@", [self.yelpDict objectForKey:@"id"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:yelpUrlString]];
+    } else {
+        yelpUrlString = [self.yelpDict objectForKey:@"mobile_url"];
+        PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:yelpUrlString title:nil];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 

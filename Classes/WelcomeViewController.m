@@ -158,7 +158,7 @@
     } else if ([type isEqualToString:@"airbrite"]) {
         vc = [[VenueListViewController alloc] initWithCategory:slug];
     }
-    [(PSNavigationController *)self.parentViewController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

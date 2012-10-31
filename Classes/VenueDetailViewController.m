@@ -472,7 +472,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 - (void)pushYelp:(UITapGestureRecognizer *)gr {
     NSString *yelpUrlString = nil;
-    if (isYelpInstalled()) {
+    if (isYelpInstalled() && 0) {
         yelpUrlString = [NSString stringWithFormat:@"yelp:///biz/%@", [self.yelpDict objectForKey:@"id"]];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:yelpUrlString]];
     } else {

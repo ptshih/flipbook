@@ -45,7 +45,7 @@ static CGSize margin() {
         
         self.nameLabel = [UILabel labelWithStyle:@"h5CondDarkLabel"];
         self.nameLabel.backgroundColor = self.backgroundColor;
-        self.nameLabel.textColor = FB_COLOR_DARK_GRAY_BLUE;
+        self.nameLabel.textColor = [UIColor colorWithRGBHex:0x354973];
         [self addSubview:self.nameLabel];
         
         self.descLabel = [UILabel labelWithStyle:@"h6GeorgiaDarkLabel"];

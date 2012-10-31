@@ -28,8 +28,6 @@ static NSNumberFormatter *__numberFormatter = nil;
 @property (nonatomic, strong) NSDictionary *yelpDict;
 @property (nonatomic, strong) MKMapView *mapView;
 
-@property (nonatomic, strong) UIActivityIndicatorView *spinnerView;
-
 @end
 
 @implementation VenueDetailViewController
@@ -60,6 +58,8 @@ static NSNumberFormatter *__numberFormatter = nil;
         
         self.headerHeight = 44.0;
         self.footerHeight = 32.0;
+        
+        self.headerRightWidth = 0.0;
         
         self.title = @"Loading...";
     }
@@ -372,12 +372,7 @@ static NSNumberFormatter *__numberFormatter = nil;
     [PSStyleSheet applyStyle:@"navigationTitleLightLabel" forButton:self.centerButton];
     [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    
-    [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    self.spinnerView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    self.spinnerView.frame = self.rightButton.bounds;
-    self.spinnerView.hidesWhenStopped = YES;
-    [self.rightButton addSubview:self.spinnerView];
+    self.centerButton.userInteractionEnabled = NO;
 }
 
 - (void)setupFooter {
@@ -492,16 +487,12 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 - (void)loadDataSource {
     [super loadDataSource];
-    
-    [self.spinnerView startAnimating];
-    
+
     [self loadDataSourceFromRemoteUsingCache:NO];
 }
 
 - (void)reloadDataSource {
     [super reloadDataSource];
-    
-    [self.spinnerView startAnimating];
     
     [self loadDataSourceFromRemoteUsingCache:NO];
 }
@@ -512,8 +503,6 @@ static NSNumberFormatter *__numberFormatter = nil;
     // Load Yelp
     [self loadYelp];
     
-    [self.spinnerView stopAnimating];
-    
     if ([self dataSourceIsEmpty]) {
         // Show empty view
     }
@@ -521,8 +510,6 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 - (void)dataSourceDidError {
     [super dataSourceDidError];
-    
-    [self.spinnerView stopAnimating];
 }
 
 - (void)loadYelp {

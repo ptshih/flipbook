@@ -12,7 +12,9 @@
 
 #import "VenueCollectionViewCell.h"
 #import "BrandCollectionViewCell.h"
+
 #import "LocationChooserView.h"
+#import "PSInfoPopoverView.h"
 
 #define kPopoverLocation 7001
 #define kPopoverCategory 7002
@@ -53,6 +55,8 @@
         
         self.headerHeight = 44.0;
         self.footerHeight = 0.0;
+        
+        self.headerRightWidth = 0.0;
         
         self.limit = 25;
         
@@ -109,6 +113,13 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showTutorialFoursquare"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"showTutorialFoursquare"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        PSInfoPopoverView *ipv = [[PSInfoPopoverView alloc] initWithMessage:@"Tap here to search!\r\n\r\nPinch and zoom the map to search for places in the desired area.\r\n\r\nYou can also enter any search keyword, like Pizza or Burgers."];
+        [ipv showInView:self.view];
+    }
 }
 
 #pragma mark - Config Subviews
@@ -143,8 +154,8 @@
     [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     
-    [self.rightButton setImage:[UIImage imageNamed:@"IconSearchWhite"] forState:UIControlStateNormal];
-    [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+//    [self.rightButton setImage:[UIImage imageNamed:@"IconSearchWhite"] forState:UIControlStateNormal];
+//    [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
 }
 
 - (void)setupFooter {
@@ -159,10 +170,6 @@
 }
 
 - (void)centerAction {
-    [self rightAction];
-}
-
-- (void)rightAction {
     CGFloat radius = self.radius > 0 ? self.radius : 400.0;
     MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, radius * 2, radius * 2);
     LocationChooserView *cv = [[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion];
@@ -170,6 +177,9 @@
     popoverView.tag = kPopoverLocation;
     popoverView.delegate = self;
     [popoverView showWithSize:cv.frame.size inView:self.view];
+}
+
+- (void)rightAction {
 }
 
 

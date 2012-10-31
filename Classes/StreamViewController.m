@@ -10,6 +10,8 @@
 #import "PSWebViewController.h"
 #import "ProductCollectionViewCell.h"
 
+#import "PSInfoPopoverView.h"
+
 @interface StreamViewController ()
 
 @property (nonatomic, strong) NSString *brandId;
@@ -65,6 +67,13 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showTutorialAirbrite"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"showTutorialAirbrite"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        PSInfoPopoverView *ipv = [[PSInfoPopoverView alloc] initWithMessage:@"Shop and browse popular brands and products from within the app.\r\n\r\nBuying is as simple as tapping on something you like!"];
+        [ipv showInView:self.view];
+    }
 }
 
 #pragma mark - Config Subviews
@@ -90,9 +99,11 @@
     [PSStyleSheet applyStyle:@"navigationTitleLightLabel" forButton:self.centerButton];
     [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    self.centerButton.userInteractionEnabled = NO;
     
-    [self.rightButton setImage:[UIImage imageNamed:@"IconSearchWhite"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconShareWhite"] forState:UIControlStateNormal];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    self.rightButton.userInteractionEnabled = NO;
 }
 
 - (void)setupFooter {

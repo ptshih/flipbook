@@ -33,6 +33,8 @@
         self.headerHeight = 44.0;
         self.footerHeight = 0.0;
         
+        self.headerRightWidth = 0.0;
+        
         self.title = [NSString stringWithFormat:@"Tips for %@", [self.venueDict objectForKey:@"name"]];
     }
     return self;
@@ -93,9 +95,7 @@
     [PSStyleSheet applyStyle:@"navigationTitleLightLabel" forButton:self.centerButton];
     [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    
-//    [self.rightButton setImage:[UIImage imageNamed:@"IconSearchWhite"] forState:UIControlStateNormal];
-    [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    self.centerButton.userInteractionEnabled = NO;
 }
 
 #pragma mark - Actions

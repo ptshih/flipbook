@@ -42,6 +42,21 @@
         //
         // Perform any version migrations here
         //
+        
+        NSString *lastVersion = [[NSUserDefaults standardUserDefaults] stringForKey:@"appVersion"];
+        NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+        BOOL showTutorialFoursquare = [[NSUserDefaults standardUserDefaults] boolForKey:@"showTutorialFoursquare"];
+        
+        // Version changed
+        if (![lastVersion isEqualToString:currentVersion]) {
+            // Set new version
+            [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"appVersion"];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"showTutorialFoursquare"];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"showTutorialAirbrite"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        NSLog(@"Current Version: %@, Last Version: %@, Show Tutorial Search: %d", currentVersion, lastVersion, showTutorialFoursquare);
     }
 }
 

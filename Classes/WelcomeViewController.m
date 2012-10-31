@@ -59,6 +59,10 @@
     [self loadDataSource];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 #pragma mark - Config Subviews
 
 - (void)setupSubviews {

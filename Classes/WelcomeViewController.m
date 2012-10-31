@@ -35,13 +35,29 @@
         
         self.nullBackgroundColor = [self baseBackgroundColor];
         self.nullLabelStyle = @"loadingLightLabel";
+        self.nullIndicatorStyle = UIActivityIndicatorViewStyleWhite;
         
         // Table
         self.tableViewStyle = UITableViewStylePlain;
         self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleNone;
         self.separatorColor = [UIColor lightGrayColor];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appForegrounded:) name:UIApplicationWillEnterForegroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBackgrounded:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)appForegrounded:(NSNotification *)notification {
+    [self reloadDataSource];
+}
+
+- (void)appBackgrounded:(NSNotification *)notification {
+    
 }
 
 #pragma mark - View Config
@@ -77,7 +93,7 @@
 - (void)loadDataSource {
     [super loadDataSource];
     
-    [self loadDataSourceFromRemoteUsingCache:NO];
+    [self loadDataSourceFromRemoteUsingCache:YES];
 }
 
 - (void)reloadDataSource {

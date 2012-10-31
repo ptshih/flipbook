@@ -60,24 +60,18 @@
     }
 }
 
-#pragma mark - BITUpdateManagerDelegate
-
-- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
-#ifndef DISTRIBUTION
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
-        return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
-#endif
-    return nil;
+- (void)purgeCacheIfNecessary:(BOOL)force {
+    self.foregroundDate = [NSDate date];
+    
+    NSTimeInterval secondsBackgrounded = [self.foregroundDate timeIntervalSinceDate:self.backgroundDate];
+    // 5 min threshold
+    if (secondsBackgrounded > kSecondsBackgroundedUntilStale || force) {
+        self.shouldReloadInterface = YES;
+        
+        // Purge session cache
+        [[PSURLCache sharedCache] purgeCacheWithCacheType:PSURLCacheTypeSession];
+    }
 }
-
-- (NSString *)customDeviceIdentifier {
-#ifndef DISTRIBUTION
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
-        return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
-#endif
-    return nil;
-}
-
 
 #pragma mark - Global Statics
 
@@ -158,6 +152,10 @@
     // Localytics
     // 84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc
     
+    // PSURLCache
+    [[PSURLCache sharedCache] setNoCache:NO]; // This force NO CACHE
+    [self purgeCacheIfNecessary:YES];
+    
     // Appirater
     [Appirater appLaunched:YES];
     
@@ -199,16 +197,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [Appirater appEnteredForeground:YES];
     
-    self.foregroundDate = [NSDate date];
-    
-    NSTimeInterval secondsBackgrounded = [self.foregroundDate timeIntervalSinceDate:self.backgroundDate];
-    // 5 min threshold
-    if (secondsBackgrounded > kSecondsBackgroundedUntilStale) {
-        self.shouldReloadInterface = YES;
-        
-        // Purge session cache
-        [[PSURLCache sharedCache] purgeCacheWithCacheType:PSURLCacheTypeSession];
-    }
+    [self purgeCacheIfNecessary:NO];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {    
@@ -218,8 +207,6 @@
         if ([[PSZoomView sharedView] isZooming]) {
             [[PSZoomView sharedView] reset];
         }
-        
-//        [self.navigationController popToRootViewControllerAnimated:NO];
     }
 }
 
@@ -228,6 +215,24 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - BITUpdateManagerDelegate
+
+- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
+#ifndef DISTRIBUTION
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
+        return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+#endif
+    return nil;
+}
+
+- (NSString *)customDeviceIdentifier {
+#ifndef DISTRIBUTION
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
+        return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+#endif
+    return nil;
 }
 
 @end

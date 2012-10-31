@@ -477,7 +477,8 @@ static NSNumberFormatter *__numberFormatter = nil;
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:yelpUrlString]];
     } else {
         yelpUrlString = [self.yelpDict objectForKey:@"mobile_url"];
-        PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:yelpUrlString title:nil];
+        NSString *title = [self.yelpDict objectForKey:@"name"];
+        PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:yelpUrlString title:title];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -488,7 +489,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 - (void)loadDataSource {
     [super loadDataSource];
 
-    [self loadDataSourceFromRemoteUsingCache:NO];
+    [self loadDataSourceFromRemoteUsingCache:YES];
 }
 
 - (void)reloadDataSource {
@@ -526,7 +527,7 @@ static NSNumberFormatter *__numberFormatter = nil;
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
     
-    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:NO completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:YES completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
         ASSERT_MAIN_THREAD;
         if (error) {
             [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];

@@ -45,6 +45,7 @@
         
         self.nullBackgroundColor = [self baseBackgroundColor];
         self.nullLabelStyle = @"loadingLightLabel";
+        self.nullIndicatorStyle = UIActivityIndicatorViewStyleWhite;
         
         // Table
         self.tableViewStyle = UITableViewStylePlain;
@@ -109,7 +110,7 @@
 - (void)loadDataSource {
     [super loadDataSource];
     
-    [self loadDataSourceFromRemoteUsingCache:NO];
+    [self loadDataSourceFromRemoteUsingCache:YES];
 }
 
 - (void)reloadDataSource {

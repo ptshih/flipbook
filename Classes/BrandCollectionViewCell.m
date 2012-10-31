@@ -45,6 +45,7 @@ static CGSize margin() {
         
         self.nameLabel = [UILabel labelWithStyle:@"h5CondDarkLabel"];
         self.nameLabel.backgroundColor = self.backgroundColor;
+        self.nameLabel.textColor = FB_COLOR_DARK_GRAY_BLUE;
         [self addSubview:self.nameLabel];
         
         self.descLabel = [UILabel labelWithStyle:@"h6GeorgiaDarkLabel"];
@@ -99,7 +100,7 @@ static CGSize margin() {
     [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
     [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
     
-    NSString *nameText = [NSString stringWithFormat:@"Shop %@", [object objectForKey:@"name"]];
+    NSString *nameText = [NSString stringWithFormat:@"%@", [object objectForKey:@"name"]];
     self.nameLabel.text = nameText;
     
     NSString *descText = [object objectForKey:@"description"];
@@ -115,7 +116,7 @@ static CGSize margin() {
     CGSize labelSize = CGSizeZero;
     
     // Name
-    NSString *nameText = [NSString stringWithFormat:@"Shop %@", [object objectForKey:@"name"]];
+    NSString *nameText = [NSString stringWithFormat:@"%@", [object objectForKey:@"name"]];
     labelSize = [PSStyleSheet sizeForText:nameText width:width style:@"h5CondDarkLabel"];
     height += labelSize.height;
     

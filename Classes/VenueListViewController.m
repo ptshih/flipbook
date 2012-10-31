@@ -188,7 +188,7 @@
 - (void)loadDataSource {
     [super loadDataSource];
     
-    [self loadDataSourceFromRemoteUsingCache:NO];
+    [self loadDataSourceFromRemoteUsingCache:YES];
 }
 
 - (void)reloadDataSource {

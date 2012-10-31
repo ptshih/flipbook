@@ -8,7 +8,15 @@
 
 #import "PhotoCollectionViewCell.h"
 
-#define MARGIN 4.0
+// Margins
+static CGSize margin() {
+    if (isDeviceIPad()) {
+        return CGSizeMake(4.0, 4.0);
+    } else {
+        return CGSizeMake(4.0, 4.0);
+    }
+}
+
 
 @interface PhotoCollectionViewCell ()
 
@@ -54,17 +62,16 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat width = self.width - MARGIN * 2;
-    CGFloat top = MARGIN;
-    CGFloat left = MARGIN;
-//    CGFloat right = self.width - MARGIN;
+    CGFloat width = self.width - margin().width * 2;
+    CGFloat top = margin().height;
+    CGFloat left = margin().width;
     
     CGFloat objectWidth = [[self.object objectForKey:@"width"] floatValue];
     CGFloat objectHeight = [[self.object objectForKey:@"height"] floatValue];
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     self.imageView.frame = CGRectMake(left, top, width, scaledHeight);
     
-    top += self.imageView.height + MARGIN;
+    top += self.imageView.height + margin().height;
     
     CGSize labelSize = CGSizeZero;
     
@@ -78,7 +85,7 @@
     
     [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"href"]]];
     [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"thumb"]]];
-    [self.imageView loadImageWithURL:[NSURL URLWithString:[self.object objectForKey:@"href"]] cacheType:PSURLCacheTypePermanent];
+    [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
     
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[object objectForKey:@"created"] doubleValue]];
     NSString *dateText = [NSDate stringFromDate:date withFormat:@"MMMM d, yyyy"];
@@ -87,16 +94,16 @@
 
 + (CGFloat)rowHeightForObject:(id)object inColumnWidth:(CGFloat)columnWidth {
     CGFloat height = 0.0;
-    CGFloat width = columnWidth - MARGIN * 2;
+    CGFloat width = columnWidth - margin().width * 2;
     
-    height += MARGIN;
+    height += margin().height;
     
     CGFloat objectWidth = [[object objectForKey:@"width"] floatValue];
     CGFloat objectHeight = [[object objectForKey:@"height"] floatValue];
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     height += scaledHeight;
     
-    height += MARGIN;
+    height += margin().height;
     
     CGSize labelSize = CGSizeZero;
     
@@ -105,7 +112,7 @@
     labelSize = [PSStyleSheet sizeForText:dateText width:width style:@"georgiaDarkLabel"];
     height += labelSize.height;
     
-    height += MARGIN;
+    height += margin().height;
     
     return height;
 }

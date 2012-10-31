@@ -7,7 +7,7 @@
 //
 
 #import "StreamViewController.h"
-
+#import "PSWebViewController.h"
 #import "ProductCollectionViewCell.h"
 
 @interface StreamViewController ()
@@ -20,10 +20,11 @@
 
 #pragma mark - Init
 
-- (id)initWithBrand:(NSString *)brandId {
+- (id)initWithBrandId:(NSString *)brandId title:(NSString *)title {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
         self.brandId = brandId;
+        self.title = title;
     }
     return self;
 }
@@ -42,9 +43,6 @@
         self.footerHeight = 0.0;
         
         self.limit = 25;
-        
-        self.title = @"Loading...";
-
     }
     return self;
 }
@@ -81,14 +79,6 @@
         self.collectionView.numColsPortrait = 2;
         self.collectionView.numColsLandscape = 3;
     }
-    
-    // 4sq attribution footer
-    UIImageView *pb4sq = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]];
-    pb4sq.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    pb4sq.contentMode = UIViewContentModeCenter;
-    pb4sq.frame = CGRectMake(0, 0, self.collectionView.width, pb4sq.height);
-    
-    self.collectionView.footerView = pb4sq;
 }
 
 - (void)setupHeader {
@@ -168,8 +158,19 @@
             id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
             
             if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
-                //
-                [self dataSourceDidLoad];
+                // List of Venues
+                id apiData = [apiResponse objectForKey:@"products"];
+                if (apiData && [apiData isKindOfClass:[NSArray class]]) {
+                    if (self.loadingMore) {
+                        [self.items addObjectsFromArray:apiData];
+                        [self dataSourceDidLoadMore];
+                    } else {
+                        self.items = [NSMutableArray arrayWithArray:apiData];;
+                        [self dataSourceDidLoad];
+                    }
+                } else {
+                    [self dataSourceDidError];
+                }
             } else {
                 // Error in apiResponse
                 [self dataSourceDidError];
@@ -210,7 +211,12 @@
 - (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index {
 //    Class cellClass = [self collectionView:collectionView cellClassForRowAtIndex:index];
 
-//    NSDictionary *item = [self.items objectAtIndex:index];
+    NSDictionary *item = [self.items objectAtIndex:index];
+    NSString *name = [item objectForKey:@"name"];
+    NSString *url = [item objectForKey:@"url"];
+    
+    PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:url title:name];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

@@ -8,7 +8,14 @@
 
 #import "VenueCollectionViewCell.h"
 
-#define MARGIN 4.0
+// Margins
+static CGSize margin() {
+    if (isDeviceIPad()) {
+        return CGSizeMake(4.0, 4.0);
+    } else {
+        return CGSizeMake(4.0, 4.0);
+    }
+}
 
 @interface VenueCollectionViewCell ()
 
@@ -91,10 +98,9 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat width = self.width - MARGIN * 2;
-    CGFloat top = MARGIN;
-    CGFloat left = MARGIN;
-//    CGFloat right = self.width - MARGIN;
+    CGFloat width = self.width - margin().width * 2;
+    CGFloat top = margin().height;
+    CGFloat left = margin().width;
     
     CGSize labelSize = CGSizeZero;
     
@@ -102,7 +108,7 @@
     labelSize = [self.nameLabel sizeForLabelInWidth:width];
     self.nameLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
-    top = self.nameLabel.bottom + MARGIN;
+    top = self.nameLabel.bottom + margin().height;
     
     // Photo
     NSDictionary *photo = [self.object objectForKey:@"photo"];
@@ -119,7 +125,7 @@
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     self.imageView.frame = CGRectMake(left, top, width, scaledHeight);
     
-    top = self.imageView.bottom + MARGIN;
+    top = self.imageView.bottom + margin().height;
     
     // Ratings
     labelSize = [self.ratingsLabel sizeForLabelInWidth:width];
@@ -134,10 +140,10 @@
     top = self.categoryLabel.bottom;
     
     // Tip
-    top += MARGIN;
+    top += margin().height;
     self.topDivider.hidden = NO;
     self.topDivider.frame = CGRectMake(left, top, width, 1.0);
-    top = self.topDivider.bottom + MARGIN;
+    top = self.topDivider.bottom + margin().height;
     
     if ([self.tipLabel.text length] > 0) {
         labelSize = [self.tipLabel sizeForLabelInWidth:width];
@@ -145,10 +151,10 @@
         self.tipLabel.hidden = NO;
         
         top = self.tipLabel.bottom;
-        top += MARGIN;
+        top += margin().height;
         self.divider.hidden = NO;
         self.divider.frame = CGRectMake(left, top, width, 1.0);
-        top = self.divider.bottom + MARGIN;
+        top = self.divider.bottom + margin().height;
     }
     
     // Address
@@ -213,9 +219,9 @@
     NSDictionary *venue = (NSDictionary *)object;
     
     CGFloat height = 0.0;
-    CGFloat width = columnWidth - MARGIN * 2;
+    CGFloat width = columnWidth - margin().width * 2;
     
-    height += MARGIN;
+    height += margin().height;
     
     // Photo
     NSDictionary *photo = [object objectForKey:@"photo"];
@@ -232,7 +238,7 @@
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     height += scaledHeight;
     
-    height += MARGIN * 2;
+    height += margin().height * 2;
     
     // Labels
     CGSize labelSize = CGSizeZero;
@@ -244,9 +250,9 @@
     height += labelSize.height;
     
     // Divider
-    height += MARGIN;
+    height += margin().height;
     height += 1.0;
-    height += MARGIN;
+    height += margin().height;
     
     // Rating
     CGFloat rating = [[venue objectForKey:@"rating"] floatValue];
@@ -261,9 +267,9 @@
         labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"h6GeorgiaDarkLabel"];
         height += labelSize.height;
         
-        height += MARGIN;
+        height += margin().height;
         height += 1.0;
-        height += MARGIN;
+        height += margin().height;
     }
     
     // Address
@@ -278,7 +284,7 @@
         height += labelSize.height;
     }
     
-    height += MARGIN;
+    height += margin().height;
     
     return height;
 }

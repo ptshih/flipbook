@@ -10,4 +10,6 @@
 
 @interface StreamViewController : PSCollectionViewController
 
+- (id)initWithBrandId:(NSString *)brandId title:(NSString *)title;
+
 @end

@@ -9,6 +9,7 @@
 #import "WelcomeViewController.h"
 
 #import "VenueListViewController.h"
+#import "StreamViewController.h"
 
 #import "ChannelCell.h"
 
@@ -151,12 +152,13 @@
     
     NSString *slug = [item objectForKey:@"slug"];
     NSString *type = [item objectForKey:@"type"];
+    NSString *name = [item objectForKey:@"name"];
     
     id vc = nil;
     if ([type isEqualToString:@"foursquare"]) {
         vc = [[VenueListViewController alloc] initWithCategory:slug];
     } else if ([type isEqualToString:@"airbrite"]) {
-        vc = [[VenueListViewController alloc] initWithCategory:slug];
+        vc = [[StreamViewController alloc] initWithBrandId:slug title:name];
     }
     [self.navigationController pushViewController:vc animated:YES];
 }

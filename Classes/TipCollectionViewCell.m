@@ -9,7 +9,14 @@
 #import "TipCollectionViewCell.h"
 #import "PSCachedImageView.h"
 
-#define MARGIN 4.0
+// Margins
+static CGSize margin() {
+    if (isDeviceIPad()) {
+        return CGSizeMake(4.0, 4.0);
+    } else {
+        return CGSizeMake(4.0, 4.0);
+    }
+}
 
 @interface TipCollectionViewCell ()
 
@@ -70,23 +77,23 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat width = self.width - MARGIN * 2;
-    CGFloat top = MARGIN;
-    CGFloat left = MARGIN;
+    CGFloat width = self.width - margin().width * 2;
+    CGFloat top = margin().height;
+    CGFloat left = margin().width;
     
     CGSize labelSize = CGSizeZero;
     
     labelSize = [self.tipLabel sizeForLabelInWidth:width];
     self.tipLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     
-    top = self.tipLabel.bottom + MARGIN;
+    top = self.tipLabel.bottom + margin().height;
     self.divider.frame = CGRectMake(left, top, width, 1.0);
-    top = self.divider.bottom + MARGIN;
+    top = self.divider.bottom + margin().height;
     
     self.imageView.frame = CGRectMake(left, top, 30, 30);
     
-    left += self.imageView.width + MARGIN;
-    width -= self.imageView.width + MARGIN;
+    left += self.imageView.width + margin().width;
+    width -= self.imageView.width + margin().width;
     
     labelSize = [self.nameLabel sizeForLabelInWidth:width];
     self.nameLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
@@ -109,20 +116,20 @@
 
 + (CGFloat)rowHeightForObject:(id)object inColumnWidth:(CGFloat)columnWidth {
     CGFloat height = 0.0;
-    CGFloat width = columnWidth - MARGIN * 2;
+    CGFloat width = columnWidth - margin().width * 2;
     CGSize labelSize = CGSizeZero;
     
-    height += MARGIN;
+    height += margin().height;
     
     NSString *tipText = [NSString stringWithFormat:@"%@", [object objectForKey:@"text"]];
     labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"h6GeorgiaDarkLabel"];
     height += labelSize.height;
     
-    height += MARGIN;
+    height += margin().height;
     height += 1.0;
-    height += MARGIN;
+    height += margin().height;
     
-    width -= 30 + MARGIN;
+    width -= 30 + margin().width;
     
     CGFloat footerHeight = 0.0;
     
@@ -134,7 +141,7 @@
     
     height += MAX(footerHeight, 30.0);
     
-    height += MARGIN;
+    height += margin().height;
     
     return height;
 }

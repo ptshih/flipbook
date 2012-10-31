@@ -215,7 +215,9 @@
     NSString *name = [item objectForKey:@"name"];
     NSString *url = [item objectForKey:@"url"];
     
-    PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:url title:name];
+    NSString *urlPath = [NSString stringWithFormat:@"http://cortex.airbrite.io/items/%@", [item objectForKey:@"_id"]];
+    
+    PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:urlPath title:name];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

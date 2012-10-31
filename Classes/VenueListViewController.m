@@ -8,8 +8,10 @@
 
 #import "VenueListViewController.h"
 #import "VenueDetailViewController.h"
+#import "StreamViewController.h"
 
 #import "VenueCollectionViewCell.h"
+#import "BrandCollectionViewCell.h"
 #import "LocationChooserView.h"
 
 #define kPopoverLocation 7001
@@ -303,7 +305,17 @@
 #pragma mark - PSCollectionViewDelegate
 
 - (Class)collectionView:(PSCollectionView *)collectionView cellClassForRowAtIndex:(NSInteger)index {
-    return [VenueCollectionViewCell class];
+    NSDictionary *item = [self.items objectAtIndex:index];
+    
+    NSString *type = [item objectForKey:@"type"];
+    
+    if ([type isEqualToString:@"foursquare"]) {
+        return [VenueCollectionViewCell class];
+    } else if ([type isEqualToString:@"airbrite"]) {
+        return [BrandCollectionViewCell class];
+    } else {
+        return [PSCollectionViewCell class];
+    }
 }
 
 - (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView cellForRowAtIndex:(NSInteger)index {
@@ -330,12 +342,19 @@
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index {
-//    Class cellClass = [self collectionView:collectionView cellClassForRowAtIndex:index];
-    
     NSDictionary *item = [self.items objectAtIndex:index];
     
-    VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:[item objectForKey:@"id"]];
-    [self.navigationController pushViewController:vc animated:YES];
+    NSString *type = [item objectForKey:@"type"];
+    
+    if ([type isEqualToString:@"foursquare"]) {
+        VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:[item objectForKey:@"id"]];
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if ([type isEqualToString:@"airbrite"]) {
+        NSString *brandId = [item objectForKey:@"brand"];
+        NSString *title = [item objectForKey:@"name"];
+        StreamViewController *vc = [[StreamViewController alloc] initWithBrandId:brandId title:title];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - PSPopoverViewDelegate

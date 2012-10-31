@@ -365,6 +365,9 @@
 		2843313D1640D11D00349014 /* ToolbarSingleSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 284331311640D11D00349014 /* ToolbarSingleSelected@2x.png */; };
 		284331401640D45700349014 /* IconRefreshWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2843313E1640D45600349014 /* IconRefreshWhite.png */; };
 		284331411640D45700349014 /* IconRefreshWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2843313F1640D45700349014 /* IconRefreshWhite@2x.png */; };
+		2843314416411B4600349014 /* BrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843314316411B4500349014 /* BrandViewController.m */; };
+		2843314716411B7B00349014 /* BrandCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843314616411B7B00349014 /* BrandCell.m */; };
+		2843314A1641200F00349014 /* BrandCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 284331491641200E00349014 /* BrandCollectionViewCell.m */; };
 		28A390D11554DA37002696FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818CE14723F1D007E4827 /* main.m */; };
 		28A390D21554DA37002696FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818D214723F1D007E4827 /* AppDelegate.m */; };
 		28A390FA1554DA37002696FD /* VenueListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5A14AC4A1D00541BB1 /* VenueListViewController.m */; };
@@ -891,6 +894,12 @@
 		284331311640D11D00349014 /* ToolbarSingleSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarSingleSelected@2x.png"; sourceTree = "<group>"; };
 		2843313E1640D45600349014 /* IconRefreshWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconRefreshWhite.png; sourceTree = "<group>"; };
 		2843313F1640D45700349014 /* IconRefreshWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconRefreshWhite@2x.png"; sourceTree = "<group>"; };
+		2843314216411B4500349014 /* BrandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandViewController.h; sourceTree = "<group>"; };
+		2843314316411B4500349014 /* BrandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandViewController.m; sourceTree = "<group>"; };
+		2843314516411B7A00349014 /* BrandCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandCell.h; sourceTree = "<group>"; };
+		2843314616411B7B00349014 /* BrandCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandCell.m; sourceTree = "<group>"; };
+		284331481641200E00349014 /* BrandCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandCollectionViewCell.h; sourceTree = "<group>"; };
+		284331491641200E00349014 /* BrandCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandCollectionViewCell.m; sourceTree = "<group>"; };
 		2843A7071545B9920089FC73 /* Info-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Pro.plist"; sourceTree = SOURCE_ROOT; };
 		2855FD88150CADEF00B6FC3A /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		28603B5914AC4A1D00541BB1 /* VenueListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueListViewController.h; sourceTree = "<group>"; };
@@ -1869,6 +1878,8 @@
 				D0F6CA9F14FD675E00CCF2B4 /* TipCollectionViewCell.m */,
 				2843311F1640802400349014 /* ProductCollectionViewCell.h */,
 				284331201640802400349014 /* ProductCollectionViewCell.m */,
+				284331481641200E00349014 /* BrandCollectionViewCell.h */,
+				284331491641200E00349014 /* BrandCollectionViewCell.m */,
 			);
 			name = CollectionViewCells;
 			sourceTree = "<group>";
@@ -1928,6 +1939,8 @@
 			children = (
 				28EA494A163B04BE003C45B6 /* WelcomeViewController.h */,
 				28EA494B163B04BE003C45B6 /* WelcomeViewController.m */,
+				2843314216411B4500349014 /* BrandViewController.h */,
+				2843314316411B4500349014 /* BrandViewController.m */,
 				28603B5914AC4A1D00541BB1 /* VenueListViewController.h */,
 				28603B5A14AC4A1D00541BB1 /* VenueListViewController.m */,
 				D08E516E14E8ABB400B5CCCD /* VenueDetailViewController.h */,
@@ -1949,6 +1962,8 @@
 				D0F6CAC014FD7CE800CCF2B4 /* LocationChooserView.m */,
 				28EA494D163B0ED4003C45B6 /* ChannelCell.h */,
 				28EA494E163B0ED4003C45B6 /* ChannelCell.m */,
+				2843314516411B7A00349014 /* BrandCell.h */,
+				2843314616411B7B00349014 /* BrandCell.m */,
 				D0FE068014F9C64B00140D9E /* VenueAnnotationView.h */,
 				D0FE068114F9C64B00140D9E /* VenueAnnotationView.m */,
 				28433117163FCE3800349014 /* Old */,
@@ -2503,6 +2518,9 @@
 				28433115163F6D8300349014 /* PSPullLoadMoreView.m in Sources */,
 				2843311D16405FE100349014 /* StreamViewController.m in Sources */,
 				284331211640802400349014 /* ProductCollectionViewCell.m in Sources */,
+				2843314416411B4600349014 /* BrandViewController.m in Sources */,
+				2843314716411B7B00349014 /* BrandCell.m in Sources */,
+				2843314A1641200F00349014 /* BrandCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

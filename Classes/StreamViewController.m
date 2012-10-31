@@ -103,7 +103,7 @@
     
     [self.rightButton setImage:[UIImage imageNamed:@"IconShareWhite"] forState:UIControlStateNormal];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    self.rightButton.userInteractionEnabled = NO;
+//    self.rightButton.userInteractionEnabled = NO;
 }
 
 - (void)setupFooter {

@@ -117,7 +117,7 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showTutorialFoursquare"]) {
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"showTutorialFoursquare"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        PSInfoPopoverView *ipv = [[PSInfoPopoverView alloc] initWithMessage:@"Tap here to search!\r\n\r\nPinch and zoom the map to search for places in the desired area.\r\n\r\nYou can also enter any search keyword, like Pizza or Burgers."];
+        PSInfoPopoverView *ipv = [[PSInfoPopoverView alloc] initWithMessage:@"Tap above to search!\r\n\r\nPinch and zoom the map to search for places in the desired area.\r\n\r\nYou can also enter any search keyword, like Pizza or Burgers."];
         [ipv showInView:self.view];
     }
 }
@@ -360,7 +360,7 @@
         VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:[item objectForKey:@"id"]];
         [self.navigationController pushViewController:vc animated:YES];
     } else if ([type isEqualToString:@"airbrite"]) {
-        NSString *brandId = [item objectForKey:@"brand"];
+        NSString *brandId = [item objectForKey:@"slug"];
         NSString *title = [item objectForKey:@"name"];
         StreamViewController *vc = [[StreamViewController alloc] initWithBrandId:brandId title:title];
         [self.navigationController pushViewController:vc animated:YES];

@@ -96,7 +96,7 @@ static CGSize margin() {
 - (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
     [super collectionView:collectionView fillCellWithObject:object atIndex:index];
     
-    [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"href"]]];
+    [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
     [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
     
     NSString *nameText = [NSString stringWithFormat:@"Shop %@", [object objectForKey:@"name"]];

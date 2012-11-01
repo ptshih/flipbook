@@ -11,6 +11,6 @@
 
 @interface VenuesViewController : PSCollectionViewController
 
-- (id)initWithCategory:(NSString *)category title:(NSString *)title;
+- (id)initWithCategory:(NSString *)category query:(NSString *)query title:(NSString *)title;
 
 @end

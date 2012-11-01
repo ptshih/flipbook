@@ -194,12 +194,13 @@
     id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
     NSString *slug = [item objectForKey:@"slug"];
+    NSString *query = [item objectForKey:@"query"];
     NSString *type = [item objectForKey:@"type"];
     NSString *name = [item objectForKey:@"name"];
     
     id vc = nil;
     if ([type isEqualToString:@"foursquare"]) {
-        vc = [[VenuesViewController alloc] initWithCategory:slug title:name];
+        vc = [[VenuesViewController alloc] initWithCategory:slug query:query title:name];
     } else if ([type isEqualToString:@"brand"]) {
         vc = [[ItemsViewController alloc] initWithBrand:slug title:name];
     } else if ([type isEqualToString:@"subsection"]) {

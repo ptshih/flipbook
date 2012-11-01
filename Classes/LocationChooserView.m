@@ -11,7 +11,6 @@
 
 @interface LocationChooserView ()
 
-@property (nonatomic, strong) PSTextField *queryField;
 @property (nonatomic, strong) UIButton *searchButton;
 
 @end

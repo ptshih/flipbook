@@ -44,6 +44,8 @@
         self.headerHeight = 44.0;
         self.footerHeight = 0.0;
         
+        self.headerRightWidth = 0.0;
+        
         self.limit = 25;
     }
     return self;
@@ -101,8 +103,8 @@
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     self.centerButton.userInteractionEnabled = NO;
     
-    [self.rightButton setImage:[UIImage imageNamed:@"IconShareWhite"] forState:UIControlStateNormal];
-    [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+//    [self.rightButton setImage:[UIImage imageNamed:@"IconShareWhite"] forState:UIControlStateNormal];
+//    [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
 //    self.rightButton.userInteractionEnabled = NO;
 }
 

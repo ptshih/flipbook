@@ -25,7 +25,6 @@
 @property (nonatomic, assign) CLLocationCoordinate2D centerCoordinate;
 @property (nonatomic, assign) CGFloat radius;
 @property (nonatomic, copy) NSString *query;
-@property (nonatomic, strong) UILabel *queryLabel;
 
 @property (nonatomic, assign) BOOL hasLoadedOnce;
 
@@ -35,10 +34,11 @@
 
 #pragma mark - Init
 
-- (id)initWithCategory:(NSString *)category title:(NSString *)title {
+- (id)initWithCategory:(NSString *)category query:(NSString *)query title:(NSString *)title {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
         self.category = category;
+        self.query = query;
         self.title = title;
     }
     return self;
@@ -173,6 +173,8 @@
     CGFloat radius = self.radius > 0 ? self.radius : 400.0;
     MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, radius * 2, radius * 2);
     LocationChooserView *cv = [[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion];
+    cv.query = self.query;
+    cv.queryField.text = self.query;
     PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Searching in Map Area" contentView:cv];
     popoverView.tag = kPopoverLocation;
     popoverView.delegate = self;
@@ -259,12 +261,14 @@
     
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:self.category forKey:@"section"];
     NSString *ll = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
     [parameters setObject:ll forKey:@"ll"];
     NSNumber *radius = (self.radius > 0) ? [NSNumber numberWithFloat:self.radius] : nil;
     if (radius) {
         [parameters setObject:radius forKey:@"radius"];
+    }
+    if (self.category) {
+        [parameters setObject:self.category forKey:@"section"];
     }
     if (self.query) {
         [parameters setObject:self.query forKey:@"query"];
@@ -390,9 +394,6 @@
             self.radius = ceilf(span / 2.0);
             self.centerCoordinate = mapView.centerCoordinate;
             self.query = [cv query];
-            
-            NSString *query = (self.query && self.query.length > 0) ? self.query : self.category;
-            self.queryLabel.text = [NSString stringWithFormat:@"Showing Results for \"%@\"", query];
             
             [self reloadDataSource];
         }

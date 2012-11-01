@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, copy) NSString *query;
+@property (nonatomic, strong) PSTextField *queryField;
 @property (nonatomic, assign) BOOL locationDidChange;
 
 - (id)initWithFrame:(CGRect)frame mapRegion:(MKCoordinateRegion)mapRegion;

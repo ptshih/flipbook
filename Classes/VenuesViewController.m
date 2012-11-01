@@ -1,14 +1,14 @@
 //
-//  VenueListViewController.m
+//  VenuesViewController.m
 //  OSnap
 //
 //  Created by Peter Shih on 12/28/11.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "VenueListViewController.h"
-#import "VenueDetailViewController.h"
-#import "StreamViewController.h"
+#import "VenuesViewController.h"
+#import "VenueViewController.h"
+#import "ItemsViewController.h"
 
 #import "VenueCollectionViewCell.h"
 #import "BrandCollectionViewCell.h"
@@ -19,7 +19,7 @@
 #define kPopoverLocation 7001
 #define kPopoverCategory 7002
 
-@interface VenueListViewController () <PSPopoverViewDelegate, UIAlertViewDelegate>
+@interface VenuesViewController () <PSPopoverViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, copy) NSString *category;
 @property (nonatomic, assign) CLLocationCoordinate2D centerCoordinate;
@@ -31,14 +31,15 @@
 
 @end
 
-@implementation VenueListViewController
+@implementation VenuesViewController
 
 #pragma mark - Init
 
-- (id)initWithCategory:(NSString *)category {
+- (id)initWithCategory:(NSString *)category title:(NSString *)title {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
         self.category = category;
+        self.title = title;
     }
     return self;
 }
@@ -153,7 +154,6 @@
     [PSStyleSheet applyStyle:@"navigationTitleLightLabel" forButton:self.centerButton];
     [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    
 //    [self.rightButton setImage:[UIImage imageNamed:@"IconSearchWhite"] forState:UIControlStateNormal];
 //    [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
 }
@@ -357,12 +357,12 @@
     NSString *type = [item objectForKey:@"type"];
     
     if ([type isEqualToString:@"foursquare"]) {
-        VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:[item objectForKey:@"id"]];
+        VenueViewController *vc = [[VenueViewController alloc] initWithVenueId:[item objectForKey:@"id"]];
         [self.navigationController pushViewController:vc animated:YES];
     } else if ([type isEqualToString:@"airbrite"]) {
-        NSString *brandId = [item objectForKey:@"slug"];
+        NSString *brand = [item objectForKey:@"slug"];
         NSString *title = [item objectForKey:@"name"];
-        StreamViewController *vc = [[StreamViewController alloc] initWithBrandId:brandId title:title];
+        ItemsViewController *vc = [[ItemsViewController alloc] initWithBrand:brand title:title];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

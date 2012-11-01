@@ -1,37 +1,50 @@
 //
-//  WelcomeViewController.m
+//  ChannelsViewController.m
 //  Lunchbox
 //
-//  Created by Peter Shih on 10/26/12.
+//  Created by Peter Shih on 10/31/12.
 //
 //
 
-#import "WelcomeViewController.h"
+#import "ChannelsViewController.h"
+#import "ItemsViewController.h"
+#import "VenuesViewController.h"
 
-#import "VenueListViewController.h"
-#import "BrandViewController.h"
+#import "SliceCell.h"
 
-#import "ChannelCell.h"
+@interface ChannelsViewController ()
 
-@interface WelcomeViewController ()
+@property (nonatomic, strong) NSString *section;
 
 @end
 
-@implementation WelcomeViewController
+@implementation ChannelsViewController
+
 
 #pragma mark - Init
+
+- (id)initWithSection:(NSString *)section title:(NSString *)title {
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        self.section = section;
+        self.title = title;
+    }
+    return self;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.shouldShowHeader = NO;
+        self.shouldShowHeader = YES;
         self.shouldShowFooter = NO;
         self.shouldShowNullView = YES;
         
-        self.headerHeight = 0.0;
+        self.headerHeight = 44.0;
         self.footerHeight = 0.0;
         
-        self.title = @"Channels";
+        self.headerRightWidth = 0.0;
+        
+        self.title = @"Brands";
         
         self.nullBackgroundColor = [self baseBackgroundColor];
         self.nullLabelStyle = @"loadingLightLabel";
@@ -41,23 +54,8 @@
         self.tableViewStyle = UITableViewStylePlain;
         self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleNone;
         self.separatorColor = [UIColor lightGrayColor];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appForegrounded:) name:UIApplicationWillEnterForegroundNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBackgrounded:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     }
     return self;
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)appForegrounded:(NSNotification *)notification {
-    [self reloadDataSource];
-}
-
-- (void)appBackgrounded:(NSNotification *)notification {
-    
 }
 
 #pragma mark - View Config
@@ -75,10 +73,6 @@
     [self loadDataSource];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
 #pragma mark - Config Subviews
 
 - (void)setupSubviews {
@@ -86,6 +80,32 @@
     
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = nil;
+}
+
+- (void)setupHeader {
+    [super setupHeader];
+    
+    [self.leftButton setImage:[UIImage imageNamed:@"IconBackWhite"] forState:UIControlStateNormal];
+    [self.leftButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonLeftBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    
+    [PSStyleSheet applyStyle:@"navigationTitleLightLabel" forButton:self.centerButton];
+    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
+    [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    
+//    [self.rightButton setImage:[UIImage imageNamed:@"IconSearchWhite"] forState:UIControlStateNormal];
+    [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+}
+
+#pragma mark - Actions
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)centerAction {
+}
+
+- (void)rightAction {
 }
 
 #pragma mark - Data Source
@@ -110,7 +130,7 @@
     NSMutableDictionary *headers = [NSMutableDictionary dictionary];
     
     // Request
-    NSString *URLPath = [NSString stringWithFormat:@"%@/v3/channels", API_BASE_URL];
+    NSString *URLPath = [NSString stringWithFormat:@"%@/v3/sections/%@/channels", API_BASE_URL, self.section];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:headers parameters:parameters];
@@ -153,7 +173,7 @@
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         default:
-            return [ChannelCell class];
+            return [SliceCell class];
             break;
     }
 }
@@ -179,9 +199,11 @@
     
     id vc = nil;
     if ([type isEqualToString:@"foursquare"]) {
-        vc = [[VenueListViewController alloc] initWithCategory:slug];
-    } else if ([type isEqualToString:@"airbrite"]) {
-        vc = [[BrandViewController alloc] initWithChannel:slug title:name];
+        vc = [[VenuesViewController alloc] initWithCategory:slug title:name];
+    } else if ([type isEqualToString:@"brand"]) {
+        vc = [[ItemsViewController alloc] initWithBrand:slug title:name];
+    } else if ([type isEqualToString:@"subsection"]) {
+        vc = [[ChannelsViewController alloc] initWithSection:slug title:name];
     }
     [self.navigationController pushViewController:vc animated:YES];
 }

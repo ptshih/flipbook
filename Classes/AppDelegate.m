@@ -8,8 +8,8 @@
 
 #import "AppDelegate.h"
 
-#import "WelcomeViewController.h"
-#import "VenueDetailViewController.h"
+#import "SectionsViewController.h"
+#import "VenueViewController.h"
 
 #import "PSZoomView.h"
 
@@ -79,14 +79,14 @@
 #pragma mark - Push Controller
 
 - (void)pushVenueWithId:(NSString *)venueId {
-    VenueDetailViewController *vc = [[VenueDetailViewController alloc] initWithVenueId:venueId];
+    VenueViewController *vc = [[VenueViewController alloc] initWithVenueId:venueId];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)setupViewControllers {
     // Root view controller
     id controller = nil;
-    controller = [[WelcomeViewController alloc] initWithNibName:nil bundle:nil];
+    controller = [[SectionsViewController alloc] initWithNibName:nil bundle:nil];
     
     self.navigationController = [[PSNavigationController alloc] initWithRootViewController:controller];
     self.window.rootViewController = self.navigationController;

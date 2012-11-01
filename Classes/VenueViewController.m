@@ -1,14 +1,14 @@
 //
-//  VenueDetailViewController.m
+//  VenueViewController.m
 //  Phototime
 //
 //  Created by Peter on 2/12/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "VenueDetailViewController.h"
+#import "VenueViewController.h"
 #import "PSWebViewController.h"
-#import "TipListViewController.h"
+#import "TipsViewController.h"
 #import "UserViewController.h"
 
 #import "PSStarView.h"
@@ -21,7 +21,7 @@
 
 static NSNumberFormatter *__numberFormatter = nil;
 
-@interface VenueDetailViewController () <MKMapViewDelegate>
+@interface VenueViewController () <MKMapViewDelegate>
 
 @property (nonatomic, copy) NSString *venueId;
 @property (nonatomic, strong) NSDictionary *venueDict;
@@ -30,7 +30,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 @end
 
-@implementation VenueDetailViewController
+@implementation VenueViewController
 
 + (void)initialize {
     __numberFormatter = [[NSNumberFormatter alloc] init];
@@ -466,7 +466,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 }
 
 - (void)pushTips:(UITapGestureRecognizer *)gr {
-    TipListViewController *vc = [[TipListViewController alloc] initWithVenueDict:self.venueDict];
+    TipsViewController *vc = [[TipsViewController alloc] initWithVenueDict:self.venueDict];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

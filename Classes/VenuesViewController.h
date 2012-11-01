@@ -1,5 +1,5 @@
 //
-//  VenueListViewController.h
+//  VenuesViewController.h
 //  OSnap
 //
 //  Created by Peter Shih on 12/28/11.
@@ -9,8 +9,8 @@
 #import "PSCollectionViewController.h"
 #import "PSPopoverView.h"
 
-@interface VenueListViewController : PSCollectionViewController
+@interface VenuesViewController : PSCollectionViewController
 
-- (id)initWithCategory:(NSString *)category;
+- (id)initWithCategory:(NSString *)category title:(NSString *)title;
 
 @end

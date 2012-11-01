@@ -1,5 +1,5 @@
 //
-//  VenueDetailViewController.h
+//  VenueViewController.h
 //  Phototime
 //
 //  Created by Peter on 2/12/12.
@@ -8,7 +8,7 @@
 
 #import "PSCollectionViewController.h"
 
-@interface VenueDetailViewController : PSCollectionViewController
+@interface VenueViewController : PSCollectionViewController
 
 - (id)initWithVenueId:(NSString *)venueId;
 

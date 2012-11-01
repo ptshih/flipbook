@@ -1,12 +1,12 @@
 //
-//  ProductCollectionViewCell.m
+//  ItemCollectionViewCell.m
 //  Lunchbox
 //
 //  Created by Peter Shih on 10/30/12.
 //
 //
 
-#import "ProductCollectionViewCell.h"
+#import "ItemCollectionViewCell.h"
 
 // Margins
 static CGSize margin() {
@@ -17,7 +17,7 @@ static CGSize margin() {
     }
 }
 
-@interface ProductCollectionViewCell ()
+@interface ItemCollectionViewCell ()
 
 @property (nonatomic, strong) PSCachedImageView *imageView;
 @property (nonatomic, strong) UILabel *nameLabel;
@@ -25,7 +25,7 @@ static CGSize margin() {
 
 @end
 
-@implementation ProductCollectionViewCell
+@implementation ItemCollectionViewCell
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

@@ -1,31 +1,31 @@
 //
-//  StreamViewController.m
+//  ItemsViewController.m
 //  Lunchbox
 //
 //  Created by Peter Shih on 10/30/12.
 //
 //
 
-#import "StreamViewController.h"
+#import "ItemsViewController.h"
 #import "PSWebViewController.h"
-#import "ProductCollectionViewCell.h"
+#import "ItemCollectionViewCell.h"
 
 #import "PSInfoPopoverView.h"
 
-@interface StreamViewController ()
+@interface ItemsViewController ()
 
-@property (nonatomic, strong) NSString *brandId;
+@property (nonatomic, strong) NSString *brand;
 
 @end
 
-@implementation StreamViewController
+@implementation ItemsViewController
 
 #pragma mark - Init
 
-- (id)initWithBrandId:(NSString *)brandId title:(NSString *)title {
+- (id)initWithBrand:(NSString *)brand title:(NSString *)title {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
-        self.brandId = brandId;
+        self.brand = brand;
         self.title = title;
     }
     return self;
@@ -154,7 +154,7 @@
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    NSString *URLPath = [NSString stringWithFormat:@"%@/v3/brands/%@", API_BASE_URL, self.brandId];
+    NSString *URLPath = [NSString stringWithFormat:@"%@/v3/brands/%@", API_BASE_URL, self.brand];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:nil];
@@ -193,7 +193,7 @@
 #pragma mark - PSCollectionViewDelegate
 
 - (Class)collectionView:(PSCollectionView *)collectionView cellClassForRowAtIndex:(NSInteger)index {
-    return [ProductCollectionViewCell class];
+    return [ItemCollectionViewCell class];
 }
 
 - (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView cellForRowAtIndex:(NSInteger)index {

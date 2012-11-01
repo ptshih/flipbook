@@ -1,12 +1,12 @@
 //
-//  BrandCell.m
+//  SliceCell.m
 //  Lunchbox
 //
-//  Created by Peter Shih on 10/31/12.
+//  Created by Peter Shih on 10/26/12.
 //
 //
 
-#import "BrandCell.h"
+#import "SliceCell.h"
 
 // Margins
 static CGSize margin() {
@@ -17,13 +17,14 @@ static CGSize margin() {
     }
 }
 
-@interface BrandCell ()
+@interface SliceCell ()
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
 @end
 
-@implementation BrandCell
+
+@implementation SliceCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

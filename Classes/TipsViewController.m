@@ -1,21 +1,21 @@
 //
-//  TipListViewController.m
+//  TipsViewController.m
 //  Lunchbox
 //
 //  Created by Peter on 2/28/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "TipListViewController.h"
+#import "TipsViewController.h"
 #import "TipCollectionViewCell.h"
 
-@interface TipListViewController ()
+@interface TipsViewController ()
 
 @property (nonatomic, copy) NSDictionary *venueDict;
 
 @end
 
-@implementation TipListViewController
+@implementation TipsViewController
 
 
 #pragma mark - Init

@@ -1,5 +1,5 @@
 //
-//  TipListViewController.h
+//  TipsViewController.h
 //  Lunchbox
 //
 //  Created by Peter on 2/28/12.
@@ -8,7 +8,7 @@
 
 #import "PSCollectionViewController.h"
 
-@interface TipListViewController : PSCollectionViewController
+@interface TipsViewController : PSCollectionViewController
 
 - (id)initWithVenueDict:(NSDictionary *)venueDict;
 

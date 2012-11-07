@@ -158,8 +158,13 @@
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     NSString *URLPath = [NSString stringWithFormat:@"%@/v3/brands/%@", API_BASE_URL, self.brand];
     
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    [parameters setObject:[NSNumber numberWithInteger:self.limit] forKey:@"limit"];
+    [parameters setObject:[NSNumber numberWithInteger:self.offset] forKey:@"offset"];
+    
     NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:nil];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
     
     [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
         ASSERT_MAIN_THREAD;

@@ -28,6 +28,12 @@ static NSNumberFormatter *__numberFormatter = nil;
 @property (nonatomic, strong) NSDictionary *yelpDict;
 @property (nonatomic, strong) MKMapView *mapView;
 
+@property (nonatomic, strong) UIButton *mapCloseButton;
+@property (nonatomic, strong) UIButton *mapOpenButton;
+
+@property (nonatomic, strong) UIView *cardView;
+@property (nonatomic, assign) CGRect mapFrame;
+
 @end
 
 @implementation VenueViewController
@@ -114,15 +120,16 @@ static NSNumberFormatter *__numberFormatter = nil;
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     // Map    
-    UIView *mapView = [[UIView alloc] initWithFrame:CGRectMake(8, 8, headerView.width - 16, mapHeight - 8)];
-    mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    mapView.backgroundColor = [UIColor whiteColor];
+    UIView *cardView = [[UIView alloc] initWithFrame:CGRectMake(8, 8, headerView.width - 16, mapHeight - 8)];
+    cardView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    cardView.backgroundColor = [UIColor whiteColor];
     UIImage *mapShadowImage = [[UIImage imageNamed:@"ShadowFlattened"] stretchableImageWithLeftCapWidth:2 topCapHeight:2];
     UIImageView *mapShadowView = [[UIImageView alloc] initWithImage:mapShadowImage];
     mapShadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    mapShadowView.frame = CGRectInset(mapView.bounds, -1, -2);
-    [mapView addSubview:mapShadowView];
-    [headerView addSubview:mapView];
+    mapShadowView.frame = CGRectInset(cardView.bounds, -1, -2);
+    [cardView addSubview:mapShadowView];
+    [headerView addSubview:cardView];
+    self.cardView = cardView;
     
     CGFloat mapTop = 4.0;
     self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(4, mapTop, headerView.width - 24, mapHeight - 16)];
@@ -142,7 +149,44 @@ static NSNumberFormatter *__numberFormatter = nil;
     [self.mapView addAnnotation:annotation];
     UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(zoomMap:)];
     [self.mapView addGestureRecognizer:gr];
-    [mapView addSubview:self.mapView];
+    [cardView addSubview:self.mapView];
+    
+    // Add map buttons and hide them
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeButton addTarget:self action:@selector(closeMap:) forControlEvents:UIControlEventTouchUpInside];
+    closeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
+    [closeButton setTitle:@"Close" forState:UIControlStateNormal];
+    closeButton.frame = CGRectMake(8, 8, 72, 36);
+    closeButton.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
+    closeButton.layer.cornerRadius = 4.0;
+    closeButton.layer.masksToBounds = YES;
+    closeButton.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
+    closeButton.layer.borderWidth = 1.0;
+    closeButton.layer.shouldRasterize = YES;
+    closeButton.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    closeButton.alpha = 0.0;
+    [PSStyleSheet applyStyle:@"h5BoldLightLabel" forButton:closeButton];
+    closeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [self.mapView addSubview:closeButton];
+    self.mapCloseButton = closeButton;
+    
+    UIButton *openButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [openButton addTarget:self action:@selector(openAddress:) forControlEvents:UIControlEventTouchUpInside];
+    openButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+    [openButton setTitle:@"Maps" forState:UIControlStateNormal];
+    openButton.frame = CGRectMake(self.mapView.width - 72 - 8, 8, 72, 36);
+    openButton.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
+    openButton.layer.cornerRadius = 4.0;
+    openButton.layer.masksToBounds = YES;
+    openButton.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
+    openButton.layer.borderWidth = 1.0;
+    openButton.layer.shouldRasterize = YES;
+    openButton.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    openButton.alpha = 0.0;
+    [PSStyleSheet applyStyle:@"h5BoldLightLabel" forButton:openButton];
+    openButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [self.mapView addSubview:openButton];
+    self.mapOpenButton = openButton;
     
     mapTop += self.mapView.height + 4.0;
     
@@ -150,12 +194,12 @@ static NSNumberFormatter *__numberFormatter = nil;
     UILabel *statsLabel = nil;
     if (OBJ_NOT_NULL([self.venueDict objectForKey:@"stats"])) {
         UIImageView *peopleIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPersonMiniBlack"]];
-        [mapView addSubview:peopleIcon];
+        [cardView addSubview:peopleIcon];
         peopleIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         statsLabel = [UILabel labelWithStyle:@"h6BoldDarkLabel"];
-        [mapView addSubview:statsLabel];
-        statsLabel.backgroundColor = mapView.backgroundColor;
+        [cardView addSubview:statsLabel];
+        statsLabel.backgroundColor = cardView.backgroundColor;
         statsLabel.text = [NSString stringWithFormat:@"%@ people checked in here", [__numberFormatter stringFromNumber:[[self.venueDict objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
         
         CGSize statsLabelSize = [statsLabel sizeForLabelInWidth:(self.mapView.width - 16.0)];
@@ -173,12 +217,12 @@ static NSNumberFormatter *__numberFormatter = nil;
     
     if (formattedAddress) {
         UIImageView *addressIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPinMiniBlack"]];
-        [mapView addSubview:addressIcon];
+        [cardView addSubview:addressIcon];
         addressIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         addressButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [mapView addSubview:addressButton];
-        addressButton.backgroundColor = mapView.backgroundColor;
+        [cardView addSubview:addressButton];
+        addressButton.backgroundColor = cardView.backgroundColor;
         [addressButton addTarget:self action:@selector(openAddress:) forControlEvents:UIControlEventTouchUpInside];
         [addressButton setTitle:formattedAddress forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:addressButton];
@@ -193,12 +237,12 @@ static NSNumberFormatter *__numberFormatter = nil;
     UIButton *phoneButton = nil;
     if (OBJ_NOT_NULL([self.venueDict objectForKey:@"contact"]) && [[self.venueDict objectForKey:@"contact"] objectForKey:@"formattedPhone"]) {
         UIImageView *phoneIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPhoneBlack"]];
-        [mapView addSubview:phoneIcon];
+        [cardView addSubview:phoneIcon];
         phoneIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [mapView addSubview:phoneButton];
-        phoneButton.backgroundColor = mapView.backgroundColor;
+        [cardView addSubview:phoneButton];
+        phoneButton.backgroundColor = cardView.backgroundColor;
         [phoneButton addTarget:self action:@selector(openPhone:) forControlEvents:UIControlEventTouchUpInside];
         [phoneButton setTitle:[NSString stringWithFormat:@"%@", [[self.venueDict objectForKey:@"contact"] objectForKey:@"formattedPhone"]] forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:phoneButton];
@@ -212,12 +256,12 @@ static NSNumberFormatter *__numberFormatter = nil;
     UIButton *websiteButton = nil;
     if (OBJ_NOT_NULL([self.venueDict objectForKey:@"url"])) {
         UIImageView *websiteIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconPlanetBlack"]];
-        [mapView addSubview:websiteIcon];
+        [cardView addSubview:websiteIcon];
         websiteIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         websiteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [mapView addSubview:websiteButton];
-        websiteButton.backgroundColor = mapView.backgroundColor;
+        [cardView addSubview:websiteButton];
+        websiteButton.backgroundColor = cardView.backgroundColor;
         [websiteButton addTarget:self action:@selector(openWebsite:) forControlEvents:UIControlEventTouchUpInside];
         [websiteButton setTitle:[NSString stringWithFormat:@"%@", [self.venueDict objectForKey:@"url"]] forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:websiteButton];
@@ -231,12 +275,12 @@ static NSNumberFormatter *__numberFormatter = nil;
     UIButton *menuButton = nil;
     if (OBJ_NOT_NULL([self.venueDict objectForKey:@"menu"])) {
         UIImageView *menuIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconFoodBlack"]];
-        [mapView addSubview:menuIcon];
+        [cardView addSubview:menuIcon];
         menuIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [mapView addSubview:menuButton];
-        menuButton.backgroundColor = mapView.backgroundColor;
+        [cardView addSubview:menuButton];
+        menuButton.backgroundColor = cardView.backgroundColor;
         [menuButton addTarget:self action:@selector(openMenu:) forControlEvents:UIControlEventTouchUpInside];
         [menuButton setTitle:[NSString stringWithFormat:@"%@", @"See the menu"] forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:menuButton];
@@ -250,12 +294,12 @@ static NSNumberFormatter *__numberFormatter = nil;
     UIButton *reservationsButton = nil;
     if (OBJ_NOT_NULL([self.venueDict objectForKey:@"reservations"])) {
         UIImageView *reservationsIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconReservationsBlack"]];
-        [mapView addSubview:reservationsIcon];
+        [cardView addSubview:reservationsIcon];
         reservationsIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         reservationsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [mapView addSubview:reservationsButton];
-        reservationsButton.backgroundColor = mapView.backgroundColor;
+        [cardView addSubview:reservationsButton];
+        reservationsButton.backgroundColor = cardView.backgroundColor;
         [reservationsButton addTarget:self action:@selector(openReservations:) forControlEvents:UIControlEventTouchUpInside];
         [reservationsButton setTitle:[NSString stringWithFormat:@"%@", @"Make reservations on OpenTable"] forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"linkButton" forButton:reservationsButton];
@@ -265,9 +309,9 @@ static NSNumberFormatter *__numberFormatter = nil;
         mapTop += reservationsButton.height + 4.0;
     }
     
-    mapView.height = mapTop;
+    cardView.height = mapTop;
     
-    top = mapView.bottom + 8.0;
+    top = cardView.bottom + 8.0;
     
     // Tip
     // Don't show if no tips
@@ -453,16 +497,51 @@ static NSNumberFormatter *__numberFormatter = nil;
 }
 
 - (void)zoomMap:(UITapGestureRecognizer *)gr {
-    if (![PSZoomView prepareToZoom]) {
-        return;
-    }
+    gr.enabled = NO;
+    self.mapView.scrollEnabled = YES;
+    self.mapView.zoomEnabled = YES;
     
-    MKMapView *v = (MKMapView *)gr.view;
+    self.mapFrame = self.mapView.frame;
     
-    CGRect convertedFrame = [self.view.window convertRect:v.frame fromView:v.superview];
-    [PSZoomView showMapView:v withFrame:convertedFrame inView:self.view.window fullscreen:YES];
+    CGRect convertedFrame = [self.cardView convertRect:self.mapFrame toView:self.view];
     
-    [self.mapView selectAnnotation:[[self.mapView annotations] lastObject] animated:YES];
+
+    [self.mapView removeFromSuperview];
+    [self.view addSubview:self.mapView];
+    self.mapView.frame = convertedFrame;
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.mapView.frame = self.view.bounds;
+        self.mapCloseButton.alpha = 1.0;
+        self.mapOpenButton.alpha = 1.0;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)closeMap:(UIButton *)button {
+    CGRect convertedFrame = [self.cardView convertRect:self.mapFrame toView:self.view];
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.mapView.frame = convertedFrame;
+        self.mapCloseButton.alpha = 0.0;
+        self.mapOpenButton.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.mapView removeFromSuperview];
+        [self.cardView addSubview:self.mapView];
+        self.mapView.frame = self.mapFrame;
+        
+        self.mapView.scrollEnabled = NO;
+        self.mapView.zoomEnabled = NO;
+        
+        NSDictionary *location = [self.venueDict objectForKey:@"location"];
+        MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([[location objectForKey:@"lat"] floatValue], [[location objectForKey:@"lng"] floatValue]), 250, 250);
+        [self.mapView setRegion:mapRegion animated:YES];
+        
+        for (UIGestureRecognizer *gr in self.mapView.gestureRecognizers) {
+            gr.enabled = YES;
+        }
+    }];
 }
 
 - (void)pushTips:(UITapGestureRecognizer *)gr {
@@ -659,7 +738,7 @@ static NSNumberFormatter *__numberFormatter = nil;
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"View Directions" message:[NSString stringWithFormat:@"Open %@ in Google Maps?", [view.annotation title]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"View Directions" message:[NSString stringWithFormat:@"Open %@ in Maps?", [view.annotation title]] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     av.tag = kAlertTagDirections;
     [av show];
 }
@@ -671,7 +750,7 @@ static NSNumberFormatter *__numberFormatter = nil;
     if ([location objectForKey:@"postalCode"]) {
         formattedAddress = [formattedAddress stringByAppendingFormat:@" %@", [location objectForKey:@"postalCode"]];
     }
-    NSString *urlString = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", [formattedAddress stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *urlString = [NSString stringWithFormat:@"http://maps.apple.com/maps?q=%@", [formattedAddress stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 

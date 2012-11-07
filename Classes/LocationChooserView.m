@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) UIButton *searchButton;
 
+@property (nonatomic, strong) MKCircle *circleOverlay;
+
 @end
 
 @implementation LocationChooserView
@@ -152,6 +154,26 @@
     [UIView animateWithDuration:0.4 animations:^{
         self.searchButton.alpha = 1.0;
     }];
+    
+    [self.mapView removeOverlay:self.circleOverlay];
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    CGFloat mapRadius = (MKMapRectSpanDistance(self.mapView.visibleMapRect) / 2.0) - 16.0;
+    
+    self.circleOverlay = [MKCircle circleWithCenterCoordinate:self.mapView.centerCoordinate radius:mapRadius];
+    [self.mapView addOverlay:self.circleOverlay];
+}
+
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay {
+    if(overlay == self.circleOverlay) {
+        MKCircleView *circleView = [[MKCircleView alloc] initWithCircle:self.circleOverlay];
+        circleView.fillColor = RGBACOLOR(29, 153, 188, 0.3);
+        circleView.strokeColor = [UIColor clearColor];
+        return circleView;
+    }
+    
+    return nil;
 }
 
 @end

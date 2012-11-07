@@ -83,7 +83,19 @@ static CGSize margin() {
 
 
 + (CGFloat)rowHeightForObject:(NSDictionary *)dict atIndexPath:(NSIndexPath *)indexPath forInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return isDeviceIPad() ? 320.0 : 160.0;
+    if (isDeviceIPad()) {
+        if (UIInterfaceOrientationIsPortrait(interfaceOrientation)) {
+            return 260.0;
+        } else {
+            return 350.0;
+        }
+    } else {
+        if (isDeviceIPhone5() ) {
+            return 180.0;
+        } else {
+            return 150.0;
+        }
+    }
 }
 
 @end

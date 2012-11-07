@@ -8,7 +8,7 @@
 
 #import "VenuesViewController.h"
 #import "VenueViewController.h"
-#import "ItemsViewController.h"
+#import "BrandItemsViewController.h"
 
 #import "VenueCollectionViewCell.h"
 #import "BrandCollectionViewCell.h"
@@ -366,7 +366,7 @@
     } else if ([type isEqualToString:@"airbrite"]) {
         NSString *brand = [item objectForKey:@"slug"];
         NSString *title = [item objectForKey:@"name"];
-        ItemsViewController *vc = [[ItemsViewController alloc] initWithBrand:brand title:title];
+        BrandItemsViewController *vc = [[BrandItemsViewController alloc] initWithBrand:brand title:title];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

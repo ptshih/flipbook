@@ -64,8 +64,8 @@ static CGSize margin() {
     CGFloat top = margin().height;
     CGFloat left = margin().width;
     
-    CGFloat objectWidth = 256.0;
-    CGFloat objectHeight = 256.0;
+    CGFloat objectWidth = [self.object objectForKey:@"width"] ? [[self.object objectForKey:@"width"] floatValue] : 256.0;
+    CGFloat objectHeight = [self.object objectForKey:@"height"] ? [[self.object objectForKey:@"width"] floatValue] : 256.0;
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     self.imageView.frame = CGRectMake(left, top, width, scaledHeight);
     

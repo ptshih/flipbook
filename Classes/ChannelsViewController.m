@@ -7,7 +7,7 @@
 //
 
 #import "ChannelsViewController.h"
-#import "ItemsViewController.h"
+#import "BrandItemsViewController.h"
 #import "VenuesViewController.h"
 
 #import "SliceCell.h"
@@ -202,7 +202,7 @@
     if ([type isEqualToString:@"foursquare"]) {
         vc = [[VenuesViewController alloc] initWithCategory:slug query:query title:name];
     } else if ([type isEqualToString:@"brand"]) {
-        vc = [[ItemsViewController alloc] initWithBrand:slug title:name];
+        vc = [[BrandItemsViewController alloc] initWithBrand:slug title:name];
     } else if ([type isEqualToString:@"subsection"]) {
         vc = [[ChannelsViewController alloc] initWithSection:slug title:name];
     }

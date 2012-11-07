@@ -10,7 +10,7 @@
 
 #import "VenuesViewController.h"
 #import "ChannelsViewController.h"
-#import "ItemsViewController.h"
+#import "BrandItemsViewController.h"
 
 #import "SliceCell.h"
 
@@ -160,9 +160,20 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    Class cellClass = [self cellClassAtIndexPath:indexPath];
-    return [cellClass rowHeightForObject:item atIndexPath:indexPath forInterfaceOrientation:self.interfaceOrientation];
+    // Special override to fit screen heights
+    if (isDeviceIPad()) {
+        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
+            return 260.0;
+        } else {
+            return 350.0;
+        }
+    } else {
+        if (isDeviceIPhone5() ) {
+            return 137.0;
+        } else {
+            return 115.0;
+        }
+    }
 }
 
 - (void)tableView:(UITableView *)tableView configureCell:(id)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -183,7 +194,7 @@
     if ([type isEqualToString:@"foursquare"]) {
         vc = [[VenuesViewController alloc] initWithCategory:slug query:query title:name];
     } else if ([type isEqualToString:@"brand"]) {
-        vc = [[ItemsViewController alloc] initWithBrand:slug title:name];
+        vc = [[BrandItemsViewController alloc] initWithBrand:slug title:name];
     } else if ([type isEqualToString:@"subsection"]) {
         vc = [[ChannelsViewController alloc] initWithSection:slug title:name];
     }

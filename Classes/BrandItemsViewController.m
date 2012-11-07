@@ -1,24 +1,24 @@
 //
-//  ItemsViewController.m
+//  BrandItemsViewController.m
 //  Lunchbox
 //
 //  Created by Peter Shih on 10/30/12.
 //
 //
 
-#import "ItemsViewController.h"
+#import "BrandItemsViewController.h"
 #import "PSWebViewController.h"
 #import "ItemCollectionViewCell.h"
 
 #import "PSInfoPopoverView.h"
 
-@interface ItemsViewController ()
+@interface BrandItemsViewController ()
 
 @property (nonatomic, strong) NSString *brand;
 
 @end
 
-@implementation ItemsViewController
+@implementation BrandItemsViewController
 
 #pragma mark - Init
 

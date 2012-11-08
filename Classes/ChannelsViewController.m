@@ -73,6 +73,12 @@
     [self loadDataSource];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagScreen:NSStringFromClass([self class])];
+}
+
 #pragma mark - Config Subviews
 
 - (void)setupSubviews {
@@ -201,10 +207,16 @@
     id vc = nil;
     if ([type isEqualToString:@"foursquare"]) {
         vc = [[VenuesViewController alloc] initWithCategory:slug query:query title:name];
+        
+        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Channels: Foursquare clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:name, @"name", nil]];
     } else if ([type isEqualToString:@"brand"]) {
         vc = [[BrandItemsViewController alloc] initWithBrand:slug title:name];
+        
+        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Channels: Brand clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:name, @"name", nil]];
     } else if ([type isEqualToString:@"subsection"]) {
         vc = [[ChannelsViewController alloc] initWithSection:slug title:name];
+        
+        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Channels: Subsection clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:name, @"name", nil]];
     }
     [self.navigationController pushViewController:vc animated:YES];
 }

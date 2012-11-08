@@ -115,6 +115,8 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    [[LocalyticsSession sharedLocalyticsSession] tagScreen:NSStringFromClass([self class])];
+    
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showTutorialFoursquare"]) {
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"showTutorialFoursquare"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -363,11 +365,15 @@
     if ([type isEqualToString:@"foursquare"]) {
         VenueViewController *vc = [[VenueViewController alloc] initWithVenueId:[item objectForKey:@"id"]];
         [self.navigationController pushViewController:vc animated:YES];
+        
+        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Stream: Venue clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[item objectForKey:@"id"], @"id", [item objectForKey:@"name"], @"name", nil]];
     } else if ([type isEqualToString:@"airbrite"]) {
         NSString *brand = [item objectForKey:@"slug"];
         NSString *title = [item objectForKey:@"name"];
         BrandItemsViewController *vc = [[BrandItemsViewController alloc] initWithBrand:brand title:title];
         [self.navigationController pushViewController:vc animated:YES];
+        
+        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Stream: Brand ad clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:title, @"name", nil]];
     }
 }
 

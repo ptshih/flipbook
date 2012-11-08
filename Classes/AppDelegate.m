@@ -150,6 +150,7 @@
 #endif
     
     // Localytics
+    [[LocalyticsSession sharedLocalyticsSession] startSession:@"84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc"];
     // 84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc
     
     // PSURLCache
@@ -188,19 +189,30 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+    [[LocalyticsSession sharedLocalyticsSession] close];
+    [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    [[LocalyticsSession sharedLocalyticsSession] close];
+    [[LocalyticsSession sharedLocalyticsSession] upload];
+    
     self.backgroundDate = [NSDate date];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    [[LocalyticsSession sharedLocalyticsSession] resume];
+    [[LocalyticsSession sharedLocalyticsSession] upload];
+    
     [Appirater appEnteredForeground:YES];
     
     [self purgeCacheIfNecessary:NO];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {    
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [[LocalyticsSession sharedLocalyticsSession] resume];
+    [[LocalyticsSession sharedLocalyticsSession] upload];
+    
     if (self.shouldReloadInterface) {
         self.shouldReloadInterface = NO;
         
@@ -211,6 +223,8 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+    [[LocalyticsSession sharedLocalyticsSession] close];
+    [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
 - (void)dealloc {

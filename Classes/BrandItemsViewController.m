@@ -70,6 +70,8 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    [[LocalyticsSession sharedLocalyticsSession] tagScreen:NSStringFromClass([self class])];
+    
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showTutorialAirbrite"]) {
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"showTutorialAirbrite"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -230,13 +232,16 @@
 //    Class cellClass = [self collectionView:collectionView cellClassForRowAtIndex:index];
 
     NSDictionary *item = [self.items objectAtIndex:index];
+    NSString *_id = [item objectForKey:@"_id"];
     NSString *name = [item objectForKey:@"name"];
-    NSString *url = [item objectForKey:@"url"];
+//    NSString *url = [item objectForKey:@"url"];
     
-    NSString *urlPath = [NSString stringWithFormat:@"http://cortex.airbrite.io/items/%@", [item objectForKey:@"_id"]];
+    NSString *urlPath = [NSString stringWithFormat:@"http://cortex.airbrite.io/items/%@", _id];
     
     PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:urlPath title:name];
     [self.navigationController pushViewController:vc animated:YES];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Brand: Item clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:_id, @"id", name, @"name", nil]];
 }
 
 

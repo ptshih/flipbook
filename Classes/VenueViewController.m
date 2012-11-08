@@ -98,6 +98,8 @@ static NSNumberFormatter *__numberFormatter = nil;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagScreen:NSStringFromClass([self class])];
 }
 
 #pragma mark - Config Subviews
@@ -547,6 +549,8 @@ static NSNumberFormatter *__numberFormatter = nil;
 - (void)pushTips:(UITapGestureRecognizer *)gr {
     TipsViewController *vc = [[TipsViewController alloc] initWithVenueDict:self.venueDict];
     [self.navigationController pushViewController:vc animated:YES];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Tips clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
 }
 
 - (void)pushYelp:(UITapGestureRecognizer *)gr {
@@ -752,10 +756,14 @@ static NSNumberFormatter *__numberFormatter = nil;
     }
     NSString *urlString = [NSString stringWithFormat:@"http://maps.apple.com/maps?q=%@", [formattedAddress stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Address clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
 }
 
 - (void)openPhone:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", [[self.venueDict objectForKey:@"contact"] objectForKey:@"phone"]]]];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Phone clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
 }
 
 - (void)openWebsite:(id)sender {
@@ -766,6 +774,8 @@ static NSNumberFormatter *__numberFormatter = nil;
     }
     
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self.venueDict objectForKey:@"url"]]];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Website clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
 }
 
 - (void)openMenu:(id)sender {
@@ -775,6 +785,8 @@ static NSNumberFormatter *__numberFormatter = nil;
     [self.navigationController pushViewController:vc animated:YES];
     
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Menu clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
 }
 
 - (void)openReservations:(id)sender {
@@ -784,6 +796,8 @@ static NSNumberFormatter *__numberFormatter = nil;
     [self.navigationController pushViewController:vc animated:YES];
     
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Reservations clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
 }
 
 #pragma mark - Rotation

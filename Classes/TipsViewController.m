@@ -64,6 +64,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagScreen:NSStringFromClass([self class])];
 }
 
 #pragma mark - Config Subviews

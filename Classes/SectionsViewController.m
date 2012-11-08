@@ -165,9 +165,9 @@
     // Special override to fit screen heights
     if (isDeviceIPad()) {
         if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
-            return 260.0;
+            return 251.0;
         } else {
-            return 350.0;
+            return 187.0;
         }
     } else {
         if (isDeviceIPhone5() ) {

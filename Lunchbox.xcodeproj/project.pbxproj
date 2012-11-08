@@ -2702,8 +2702,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: AIRBRITE INC.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: AIRBRITE INC.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Peter Shih";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Peter Shih";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2717,8 +2717,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = Lunchbox;
-				PROVISIONING_PROFILE = "9DFE80E1-C977-4F4F-AA40-7C71ECEFBFD4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9DFE80E1-C977-4F4F-AA40-7C71ECEFBFD4";
+				PROVISIONING_PROFILE = "002A8C28-E4B1-492D-8820-E799856589B4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "002A8C28-E4B1-492D-8820-E799856589B4";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

@@ -200,6 +200,7 @@ static NSNumberFormatter *__numberFormatter = nil;
         peopleIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         statsLabel = [UILabel labelWithStyle:@"h6BoldDarkLabel"];
+        statsLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
         [cardView addSubview:statsLabel];
         statsLabel.backgroundColor = cardView.backgroundColor;
         statsLabel.text = [NSString stringWithFormat:@"%@ people checked in here", [__numberFormatter stringFromNumber:[[self.venueDict objectForKey:@"stats"] objectForKey:@"checkinsCount"]]];
@@ -223,6 +224,7 @@ static NSNumberFormatter *__numberFormatter = nil;
         addressIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         addressButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        addressButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [cardView addSubview:addressButton];
         addressButton.backgroundColor = cardView.backgroundColor;
         [addressButton addTarget:self action:@selector(openAddress:) forControlEvents:UIControlEventTouchUpInside];
@@ -243,6 +245,7 @@ static NSNumberFormatter *__numberFormatter = nil;
         phoneIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         phoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        phoneButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [cardView addSubview:phoneButton];
         phoneButton.backgroundColor = cardView.backgroundColor;
         [phoneButton addTarget:self action:@selector(openPhone:) forControlEvents:UIControlEventTouchUpInside];
@@ -262,6 +265,7 @@ static NSNumberFormatter *__numberFormatter = nil;
         websiteIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         websiteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        websiteButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [cardView addSubview:websiteButton];
         websiteButton.backgroundColor = cardView.backgroundColor;
         [websiteButton addTarget:self action:@selector(openWebsite:) forControlEvents:UIControlEventTouchUpInside];
@@ -281,6 +285,7 @@ static NSNumberFormatter *__numberFormatter = nil;
         menuIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        menuButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [cardView addSubview:menuButton];
         menuButton.backgroundColor = cardView.backgroundColor;
         [menuButton addTarget:self action:@selector(openMenu:) forControlEvents:UIControlEventTouchUpInside];
@@ -300,6 +305,7 @@ static NSNumberFormatter *__numberFormatter = nil;
         reservationsIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
         
         reservationsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        reservationsButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         [cardView addSubview:reservationsButton];
         reservationsButton.backgroundColor = cardView.backgroundColor;
         [reservationsButton addTarget:self action:@selector(openReservations:) forControlEvents:UIControlEventTouchUpInside];
@@ -335,10 +341,12 @@ static NSNumberFormatter *__numberFormatter = nil;
         CGFloat tipWidth = tipView.width - 16 - 20;
         
         UILabel *tipUserLabel = [UILabel labelWithStyle:@"h6BoldDarkLabel"];
+        tipUserLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         tipUserLabel.backgroundColor = tipView.backgroundColor;
         [tipView addSubview:tipUserLabel];
         
         UILabel *tipLabel = [UILabel labelWithStyle:@"h6GeorgiaDarkLabel"];
+        tipLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         tipLabel.backgroundColor = tipView.backgroundColor;
         [tipView addSubview:tipLabel];
         
@@ -401,8 +409,9 @@ static NSNumberFormatter *__numberFormatter = nil;
         self.collectionView.numColsLandscape = 3;
     }
     
-    // 4sq attribution
+    // 4sq attribution footer
     UIImageView *pb4sq = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]];
+    pb4sq.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     pb4sq.contentMode = UIViewContentModeCenter;
     pb4sq.frame = CGRectMake(0, 0, self.collectionView.width, pb4sq.height);
 

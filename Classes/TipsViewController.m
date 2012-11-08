@@ -82,6 +82,7 @@
     
     // 4sq attribution
     UIImageView *pb4sq = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PoweredByFoursquareBlack"]];
+    pb4sq.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     pb4sq.contentMode = UIViewContentModeCenter;
     pb4sq.frame = CGRectMake(0, 0, self.collectionView.width, pb4sq.height);
     

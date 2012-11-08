@@ -1,14 +1,14 @@
 //
-//  VenuesViewController.m
-//  OSnap
+//  FoursquareViewController.m
+//  Lunchbox
 //
 //  Created by Peter Shih on 12/28/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2011 Peter Shih. All rights reserved.
 //
 
-#import "VenuesViewController.h"
+#import "FoursquareViewController.h"
 #import "VenueViewController.h"
-#import "BrandItemsViewController.h"
+#import "BrandViewController.h"
 
 #import "VenueCollectionViewCell.h"
 #import "BrandCollectionViewCell.h"
@@ -19,7 +19,7 @@
 #define kPopoverLocation 7001
 #define kPopoverCategory 7002
 
-@interface VenuesViewController () <PSPopoverViewDelegate, UIAlertViewDelegate>
+@interface FoursquareViewController () <PSPopoverViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, copy) NSString *category;
 @property (nonatomic, assign) CLLocationCoordinate2D centerCoordinate;
@@ -30,7 +30,7 @@
 
 @end
 
-@implementation VenuesViewController
+@implementation FoursquareViewController
 
 #pragma mark - Init
 
@@ -181,6 +181,8 @@
     popoverView.tag = kPopoverLocation;
     popoverView.delegate = self;
     [popoverView showWithSize:cv.frame.size inView:self.view];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venues: Search Selected"];
 }
 
 - (void)rightAction {
@@ -366,14 +368,14 @@
         VenueViewController *vc = [[VenueViewController alloc] initWithVenueId:[item objectForKey:@"id"]];
         [self.navigationController pushViewController:vc animated:YES];
         
-        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Stream: Venue clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[item objectForKey:@"id"], @"id", [item objectForKey:@"name"], @"name", nil]];
+        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Stream: Venue Selected" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[item objectForKey:@"id"], @"id", [item objectForKey:@"name"], @"name", nil]];
     } else if ([type isEqualToString:@"airbrite"]) {
-        NSString *brand = [item objectForKey:@"slug"];
+        NSString *slug = [item objectForKey:@"slug"];
         NSString *title = [item objectForKey:@"name"];
-        BrandItemsViewController *vc = [[BrandItemsViewController alloc] initWithBrand:brand title:title];
+        BrandViewController *vc = [[BrandViewController alloc] initWithSlug:slug title:title];
         [self.navigationController pushViewController:vc animated:YES];
         
-        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Stream: Brand ad clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:title, @"name", nil]];
+        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Stream: Brand Selected" attributes:[NSDictionary dictionaryWithObjectsAndKeys:title, @"name", nil]];
     }
 }
 

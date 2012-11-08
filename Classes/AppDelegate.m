@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  OSnap
+//  Lunchbox
 //
 //  Created by Peter Shih on 11/15/11.
 //  Copyright (c) 2011 Peter Shih. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "SectionsViewController.h"
+#import "RootViewController.h"
 #import "VenueViewController.h"
 
 #import "PSZoomView.h"
@@ -86,7 +86,7 @@
 - (void)setupViewControllers {
     // Root view controller
     id controller = nil;
-    controller = [[SectionsViewController alloc] initWithNibName:nil bundle:nil];
+    controller = [[RootViewController alloc] initWithNibName:nil bundle:nil];
     
     self.navigationController = [[PSNavigationController alloc] initWithRootViewController:controller];
     self.window.rootViewController = self.navigationController;
@@ -151,7 +151,8 @@
     
     // Localytics
     [[LocalyticsSession sharedLocalyticsSession] startSession:@"84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc"];
-    // 84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc
+    // Old: 84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc
+    // New: 34a9f3214a8fad66fc6fda1-e627441e-58cc-11e1-ab17-008545fe83d2
     
     // PSURLCache
     [[PSURLCache sharedCache] setNoCache:NO]; // This force NO CACHE

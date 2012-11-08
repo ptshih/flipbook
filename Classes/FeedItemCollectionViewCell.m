@@ -1,12 +1,12 @@
 //
-//  ItemCollectionViewCell.m
+//  FeedItemCollectionViewCell.m
 //  Lunchbox
 //
-//  Created by Peter Shih on 10/30/12.
+//  Created by Peter Shih on 11/8/12.
 //
 //
 
-#import "ItemCollectionViewCell.h"
+#import "FeedItemCollectionViewCell.h"
 
 // Margins
 static CGSize margin() {
@@ -17,7 +17,7 @@ static CGSize margin() {
     }
 }
 
-@interface ItemCollectionViewCell ()
+@interface FeedItemCollectionViewCell ()
 
 @property (nonatomic, strong) PSCachedImageView *imageView;
 @property (nonatomic, strong) UILabel *nameLabel;
@@ -25,7 +25,8 @@ static CGSize margin() {
 
 @end
 
-@implementation ItemCollectionViewCell
+
+@implementation FeedItemCollectionViewCell
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -46,6 +47,10 @@ static CGSize margin() {
         self.nameLabel = [UILabel labelWithStyle:@"h5CondDarkLabel"];
         self.nameLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.nameLabel];
+        
+        self.descLabel = [UILabel labelWithStyle:@"h6GeorgiaDarkLabel"];
+        self.descLabel.backgroundColor = self.backgroundColor;
+        [self addSubview:self.descLabel];
     }
     return self;
 }
@@ -55,6 +60,7 @@ static CGSize margin() {
     
     [self.imageView prepareForReuse];
     self.nameLabel.text = nil;
+    self.descLabel.text = nil;
 }
 
 - (void)layoutSubviews {
@@ -76,6 +82,12 @@ static CGSize margin() {
     // Name
     labelSize = [self.nameLabel sizeForLabelInWidth:width];
     self.nameLabel.frame = CGRectMake(left, top, width, labelSize.height);
+    
+    top = self.nameLabel.bottom;
+    
+    // Desc
+    labelSize = [self.descLabel sizeForLabelInWidth:width];
+    self.descLabel.frame = CGRectMake(left, top, width, labelSize.height);
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
@@ -85,11 +97,11 @@ static CGSize margin() {
     [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
     [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
     
-    NSMutableString *nameText = [NSMutableString stringWithString:[object objectForKey:@"name"]];
-    if ([object objectForKey:@"price"]) {
-        [nameText appendFormat:@" - $%@", [object objectForKey:@"price"]];
-    }
+    NSString *nameText = [object objectForKey:@"title"];
     self.nameLabel.text = nameText;
+    
+    NSString *descText = [object objectForKey:@"description"];
+    self.descLabel.text = descText;
 }
 
 + (CGFloat)rowHeightForObject:(id)object inColumnWidth:(CGFloat)columnWidth {
@@ -107,16 +119,18 @@ static CGSize margin() {
     
     CGSize labelSize = CGSizeZero;
     
-    NSMutableString *nameText = [NSMutableString stringWithString:[object objectForKey:@"name"]];
-    if ([object objectForKey:@"price"]) {
-        [nameText appendFormat:@" - $%@", [object objectForKey:@"price"]];
-    }
+    NSString *nameText = [object objectForKey:@"title"];
     labelSize = [PSStyleSheet sizeForText:nameText width:width style:@"h5CondDarkLabel"];
+    height += labelSize.height;
+    
+    NSString *descText = [object objectForKey:@"description"];
+    labelSize = [PSStyleSheet sizeForText:descText width:width style:@"h6GeorgiaDarkLabel"];
     height += labelSize.height;
     
     height += margin().height;
     
     return height;
 }
+
 
 @end

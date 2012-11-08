@@ -1,38 +1,51 @@
 //
-//  SectionsViewController.m
+//  SubsectionViewController.m
 //  Lunchbox
 //
-//  Created by Peter Shih on 10/26/12.
+//  Created by Peter Shih on 10/31/12.
 //
 //
 
-#import "SectionsViewController.h"
-
-#import "VenuesViewController.h"
-#import "ChannelsViewController.h"
-#import "BrandItemsViewController.h"
+#import "SubsectionViewController.h"
+#import "BrandViewController.h"
+#import "FeedViewController.h"
+#import "FoursquareViewController.h"
 
 #import "SliceCell.h"
 
-@interface SectionsViewController ()
+@interface SubsectionViewController ()
+
+@property (nonatomic, strong) NSString *section;
 
 @end
 
-@implementation SectionsViewController
+@implementation SubsectionViewController
+
 
 #pragma mark - Init
+
+- (id)initWithSection:(NSString *)section title:(NSString *)title {
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        self.section = section;
+        self.title = title;
+    }
+    return self;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.shouldShowHeader = NO;
+        self.shouldShowHeader = YES;
         self.shouldShowFooter = NO;
         self.shouldShowNullView = YES;
         
-        self.headerHeight = 0.0;
+        self.headerHeight = 44.0;
         self.footerHeight = 0.0;
         
-        self.title = @"Channels";
+        self.headerRightWidth = 0.0;
+        
+        self.title = @"Brands";
         
         self.nullBackgroundColor = [self baseBackgroundColor];
         self.nullLabelStyle = @"loadingLightLabel";
@@ -42,23 +55,8 @@
         self.tableViewStyle = UITableViewStylePlain;
         self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleNone;
         self.separatorColor = [UIColor lightGrayColor];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appForegrounded:) name:UIApplicationWillEnterForegroundNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBackgrounded:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     }
     return self;
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)appForegrounded:(NSNotification *)notification {
-    [self reloadDataSource];
-}
-
-- (void)appBackgrounded:(NSNotification *)notification {
-    
 }
 
 #pragma mark - View Config
@@ -91,6 +89,33 @@
     self.tableView.backgroundView = nil;
 }
 
+- (void)setupHeader {
+    [super setupHeader];
+    
+    [self.leftButton setImage:[UIImage imageNamed:@"IconBackWhite"] forState:UIControlStateNormal];
+    [self.leftButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonLeftBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    
+    [PSStyleSheet applyStyle:@"navigationTitleLightLabel" forButton:self.centerButton];
+    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
+    [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    self.centerButton.userInteractionEnabled = NO;
+    
+//    [self.rightButton setImage:[UIImage imageNamed:@"IconSearchWhite"] forState:UIControlStateNormal];
+    [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+}
+
+#pragma mark - Actions
+
+- (void)leftAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)centerAction {
+}
+
+- (void)rightAction {
+}
+
 #pragma mark - Data Source
 
 - (void)loadDataSource {
@@ -113,7 +138,7 @@
     NSMutableDictionary *headers = [NSMutableDictionary dictionary];
     
     // Request
-    NSString *URLPath = [NSString stringWithFormat:@"%@/v3/sections", API_BASE_URL];
+    NSString *URLPath = [NSString stringWithFormat:@"%@/v3/sections/%@/channels", API_BASE_URL, self.section];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:headers parameters:parameters];
@@ -128,7 +153,7 @@
             id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
             
             if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
-                id apiData = [apiResponse objectForKey:@"sections"];
+                id apiData = [apiResponse objectForKey:@"channels"];
                 if (apiData && [apiData isKindOfClass:[NSArray class]]) {
                     
                     [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:apiData] animated:NO];
@@ -162,20 +187,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Special override to fit screen heights
-    if (isDeviceIPad()) {
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
-            return 251.0;
-        } else {
-            return 187.0;
-        }
-    } else {
-        if (isDeviceIPhone5() ) {
-            return 137.0;
-        } else {
-            return 115.0;
-        }
-    }
+    id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    Class cellClass = [self cellClassAtIndexPath:indexPath];
+    return [cellClass rowHeightForObject:item atIndexPath:indexPath forInterfaceOrientation:self.interfaceOrientation];
 }
 
 - (void)tableView:(UITableView *)tableView configureCell:(id)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -194,19 +208,22 @@
     
     id vc = nil;
     if ([type isEqualToString:@"foursquare"]) {
-        vc = [[VenuesViewController alloc] initWithCategory:slug query:query title:name];
-        
-        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Sections: Foursquare clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:name, @"name", nil]];
+        // Foursquare Category
+        vc = [[FoursquareViewController alloc] initWithCategory:slug query:query title:name];
     } else if ([type isEqualToString:@"brand"]) {
-        vc = [[BrandItemsViewController alloc] initWithBrand:slug title:name];
-        
-        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Sections: Brand clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:name, @"name", nil]];
-    } else if ([type isEqualToString:@"subsection"]) {
-        vc = [[ChannelsViewController alloc] initWithSection:slug title:name];
-        
-        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Sections: Subsection clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:name, @"name", nil]];
+        // Airbrite Brand
+        vc = [[BrandViewController alloc] initWithSlug:slug title:name];
+    } else if ([type isEqualToString:@"feed"]) {
+        // Airbrite RSS Converted Feed
+        vc = [[FeedViewController alloc] initWithSlug:slug title:name];
+    }  else if ([type isEqualToString:@"subsection"]) {
+        // Subsection
+        vc = [[SubsectionViewController alloc] initWithSection:slug title:name];
     }
+    
     [self.navigationController pushViewController:vc animated:YES];
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Channels: Slice Selected" attributes:[NSDictionary dictionaryWithObjectsAndKeys:name, @"name", type, @"type", slug, @"slug", nil]];
 }
 
 

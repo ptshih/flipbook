@@ -1,5 +1,5 @@
 //
-//  ItemCollectionViewCell.h
+//  BrandItemCollectionViewCell.h
 //  Lunchbox
 //
 //  Created by Peter Shih on 10/30/12.
@@ -8,6 +8,6 @@
 
 #import "PSCollectionViewCell.h"
 
-@interface ItemCollectionViewCell : PSCollectionViewCell
+@interface BrandItemCollectionViewCell : PSCollectionViewCell
 
 @end

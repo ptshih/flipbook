@@ -1,31 +1,31 @@
 //
-//  BrandItemsViewController.m
+//  BrandViewController.m
 //  Lunchbox
 //
 //  Created by Peter Shih on 10/30/12.
 //
 //
 
-#import "BrandItemsViewController.h"
+#import "BrandViewController.h"
 #import "PSWebViewController.h"
-#import "ItemCollectionViewCell.h"
+#import "BrandItemCollectionViewCell.h"
 
 #import "PSInfoPopoverView.h"
 
-@interface BrandItemsViewController ()
+@interface BrandViewController ()
 
 @property (nonatomic, strong) NSString *brand;
 
 @end
 
-@implementation BrandItemsViewController
+@implementation BrandViewController
 
 #pragma mark - Init
 
-- (id)initWithBrand:(NSString *)brand title:(NSString *)title {
+- (id)initWithSlug:(NSString *)slug title:(NSString *)title {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {
-        self.brand = brand;
+        self.brand = slug;
         self.title = title;
     }
     return self;
@@ -202,7 +202,7 @@
 #pragma mark - PSCollectionViewDelegate
 
 - (Class)collectionView:(PSCollectionView *)collectionView cellClassForRowAtIndex:(NSInteger)index {
-    return [ItemCollectionViewCell class];
+    return [BrandItemCollectionViewCell class];
 }
 
 - (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView cellForRowAtIndex:(NSInteger)index {
@@ -238,10 +238,10 @@
     
     NSString *urlPath = [NSString stringWithFormat:@"http://cortex.airbrite.io/items/%@", _id];
     
-    PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:urlPath title:name];
+    PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:urlPath title:nil];
     [self.navigationController pushViewController:vc animated:YES];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Brand: Item clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:_id, @"id", name, @"name", nil]];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Brand: Item Selected" attributes:[NSDictionary dictionaryWithObjectsAndKeys:name, @"name", nil]];
 }
 
 

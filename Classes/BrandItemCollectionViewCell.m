@@ -1,12 +1,12 @@
 //
-//  PhotoCollectionViewCell.m
+//  BrandItemCollectionViewCell.m
 //  Lunchbox
 //
-//  Created by Peter on 2/25/12.
-//  Copyright (c) 2012 Peter Shih. All rights reserved.
+//  Created by Peter Shih on 10/30/12.
+//
 //
 
-#import "PhotoCollectionViewCell.h"
+#import "BrandItemCollectionViewCell.h"
 
 // Margins
 static CGSize margin() {
@@ -17,15 +17,15 @@ static CGSize margin() {
     }
 }
 
-
-@interface PhotoCollectionViewCell ()
+@interface BrandItemCollectionViewCell ()
 
 @property (nonatomic, strong) PSCachedImageView *imageView;
-@property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *descLabel;
 
 @end
 
-@implementation PhotoCollectionViewCell
+@implementation BrandItemCollectionViewCell
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -43,20 +43,18 @@ static CGSize margin() {
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.dateLabel = [UILabel labelWithStyle:@"georgiaDarkLabel"];
-        self.dateLabel.textAlignment = UITextAlignmentCenter;
-        self.dateLabel.backgroundColor = self.backgroundColor;
-        [self addSubview:self.dateLabel];
+        self.nameLabel = [UILabel labelWithStyle:@"h5CondDarkLabel"];
+        self.nameLabel.backgroundColor = self.backgroundColor;
+        [self addSubview:self.nameLabel];
     }
     return self;
 }
-
 
 - (void)prepareForReuse {
     [super prepareForReuse];
     
     [self.imageView prepareForReuse];
-    self.dateLabel.text = nil;
+    self.nameLabel.text = nil;
 }
 
 - (void)layoutSubviews {
@@ -66,8 +64,8 @@ static CGSize margin() {
     CGFloat top = margin().height;
     CGFloat left = margin().width;
     
-    CGFloat objectWidth = [[self.object objectForKey:@"width"] floatValue];
-    CGFloat objectHeight = [[self.object objectForKey:@"height"] floatValue];
+    CGFloat objectWidth = [self.object objectForKey:@"width"] ? [[self.object objectForKey:@"width"] floatValue] : 256.0;
+    CGFloat objectHeight = [self.object objectForKey:@"height"] ? [[self.object objectForKey:@"width"] floatValue] : 256.0;
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     self.imageView.frame = CGRectMake(left, top, width, scaledHeight);
     
@@ -75,21 +73,23 @@ static CGSize margin() {
     
     CGSize labelSize = CGSizeZero;
     
-    // Date
-    labelSize = [self.dateLabel sizeForLabelInWidth:width];
-    self.dateLabel.frame = CGRectMake(left, top, width, labelSize.height);
+    // Name
+    labelSize = [self.nameLabel sizeForLabelInWidth:width];
+    self.nameLabel.frame = CGRectMake(left, top, width, labelSize.height);
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
     [super collectionView:collectionView fillCellWithObject:object atIndex:index];
     
-    [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"href"]]];
-    [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"thumb"]]];
+    [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
+    [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
     [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
     
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[object objectForKey:@"created"] doubleValue]];
-    NSString *dateText = [NSDate stringFromDate:date withFormat:@"MMMM d, yyyy"];
-    self.dateLabel.text = dateText;
+    NSMutableString *nameText = [NSMutableString stringWithString:[object objectForKey:@"name"]];
+    if ([object objectForKey:@"price"]) {
+        [nameText appendFormat:@" - $%@", [object objectForKey:@"price"]];
+    }
+    self.nameLabel.text = nameText;
 }
 
 + (CGFloat)rowHeightForObject:(id)object inColumnWidth:(CGFloat)columnWidth {
@@ -98,8 +98,8 @@ static CGSize margin() {
     
     height += margin().height;
     
-    CGFloat objectWidth = [[object objectForKey:@"width"] floatValue];
-    CGFloat objectHeight = [[object objectForKey:@"height"] floatValue];
+    CGFloat objectWidth = 256.0;
+    CGFloat objectHeight = 256.0;
     CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
     height += scaledHeight;
     
@@ -107,9 +107,11 @@ static CGSize margin() {
     
     CGSize labelSize = CGSizeZero;
     
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[object objectForKey:@"created"] doubleValue]];
-    NSString *dateText = [NSDate stringFromDate:date withFormat:@"MMM d, yyyy"];
-    labelSize = [PSStyleSheet sizeForText:dateText width:width style:@"georgiaDarkLabel"];
+    NSMutableString *nameText = [NSMutableString stringWithString:[object objectForKey:@"name"]];
+    if ([object objectForKey:@"price"]) {
+        [nameText appendFormat:@" - $%@", [object objectForKey:@"price"]];
+    }
+    labelSize = [PSStyleSheet sizeForText:nameText width:width style:@"h5CondDarkLabel"];
     height += labelSize.height;
     
     height += margin().height;

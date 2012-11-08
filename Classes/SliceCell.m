@@ -91,9 +91,9 @@ static CGSize margin() {
         }
     } else {
         if (isDeviceIPhone5() ) {
-            return 180.0;
+            return 140.0;
         } else {
-            return 150.0;
+            return 120.0;
         }
     }
 }

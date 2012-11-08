@@ -1,9 +1,9 @@
 //
 //  VenueViewController.m
-//  Phototime
+//  Lunchbox
 //
 //  Created by Peter on 2/12/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Peter Shih. All rights reserved.
 //
 
 #import "VenueViewController.h"
@@ -297,26 +297,6 @@ static NSNumberFormatter *__numberFormatter = nil;
         mapTop += menuButton.height + 4.0;
     }
     
-    // Reservations
-    UIButton *reservationsButton = nil;
-    if (OBJ_NOT_NULL([self.venueDict objectForKey:@"reservations"])) {
-        UIImageView *reservationsIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconReservationsBlack"]];
-        [cardView addSubview:reservationsIcon];
-        reservationsIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
-        
-        reservationsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        reservationsButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
-        [cardView addSubview:reservationsButton];
-        reservationsButton.backgroundColor = cardView.backgroundColor;
-        [reservationsButton addTarget:self action:@selector(openReservations:) forControlEvents:UIControlEventTouchUpInside];
-        [reservationsButton setTitle:[NSString stringWithFormat:@"%@", @"Make reservations on OpenTable"] forState:UIControlStateNormal];
-        [PSStyleSheet applyStyle:@"linkButton" forButton:reservationsButton];
-        
-        reservationsButton.frame = CGRectMake(8 + 16, mapTop, self.mapView.width - 16 - 11, 16);
-        
-        mapTop += reservationsButton.height + 4.0;
-    }
-    
     cardView.height = mapTop;
     
     top = cardView.bottom + 8.0;
@@ -559,7 +539,7 @@ static NSNumberFormatter *__numberFormatter = nil;
     TipsViewController *vc = [[TipsViewController alloc] initWithVenueDict:self.venueDict];
     [self.navigationController pushViewController:vc animated:YES];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Tips clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Tips Selected" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
 }
 
 - (void)pushYelp:(UITapGestureRecognizer *)gr {
@@ -573,6 +553,8 @@ static NSNumberFormatter *__numberFormatter = nil;
         PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:yelpUrlString title:title];
         [self.navigationController pushViewController:vc animated:YES];
     }
+    
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Yelp Selected" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
 }
 
 
@@ -766,25 +748,25 @@ static NSNumberFormatter *__numberFormatter = nil;
     NSString *urlString = [NSString stringWithFormat:@"http://maps.apple.com/maps?q=%@", [formattedAddress stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Address clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Address Selected" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
 }
 
 - (void)openPhone:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", [[self.venueDict objectForKey:@"contact"] objectForKey:@"phone"]]]];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Phone clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Phone Selected" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
 }
 
 - (void)openWebsite:(id)sender {
     NSString *urlString = [self.venueDict objectForKey:@"url"];
     if (urlString) {
-        PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:urlString title:nil];
+        PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:urlString title:[self.venueDict objectForKey:@"name"]];
         [self.navigationController pushViewController:vc animated:YES];
     }
     
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self.venueDict objectForKey:@"url"]]];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Website clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Website Selected" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
 }
 
 - (void)openMenu:(id)sender {
@@ -795,18 +777,7 @@ static NSNumberFormatter *__numberFormatter = nil;
     
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Menu clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
-}
-
-- (void)openReservations:(id)sender {
-    NSString *urlString = [NSString stringWithFormat:@"%@", [[self.venueDict objectForKey:@"reservations"] objectForKey:@"url"]];
-    
-    PSWebViewController *vc = [[PSWebViewController alloc] initWithURLPath:urlString title:@"OpenTable Reservations"];
-    [self.navigationController pushViewController:vc animated:YES];
-    
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Reservations clicked" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Venue: Menu Selected" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[self.venueDict objectForKey:@"id"], @"id", [self.venueDict objectForKey:@"name"], @"name", nil]];
 }
 
 #pragma mark - Rotation

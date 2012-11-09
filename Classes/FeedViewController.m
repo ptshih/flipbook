@@ -36,7 +36,7 @@
         self.shouldShowHeader = YES;
         self.shouldShowFooter = NO;
         self.shouldPullRefresh = YES;
-        self.shouldPullLoadMore = YES;
+        self.shouldPullLoadMore = NO;
         self.shouldShowNullView = YES;
         self.pullRefreshStyle = PSPullRefreshStyleBlack;
         

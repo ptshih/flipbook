@@ -1085,7 +1085,7 @@
 		<key>fontName</key>
 		<string>HelveticaNeue</string>
 		<key>fontSize</key>
-		<integer>12</integer>
+		<integer>14</integer>
 		<key>textColor</key>
 		<string>0xefefef</string>
 		<key>highlightedTextColor</key>
@@ -1104,7 +1104,7 @@
 		<key>fontName</key>
 		<string>HelveticaNeue</string>
 		<key>fontSize</key>
-		<integer>12</integer>
+		<integer>14</integer>
 		<key>textColor</key>
 		<string>0x222222</string>
 		<key>highlightedTextColor</key>
@@ -1123,7 +1123,7 @@
 		<key>fontName</key>
 		<string>HelveticaNeue-Bold</string>
 		<key>fontSize</key>
-		<integer>12</integer>
+		<integer>14</integer>
 		<key>textColor</key>
 		<string>0xefefef</string>
 		<key>highlightedTextColor</key>
@@ -1142,7 +1142,7 @@
 		<key>fontName</key>
 		<string>HelveticaNeue-Bold</string>
 		<key>fontSize</key>
-		<integer>12</integer>
+		<integer>14</integer>
 		<key>textColor</key>
 		<string>0x222222</string>
 		<key>highlightedTextColor</key>
@@ -1203,7 +1203,7 @@
 		<key>fontName</key>
 		<string>Georgia</string>
 		<key>fontSize</key>
-		<integer>12</integer>
+		<integer>14</integer>
 		<key>textColor</key>
 		<string>0xefefef</string>
 		<key>New item</key>
@@ -1224,7 +1224,7 @@
 		<key>fontName</key>
 		<string>Georgia</string>
 		<key>fontSize</key>
-		<integer>12</integer>
+		<integer>14</integer>
 		<key>textColor</key>
 		<string>0x222222</string>
 		<key>highlightedTextColor</key>
@@ -1243,7 +1243,7 @@
 		<key>fontName</key>
 		<string>HelveticaNeueLT-BoldCond</string>
 		<key>fontSize</key>
-		<integer>14</integer>
+		<integer>15</integer>
 		<key>textColor</key>
 		<string>0xefefef</string>
 		<key>highlightedTextColor</key>
@@ -1257,14 +1257,14 @@
 		<key>shadowOffset</key>
 		<string>{0, 0}</string>
 		<key>numberOfLines</key>
-		<integer>3</integer>
+		<integer>4</integer>
 	</dict>
 	<key>cellTitleDarkLabel</key>
 	<dict>
 		<key>fontName</key>
 		<string>HelveticaNeueLT-BoldCond</string>
 		<key>fontSize</key>
-		<integer>14</integer>
+		<integer>15</integer>
 		<key>textColor</key>
 		<string>0x222222</string>
 		<key>highlightedTextColor</key>
@@ -1278,14 +1278,14 @@
 		<key>shadowOffset</key>
 		<string>{0, 0}</string>
 		<key>numberOfLines</key>
-		<integer>3</integer>
+		<integer>4</integer>
 	</dict>
 	<key>cellDescriptionLightLabel</key>
 	<dict>
 		<key>fontName</key>
 		<string>Georgia</string>
 		<key>fontSize</key>
-		<integer>12</integer>
+		<integer>14</integer>
 		<key>textColor</key>
 		<string>0xefefef</string>
 		<key>New item</key>
@@ -1306,7 +1306,7 @@
 		<key>fontName</key>
 		<string>Georgia</string>
 		<key>fontSize</key>
-		<integer>12</integer>
+		<integer>14</integer>
 		<key>textColor</key>
 		<string>0x222222</string>
 		<key>highlightedTextColor</key>

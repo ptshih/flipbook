@@ -91,8 +91,13 @@ static CGSize margin() {
     top = self.nameLabel.bottom;
     
     // Desc
-    labelSize = [self.descLabel sizeForLabelInWidth:width];
-    self.descLabel.frame = CGRectMake(left, top, width, labelSize.height);
+    if (self.descLabel.text.length > 0) {
+        labelSize = [self.descLabel sizeForLabelInWidth:width];
+        self.descLabel.frame = CGRectMake(left, top, width, labelSize.height);
+        self.descLabel.hidden = NO;
+    } else {
+        self.descLabel.hidden = YES;
+    }
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
@@ -139,8 +144,10 @@ static CGSize margin() {
     height += labelSize.height;
     
     NSString *descText = [object objectForKey:@"short_description"];
-    labelSize = [PSStyleSheet sizeForText:descText width:width style:@"cellDescriptionDarkLabel"];
-    height += labelSize.height;
+    if (descText && descText.length > 0) {
+        labelSize = [PSStyleSheet sizeForText:descText width:width style:@"cellDescriptionDarkLabel"];
+        height += labelSize.height;
+    }
     
     height += margin().height;
     

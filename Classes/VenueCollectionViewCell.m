@@ -193,7 +193,7 @@ static CGSize margin() {
     // Rating
     CGFloat rating = [[venue objectForKey:@"rating"] floatValue];
     NSInteger ratingSignals = [[venue objectForKey:@"ratingSignals"] integerValue];
-    NSString *ratingText = [NSString stringWithFormat:@"★ %.1f out of %d ratings", rating, ratingSignals];
+    NSString *ratingText = [NSString stringWithFormat:@"★ %.1f | %d ratings", rating, ratingSignals];
     self.ratingsLabel.text = ratingText;
     
     // Tip
@@ -257,12 +257,12 @@ static CGSize margin() {
     // Rating
     CGFloat rating = [[venue objectForKey:@"rating"] floatValue];
     NSInteger ratingSignals = [[venue objectForKey:@"ratingSignals"] integerValue];
-    NSString *ratingText = [NSString stringWithFormat:@"★ %.1f out of %d ratings", rating, ratingSignals];
+    NSString *ratingText = [NSString stringWithFormat:@"★ %.1f | %d ratings", rating, ratingSignals];
     labelSize = [PSStyleSheet sizeForText:ratingText width:width style:@"h6DarkLabel"];
     height += labelSize.height;
     
     NSString *tip = [venue objectForKey:@"tip"];
-    if (tip) {
+    if (tip && tip.length > 0) {
         NSString *tipText = [NSString stringWithFormat:@"%@", tip];
         labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"cellDescriptionDarkLabel"];
         height += labelSize.height;

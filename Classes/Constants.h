@@ -1,21 +1,4 @@
-// Apple Frameworks
-#import <MapKit/MapKit.h>
-#import <HockeySDK/HockeySDK.h>
-
-// PSConstants
-#import "PSConstants.h"
-
-// Notification manager
-#import "NotificationManager.h"
-
-// Vendor imports
-#import "SVProgressHUD.h"
-#import "AFNetworking.h"
-#import "Appirater.h"
-#import "PSLocationCenter.h"
-#import "TTTAttributedLabel.h"
-#import "LocalyticsSession.h"
-
+// Core Data
 #define CORE_DATA_MOM @"Lunchbox"
 #define CORE_DATA_SQL_FILE @"Lunchbox.sqlite"
 
@@ -29,15 +12,9 @@
     #define FB_APP_SUFFIX @"live"
 #endif
 
-
 #define FB_PERMISSIONS_PUBLISH @"publish_stream"
 #define FB_BASIC_PERMISISONS [NSArray arrayWithObjects:@"offline_access", nil]
 #define FB_PERMISSIONS [NSArray arrayWithObjects:@"offline_access", @"publish_stream", nil]
-
-#define FS_ACCESS_TOKEN @"BIHQ3R0JVGSQ4R2BIPMTMTWEHAFICRUF54KQJ0WKTJ404KB3"
-#define FS_CLIENT_ID @"2CPOOTGBGYH53Q2LV3AORUF1JO0XV0FZLU1ZSZ5VO0GSKELO"
-#define FS_CALLBACK_URL @"http://www.petershih.com/fscallback"
-#define FS_API_VERSION @"20120514"
 
 /**
  Constants
@@ -54,27 +31,16 @@
 /**
  Notifications
  */
-#define kEventUpdatedNotification @"EventUpdatedNotification"
-#define kShouldRecenterCurrentLocation @"ShouldRecenterCurrentLocation"
 
 /**
  Alert Tags
  */
 #define kAlertTagDirections 7001
-#define kAlertTagFoursquare 7002
-#define kAlertTagBookmark 7003
 
 /**
  Error domains
  */
 #define kErrorNotificationManager @"com.petershih.lunchbox.notifications"
-
-// Convenience
-#define kTimeInterval6Months 15552000
-#define kTimeInterval3Months 7776000
-#define kTimeInterval1Month 2592000
-#define kTimeInterval1Day 86400
-#define kTimeInterval5Seconds 5
 
 // Date formats
 #define kEventDateFormat @"EEE, MMM dd, yyyy @ h:mm a z"
@@ -113,8 +79,7 @@
 #define SECTION_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"BGTableSection"]]
 #define HEADER_BAR_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"BGHeaderBar"]]
 
-
-
+// API
 #if TARGET_IPHONE_SIMULATOR
   #define USE_LOCALHOST
 #endif
@@ -127,3 +92,21 @@
 #else
   #define API_BASE_URL [NSString stringWithFormat:API_REMOTE]
 #endif
+
+// Apple Frameworks
+#import <MapKit/MapKit.h>
+#import <HockeySDK/HockeySDK.h>
+
+// PSConstants
+#import "PSConstants.h"
+
+// Notification manager
+#import "NotificationManager.h"
+
+// Vendor imports
+#import "SVProgressHUD.h"
+#import "AFNetworking.h"
+#import "Appirater.h"
+#import "PSLocationCenter.h"
+#import "TTTAttributedLabel.h"
+#import "LocalyticsSession.h"

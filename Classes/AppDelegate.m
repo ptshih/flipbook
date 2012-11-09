@@ -150,9 +150,9 @@
 #endif
     
     // Localytics
-    [[LocalyticsSession sharedLocalyticsSession] startSession:@"84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc"];
+    [[LocalyticsSession sharedLocalyticsSession] startSession:@"4b7b6d538943982ced6b45d-805b68dc-29ef-11e2-61f6-00ef75f32667"];
     // Old: 84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc
-    // New: 34a9f3214a8fad66fc6fda1-e627441e-58cc-11e1-ab17-008545fe83d2
+    // New: 4b7b6d538943982ced6b45d-805b68dc-29ef-11e2-61f6-00ef75f32667
     
     // PSURLCache
     [[PSURLCache sharedCache] setNoCache:NO]; // This force NO CACHE

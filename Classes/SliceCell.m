@@ -35,6 +35,7 @@ static CGSize margin() {
         
         // Image
         self.psImageView = [[PSCachedImageView alloc] initWithFrame:CGRectZero];
+        self.psImageView.loadingColor = RGBACOLOR(30, 30, 30, 1.0);
         self.psImageView.clipsToBounds = YES;
         [self.contentView addSubview:self.psImageView];
         

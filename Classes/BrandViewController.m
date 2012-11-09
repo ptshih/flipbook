@@ -179,7 +179,7 @@
             
             if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
                 // List of Venues
-                id apiData = [apiResponse objectForKey:@"products"];
+                id apiData = [apiResponse objectForKey:@"items"];
                 if (apiData && [apiData isKindOfClass:[NSArray class]]) {
                     if (self.loadingMore) {
                         [self.items addObjectsFromArray:apiData];

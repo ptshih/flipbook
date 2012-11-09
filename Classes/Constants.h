@@ -1,7 +1,8 @@
+// Apple Frameworks
 #import <MapKit/MapKit.h>
-
 #import <HockeySDK/HockeySDK.h>
 
+// PSConstants
 #import "PSConstants.h"
 
 // Notification manager

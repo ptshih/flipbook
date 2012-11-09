@@ -224,9 +224,9 @@
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     if (![[PSLocationCenter defaultCenter] hasAcquiredLocation]) {
         self.hasLoadedOnce = NO;
-#warning location bug
+
         // TODO: Show an error saying location undetectable
-        [self.centerButton setTitle:@"Unable to find your location" forState:UIControlStateNormal];
+        [self.centerButton setTitle:@"Trying to find your location" forState:UIControlStateNormal];
         return;
     } else {
         self.hasLoadedOnce = YES;

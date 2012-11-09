@@ -12,6 +12,7 @@
 @interface LocationChooserView ()
 
 @property (nonatomic, strong) UIButton *searchButton;
+@property (nonatomic, strong) UIButton *currentLocationButton;
 
 @property (nonatomic, strong) MKCircle *circleOverlay;
 
@@ -33,19 +34,15 @@
         [self.mapView setRegion:mapRegion animated:NO];
         [self addSubview:self.mapView];
         
-        UIView *queryView = [[UIView alloc] initWithFrame:CGRectMake(8, 8, self.mapView.width - 16 - 36 - 8, 36)];
-        queryView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
-        queryView.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
-        queryView.layer.cornerRadius = 4.0;
-        queryView.layer.masksToBounds = YES;
-        queryView.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
-        queryView.layer.borderWidth = 1.0;
-        queryView.layer.shouldRasterize = YES;
-        queryView.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        
-        PSTextField *queryField = [[PSTextField alloc] initWithFrame:queryView.bounds withMargins:CGSizeMake(8, 8)];
+        PSTextField *queryField = [[PSTextField alloc] initWithFrame:CGRectZero withMargins:CGSizeMake(8, 8)];
         [PSStyleSheet applyStyle:@"h5BoldLightLabel" forTextField:queryField];
-        
+        queryField.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
+        queryField.layer.cornerRadius = 4.0;
+        queryField.layer.masksToBounds = YES;
+        queryField.layer.borderColor = [RGBACOLOR(76, 76, 76, 0.5) CGColor];
+        queryField.layer.borderWidth = 1.0;
+        queryField.layer.shouldRasterize = YES;
+        queryField.layer.rasterizationScale = [UIScreen mainScreen].scale;
         queryField.clearButtonMode = UITextFieldViewModeWhileEditing;
         
         queryField.leftViewMode = UITextFieldViewModeAlways;
@@ -61,15 +58,13 @@
         queryField.placeholder = @"Search for anything...";
 //        [queryField setEnablesReturnKeyAutomatically:YES];
         [queryField addTarget:self action:@selector(queryChanged:) forControlEvents:UIControlEventEditingChanged];
-        [queryView addSubview:queryField];
+        [self.mapView addSubview:queryField];
         self.queryField = queryField;
-        
-        [self.mapView addSubview:queryView];
         
         // Current Location
         UIButton *currentLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.currentLocationButton = currentLocationButton;
         currentLocationButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
-        currentLocationButton.frame = CGRectMake(self.mapView.width - 36 - 8, 8, 36, 36);
         [currentLocationButton setImage:[UIImage imageNamed:@"IconLocationArrowMini"] forState:UIControlStateNormal];
         currentLocationButton.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
         currentLocationButton.layer.cornerRadius = 4.0;
@@ -84,7 +79,7 @@
         UIButton *redoSearchButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.searchButton = redoSearchButton;
 //        [redoSearchButton setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
-        redoSearchButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+        redoSearchButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
         redoSearchButton.backgroundColor = RGBACOLOR(0, 0, 0, 0.5);
         redoSearchButton.layer.cornerRadius = 4.0;
         redoSearchButton.layer.masksToBounds = YES;
@@ -96,7 +91,6 @@
         [redoSearchButton setTitle:@"Search This Area" forState:UIControlStateNormal];
         [PSStyleSheet applyStyle:@"h5BoldLightLabel" forButton:redoSearchButton];
         redoSearchButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-        redoSearchButton.frame = CGRectMake(self.mapView.width - 160.0 - 8.0, self.mapView.height - 8.0 - 31.0, 160.0, 31.0);
         [self.mapView addSubview:redoSearchButton];
         self.searchButton.alpha = 0.0;
     }
@@ -105,6 +99,20 @@
 
 - (void)dealloc {
     self.mapView.delegate = nil;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    CGFloat top = 8.0;
+    CGFloat left = 8.0;
+    CGFloat width = self.mapView.width - 16.0;
+    
+    self.currentLocationButton.frame = CGRectMake(self.mapView.width - 36 - 8, top, 36, 36);
+    width -= self.currentLocationButton.width + 8.0;
+    self.queryField.frame = CGRectMake(left, top, width, 36);
+    
+    self.searchButton.frame = CGRectMake(self.mapView.width - 160.0 - 8.0, self.mapView.height - 8.0 - 31.0, 160.0, 31.0);
 }
 
 - (void)clearField:(UIButton *)button {

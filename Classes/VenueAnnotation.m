@@ -10,9 +10,6 @@
 
 @implementation VenueAnnotation
 
-@synthesize
-venueDict = _venueDict;
-
 + (VenueAnnotation *)venueAnnotationWithDictionary:(NSDictionary *)dictionary {
     return [[[self class] alloc] initWithDictionary:dictionary];
 }

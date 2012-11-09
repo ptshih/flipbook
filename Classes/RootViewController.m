@@ -132,7 +132,7 @@
                 id apiData = [apiResponse objectForKey:@"sections"];
                 if (apiData && [apiData isKindOfClass:[NSArray class]]) {
                     
-                    [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:apiData] animated:NO];
+                    [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:apiData] animated:YES];
                     [self dataSourceDidLoad];
                 } else {
                     [self dataSourceDidError];

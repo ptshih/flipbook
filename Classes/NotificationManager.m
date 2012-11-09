@@ -10,9 +10,6 @@
 
 @implementation NotificationManager
 
-@synthesize
-notifications = _notifications;
-
 + (id)sharedManager {
     static id sharedManager;
     if (!sharedManager) {

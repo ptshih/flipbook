@@ -156,7 +156,7 @@
                 id apiData = [apiResponse objectForKey:@"channels"];
                 if (apiData && [apiData isKindOfClass:[NSArray class]]) {
                     
-                    [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:apiData] animated:NO];
+                    [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:apiData] animated:YES];
                     [self dataSourceDidLoad];
                 } else {
                     [self dataSourceDidError];

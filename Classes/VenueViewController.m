@@ -211,6 +211,25 @@ static NSNumberFormatter *__numberFormatter = nil;
         mapTop += statsLabel.height + 4.0;
     }
     
+    // Hours
+    UILabel *hoursLabel = nil;
+    if (OBJ_NOT_NULL([self.venueDict objectForKey:@"hours"])) {
+        UIImageView *hoursIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconClockBlack"]];
+        [cardView addSubview:hoursIcon];
+        hoursIcon.frame = CGRectMake(8, mapTop + 2, 11, 11);
+        
+        hoursLabel = [UILabel labelWithStyle:@"h6BoldDarkLabel"];
+        hoursLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+        [cardView addSubview:hoursLabel];
+        hoursLabel.backgroundColor = cardView.backgroundColor;
+        hoursLabel.text = [self.venueDict objectForKey:@"hours"];
+        
+        CGSize hoursLabelSize = [hoursLabel sizeForLabelInWidth:(self.mapView.width - 16.0)];
+        hoursLabel.frame = CGRectMake(8 + 16, mapTop, hoursLabelSize.width, 16.0);
+        
+        mapTop += hoursLabel.height + 4.0;
+    }
+    
     // Address
     UIButton *addressButton = nil;
     NSString *formattedAddress = [NSString stringWithFormat:@"%@ %@, %@", [location objectForKey:@"address"], [location objectForKey:@"city"], [location objectForKey:@"state"]];

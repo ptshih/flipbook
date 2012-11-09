@@ -1238,6 +1238,88 @@
 		<key>numberOfLines</key>
 		<integer>0</integer>
 	</dict>
+	<key>cellTitleLightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-BoldCond</string>
+		<key>fontSize</key>
+		<integer>14</integer>
+		<key>textColor</key>
+		<string>0xefefef</string>
+		<key>highlightedTextColor</key>
+		<string>0xefefef</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>3</integer>
+	</dict>
+	<key>cellTitleDarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>HelveticaNeueLT-BoldCond</string>
+		<key>fontSize</key>
+		<integer>14</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>lineBreakMode</key>
+		<string>wordWrap</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>3</integer>
+	</dict>
+	<key>cellDescriptionLightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>Georgia</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0xefefef</string>
+		<key>New item</key>
+		<string>0xefefef</string>
+		<key>highlightedTextColor</key>
+		<string>0x70695A</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>8</integer>
+	</dict>
+	<key>cellDescriptionDarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>Georgia</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>8</integer>
+	</dict>
 	<key>leadLightField</key>
 	<dict>
 		<key>fontName</key>

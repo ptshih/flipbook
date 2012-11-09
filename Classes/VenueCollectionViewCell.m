@@ -48,7 +48,7 @@ static CGSize margin() {
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.nameLabel = [UILabel labelWithStyle:@"h5CondDarkLabel"];
+        self.nameLabel = [UILabel labelWithStyle:@"cellTitleDarkLabel"];
         self.nameLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.nameLabel];
         
@@ -64,7 +64,7 @@ static CGSize margin() {
         self.ratingsLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.ratingsLabel];
         
-        self.tipLabel = [UILabel labelWithStyle:@"h6GeorgiaDarkLabel"];
+        self.tipLabel = [UILabel labelWithStyle:@"cellDescriptionDarkLabel"];
         self.tipLabel.backgroundColor = self.backgroundColor;
         self.tipLabel.hidden = YES;
         [self addSubview:self.tipLabel];
@@ -242,7 +242,7 @@ static CGSize margin() {
     
     // Labels
     CGSize labelSize = CGSizeZero;
-    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"name"] width:width style:@"h5CondDarkLabel"];
+    labelSize = [PSStyleSheet sizeForText:[venue objectForKey:@"name"] width:width style:@"cellTitleDarkLabel"];
     height += labelSize.height;
     
     NSString *categoryText = [NSString stringWithFormat:@"❖ %@", [venue objectForKey:@"category"]];
@@ -264,7 +264,7 @@ static CGSize margin() {
     NSString *tip = [venue objectForKey:@"tip"];
     if (tip) {
         NSString *tipText = [NSString stringWithFormat:@"%@", tip];
-        labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"h6GeorgiaDarkLabel"];
+        labelSize = [PSStyleSheet sizeForText:tipText width:width style:@"cellDescriptionDarkLabel"];
         height += labelSize.height;
         
         height += margin().height;

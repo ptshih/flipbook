@@ -43,9 +43,13 @@ static CGSize margin() {
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.nameLabel = [UILabel labelWithStyle:@"h5CondDarkLabel"];
+        self.nameLabel = [UILabel labelWithStyle:@"cellTitleDarkLabel"];
         self.nameLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.nameLabel];
+        
+        self.descLabel = [UILabel labelWithStyle:@"cellDescriptionDarkLabel"];
+        self.descLabel.backgroundColor = self.backgroundColor;
+        [self addSubview:self.descLabel];
     }
     return self;
 }
@@ -55,6 +59,7 @@ static CGSize margin() {
     
     [self.imageView prepareForReuse];
     self.nameLabel.text = nil;
+    self.descLabel.text = nil;
 }
 
 - (void)layoutSubviews {
@@ -64,32 +69,49 @@ static CGSize margin() {
     CGFloat top = margin().height;
     CGFloat left = margin().width;
     
-    CGFloat objectWidth = [self.object objectForKey:@"width"] ? [[self.object objectForKey:@"width"] floatValue] : 256.0;
-    CGFloat objectHeight = [self.object objectForKey:@"height"] ? [[self.object objectForKey:@"width"] floatValue] : 256.0;
-    CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
-    self.imageView.frame = CGRectMake(left, top, width, scaledHeight);
-    
-    top += self.imageView.height + margin().height;
+    if ([self.object objectForKey:@"image"]) {
+        CGFloat objectWidth = [self.object objectForKey:@"width"] ? [[self.object objectForKey:@"width"] floatValue] : 256.0;
+        CGFloat objectHeight = [self.object objectForKey:@"height"] ? [[self.object objectForKey:@"width"] floatValue] : 256.0;
+        CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
+        self.imageView.frame = CGRectMake(left, top, width, scaledHeight);
+        
+        top += self.imageView.height + margin().height;
+        
+        self.imageView.hidden = NO;
+    } else {
+        self.imageView.hidden = YES;
+    }
     
     CGSize labelSize = CGSizeZero;
     
     // Name
     labelSize = [self.nameLabel sizeForLabelInWidth:width];
     self.nameLabel.frame = CGRectMake(left, top, width, labelSize.height);
+    
+    top = self.nameLabel.bottom;
+    
+    // Desc
+    labelSize = [self.descLabel sizeForLabelInWidth:width];
+    self.descLabel.frame = CGRectMake(left, top, width, labelSize.height);
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
     [super collectionView:collectionView fillCellWithObject:object atIndex:index];
     
-    [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
-    [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
-    [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
+    if ([self.object objectForKey:@"image"]) {
+        [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
+        [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
+        [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
+    }
     
     NSMutableString *nameText = [NSMutableString stringWithString:[object objectForKey:@"name"]];
     if ([object objectForKey:@"price"]) {
         [nameText appendFormat:@" - $%@", [object objectForKey:@"price"]];
     }
     self.nameLabel.text = nameText;
+    
+    NSString *descText = [object objectForKey:@"short_description"];
+    self.descLabel.text = descText;
 }
 
 + (CGFloat)rowHeightForObject:(id)object inColumnWidth:(CGFloat)columnWidth {
@@ -98,12 +120,14 @@ static CGSize margin() {
     
     height += margin().height;
     
-    CGFloat objectWidth = 256.0;
-    CGFloat objectHeight = 256.0;
-    CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
-    height += scaledHeight;
-    
-    height += margin().height;
+    if ([object objectForKey:@"image"]) {
+        CGFloat objectWidth = 256.0;
+        CGFloat objectHeight = 256.0;
+        CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
+        height += scaledHeight;
+        
+        height += margin().height;
+    }
     
     CGSize labelSize = CGSizeZero;
     
@@ -111,7 +135,11 @@ static CGSize margin() {
     if ([object objectForKey:@"price"]) {
         [nameText appendFormat:@" - $%@", [object objectForKey:@"price"]];
     }
-    labelSize = [PSStyleSheet sizeForText:nameText width:width style:@"h5CondDarkLabel"];
+    labelSize = [PSStyleSheet sizeForText:nameText width:width style:@"cellTitleDarkLabel"];
+    height += labelSize.height;
+    
+    NSString *descText = [object objectForKey:@"short_description"];
+    labelSize = [PSStyleSheet sizeForText:descText width:width style:@"cellDescriptionDarkLabel"];
     height += labelSize.height;
     
     height += margin().height;

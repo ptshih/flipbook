@@ -44,11 +44,11 @@ static CGSize margin() {
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.nameLabel = [UILabel labelWithStyle:@"h5CondDarkLabel"];
+        self.nameLabel = [UILabel labelWithStyle:@"cellTitleDarkLabel"];
         self.nameLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.nameLabel];
         
-        self.descLabel = [UILabel labelWithStyle:@"h6GeorgiaDarkLabel"];
+        self.descLabel = [UILabel labelWithStyle:@"cellDescriptionDarkLabel"];
         self.descLabel.backgroundColor = self.backgroundColor;
         [self addSubview:self.descLabel];
     }
@@ -70,12 +70,18 @@ static CGSize margin() {
     CGFloat top = margin().height;
     CGFloat left = margin().width;
     
-    CGFloat objectWidth = [self.object objectForKey:@"width"] ? [[self.object objectForKey:@"width"] floatValue] : 256.0;
-    CGFloat objectHeight = [self.object objectForKey:@"height"] ? [[self.object objectForKey:@"width"] floatValue] : 256.0;
-    CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
-    self.imageView.frame = CGRectMake(left, top, width, scaledHeight);
-    
-    top += self.imageView.height + margin().height;
+    if ([self.object objectForKey:@"image"]) {
+        CGFloat objectWidth = [self.object objectForKey:@"width"] ? [[self.object objectForKey:@"width"] floatValue] : 256.0;
+        CGFloat objectHeight = [self.object objectForKey:@"height"] ? [[self.object objectForKey:@"width"] floatValue] : 256.0;
+        CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
+        self.imageView.frame = CGRectMake(left, top, width, scaledHeight);
+        
+        top += self.imageView.height + margin().height;
+        
+        self.imageView.hidden = NO;
+    } else {
+        self.imageView.hidden = YES;
+    }
     
     CGSize labelSize = CGSizeZero;
     
@@ -93,9 +99,11 @@ static CGSize margin() {
 - (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
     [super collectionView:collectionView fillCellWithObject:object atIndex:index];
     
-    [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
-    [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
-    [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
+    if ([self.object objectForKey:@"image"]) {
+        [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
+        [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
+        [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
+    }
     
     NSString *nameText = [object objectForKey:@"title"];
     self.nameLabel.text = nameText;
@@ -110,21 +118,23 @@ static CGSize margin() {
     
     height += margin().height;
     
-    CGFloat objectWidth = 256.0;
-    CGFloat objectHeight = 256.0;
-    CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
-    height += scaledHeight;
-    
-    height += margin().height;
+    if ([object objectForKey:@"image"]) {
+        CGFloat objectWidth = 256.0;
+        CGFloat objectHeight = 256.0;
+        CGFloat scaledHeight = floorf(objectHeight / (objectWidth / width));
+        height += scaledHeight;
+        
+        height += margin().height;
+    }
     
     CGSize labelSize = CGSizeZero;
     
     NSString *nameText = [object objectForKey:@"title"];
-    labelSize = [PSStyleSheet sizeForText:nameText width:width style:@"h5CondDarkLabel"];
+    labelSize = [PSStyleSheet sizeForText:nameText width:width style:@"cellTitleDarkLabel"];
     height += labelSize.height;
     
     NSString *descText = [object objectForKey:@"description"];
-    labelSize = [PSStyleSheet sizeForText:descText width:width style:@"h6GeorgiaDarkLabel"];
+    labelSize = [PSStyleSheet sizeForText:descText width:width style:@"cellDescriptionDarkLabel"];
     height += labelSize.height;
     
     height += margin().height;

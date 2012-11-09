@@ -43,7 +43,7 @@ static CGSize margin() {
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
-        self.nameLabel = [UILabel labelWithStyle:@"h5CondDarkLabel"];
+        self.nameLabel = [UILabel labelWithStyle:@"cellTitleDarkLabel"];
         self.nameLabel.backgroundColor = self.backgroundColor;
         self.nameLabel.textColor = [UIColor colorWithRGBHex:0x354973];
         [self addSubview:self.nameLabel];
@@ -117,7 +117,7 @@ static CGSize margin() {
     
     // Name
     NSString *nameText = [NSString stringWithFormat:@"%@", [object objectForKey:@"name"]];
-    labelSize = [PSStyleSheet sizeForText:nameText width:width style:@"h5CondDarkLabel"];
+    labelSize = [PSStyleSheet sizeForText:nameText width:width style:@"cellTitleDarkLabel"];
     height += labelSize.height;
     
     height += margin().height;

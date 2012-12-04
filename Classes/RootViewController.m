@@ -13,6 +13,8 @@
 #import "BrandViewController.h"
 #import "FeedViewController.h"
 
+#import "TileViewController.h"
+
 #import "SliceCell.h"
 
 @interface RootViewController ()
@@ -196,7 +198,8 @@
     id vc = nil;
     if ([type isEqualToString:@"foursquare"]) {
         // Foursquare Category
-        vc = [[FoursquareViewController alloc] initWithCategory:slug query:query title:name];
+//        vc = [[FoursquareViewController alloc] initWithCategory:slug query:query title:name];
+        vc = [[TileViewController alloc] initWithCategory:slug query:query title:name];
     } else if ([type isEqualToString:@"brand"]) {
         // Airbrite Brand
         vc = [[BrandViewController alloc] initWithSlug:slug title:name];

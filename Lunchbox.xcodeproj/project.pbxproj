@@ -388,6 +388,11 @@
 		28523649164B45E8009C66F5 /* LocalyticsDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 28523643164B45E8009C66F5 /* LocalyticsDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2852364A164B45E8009C66F5 /* LocalyticsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 28523645164B45E8009C66F5 /* LocalyticsSession.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2852364B164B45E8009C66F5 /* LocalyticsUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 28523647164B45E8009C66F5 /* LocalyticsUploader.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		287FD2D0166DCF220003F635 /* PSTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2CF166DCF220003F635 /* PSTileView.m */; };
+		287FD2D3166DCFD10003F635 /* PSTileViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2D2166DCFD10003F635 /* PSTileViewCell.m */; };
+		287FD2D6166DD2A90003F635 /* PSTileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2D5166DD2A90003F635 /* PSTileViewController.m */; };
+		287FD2D9166DD4010003F635 /* TileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2D8166DD4010003F635 /* TileViewController.m */; };
+		287FD2DC166DE35A0003F635 /* VenueTileViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2DB166DE35A0003F635 /* VenueTileViewCell.m */; };
 		28A390D11554DA37002696FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818CE14723F1D007E4827 /* main.m */; };
 		28A390D21554DA37002696FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818D214723F1D007E4827 /* AppDelegate.m */; };
 		28A390FA1554DA37002696FD /* FoursquareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5A14AC4A1D00541BB1 /* FoursquareViewController.m */; };
@@ -958,6 +963,16 @@
 		28603B8014AFBD4D00541BB1 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		2869870814730F7200B40860 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		286988611475CF3500B40860 /* InitialDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InitialDefaults.plist; sourceTree = "<group>"; };
+		287FD2CE166DCF220003F635 /* PSTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTileView.h; sourceTree = "<group>"; };
+		287FD2CF166DCF220003F635 /* PSTileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTileView.m; sourceTree = "<group>"; };
+		287FD2D1166DCFD10003F635 /* PSTileViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTileViewCell.h; sourceTree = "<group>"; };
+		287FD2D2166DCFD10003F635 /* PSTileViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTileViewCell.m; sourceTree = "<group>"; };
+		287FD2D4166DD2A90003F635 /* PSTileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTileViewController.h; sourceTree = "<group>"; };
+		287FD2D5166DD2A90003F635 /* PSTileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTileViewController.m; sourceTree = "<group>"; };
+		287FD2D7166DD4010003F635 /* TileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileViewController.h; sourceTree = "<group>"; };
+		287FD2D8166DD4010003F635 /* TileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileViewController.m; sourceTree = "<group>"; };
+		287FD2DA166DE35A0003F635 /* VenueTileViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueTileViewCell.h; sourceTree = "<group>"; };
+		287FD2DB166DE35A0003F635 /* VenueTileViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueTileViewCell.m; sourceTree = "<group>"; };
 		28888D1A153576DE001743CA /* AddPhotoBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddPhotoBackground@2x.png"; sourceTree = "<group>"; };
 		289C362C148EC53300D02BAB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		289C362D148EC53300D02BAB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -1077,6 +1092,7 @@
 		282666A1162506C4000267D7 /* PSKit */ = {
 			isa = PBXGroup;
 			children = (
+				287FD2CD166DCF130003F635 /* PSTileView */,
 				282666A2162506C4000267D7 /* Categories */,
 				282666C9162506C4000267D7 /* Centers */,
 				282666DC162506C4000267D7 /* Config */,
@@ -1310,6 +1326,8 @@
 				2826672E162506C4000267D7 /* PSCell.m */,
 				2826672F162506C4000267D7 /* PSCollectionViewController.h */,
 				28266730162506C4000267D7 /* PSCollectionViewController.m */,
+				287FD2D4166DD2A90003F635 /* PSTileViewController.h */,
+				287FD2D5166DD2A90003F635 /* PSTileViewController.m */,
 				28266731162506C4000267D7 /* PSErrorView.h */,
 				28266732162506C4000267D7 /* PSErrorView.m */,
 				28266733162506C4000267D7 /* PSFacepileView.h */,
@@ -2045,6 +2063,26 @@
 			name = Singletons;
 			sourceTree = "<group>";
 		};
+		287FD2CD166DCF130003F635 /* PSTileView */ = {
+			isa = PBXGroup;
+			children = (
+				287FD2CE166DCF220003F635 /* PSTileView.h */,
+				287FD2CF166DCF220003F635 /* PSTileView.m */,
+				287FD2D1166DCFD10003F635 /* PSTileViewCell.h */,
+				287FD2D2166DCFD10003F635 /* PSTileViewCell.m */,
+			);
+			path = PSTileView;
+			sourceTree = "<group>";
+		};
+		287FD2DD166DE35F0003F635 /* TileViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				287FD2DA166DE35A0003F635 /* VenueTileViewCell.h */,
+				287FD2DB166DE35A0003F635 /* VenueTileViewCell.m */,
+			);
+			name = TileViewCells;
+			sourceTree = "<group>";
+		};
 		28AD405916250AE20066F6A5 /* HockeySDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -2069,6 +2107,8 @@
 				28EA494B163B04BE003C45B6 /* RootViewController.m */,
 				2843314216411B4500349014 /* SubsectionViewController.h */,
 				2843314316411B4500349014 /* SubsectionViewController.m */,
+				287FD2D7166DD4010003F635 /* TileViewController.h */,
+				287FD2D8166DD4010003F635 /* TileViewController.m */,
 				282FAF0C164C684D0040D3B4 /* Foursquare */,
 				282FAF0D164C68580040D3B4 /* Airbrite */,
 				28433116163FCE0300349014 /* Old */,
@@ -2080,6 +2120,7 @@
 			isa = PBXGroup;
 			children = (
 				2843314E1641BE4900349014 /* TableCells */,
+				287FD2DD166DE35F0003F635 /* TileViewCells */,
 				2843311E1640800600349014 /* CollectionViewCells */,
 				D0F6CABF14FD7CE800CCF2B4 /* LocationChooserView.h */,
 				D0F6CAC014FD7CE800CCF2B4 /* LocationChooserView.m */,
@@ -2663,6 +2704,11 @@
 				2852364B164B45E8009C66F5 /* LocalyticsUploader.m in Sources */,
 				282FAF10164C68C30040D3B4 /* FeedViewController.m in Sources */,
 				282FAF19164C69D40040D3B4 /* FeedItemCollectionViewCell.m in Sources */,
+				287FD2D0166DCF220003F635 /* PSTileView.m in Sources */,
+				287FD2D3166DCFD10003F635 /* PSTileViewCell.m in Sources */,
+				287FD2D6166DD2A90003F635 /* PSTileViewController.m in Sources */,
+				287FD2D9166DD4010003F635 /* TileViewController.m in Sources */,
+				287FD2DC166DE35A0003F635 /* VenueTileViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

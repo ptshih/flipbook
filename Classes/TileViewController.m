@@ -13,6 +13,12 @@
 #import "VenueViewController.h"
 #import "BrandViewController.h"
 
+#import "PSPopoverView.h"
+#import "LocationChooserView.h"
+
+#define kPopoverLocation 7001
+#define kPopoverCategory 7002
+
 @interface TileViewController ()
 
 @property (nonatomic, copy) NSString *category;
@@ -92,7 +98,7 @@
 #pragma mark - View Config
 
 - (UIColor *)baseBackgroundColor {
-    return BASE_BG_COLOR;
+    return TEXTURE_DARK_LINEN;
 }
 
 
@@ -113,8 +119,6 @@
 
 - (void)setupSubviews {
     [super setupSubviews];
-    
-    self.tileView.backgroundColor = RGBACOLOR(30, 30, 30, 1.0);
 }
 
 - (void)setupHeader {
@@ -142,6 +146,15 @@
 }
 
 - (void)centerAction {
+    CGFloat radius = self.radius > 0 ? self.radius : 400.0;
+    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, radius * 2, radius * 2);
+    LocationChooserView *cv = [[LocationChooserView alloc] initWithFrame:CGRectInset(self.view.bounds, 16, 52) mapRegion:mapRegion];
+    cv.query = self.query;
+    cv.queryField.text = self.query;
+    PSPopoverView *popoverView = [[PSPopoverView alloc] initWithTitle:@"Searching in Map Area" contentView:cv];
+    popoverView.tag = kPopoverLocation;
+    popoverView.delegate = self;
+    [popoverView showWithSize:cv.frame.size inView:self.view];
 }
 
 - (void)rightAction {
@@ -290,12 +303,11 @@
         NSArray *row3 = @[@"A", @"A", @"E", @"E"];
         NSArray *row4 = @[@"G", @"H", @"E", @"E"];
         NSArray *row5 = @[@"A", @"B", @"C", @"D"];
-        NSArray *row6 = @[@"A", @"B", @"Z", @"X"];
-        NSArray *row7 = @[@"Y", @"U", @"T", @"V"];
-        NSArray *row8 = @[@"A", @"B", @"Z", @"X"];
-        NSArray *row9 = @[@"Y", @"U", @"T", @"V"];
+        NSArray *row6 = @[@"A", @"B", @"Z", @"Z"];
+        NSArray *row7 = @[@"Y", @"U", @"U", @"V"];
+        NSArray *row8 = @[@"T", @"B", @"Z", @"X"];
         
-        template = @[row1, row2, row3, row4, row5, row6, row7, row8, row9];
+        template = @[row1, row2, row3, row4, row5, row6, row7, row8];
     } else {
         NSArray *row1 = @[@"A", @"A"];
         NSArray *row2 = @[@"A", @"A"];
@@ -303,11 +315,10 @@
         NSArray *row4 = @[@"G", @"G"];
         NSArray *row5 = @[@"A", @"C"];
         NSArray *row6 = @[@"A", @"B"];
-        NSArray *row7 = @[@"Y", @"U"];
-        NSArray *row8 = @[@"B", @"A"];
-        NSArray *row9 = @[@"Y", @"A"];
+        NSArray *row7 = @[@"Y", @"Z"];
+        NSArray *row8 = @[@"X", @"Z"];
         
-        template = @[row1, row2, row3, row4, row5, row6, row7, row8, row9];
+        template = @[row1, row2, row3, row4, row5, row6, row7, row8];
     }
     
     return template;
@@ -346,5 +357,34 @@
     }
 }
 
+
+#pragma mark - PSPopoverViewDelegate
+
+- (void)popoverViewDidDismiss:(PSPopoverView *)popoverView {
+    if (popoverView.tag == kPopoverCategory) {
+        //        NSInteger newCategoryIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"categoryIndex"];
+        //        if (newCategoryIndex != self.categoryIndex) {
+        //            self.query = nil; // remove query term when changing categories
+        //            self.categoryIndex = newCategoryIndex;
+        //            [self reloadDataSource];
+        //        }
+    } else if (popoverView.tag == kPopoverLocation) {
+        LocationChooserView *cv = (LocationChooserView *)popoverView.contentView;
+        
+        if (cv.locationDidChange) {
+            MKMapView *mapView = cv.mapView;
+            MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mapView.visibleMapRect), MKMapRectGetMidY(mapView.visibleMapRect));
+            MKMapPoint westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mapView.visibleMapRect), MKMapRectGetMidY(mapView.visibleMapRect));
+            
+            CGFloat span = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint);
+            
+            self.radius = ceilf(span / 2.0);
+            self.centerCoordinate = mapView.centerCoordinate;
+            self.query = [cv query];
+            
+            [self reloadDataSource];
+        }
+    }
+}
 
 @end

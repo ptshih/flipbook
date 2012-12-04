@@ -13,6 +13,7 @@
 #import "VenueCollectionViewCell.h"
 #import "BrandCollectionViewCell.h"
 
+#import "PSPopoverView.h"
 #import "LocationChooserView.h"
 #import "PSInfoPopoverView.h"
 

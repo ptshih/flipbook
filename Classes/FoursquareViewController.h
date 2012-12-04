@@ -7,7 +7,6 @@
 //
 
 #import "PSCollectionViewController.h"
-#import "PSPopoverView.h"
 
 @interface FoursquareViewController : PSCollectionViewController
 

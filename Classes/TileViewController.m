@@ -43,7 +43,10 @@
     if (self) {
         self.shouldShowHeader = YES;
         self.shouldShowFooter = NO;
+        self.shouldPullRefresh = YES;
+        self.shouldPullLoadMore = YES;
         self.shouldShowNullView = YES;
+        self.pullRefreshStyle = PSPullRefreshStyleWhite;
         
         self.headerHeight = 44.0;
         self.footerHeight = 0.0;

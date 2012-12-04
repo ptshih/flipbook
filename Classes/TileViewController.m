@@ -282,7 +282,10 @@
     NSArray *row4 = @[@"G", @"H", @"E", @"E"];
     NSArray *row5 = @[@"A", @"B", @"C", @"D"];
     NSArray *row6 = @[@"A", @"B", @"Z", @"X"];
-    NSArray *template = @[row1, row2, row3, row4, row5, row6];
+    NSArray *row7 = @[@"Y", @"U", @"T", @"V"];
+    NSArray *row8 = @[@"A", @"B", @"Z", @"X"];
+    NSArray *row9 = @[@"Y", @"U", @"T", @"V"];
+    NSArray *template = @[row1, row2, row3, row4, row5, row6, row7, row8, row9];
     
     return template;
 }

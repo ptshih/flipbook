@@ -10,6 +10,9 @@
 
 #import "VenueTileViewCell.h"
 
+#import "VenueViewController.h"
+#import "BrandViewController.h"
+
 @interface TileViewController ()
 
 @property (nonatomic, copy) NSString *category;
@@ -276,16 +279,33 @@
 #pragma mark - PSCollectionViewDelegate
 
 - (NSArray *)templateForTileView:(PSTileView *)tileView {
-    NSArray *row1 = @[@"A", @"A", @"B", @"C"];
-    NSArray *row2 = @[@"A", @"A", @"D", @"D"];
-    NSArray *row3 = @[@"A", @"A", @"E", @"E"];
-    NSArray *row4 = @[@"G", @"H", @"E", @"E"];
-    NSArray *row5 = @[@"A", @"B", @"C", @"D"];
-    NSArray *row6 = @[@"A", @"B", @"Z", @"X"];
-    NSArray *row7 = @[@"Y", @"U", @"T", @"V"];
-    NSArray *row8 = @[@"A", @"B", @"Z", @"X"];
-    NSArray *row9 = @[@"Y", @"U", @"T", @"V"];
-    NSArray *template = @[row1, row2, row3, row4, row5, row6, row7, row8, row9];
+    NSArray *template;
+    
+    if(isDeviceIPad()) {
+        NSArray *row1 = @[@"A", @"A", @"B", @"C"];
+        NSArray *row2 = @[@"A", @"A", @"D", @"D"];
+        NSArray *row3 = @[@"A", @"A", @"E", @"E"];
+        NSArray *row4 = @[@"G", @"H", @"E", @"E"];
+        NSArray *row5 = @[@"A", @"B", @"C", @"D"];
+        NSArray *row6 = @[@"A", @"B", @"Z", @"X"];
+        NSArray *row7 = @[@"Y", @"U", @"T", @"V"];
+        NSArray *row8 = @[@"A", @"B", @"Z", @"X"];
+        NSArray *row9 = @[@"Y", @"U", @"T", @"V"];
+        
+        template = @[row1, row2, row3, row4, row5, row6, row7, row8, row9];
+    } else {
+        NSArray *row1 = @[@"A", @"A"];
+        NSArray *row2 = @[@"A", @"A"];
+        NSArray *row3 = @[@"B", @"C"];
+        NSArray *row4 = @[@"G", @"G"];
+        NSArray *row5 = @[@"A", @"C"];
+        NSArray *row6 = @[@"A", @"B"];
+        NSArray *row7 = @[@"Y", @"U"];
+        NSArray *row8 = @[@"B", @"A"];
+        NSArray *row9 = @[@"Y", @"A"];
+        
+        template = @[row1, row2, row3, row4, row5, row6, row7, row8, row9];
+    }
     
     return template;
 }
@@ -301,6 +321,26 @@
     [cell tileView:tileView fillCellWithObject:item atIndex:index];
     
     return cell;
+}
+
+- (void)tileView:(PSTileView *)tileView didSelectCell:(PSTileViewCell *)cell atIndex:(NSInteger)index {
+    NSDictionary *item = [self.items objectAtIndex:index];
+    
+    NSString *type = [item objectForKey:@"type"];
+    
+    if ([type isEqualToString:@"foursquare"]) {
+        VenueViewController *vc = [[VenueViewController alloc] initWithVenueId:[item objectForKey:@"id"]];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Stream: Venue Selected" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[item objectForKey:@"id"], @"id", [item objectForKey:@"name"], @"name", nil]];
+    } else if ([type isEqualToString:@"airbrite"]) {
+        NSString *slug = [item objectForKey:@"slug"];
+        NSString *title = [item objectForKey:@"name"];
+        BrandViewController *vc = [[BrandViewController alloc] initWithSlug:slug title:title];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Stream: Brand Selected" attributes:[NSDictionary dictionaryWithObjectsAndKeys:title, @"name", nil]];
+    }
 }
 
 

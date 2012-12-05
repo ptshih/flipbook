@@ -1,6 +1,6 @@
 //
 //  TileViewController.h
-//  Lunchbox
+//  Mosaic
 //
 //  Created by Peter Shih on 12/3/12.
 //

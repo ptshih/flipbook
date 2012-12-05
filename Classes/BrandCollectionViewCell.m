@@ -1,6 +1,6 @@
 //
 //  BrandCollectionViewCell.m
-//  Lunchbox
+//  Mosaic
 //
 //  Created by Peter Shih on 10/31/12.
 //

@@ -983,7 +983,7 @@
 		289C362C148EC53300D02BAB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		289C362D148EC53300D02BAB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		289C362E148EC53300D02BAB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		28A392211554DA37002696FD /* Lunchbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lunchbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28A392211554DA37002696FD /* Mosaic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mosaic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28AD405A16250AE20066F6A5 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
 		28AD405B16250AE20066F6A5 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		28AD405E16250E2E0066F6A5 /* PSNewspaperTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSNewspaperTextView.h; sourceTree = "<group>"; };
@@ -1924,7 +1924,7 @@
 		283818BF14723F1D007E4827 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				28A392211554DA37002696FD /* Lunchbox.app */,
+				28A392211554DA37002696FD /* Mosaic.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2213,9 +2213,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		28A390CE1554DA37002696FD /* Lunchbox */ = {
+		28A390CE1554DA37002696FD /* Mosaic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 28A3921D1554DA37002696FD /* Build configuration list for PBXNativeTarget "Lunchbox" */;
+			buildConfigurationList = 28A3921D1554DA37002696FD /* Build configuration list for PBXNativeTarget "Mosaic" */;
 			buildPhases = (
 				28A390CF1554DA37002696FD /* ShellScript */,
 				28A390D01554DA37002696FD /* Sources */,
@@ -2226,9 +2226,9 @@
 			);
 			dependencies = (
 			);
-			name = Lunchbox;
+			name = Mosaic;
 			productName = PSKitDemo;
-			productReference = 28A392211554DA37002696FD /* Lunchbox.app */;
+			productReference = 28A392211554DA37002696FD /* Mosaic.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2239,7 +2239,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = 283818B814723F1C007E4827 /* Build configuration list for PBXProject "Lunchbox" */;
+			buildConfigurationList = 283818B814723F1C007E4827 /* Build configuration list for PBXProject "Mosaic" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2251,7 +2251,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				28A390CE1554DA37002696FD /* Lunchbox */,
+				28A390CE1554DA37002696FD /* Mosaic */,
 			);
 		};
 /* End PBXProject section */
@@ -2816,7 +2816,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Lunchbox;
+				PRODUCT_NAME = Mosaic;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2840,7 +2840,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Lunchbox;
+				PRODUCT_NAME = Mosaic;
 				PROVISIONING_PROFILE = "9DFE80E1-C977-4F4F-AA40-7C71ECEFBFD4";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9DFE80E1-C977-4F4F-AA40-7C71ECEFBFD4";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2866,7 +2866,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Lunchbox;
+				PRODUCT_NAME = Mosaic;
 				PROVISIONING_PROFILE = "002A8C28-E4B1-492D-8820-E799856589B4";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "002A8C28-E4B1-492D-8820-E799856589B4";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2907,7 +2907,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		283818B814723F1C007E4827 /* Build configuration list for PBXProject "Lunchbox" */ = {
+		283818B814723F1C007E4827 /* Build configuration list for PBXProject "Mosaic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				283818D414723F1D007E4827 /* Debug */,
@@ -2917,7 +2917,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		28A3921D1554DA37002696FD /* Build configuration list for PBXNativeTarget "Lunchbox" */ = {
+		28A3921D1554DA37002696FD /* Build configuration list for PBXNativeTarget "Mosaic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				28A3921E1554DA37002696FD /* Debug */,

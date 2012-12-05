@@ -1,6 +1,6 @@
 //
 //  FeedViewController.m
-//  Lunchbox
+//  Mosaic
 //
 //  Created by Peter Shih on 11/8/12.
 //

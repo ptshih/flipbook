@@ -1,6 +1,6 @@
 // Core Data
-#define CORE_DATA_MOM @"Lunchbox"
-#define CORE_DATA_SQL_FILE @"Lunchbox.sqlite"
+#define CORE_DATA_MOM @"Mosaic"
+#define CORE_DATA_SQL_FILE @"Mosaic.sqlite"
 
 #define FB_APP_ID @"456420417705188"
 

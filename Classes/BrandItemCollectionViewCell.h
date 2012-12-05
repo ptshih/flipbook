@@ -1,6 +1,6 @@
 //
 //  BrandItemCollectionViewCell.h
-//  Lunchbox
+//  Mosaic
 //
 //  Created by Peter Shih on 10/30/12.
 //

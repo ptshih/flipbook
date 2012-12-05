@@ -1,6 +1,6 @@
 //
 //  BrandTileViewController.m
-//  Lunchbox
+//  Mosaic
 //
 //  Created by Peter Shih on 12/4/12.
 //

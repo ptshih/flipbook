@@ -1,12 +1,12 @@
 //
-//  VenueTileViewCell.m
+//  BrandTileViewCell.m
 //  Lunchbox
 //
-//  Created by Peter Shih on 12/3/12.
+//  Created by Peter Shih on 12/4/12.
 //
 //
 
-#import "VenueTileViewCell.h"
+#import "BrandTileViewCell.h"
 
 // Margins
 static CGSize margin() {
@@ -17,7 +17,7 @@ static CGSize margin() {
     }
 }
 
-@interface VenueTileViewCell ()
+@interface BrandTileViewCell ()
 
 @property (nonatomic, strong) PSCachedImageView *imageView;
 @property (nonatomic, strong) UILabel *nameLabel;
@@ -25,7 +25,7 @@ static CGSize margin() {
 
 @end
 
-@implementation VenueTileViewCell
+@implementation BrandTileViewCell
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -75,25 +75,12 @@ static CGSize margin() {
 - (void)tileView:(PSTileView *)tileView fillCellWithObject:(id)object atIndex:(NSInteger)index {
     [super tileView:tileView fillCellWithObject:object atIndex:index];
     
-    NSDictionary *venue = (NSDictionary *)object;
-    
     // Photo
-    NSDictionary *photo = [venue objectForKey:@"photo"];
-    if (photo) {
-        // Use venue photo
-        NSString *href = [photo objectForKey:@"href"];
-        [self.imageView setOriginalURL:[NSURL URLWithString:href]];
-        [self.imageView setThumbnailURL:[NSURL URLWithString:href]];
-        [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
-    } else {
-        // Use category icon
-        NSString *href = [venue objectForKey:@"categoryIcon"];
-        [self.imageView setOriginalURL:[NSURL URLWithString:href]];
-        [self.imageView setThumbnailURL:[NSURL URLWithString:href]];
-        [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
-    }
+    [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"image"]]];
+    [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
     
-    self.nameLabel.text = [venue objectForKey:@"name"];
+    NSString *nameText = [NSString stringWithFormat:@"%@", [object objectForKey:@"name"]];
+    self.nameLabel.text = nameText;
     
     
 }

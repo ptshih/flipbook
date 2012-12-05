@@ -11,6 +11,8 @@
 #import "FeedViewController.h"
 #import "FoursquareViewController.h"
 
+#import "BrandTileViewController.h"
+
 #import "SliceCell.h"
 
 @interface SubsectionViewController ()
@@ -212,7 +214,7 @@
         vc = [[FoursquareViewController alloc] initWithCategory:slug query:query title:name];
     } else if ([type isEqualToString:@"brand"]) {
         // Airbrite Brand
-        vc = [[BrandViewController alloc] initWithSlug:slug title:name];
+        vc = [[BrandTileViewController alloc] initWithSlug:slug title:name];
     } else if ([type isEqualToString:@"feed"]) {
         // Airbrite RSS Converted Feed
         vc = [[FeedViewController alloc] initWithSlug:slug title:name];

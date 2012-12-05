@@ -393,6 +393,8 @@
 		287FD2D6166DD2A90003F635 /* PSTileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2D5166DD2A90003F635 /* PSTileViewController.m */; };
 		287FD2D9166DD4010003F635 /* TileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2D8166DD4010003F635 /* TileViewController.m */; };
 		287FD2DC166DE35A0003F635 /* VenueTileViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2DB166DE35A0003F635 /* VenueTileViewCell.m */; };
+		28920217166E80B500488396 /* BrandTileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28920216166E80B500488396 /* BrandTileViewController.m */; };
+		2892021A166E815B00488396 /* BrandTileViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28920219166E815B00488396 /* BrandTileViewCell.m */; };
 		28A390D11554DA37002696FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818CE14723F1D007E4827 /* main.m */; };
 		28A390D21554DA37002696FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818D214723F1D007E4827 /* AppDelegate.m */; };
 		28A390FA1554DA37002696FD /* FoursquareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5A14AC4A1D00541BB1 /* FoursquareViewController.m */; };
@@ -974,6 +976,10 @@
 		287FD2DA166DE35A0003F635 /* VenueTileViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueTileViewCell.h; sourceTree = "<group>"; };
 		287FD2DB166DE35A0003F635 /* VenueTileViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueTileViewCell.m; sourceTree = "<group>"; };
 		28888D1A153576DE001743CA /* AddPhotoBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddPhotoBackground@2x.png"; sourceTree = "<group>"; };
+		28920215166E80B500488396 /* BrandTileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandTileViewController.h; sourceTree = "<group>"; };
+		28920216166E80B500488396 /* BrandTileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandTileViewController.m; sourceTree = "<group>"; };
+		28920218166E815B00488396 /* BrandTileViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandTileViewCell.h; sourceTree = "<group>"; };
+		28920219166E815B00488396 /* BrandTileViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandTileViewCell.m; sourceTree = "<group>"; };
 		289C362C148EC53300D02BAB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		289C362D148EC53300D02BAB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		289C362E148EC53300D02BAB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -2079,6 +2085,8 @@
 			children = (
 				287FD2DA166DE35A0003F635 /* VenueTileViewCell.h */,
 				287FD2DB166DE35A0003F635 /* VenueTileViewCell.m */,
+				28920218166E815B00488396 /* BrandTileViewCell.h */,
+				28920219166E815B00488396 /* BrandTileViewCell.m */,
 			);
 			name = TileViewCells;
 			sourceTree = "<group>";
@@ -2109,6 +2117,8 @@
 				2843314316411B4500349014 /* SubsectionViewController.m */,
 				287FD2D7166DD4010003F635 /* TileViewController.h */,
 				287FD2D8166DD4010003F635 /* TileViewController.m */,
+				28920215166E80B500488396 /* BrandTileViewController.h */,
+				28920216166E80B500488396 /* BrandTileViewController.m */,
 				282FAF0C164C684D0040D3B4 /* Foursquare */,
 				282FAF0D164C68580040D3B4 /* Airbrite */,
 				28433116163FCE0300349014 /* Old */,
@@ -2709,6 +2719,8 @@
 				287FD2D6166DD2A90003F635 /* PSTileViewController.m in Sources */,
 				287FD2D9166DD4010003F635 /* TileViewController.m in Sources */,
 				287FD2DC166DE35A0003F635 /* VenueTileViewCell.m in Sources */,
+				28920217166E80B500488396 /* BrandTileViewController.m in Sources */,
+				2892021A166E815B00488396 /* BrandTileViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

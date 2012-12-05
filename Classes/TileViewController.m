@@ -292,22 +292,35 @@
     }];
 }
 
-#pragma mark - PSCollectionViewDelegate
+#pragma mark - PSTileViewDelegate
 
 - (NSArray *)templateForTileView:(PSTileView *)tileView {
     NSArray *template;
     
     if(isDeviceIPad()) {
-        NSArray *row1 = @[@"A", @"A", @"B", @"C"];
-        NSArray *row2 = @[@"A", @"A", @"D", @"D"];
-        NSArray *row3 = @[@"A", @"A", @"E", @"E"];
-        NSArray *row4 = @[@"G", @"H", @"E", @"E"];
-        NSArray *row5 = @[@"A", @"B", @"C", @"D"];
-        NSArray *row6 = @[@"A", @"B", @"Z", @"Z"];
-        NSArray *row7 = @[@"Y", @"U", @"U", @"V"];
-        NSArray *row8 = @[@"T", @"B", @"Z", @"X"];
+        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
         
-        template = @[row1, row2, row3, row4, row5, row6, row7, row8];
+        if (UIInterfaceOrientationIsPortrait(orientation)) {
+            NSArray *row1 = @[@"A", @"A", @"B"];
+            NSArray *row2 = @[@"A", @"A", @"D"];
+            NSArray *row3 = @[@"F", @"E", @"E"];
+            NSArray *row4 = @[@"G", @"H", @"W"];
+            NSArray *row5 = @[@"B", @"B", @"Q"];
+            NSArray *row6 = @[@"A", @"M", @"Z"];
+            NSArray *row7 = @[@"Y", @"U", @"U"];
+            NSArray *row8 = @[@"T", @"B", @"Z"];
+            template = @[row1, row2, row3, row4, row5, row6, row7, row8];
+        } else {
+            NSArray *row1 = @[@"A", @"A", @"A", @"C"];
+            NSArray *row2 = @[@"A", @"A", @"A", @"D"];
+            NSArray *row3 = @[@"F", @"W", @"E", @"E"];
+            NSArray *row4 = @[@"G", @"G", @"E", @"E"];
+            NSArray *row5 = @[@"G", @"G", @"C", @"D"];
+            NSArray *row6 = @[@"A", @"B", @"Z", @"Z"];
+            NSArray *row7 = @[@"Y", @"Y", @"U", @"V"];
+            NSArray *row8 = @[@"T", @"B", @"Z", @"X"];
+            template = @[row1, row2, row3, row4, row5, row6, row7, row8];
+        }
     } else {
         NSArray *row1 = @[@"A", @"A"];
         NSArray *row2 = @[@"A", @"A"];
@@ -317,7 +330,6 @@
         NSArray *row6 = @[@"A", @"B"];
         NSArray *row7 = @[@"Y", @"Z"];
         NSArray *row8 = @[@"X", @"Z"];
-        
         template = @[row1, row2, row3, row4, row5, row6, row7, row8];
     }
     

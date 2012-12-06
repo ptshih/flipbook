@@ -69,6 +69,23 @@
 		<string>Helvetica LT 77 Bold Condensed.ttf</string>
 		<string>Gotham-Bold.otf</string>
 		<string>Gotham-Book.otf</string>
+		<string>ProximaNova-Black.otf</string>
+		<string>ProximaNova-Bold.otf</string>
+		<string>ProximaNova-BoldIt.otf</string>
+		<string>ProximaNova-Extrabold.otf</string>
+		<string>ProximaNova-Light.otf</string>
+		<string>ProximaNova-LightItalic.otf</string>
+		<string>ProximaNova-RegItalic.otf</string>
+		<string>ProximaNova-Regular.otf</string>
+		<string>ProximaNova-RegularItalic.otf</string>
+		<string>ProximaNova-Semibold.otf</string>
+		<string>ProximaNova-SemiboldItalic.otf</string>
+		<string>ProximaNovaCond-Light.otf</string>
+		<string>ProximaNovaCond-LightIt.otf</string>
+		<string>ProximaNovaCond-Regular.otf</string>
+		<string>ProximaNovaCond-RegularIt.otf</string>
+		<string>ProximaNovaCond-Semibold.otf</string>
+		<string>ProximaNovaCond-SemiboldIt.otf</string>
 	</array>
 	<key>UIPrerenderedIcon</key>
 	<true/>

@@ -1241,7 +1241,7 @@
 	<key>cellTitleLightLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
+		<string>ProximaNovaCond-Semibold</string>
 		<key>fontSize</key>
 		<integer>15</integer>
 		<key>textColor</key>
@@ -1262,7 +1262,7 @@
 	<key>cellTitleDarkLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
+		<string>ProximaNovaCond-Semibold</string>
 		<key>fontSize</key>
 		<integer>15</integer>
 		<key>textColor</key>

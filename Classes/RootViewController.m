@@ -7,17 +7,11 @@
 //
 
 #import "RootViewController.h"
-
-#import "FoursquareViewController.h"
-#import "SubsectionViewController.h"
-#import "BrandViewController.h"
-#import "FeedViewController.h"
-
-#import "TileViewController.h"
-
-#import "SliceCell.h"
+#import "PhotoTileViewCell.h"
 
 @interface RootViewController ()
+
+@property (nonatomic, strong) NSString *albumId;
 
 @end
 
@@ -25,27 +19,38 @@
 
 #pragma mark - Init
 
+- (id)initWithAlbumId:(NSString *)albumId {
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        self.albumId = albumId;
+    }
+    
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.shouldShowHeader = NO;
+        self.shouldShowHeader = YES;
         self.shouldShowFooter = NO;
+        self.shouldPullRefresh = YES;
+        self.shouldPullLoadMore = YES;
         self.shouldShowNullView = YES;
+        self.pullRefreshStyle = PSPullRefreshStyleWhite;
         
         self.headerHeight = 0.0;
         self.footerHeight = 0.0;
         
-        self.title = @"Channels";
+        self.headerRightWidth = 0.0;
         
-        self.nullBackgroundColor = [self baseBackgroundColor];
-        self.nullLabelStyle = @"loadingLightLabel";
-        self.nullIndicatorStyle = UIActivityIndicatorViewStyleWhite;
+        self.limit = 50;
         
-        // Table
-        self.tableViewStyle = UITableViewStylePlain;
-        self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleNone;
-        self.separatorColor = [UIColor lightGrayColor];
-        
+        self.albumId = @"10152224225230652"; // DEBUG
+        // 10152224225230652 // wedding
+        // 10150888525010652
+        // 10152256941535565
+        // 10150188075865565 // Mobile
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appForegrounded:) name:UIApplicationWillEnterForegroundNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBackgrounded:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     }
@@ -67,7 +72,7 @@
 #pragma mark - View Config
 
 - (UIColor *)baseBackgroundColor {
-    return TEXTURE_DARK_WOOD;
+    return TEXTURE_DARK_LINEN;
 }
 
 #pragma mark - View
@@ -89,9 +94,6 @@
 
 - (void)setupSubviews {
     [super setupSubviews];
-    
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.backgroundView = nil;
 }
 
 #pragma mark - Data Source
@@ -108,15 +110,40 @@
     [self loadDataSourceFromRemoteUsingCache:NO];
 }
 
+- (void)loadMoreDataSource {
+    [super loadMoreDataSource];
+    
+    [self loadDataSourceFromRemoteUsingCache:NO];
+}
+
+- (void)dataSourceDidLoad {
+    [super dataSourceDidLoad];
+}
+
+- (void)dataSourceDidLoadMore {
+    [super dataSourceDidLoadMore];
+}
+
+- (void)dataSourceDidError {
+    [super dataSourceDidError];
+}
+
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     // Parameters
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    NSString *accessToken = @"AAACEHeoZBHTABAA7OIhzAcovNH3PmBBCgcQ005c1VkZC06zCaZAm1ZAQ5snXYg2VedPsiIfdi2kfpZADRbZCGR5iymMFDIBLHGrGE5tdSP3gZDZD";
+    [parameters setObject:accessToken forKey:@"access_token"];
+    [parameters setObject:@"U" forKey:@"date_format"];
+    
+    [parameters setObject:[NSNumber numberWithInteger:self.limit] forKey:@"limit"];
+    [parameters setObject:[NSNumber numberWithInteger:self.offset] forKey:@"offset"];
     
     // Headers
     NSMutableDictionary *headers = [NSMutableDictionary dictionary];
     
     // Request
-    NSString *URLPath = [NSString stringWithFormat:@"%@/v3/sections", API_BASE_URL];
+    NSString *URLPath = [NSString stringWithFormat:@"https://graph.facebook.com/%@/photos", self.albumId];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:headers parameters:parameters];
@@ -131,11 +158,15 @@
             id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
             
             if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
-                id apiData = [apiResponse objectForKey:@"sections"];
+                id apiData = [apiResponse objectForKey:@"data"];
                 if (apiData && [apiData isKindOfClass:[NSArray class]]) {
-                    
-                    [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:apiData] animated:YES];
-                    [self dataSourceDidLoad];
+                    if (self.loadingMore) {
+                        [self.items addObjectsFromArray:apiData];
+                        [self dataSourceDidLoadMore];
+                    } else {
+                        self.items = [NSMutableArray arrayWithArray:apiData];
+                        [self dataSourceDidLoad];
+                    }
                 } else {
                     [self dataSourceDidError];
                 }
@@ -146,73 +177,65 @@
     }];
 }
 
-- (void)dataSourceDidLoad {
-    [super dataSourceDidLoad];
-}
+#pragma mark - PSTileViewDelegate
 
-- (void)dataSourceDidError {
-    [super dataSourceDidError];
-}
-
-#pragma mark - TableView
-
-- (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.section) {
-        default:
-            return [SliceCell class];
-            break;
-    }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Special override to fit screen heights
-    if (isDeviceIPad()) {
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
-            return 251.0;
+- (NSArray *)templateForTileView:(PSTileView *)tileView {
+    NSArray *template;
+    
+    if(isDeviceIPad()) {
+        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+        
+        if (UIInterfaceOrientationIsPortrait(orientation)) {
+            NSArray *row1 = @[@"A", @"A", @"B"];
+            NSArray *row2 = @[@"A", @"A", @"D"];
+            NSArray *row3 = @[@"V", @"V", @"E"];
+            NSArray *row4 = @[@"G", @"H", @"E"];
+            NSArray *row5 = @[@"A", @"B", @"B"];
+            NSArray *row6 = @[@"A", @"M", @"Z"];
+            NSArray *row7 = @[@"Y", @"U", @"U"];
+            NSArray *row8 = @[@"T", @"B", @"Z"];
+            template = @[row1, row2, row3, row4, row5, row6, row7, row8];
         } else {
-            return 187.0;
+            NSArray *row1 = @[@"A", @"A", @"B", @"C"];
+            NSArray *row2 = @[@"A", @"A", @"D", @"D"];
+            NSArray *row3 = @[@"A", @"A", @"E", @"E"];
+            NSArray *row4 = @[@"G", @"H", @"E", @"E"];
+            NSArray *row5 = @[@"A", @"B", @"C", @"D"];
+            NSArray *row6 = @[@"A", @"B", @"Z", @"Z"];
+            NSArray *row7 = @[@"Y", @"U", @"U", @"V"];
+            NSArray *row8 = @[@"T", @"B", @"Z", @"X"];
+            template = @[row1, row2, row3, row4, row5, row6, row7, row8];
         }
     } else {
-        if (isDeviceIPhone5() ) {
-            return 137.0;
-        } else {
-            return 115.0;
-        }
+        NSArray *row1 = @[@"A", @"A"];
+        NSArray *row2 = @[@"A", @"A"];
+        NSArray *row3 = @[@"B", @"C"];
+        NSArray *row4 = @[@"G", @"G"];
+        NSArray *row5 = @[@"A", @"C"];
+        NSArray *row6 = @[@"A", @"B"];
+        NSArray *row7 = @[@"Y", @"Z"];
+        NSArray *row8 = @[@"X", @"Z"];
+        template = @[row1, row2, row3, row4, row5, row6, row7, row8];
     }
+    
+    return template;
 }
 
-- (void)tableView:(UITableView *)tableView configureCell:(id)cell atIndexPath:(NSIndexPath *)indexPath {
-    id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    [cell tableView:tableView fillCellWithObject:item atIndexPath:indexPath];
+- (PSTileViewCell *)tileView:(PSTileView *)tileView cellForItemAtIndex:(NSInteger)index {
+    NSDictionary *item = [self.items objectAtIndex:index];
+    
+    id cell = [tileView dequeueReusableCellForClass:[PhotoTileViewCell class]];
+    if (!cell) {
+        cell = [[[PhotoTileViewCell class] alloc] initWithFrame:CGRectZero];
+    }
+    
+    [cell tileView:tileView fillCellWithObject:item atIndex:index];
+    
+    return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    
-    NSString *slug = [item objectForKey:@"slug"];
-    NSString *query = [item objectForKey:@"query"];
-    NSString *type = [item objectForKey:@"type"];
-    NSString *name = [item objectForKey:@"name"];
-    
-    id vc = nil;
-    if ([type isEqualToString:@"foursquare"]) {
-        // Foursquare Category
-//        vc = [[FoursquareViewController alloc] initWithCategory:slug query:query title:name];
-        vc = [[TileViewController alloc] initWithCategory:slug query:query title:name];
-    } else if ([type isEqualToString:@"brand"]) {
-        // Airbrite Brand
-        vc = [[BrandViewController alloc] initWithSlug:slug title:name];
-    } else if ([type isEqualToString:@"feed"]) {
-        // Airbrite RSS Converted Feed
-        vc = [[FeedViewController alloc] initWithSlug:slug title:name];
-    } else if ([type isEqualToString:@"subsection"]) {
-        // Subsection
-        vc = [[SubsectionViewController alloc] initWithSection:slug title:name];
-    }
-    [self.navigationController pushViewController:vc animated:YES];
-    
-    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Sections: Slice Selected" attributes:[NSDictionary dictionaryWithObjectsAndKeys:name, @"name", type, @"type", slug, @"slug", nil]];
+- (void)tileView:(PSTileView *)tileView didSelectCell:(PSTileViewCell *)cell atIndex:(NSInteger)index {
+    NSDictionary *item = [self.items objectAtIndex:index];
 }
 
 

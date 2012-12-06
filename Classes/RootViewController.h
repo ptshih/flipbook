@@ -6,8 +6,8 @@
 //
 //
 
-#import "PSTableViewController.h"
+#import "PSTileViewController.h"
 
-@interface RootViewController : PSTableViewController
+@interface RootViewController : PSTileViewController
 
 @end

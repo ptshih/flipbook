@@ -11,6 +11,8 @@
 #import "RootViewController.h"
 #import "VenueViewController.h"
 
+#import "BrandViewController.h"
+
 #import "PSZoomView.h"
 
 @interface AppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate>
@@ -87,6 +89,7 @@
     // Root view controller
     id controller = nil;
     controller = [[RootViewController alloc] initWithNibName:nil bundle:nil];
+    controller = [[BrandViewController alloc] initWithSlug:@"bonobos" title:@"Bonobos"];
     
     self.navigationController = [[PSNavigationController alloc] initWithRootViewController:controller];
     self.window.rootViewController = self.navigationController;
@@ -145,14 +148,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 #ifdef RELEASE
-    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"4fda551a3f254b914082b05e2d8d76fd" liveIdentifier:@"4fda551a3f254b914082b05e2d8d76fd" delegate:self];
+    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"1c9f45ba9c33b4fc78fe01a300c6d84e" liveIdentifier:@"1c9f45ba9c33b4fc78fe01a300c6d84e" delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
 #endif
     
+    NSLog(@"Fonts: %@", [UIFont familyNames]);
+    NSLog(@"Proxima Nova: %@", [UIFont fontNamesForFamilyName:@"Proxima Nova"]);
+    NSLog(@"Proxima Nova: %@", [UIFont fontNamesForFamilyName:@"Proxima Nova Condensed"]);
+    
     // Localytics
-    [[LocalyticsSession sharedLocalyticsSession] startSession:@"4b7b6d538943982ced6b45d-805b68dc-29ef-11e2-61f6-00ef75f32667"];
-    // Old: 84958a8210d0dc2a5082943-09e67c0a-6273-11e1-1c6d-00a68a4c01fc
-    // New: 4b7b6d538943982ced6b45d-805b68dc-29ef-11e2-61f6-00ef75f32667
+    [[LocalyticsSession sharedLocalyticsSession] startSession:@"c6bd712b99b9eb8f537c9bd-faa3f0ba-3e7f-11e2-693d-00ef75f32667"];
     
     // PSURLCache
     [[PSURLCache sharedCache] setNoCache:NO]; // This force NO CACHE

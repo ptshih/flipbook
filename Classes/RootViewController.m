@@ -46,7 +46,7 @@
         
         self.limit = 50;
         
-        self.albumId = @"10150188075865565"; // DEBUG
+        self.albumId = @"537428196270650"; // DEBUG
         // 10152224225230652 // wedding
         // 10150888525010652
         // 10152256941535565
@@ -286,22 +286,20 @@
             NSInteger itype = 0;
             if (iw > ih) {
                 itype = 1;
+                if (!lItem) {
+                    lItem = item;
+                }
             } else if (iw < ih) {
                 itype = 2;
+                if (!pItem) {
+                    pItem = item;
+                }
             } else {
                 itype = 0;
+                if (!sItem) {
+                    sItem = item;
+                }
             }
-            
-            if (!pItem && itype == 2) {
-                pItem = item;
-            }
-            if (!lItem && itype == 2) {
-                lItem = item;
-            }
-            if (!sItem && itype == 0) {
-                sItem = item;
-            }
-            
             
             if (itype == type) {
                 [sortedItems addObject:item];
@@ -344,6 +342,9 @@
                 if (chosenItem) {
                     [sortedItems addObject:chosenItem];
                     [subarray removeObject:chosenItem];
+                } else {
+                    // wtf
+                    NSLog(@"wtf");
                 }
                 break;
             }

@@ -11,6 +11,8 @@
 #import "RootViewController.h"
 #import "VenueViewController.h"
 
+#import "PSWebViewController.h"
+
 #import "BrandViewController.h"
 
 #import "PSZoomView.h"
@@ -89,7 +91,8 @@
     // Root view controller
     id controller = nil;
     controller = [[RootViewController alloc] initWithNibName:nil bundle:nil];
-    controller = [[BrandViewController alloc] initWithSlug:@"bonobos" title:@"Bonobos"];
+//    controller = [[BrandViewController alloc] initWithSlug:@"kennethcole" title:@"Kenneth Cole"];
+//    controller = [[PSWebViewController alloc] initWithURLPath:@"http://mosaic-staging.herokuapp.com/kennethcole" title:@"Kenneth Cole"];
     
     self.navigationController = [[PSNavigationController alloc] initWithRootViewController:controller];
     self.window.rootViewController = self.navigationController;

@@ -19,7 +19,7 @@
 #define kPopoverLocation 7001
 #define kPopoverCategory 7002
 
-@interface TileViewController ()
+@interface TileViewController () <PSPopoverViewDelegate>
 
 @property (nonatomic, copy) NSString *category;
 @property (nonatomic, assign) CLLocationCoordinate2D centerCoordinate;

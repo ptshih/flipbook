@@ -68,28 +68,61 @@ static CGSize margin() {
     // Photo
     self.imageView.frame = self.bounds;
     
+//    [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
+    
+    CGFloat maxDim = MAX(self.imageView.width, self.imageView.height);
+    
+    if (maxDim > 320.0) {
+        [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
+    } else {
+        [self.imageView loadImageWithURL:self.imageView.thumbnailURL cacheType:PSURLCacheTypePermanent];
+    }
+    
     // Overlay
-    labelSize = [self.nameLabel sizeForLabelInWidth:width];
-    self.nameLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
-    self.overlayView.frame = CGRectMake(0.0, self.height - labelSize.height - margin().height * 2, self.imageView.width, labelSize.height + margin().height * 2);
+    if (self.nameLabel.text.length > 0) {
+        labelSize = [self.nameLabel sizeForLabelInWidth:width];
+        self.nameLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
+        self.overlayView.frame = CGRectMake(0.0, self.height - labelSize.height - margin().height * 2, self.imageView.width, labelSize.height + margin().height * 2);
+    }
 }
 
 - (void)tileView:(PSTileView *)tileView fillCellWithObject:(id)object atIndex:(NSInteger)index {
     [super tileView:tileView fillCellWithObject:object atIndex:index];
     
-    // Photo
-    [self.imageView setThumbnailURL:[NSURL URLWithString:[self.object objectForKey:@"picture"]]];
-    [self.imageView setOriginalURL:[NSURL URLWithString:[self.object objectForKey:@"source"]]];
-    [self.imageView loadImageWithURL:self.imageView.originalURL cacheType:PSURLCacheTypePermanent];
-    
-    NSString *name = [object objectForKey:@"name"];
-    if (name) {
-        NSString *nameText = [NSString stringWithFormat:@"%@", name];
-        self.nameLabel.text = nameText;
-    } else {
-        NSString *timestamp = [NSDate stringFromDate:[NSDate dateWithTimeIntervalSince1970:[[object objectForKey:@"created_time"] doubleValue]]];
-        self.nameLabel.text = timestamp;
+    NSArray *images = [self.object objectForKey:@"images"];
+
+    NSString *origUrl = [self.object objectForKey:@"source"];
+    NSString *thumbUrl = [self.object objectForKey:@"source"];
+    for (NSDictionary *imageDict in images) {
+        if ([[imageDict objectForKey:@"width"] floatValue] == 320.0) {
+            thumbUrl = [imageDict objectForKey:@"source"];
+            break;
+        }
     }
+    
+    
+    // Photo
+    [self.imageView setThumbnailURL:[NSURL URLWithString:thumbUrl]];
+    [self.imageView setOriginalURL:[NSURL URLWithString:origUrl]];
+    
+//    NSDictionary *images = [self.object objectForKey:@"images"];
+//    NSString *origUrl = [[[images objectForKey:@"size"] objectForKey:@"720"] objectForKey:@"url"];
+//    [self.imageView setOriginalURL:[NSURL URLWithString:origUrl]];
+    
+//    NSString *urlString = [NSString stringWithFormat:@"http://imgur.com/%@l%@", [object objectForKey:@"hash"], [object objectForKey:@"ext"]];
+//    [self.imageView setThumbnailURL:[NSURL URLWithString:urlString]];
+//    [self.imageView setOriginalURL:[NSURL URLWithString:urlString]];
+//    
+//    self.nameLabel.text = NOT_NULL([object objectForKey:@"title"]) ? [object objectForKey:@"title"] : @"";
+    
+//    NSString *name = [object objectForKey:@"name"];
+//    if (name) {
+//        NSString *nameText = [NSString stringWithFormat:@"%@", name];
+//        self.nameLabel.text = nameText;
+//    } else {
+//        NSString *timestamp = [NSDate stringFromDate:[NSDate dateWithTimeIntervalSince1970:[[object objectForKey:@"created_time"] doubleValue]]];
+//        self.nameLabel.text = timestamp;
+//    }
 }
 
 @end

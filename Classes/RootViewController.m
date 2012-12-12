@@ -210,7 +210,7 @@
             NSArray *row5 = @[@"I", @"J", @"K", @"L"];
             NSArray *row6 = @[@"M", @"J", @"N", @"N"];
             NSArray *row7 = @[@"O", @"P", @"P", @"Q"];
-            NSArray *row8 = @[@"R", @"S", @"T", @"Q"];
+            NSArray *row8 = @[@"R", @"S", @"T", @"U"];
             template = @[row1, row2, row3, row4, row5, row6, row7, row8];
         }
     } else {
@@ -221,7 +221,7 @@
         NSArray *row5 = @[@"E", @"F"];
         NSArray *row6 = @[@"E", @"G"];
         NSArray *row7 = @[@"H", @"I"];
-        NSArray *row8 = @[@"J", @"I"];
+        NSArray *row8 = @[@"J", @"K"];
         template = @[row1, row2, row3, row4, row5, row6, row7, row8];
     }
     
@@ -230,7 +230,7 @@
 
 - (void)tileView:(PSTileView *)tileView didReloadTemplateWithMap:(NSMutableDictionary *)indexToRectMap {
     
-    if (self.items.count == 0 || indexToRectMap.count == 0) return;
+    if (self.items.count == 0 || indexToRectMap.count == 0 || self.items.count == self.sortedItems.count) return;
     
     NSInteger len = self.items.count - self.offset;
     if (len <= 0) {

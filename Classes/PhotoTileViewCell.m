@@ -35,7 +35,7 @@ static CGSize margin() {
         self.imageView = [[PSCachedImageView alloc] initWithFrame:CGRectZero];
         self.imageView.loadingColor = RGBACOLOR(60, 60, 60, 1.0);
         self.imageView.loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-        self.imageView.shouldAnimate = NO;
+        self.imageView.shouldAnimate = YES;
         self.imageView.clipsToBounds = YES;
         [self addSubview:self.imageView];
         
@@ -94,8 +94,9 @@ static CGSize margin() {
     NSString *origUrl = [self.object objectForKey:@"source"];
     NSString *thumbUrl = [self.object objectForKey:@"source"];
     for (NSDictionary *imageDict in images) {
-        if ([[imageDict objectForKey:@"width"] floatValue] == 320.0) {
+        if ([[imageDict objectForKey:@"width"] floatValue] == 600.0) {
             thumbUrl = [imageDict objectForKey:@"source"];
+            origUrl = [imageDict objectForKey:@"source"];
             break;
         }
     }

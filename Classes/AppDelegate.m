@@ -101,6 +101,17 @@
     return params;
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if ([[DBSession sharedSession] handleOpenURL:url]) {
+        if ([[DBSession sharedSession] isLinked]) {
+            NSLog(@"App linked successfully!");
+            // At this point you can start making API calls
+        }
+        return YES;
+    } else {
+        return [FBSession.activeSession handleOpenURL:url];
+    }
+}
 
 //- (BOOL)handleURL:(NSURL *)url {
 //    NSLog(@"app handle open URL: %@", url);
@@ -177,6 +188,12 @@
     // PSLocationCenter set default behavior
 //    [[PSLocationCenter defaultCenter] resumeUpdates]; // start it
     
+    // Dropbox
+    DBSession *dbSession = [[DBSession alloc] initWithAppKey:@"b6fbfbwvpvy6xnt" appSecret:@"lju0v49xrosbmcs" root:kDBRootDropbox];
+    [DBSession setSharedSession:dbSession];
+    
+    
+    
     // Window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = WINDOW_BG_COLOR;
@@ -211,6 +228,10 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 //    [[LocalyticsSession sharedLocalyticsSession] resume];
 //    [[LocalyticsSession sharedLocalyticsSession] upload];
+    
+    // We need to properly handle activation of the application with regards to Facebook Login
+    // (e.g., returning from iOS 6.0 Login Dialog or from fast app switching).
+    [FBSession.activeSession handleDidBecomeActive];
     
     if (self.shouldReloadInterface) {
         self.shouldReloadInterface = NO;

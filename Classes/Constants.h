@@ -95,7 +95,11 @@
 
 // Apple Frameworks
 #import <MapKit/MapKit.h>
+
+// Vendor Frameworks
 #import <HockeySDK/HockeySDK.h>
+#import <FacebookSDK/FacebookSDK.h>
+#import <DropboxSDK/DropboxSDK.h>
 
 // PSConstants
 #import "PSConstants.h"

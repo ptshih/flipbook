@@ -480,6 +480,7 @@
 		28AD40BA162513CF0066F6A5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AD40B7162513CF0066F6A5 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		28BAED781681B2EF002E1B7C /* PSPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BAED771681B2EF002E1B7C /* PSPageView.m */; };
 		28BAED7B1681B360002E1B7C /* PSGridViewTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BAED7A1681B360002E1B7C /* PSGridViewTile.m */; };
+		28BAED7E16825F62002E1B7C /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BAED7D16825F62002E1B7C /* DropboxSDK.framework */; };
 		28BBECB9167B208C0002E4A2 /* PSGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBECB8167B208C0002E4A2 /* PSGridView.m */; };
 		28BBECBC167B20A80002E4A2 /* PSGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBECBB167B20A80002E4A2 /* PSGridViewCell.m */; };
 		28BBECBF167B23570002E4A2 /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBECBE167B23570002E4A2 /* GridViewController.m */; };
@@ -1061,6 +1062,7 @@
 		28BAED771681B2EF002E1B7C /* PSPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPageView.m; sourceTree = "<group>"; };
 		28BAED791681B360002E1B7C /* PSGridViewTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSGridViewTile.h; sourceTree = "<group>"; };
 		28BAED7A1681B360002E1B7C /* PSGridViewTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSGridViewTile.m; sourceTree = "<group>"; };
+		28BAED7D16825F62002E1B7C /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		28BBECB7167B208C0002E4A2 /* PSGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSGridView.h; sourceTree = "<group>"; };
 		28BBECB8167B208C0002E4A2 /* PSGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSGridView.m; sourceTree = "<group>"; };
 		28BBECBA167B20A80002E4A2 /* PSGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSGridViewCell.h; sourceTree = "<group>"; };
@@ -1144,6 +1146,7 @@
 				28A3914F1554DA37002696FD /* CoreGraphics.framework in Frameworks */,
 				28AD405C16250AE20066F6A5 /* HockeySDK.framework in Frameworks */,
 				28AD40831625106C0066F6A5 /* FacebookSDK.framework in Frameworks */,
+				28BAED7E16825F62002E1B7C /* DropboxSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2156,6 +2159,14 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		28BAED7C16825F62002E1B7C /* DropboxSDK */ = {
+			isa = PBXGroup;
+			children = (
+				28BAED7D16825F62002E1B7C /* DropboxSDK.framework */,
+			);
+			path = DropboxSDK;
+			sourceTree = "<group>";
+		};
 		28BBECB6167B206D0002E4A2 /* PSGridView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2229,6 +2240,7 @@
 		D07B2DBD14F750F400304E62 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				28BAED7C16825F62002E1B7C /* DropboxSDK */,
 				28523641164B45E8009C66F5 /* Localytics */,
 				28AD40811625106C0066F6A5 /* FacebookSDK */,
 				28AD405916250AE20066F6A5 /* HockeySDK */,
@@ -2878,6 +2890,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Vendor/HockeySDK\"",
 					"\"$(SRCROOT)/Vendor/FacebookSDK\"",
+					"\"$(SRCROOT)/Vendor/DropboxSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
@@ -2902,6 +2915,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Vendor/HockeySDK\"",
 					"\"$(SRCROOT)/Vendor/FacebookSDK\"",
+					"\"$(SRCROOT)/Vendor/DropboxSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
@@ -2926,6 +2940,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Vendor/HockeySDK\"",
 					"\"$(SRCROOT)/Vendor/FacebookSDK\"",
+					"\"$(SRCROOT)/Vendor/DropboxSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;

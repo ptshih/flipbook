@@ -10,6 +10,7 @@
 
 #import "RootViewController.h"
 #import "VenueViewController.h"
+#import "GridViewController.h"
 
 #import "PSWebViewController.h"
 
@@ -90,7 +91,8 @@
 - (void)setupViewControllers {
     // Root view controller
     id controller = nil;
-    controller = [[RootViewController alloc] initWithNibName:nil bundle:nil];
+    controller = [[GridViewController alloc] initWithNibName:nil bundle:nil];
+//    controller = [[RootViewController alloc] initWithNibName:nil bundle:nil];
 //    controller = [[BrandViewController alloc] initWithSlug:@"kennethcole" title:@"Kenneth Cole"];
 //    controller = [[PSWebViewController alloc] initWithURLPath:@"http://mosaic-staging.herokuapp.com/kennethcole" title:@"Kenneth Cole"];
     
@@ -151,7 +153,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 #ifdef RELEASE
-    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"1c9f45ba9c33b4fc78fe01a300c6d84e" liveIdentifier:@"1c9f45ba9c33b4fc78fe01a300c6d84e" delegate:self];
+    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"009ab560efcd0a2d8dd92db55cc7e6fa" liveIdentifier:@"009ab560efcd0a2d8dd92db55cc7e6fa" delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
 #endif
     
@@ -160,7 +162,7 @@
     NSLog(@"Proxima Nova: %@", [UIFont fontNamesForFamilyName:@"Proxima Nova Condensed"]);
     
     // Localytics
-    [[LocalyticsSession sharedLocalyticsSession] startSession:@"c6bd712b99b9eb8f537c9bd-faa3f0ba-3e7f-11e2-693d-00ef75f32667"];
+//    [[LocalyticsSession sharedLocalyticsSession] startSession:@"c6bd712b99b9eb8f537c9bd-faa3f0ba-3e7f-11e2-693d-00ef75f32667"];
     
     // PSURLCache
     [[PSURLCache sharedCache] setNoCache:NO]; // This force NO CACHE

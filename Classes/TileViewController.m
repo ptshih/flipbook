@@ -294,7 +294,7 @@
 
 #pragma mark - PSTileViewDelegate
 
-- (NSArray *)templateForTileView:(PSTileView *)tileView {
+- (NSMutableArray *)templateForTileView:(PSTileView *)tileView {
     NSArray *template;
     
     if(isDeviceIPad()) {

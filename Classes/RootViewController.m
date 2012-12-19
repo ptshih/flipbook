@@ -97,6 +97,10 @@
 
 - (void)setupSubviews {
     [super setupSubviews];
+    
+    for (int i = 0; i < 12; i++) {
+        [self.template addObject:[NSMutableArray arrayWithArray:@[@".", @".", @".", @".", @".", @"."]]];
+    }
 }
 
 #pragma mark - Data Source
@@ -186,49 +190,23 @@
 
 #pragma mark - PSTileViewDelegate
 
-- (NSArray *)templateForTileView:(PSTileView *)tileView {
-    NSArray *template;
-    
-    if(isDeviceIPad()) {
-        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-        
-        if (UIInterfaceOrientationIsPortrait(orientation)) {
-            NSArray *row1 = @[@"A", @"A", @"B"];
-            NSArray *row2 = @[@"A", @"A", @"C"];
-            NSArray *row3 = @[@"D", @"D", @"C"];
-            NSArray *row4 = @[@"F", @"G", @"H"];
-            NSArray *row5 = @[@"F", @"J", @"J"];
-            NSArray *row6 = @[@"I", @"J", @"J"];
-            NSArray *row7 = @[@"N", @"O", @"O"];
-            NSArray *row8 = @[@"N", @"Q", @"R"];
-            template = @[row1, row2, row3, row4, row5, row6, row7, row8];
-        } else {
-            NSArray *row1 = @[@"A", @"A", @"B", @"C"];
-            NSArray *row2 = @[@"A", @"A", @"D", @"D"];
-            NSArray *row3 = @[@"E", @"E", @"F", @"F"];
-            NSArray *row4 = @[@"G", @"H", @"F", @"F"];
-            NSArray *row5 = @[@"I", @"J", @"K", @"L"];
-            NSArray *row6 = @[@"M", @"J", @"N", @"N"];
-            NSArray *row7 = @[@"O", @"P", @"P", @"Q"];
-            NSArray *row8 = @[@"R", @"S", @"T", @"U"];
-            template = @[row1, row2, row3, row4, row5, row6, row7, row8];
+- (NSInteger)numberOfTilesInTileView:(PSTileView *)tileView {
+    int i = 0;
+    for (int row = 0; row < self.template.count; row++) {
+        for (int col = 0; col < [[self.template objectAtIndex:row] count]; col++) {
+            i++;
         }
-    } else {
-        NSArray *row1 = @[@"A", @"A"];
-        NSArray *row2 = @[@"A", @"A"];
-        NSArray *row3 = @[@"B", @"C"];
-        NSArray *row4 = @[@"D", @"D"];
-        NSArray *row5 = @[@"E", @"F"];
-        NSArray *row6 = @[@"E", @"G"];
-        NSArray *row7 = @[@"H", @"I"];
-        NSArray *row8 = @[@"J", @"K"];
-        template = @[row1, row2, row3, row4, row5, row6, row7, row8];
     }
     
-    return template;
+    return i;
+}
+
+- (NSMutableArray *)templateForTileView:(PSTileView *)tileView {
+    return self.template;
 }
 
 - (void)tileView:(PSTileView *)tileView didReloadTemplateWithMap:(NSMutableDictionary *)indexToRectMap {
+    return;
     
     if (self.items.count == 0 || indexToRectMap.count == 0 || self.items.count == self.sortedItems.count) return;
     
@@ -259,7 +237,7 @@
         CGRect rect = CGRectFromString(rectString);
         CGFloat w = rect.size.width;
         CGFloat h = rect.size.height;
-        NSLog(@"w: %f, h: %f", rect.size.width, rect.size.height);
+//        NSLog(@"w: %f, h: %f", rect.size.width, rect.size.height);
         
         // 0 - square
         // 1 - landscape
@@ -273,7 +251,7 @@
             type = 0;
         }
         
-        NSLog(@"type: %d", type);
+//        NSLog(@"type: %d", type);
         
 
         NSDictionary *pItem, *lItem, *sItem;
@@ -366,14 +344,14 @@
 }
 
 - (PSTileViewCell *)tileView:(PSTileView *)tileView cellForItemAtIndex:(NSInteger)index {
-    NSDictionary *item = [self.sortedItems objectAtIndex:index];
+//    NSDictionary *item = [self.sortedItems objectAtIndex:index];
     
     id cell = [tileView dequeueReusableCellForClass:[PhotoTileViewCell class]];
     if (!cell) {
         cell = [[[PhotoTileViewCell class] alloc] initWithFrame:CGRectZero];
     }
     
-    [cell tileView:tileView fillCellWithObject:item atIndex:index];
+//    [cell tileView:tileView fillCellWithObject:item atIndex:index];
     
     return cell;
 }

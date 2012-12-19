@@ -1,6 +1,6 @@
 //
 //  AppDelegate.h
-//  Mosaic
+//  Grid
 //
 //  Created by Peter Shih on 11/15/11.
 //  Copyright (c) 2011 Peter Shih. All rights reserved.
@@ -16,7 +16,5 @@
 @property (nonatomic, strong) NSDate *backgroundDate;
 @property (nonatomic, strong) NSDate *foregroundDate;
 @property (nonatomic, assign) BOOL shouldReloadInterface;
-
-- (void)pushVenueWithId:(NSString *)venueId;
 
 @end

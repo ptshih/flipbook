@@ -347,13 +347,6 @@
 		282669F1162506C4000267D7 /* TextureLightWood@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28266854162506C4000267D7 /* TextureLightWood@2x.png */; };
 		282669F2162506C4000267D7 /* PSSpringboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28266857162506C4000267D7 /* PSSpringboardController.m */; };
 		282669F3162506C4000267D7 /* PSURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2826685A162506C4000267D7 /* PSURLCache.m */; };
-		28266A03162506C4000267D7 /* TTTArrayFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 28266881162506C4000267D7 /* TTTArrayFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		28266A04162506C4000267D7 /* TTTHoursOfOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 28266884162506C4000267D7 /* TTTHoursOfOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		28266A05162506C4000267D7 /* TTTLocationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 28266887162506C4000267D7 /* TTTLocationFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		28266A06162506C4000267D7 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2826688A162506C4000267D7 /* TTTOrdinalNumberFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		28266A07162506C4000267D7 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2826688D162506C4000267D7 /* TTTTimeIntervalFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		28266A08162506C4000267D7 /* TTTUnitOfInformationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 28266890162506C4000267D7 /* TTTUnitOfInformationFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		28266A09162506C4000267D7 /* TTTURLRequestFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 28266893162506C4000267D7 /* TTTURLRequestFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		28266A0A162506C4000267D7 /* UIActionSheet+MKBlockAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 28266897162506C4000267D7 /* UIActionSheet+MKBlockAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		28266A0B162506C4000267D7 /* UIAlertView+MKBlockAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 28266899162506C4000267D7 /* UIAlertView+MKBlockAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		28266A0C162506C4000267D7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2826689C162506C4000267D7 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -399,6 +392,13 @@
 		2843314416411B4600349014 /* SubsectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843314316411B4500349014 /* SubsectionViewController.m */; };
 		2843314A1641200F00349014 /* BrandCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 284331491641200E00349014 /* BrandCollectionViewCell.m */; };
 		284331511641C76100349014 /* PSInfoPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 284331501641C76000349014 /* PSInfoPopoverView.m */; };
+		284B67411681AB7D00C34187 /* TTTAddressFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 284B67341681AB7D00C34187 /* TTTAddressFormatter.m */; };
+		284B67421681AB7D00C34187 /* TTTArrayFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 284B67361681AB7D00C34187 /* TTTArrayFormatter.m */; };
+		284B67431681AB7D00C34187 /* TTTLocationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 284B67381681AB7D00C34187 /* TTTLocationFormatter.m */; };
+		284B67441681AB7D00C34187 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 284B673A1681AB7D00C34187 /* TTTOrdinalNumberFormatter.m */; };
+		284B67451681AB7D00C34187 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 284B673C1681AB7D00C34187 /* TTTTimeIntervalFormatter.m */; };
+		284B67461681AB7D00C34187 /* TTTUnitOfInformationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 284B673E1681AB7D00C34187 /* TTTUnitOfInformationFormatter.m */; };
+		284B67471681AB7D00C34187 /* TTTURLRequestFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 284B67401681AB7D00C34187 /* TTTURLRequestFormatter.m */; };
 		2852363C164B180F009C66F5 /* MKMapView+PSKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2852363B164B180F009C66F5 /* MKMapView+PSKit.m */; };
 		2852363F164B3113009C66F5 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2852363D164B3112009C66F5 /* Default-Landscape@2x~ipad.png */; };
 		28523640164B3113009C66F5 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2852363E164B3113009C66F5 /* Default-Landscape~ipad.png */; };
@@ -896,20 +896,6 @@
 		28266857162506C4000267D7 /* PSSpringboardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSSpringboardController.m; sourceTree = "<group>"; };
 		28266859162506C4000267D7 /* PSURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSURLCache.h; sourceTree = "<group>"; };
 		2826685A162506C4000267D7 /* PSURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSURLCache.m; sourceTree = "<group>"; };
-		28266880162506C4000267D7 /* TTTArrayFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTArrayFormatter.h; sourceTree = "<group>"; };
-		28266881162506C4000267D7 /* TTTArrayFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTArrayFormatter.m; sourceTree = "<group>"; };
-		28266883162506C4000267D7 /* TTTHoursOfOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTHoursOfOperation.h; sourceTree = "<group>"; };
-		28266884162506C4000267D7 /* TTTHoursOfOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTHoursOfOperation.m; sourceTree = "<group>"; };
-		28266886162506C4000267D7 /* TTTLocationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTLocationFormatter.h; sourceTree = "<group>"; };
-		28266887162506C4000267D7 /* TTTLocationFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTLocationFormatter.m; sourceTree = "<group>"; };
-		28266889162506C4000267D7 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
-		2826688A162506C4000267D7 /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
-		2826688C162506C4000267D7 /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
-		2826688D162506C4000267D7 /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
-		2826688F162506C4000267D7 /* TTTUnitOfInformationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTUnitOfInformationFormatter.h; sourceTree = "<group>"; };
-		28266890162506C4000267D7 /* TTTUnitOfInformationFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTUnitOfInformationFormatter.m; sourceTree = "<group>"; };
-		28266892162506C4000267D7 /* TTTURLRequestFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTURLRequestFormatter.h; sourceTree = "<group>"; };
-		28266893162506C4000267D7 /* TTTURLRequestFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTURLRequestFormatter.m; sourceTree = "<group>"; };
 		28266895162506C4000267D7 /* MKBlockAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKBlockAdditions.h; sourceTree = "<group>"; };
 		28266896162506C4000267D7 /* UIActionSheet+MKBlockAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+MKBlockAdditions.h"; sourceTree = "<group>"; };
 		28266897162506C4000267D7 /* UIActionSheet+MKBlockAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+MKBlockAdditions.m"; sourceTree = "<group>"; };
@@ -982,6 +968,20 @@
 		284331491641200E00349014 /* BrandCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandCollectionViewCell.m; sourceTree = "<group>"; };
 		2843314F1641C75E00349014 /* PSInfoPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSInfoPopoverView.h; sourceTree = "<group>"; };
 		284331501641C76000349014 /* PSInfoPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSInfoPopoverView.m; sourceTree = "<group>"; };
+		284B67331681AB7D00C34187 /* TTTAddressFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAddressFormatter.h; sourceTree = "<group>"; };
+		284B67341681AB7D00C34187 /* TTTAddressFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAddressFormatter.m; sourceTree = "<group>"; };
+		284B67351681AB7D00C34187 /* TTTArrayFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTArrayFormatter.h; sourceTree = "<group>"; };
+		284B67361681AB7D00C34187 /* TTTArrayFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTArrayFormatter.m; sourceTree = "<group>"; };
+		284B67371681AB7D00C34187 /* TTTLocationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTLocationFormatter.h; sourceTree = "<group>"; };
+		284B67381681AB7D00C34187 /* TTTLocationFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTLocationFormatter.m; sourceTree = "<group>"; };
+		284B67391681AB7D00C34187 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
+		284B673A1681AB7D00C34187 /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
+		284B673B1681AB7D00C34187 /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
+		284B673C1681AB7D00C34187 /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
+		284B673D1681AB7D00C34187 /* TTTUnitOfInformationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTUnitOfInformationFormatter.h; sourceTree = "<group>"; };
+		284B673E1681AB7D00C34187 /* TTTUnitOfInformationFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTUnitOfInformationFormatter.m; sourceTree = "<group>"; };
+		284B673F1681AB7D00C34187 /* TTTURLRequestFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTURLRequestFormatter.h; sourceTree = "<group>"; };
+		284B67401681AB7D00C34187 /* TTTURLRequestFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTURLRequestFormatter.m; sourceTree = "<group>"; };
 		2852363A164B180F009C66F5 /* MKMapView+PSKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+PSKit.h"; sourceTree = "<group>"; };
 		2852363B164B180F009C66F5 /* MKMapView+PSKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+PSKit.m"; sourceTree = "<group>"; };
 		2852363D164B3112009C66F5 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
@@ -1026,7 +1026,7 @@
 		289C362C148EC53300D02BAB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		289C362D148EC53300D02BAB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		289C362E148EC53300D02BAB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		28A392211554DA37002696FD /* Mosaic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mosaic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28A392211554DA37002696FD /* Grid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28AD405A16250AE20066F6A5 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
 		28AD405B16250AE20066F6A5 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		28AD405E16250E2E0066F6A5 /* PSNewspaperTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSNewspaperTextView.h; sourceTree = "<group>"; };
@@ -1818,78 +1818,22 @@
 		2826687E162506C4000267D7 /* FormatterKit */ = {
 			isa = PBXGroup;
 			children = (
-				2826687F162506C4000267D7 /* TTTArrayFormatter */,
-				28266882162506C4000267D7 /* TTTHoursOfOperation */,
-				28266885162506C4000267D7 /* TTTLocationFormatter */,
-				28266888162506C4000267D7 /* TTTOrdinalNumberFormatter */,
-				2826688B162506C4000267D7 /* TTTTimeIntervalFormatter */,
-				2826688E162506C4000267D7 /* TTTUnitOfInformationFormatter */,
-				28266891162506C4000267D7 /* TTTURLRequestFormatter */,
+				284B67331681AB7D00C34187 /* TTTAddressFormatter.h */,
+				284B67341681AB7D00C34187 /* TTTAddressFormatter.m */,
+				284B67351681AB7D00C34187 /* TTTArrayFormatter.h */,
+				284B67361681AB7D00C34187 /* TTTArrayFormatter.m */,
+				284B67371681AB7D00C34187 /* TTTLocationFormatter.h */,
+				284B67381681AB7D00C34187 /* TTTLocationFormatter.m */,
+				284B67391681AB7D00C34187 /* TTTOrdinalNumberFormatter.h */,
+				284B673A1681AB7D00C34187 /* TTTOrdinalNumberFormatter.m */,
+				284B673B1681AB7D00C34187 /* TTTTimeIntervalFormatter.h */,
+				284B673C1681AB7D00C34187 /* TTTTimeIntervalFormatter.m */,
+				284B673D1681AB7D00C34187 /* TTTUnitOfInformationFormatter.h */,
+				284B673E1681AB7D00C34187 /* TTTUnitOfInformationFormatter.m */,
+				284B673F1681AB7D00C34187 /* TTTURLRequestFormatter.h */,
+				284B67401681AB7D00C34187 /* TTTURLRequestFormatter.m */,
 			);
 			path = FormatterKit;
-			sourceTree = "<group>";
-		};
-		2826687F162506C4000267D7 /* TTTArrayFormatter */ = {
-			isa = PBXGroup;
-			children = (
-				28266880162506C4000267D7 /* TTTArrayFormatter.h */,
-				28266881162506C4000267D7 /* TTTArrayFormatter.m */,
-			);
-			path = TTTArrayFormatter;
-			sourceTree = "<group>";
-		};
-		28266882162506C4000267D7 /* TTTHoursOfOperation */ = {
-			isa = PBXGroup;
-			children = (
-				28266883162506C4000267D7 /* TTTHoursOfOperation.h */,
-				28266884162506C4000267D7 /* TTTHoursOfOperation.m */,
-			);
-			path = TTTHoursOfOperation;
-			sourceTree = "<group>";
-		};
-		28266885162506C4000267D7 /* TTTLocationFormatter */ = {
-			isa = PBXGroup;
-			children = (
-				28266886162506C4000267D7 /* TTTLocationFormatter.h */,
-				28266887162506C4000267D7 /* TTTLocationFormatter.m */,
-			);
-			path = TTTLocationFormatter;
-			sourceTree = "<group>";
-		};
-		28266888162506C4000267D7 /* TTTOrdinalNumberFormatter */ = {
-			isa = PBXGroup;
-			children = (
-				28266889162506C4000267D7 /* TTTOrdinalNumberFormatter.h */,
-				2826688A162506C4000267D7 /* TTTOrdinalNumberFormatter.m */,
-			);
-			path = TTTOrdinalNumberFormatter;
-			sourceTree = "<group>";
-		};
-		2826688B162506C4000267D7 /* TTTTimeIntervalFormatter */ = {
-			isa = PBXGroup;
-			children = (
-				2826688C162506C4000267D7 /* TTTTimeIntervalFormatter.h */,
-				2826688D162506C4000267D7 /* TTTTimeIntervalFormatter.m */,
-			);
-			path = TTTTimeIntervalFormatter;
-			sourceTree = "<group>";
-		};
-		2826688E162506C4000267D7 /* TTTUnitOfInformationFormatter */ = {
-			isa = PBXGroup;
-			children = (
-				2826688F162506C4000267D7 /* TTTUnitOfInformationFormatter.h */,
-				28266890162506C4000267D7 /* TTTUnitOfInformationFormatter.m */,
-			);
-			path = TTTUnitOfInformationFormatter;
-			sourceTree = "<group>";
-		};
-		28266891162506C4000267D7 /* TTTURLRequestFormatter */ = {
-			isa = PBXGroup;
-			children = (
-				28266892162506C4000267D7 /* TTTURLRequestFormatter.h */,
-				28266893162506C4000267D7 /* TTTURLRequestFormatter.m */,
-			);
-			path = TTTURLRequestFormatter;
 			sourceTree = "<group>";
 		};
 		28266894162506C4000267D7 /* MKAdditions */ = {
@@ -1999,7 +1943,7 @@
 		283818BF14723F1D007E4827 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				28A392211554DA37002696FD /* Mosaic.app */,
+				28A392211554DA37002696FD /* Grid.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2304,9 +2248,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		28A390CE1554DA37002696FD /* Mosaic */ = {
+		28A390CE1554DA37002696FD /* Grid */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 28A3921D1554DA37002696FD /* Build configuration list for PBXNativeTarget "Mosaic" */;
+			buildConfigurationList = 28A3921D1554DA37002696FD /* Build configuration list for PBXNativeTarget "Grid" */;
 			buildPhases = (
 				28A390CF1554DA37002696FD /* ShellScript */,
 				28A390D01554DA37002696FD /* Sources */,
@@ -2317,9 +2261,9 @@
 			);
 			dependencies = (
 			);
-			name = Mosaic;
+			name = Grid;
 			productName = PSKitDemo;
-			productReference = 28A392211554DA37002696FD /* Mosaic.app */;
+			productReference = 28A392211554DA37002696FD /* Grid.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2330,7 +2274,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = 283818B814723F1C007E4827 /* Build configuration list for PBXProject "Mosaic" */;
+			buildConfigurationList = 283818B814723F1C007E4827 /* Build configuration list for PBXProject "Grid" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2342,7 +2286,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				28A390CE1554DA37002696FD /* Mosaic */,
+				28A390CE1554DA37002696FD /* Grid */,
 			);
 		};
 /* End PBXProject section */
@@ -2787,13 +2731,6 @@
 				28266910162506C4000267D7 /* PSPullRefreshView.m in Sources */,
 				282669F2162506C4000267D7 /* PSSpringboardController.m in Sources */,
 				282669F3162506C4000267D7 /* PSURLCache.m in Sources */,
-				28266A03162506C4000267D7 /* TTTArrayFormatter.m in Sources */,
-				28266A04162506C4000267D7 /* TTTHoursOfOperation.m in Sources */,
-				28266A05162506C4000267D7 /* TTTLocationFormatter.m in Sources */,
-				28266A06162506C4000267D7 /* TTTOrdinalNumberFormatter.m in Sources */,
-				28266A07162506C4000267D7 /* TTTTimeIntervalFormatter.m in Sources */,
-				28266A08162506C4000267D7 /* TTTUnitOfInformationFormatter.m in Sources */,
-				28266A09162506C4000267D7 /* TTTURLRequestFormatter.m in Sources */,
 				28266A0A162506C4000267D7 /* UIActionSheet+MKBlockAdditions.m in Sources */,
 				28266A0B162506C4000267D7 /* UIAlertView+MKBlockAdditions.m in Sources */,
 				28266A0C162506C4000267D7 /* Reachability.m in Sources */,
@@ -2835,6 +2772,13 @@
 				28BBECBC167B20A80002E4A2 /* PSGridViewCell.m in Sources */,
 				28BBECBF167B23570002E4A2 /* GridViewController.m in Sources */,
 				2880E92716815DAA004FD951 /* PageViewController.m in Sources */,
+				284B67411681AB7D00C34187 /* TTTAddressFormatter.m in Sources */,
+				284B67421681AB7D00C34187 /* TTTArrayFormatter.m in Sources */,
+				284B67431681AB7D00C34187 /* TTTLocationFormatter.m in Sources */,
+				284B67441681AB7D00C34187 /* TTTOrdinalNumberFormatter.m in Sources */,
+				284B67451681AB7D00C34187 /* TTTTimeIntervalFormatter.m in Sources */,
+				284B67461681AB7D00C34187 /* TTTUnitOfInformationFormatter.m in Sources */,
+				284B67471681AB7D00C34187 /* TTTURLRequestFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2857,7 +2801,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: AIRBRITE INC.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2889,7 +2833,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: AIRBRITE INC.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
@@ -2929,7 +2873,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Mosaic;
+				PRODUCT_NAME = Grid;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -2953,7 +2897,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Mosaic;
+				PRODUCT_NAME = Grid;
 				PROVISIONING_PROFILE = "A26AFCBC-B17C-4DD5-8DD6-93CD37A6BC4D";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -2977,7 +2921,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Mosaic;
+				PRODUCT_NAME = Grid;
 				PROVISIONING_PROFILE = "A26AFCBC-B17C-4DD5-8DD6-93CD37A6BC4D";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -2989,7 +2933,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: AIRBRITE INC.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "DISTRIBUTION=1";
@@ -3015,7 +2959,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		283818B814723F1C007E4827 /* Build configuration list for PBXProject "Mosaic" */ = {
+		283818B814723F1C007E4827 /* Build configuration list for PBXProject "Grid" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				283818D414723F1D007E4827 /* Debug */,
@@ -3025,7 +2969,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		28A3921D1554DA37002696FD /* Build configuration list for PBXNativeTarget "Mosaic" */ = {
+		28A3921D1554DA37002696FD /* Build configuration list for PBXNativeTarget "Grid" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				28A3921E1554DA37002696FD /* Debug */,

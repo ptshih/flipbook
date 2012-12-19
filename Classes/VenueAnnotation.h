@@ -1,6 +1,6 @@
 //
 //  VenueAnnotation.h
-//  Mosaic
+//  Grid
 //
 //  Created by Peter on 2/25/12.
 //  Copyright (c) 2012 Peter Shih. All rights reserved.

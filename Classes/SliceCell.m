@@ -1,6 +1,6 @@
 //
 //  SliceCell.m
-//  Mosaic
+//  Grid
 //
 //  Created by Peter Shih on 10/26/12.
 //

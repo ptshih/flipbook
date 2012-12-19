@@ -1,6 +1,6 @@
 //
 //  TileViewController.m
-//  Mosaic
+//  Grid
 //
 //  Created by Peter Shih on 12/3/12.
 //

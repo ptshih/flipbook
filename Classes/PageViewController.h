@@ -1,6 +1,6 @@
 //
 //  PageViewController.h
-//  Mosaic
+//  Grid
 //
 //  Created by Peter Shih on 12/18/12.
 //

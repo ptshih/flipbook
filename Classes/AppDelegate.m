@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  Mosaic
+//  Grid
 //
 //  Created by Peter Shih on 11/15/11.
 //  Copyright (c) 2011 Peter Shih. All rights reserved.
@@ -9,12 +9,9 @@
 #import "AppDelegate.h"
 
 #import "RootViewController.h"
-#import "VenueViewController.h"
 #import "GridViewController.h"
 
 #import "PSWebViewController.h"
-
-#import "BrandViewController.h"
 
 #import "PSZoomView.h"
 
@@ -50,18 +47,16 @@
         
         NSString *lastVersion = [[NSUserDefaults standardUserDefaults] stringForKey:@"appVersion"];
         NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-        BOOL showTutorialFoursquare = [[NSUserDefaults standardUserDefaults] boolForKey:@"showTutorialFoursquare"];
         
         // Version changed
         if (![lastVersion isEqualToString:currentVersion]) {
             // Set new version
             [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"appVersion"];
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"showTutorialFoursquare"];
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"showTutorialAirbrite"];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"showTutorial"];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
         
-        NSLog(@"Current Version: %@, Last Version: %@, Show Tutorial Search: %d", currentVersion, lastVersion, showTutorialFoursquare);
+        NSLog(@"Current Version: %@, Last Version: %@", currentVersion, lastVersion);
     }
 }
 
@@ -83,18 +78,11 @@
 
 #pragma mark - Push Controller
 
-- (void)pushVenueWithId:(NSString *)venueId {
-    VenueViewController *vc = [[VenueViewController alloc] initWithVenueId:venueId];
-    [self.navigationController pushViewController:vc animated:YES];
-}
 
 - (void)setupViewControllers {
     // Root view controller
     id controller = nil;
     controller = [[GridViewController alloc] initWithNibName:nil bundle:nil];
-//    controller = [[RootViewController alloc] initWithNibName:nil bundle:nil];
-//    controller = [[BrandViewController alloc] initWithSlug:@"kennethcole" title:@"Kenneth Cole"];
-//    controller = [[PSWebViewController alloc] initWithURLPath:@"http://mosaic-staging.herokuapp.com/kennethcole" title:@"Kenneth Cole"];
     
     self.navigationController = [[PSNavigationController alloc] initWithRootViewController:controller];
     self.window.rootViewController = self.navigationController;
@@ -157,9 +145,12 @@
     [[BITHockeyManager sharedHockeyManager] startManager];
 #endif
     
-    NSLog(@"Fonts: %@", [UIFont familyNames]);
-    NSLog(@"Proxima Nova: %@", [UIFont fontNamesForFamilyName:@"Proxima Nova"]);
-    NSLog(@"Proxima Nova: %@", [UIFont fontNamesForFamilyName:@"Proxima Nova Condensed"]);
+//    NSLog(@"Fonts: %@", [UIFont familyNames]);
+//    NSLog(@"Proxima Nova: %@", [UIFont fontNamesForFamilyName:@"Proxima Nova"]);
+//    NSLog(@"Proxima Nova: %@", [UIFont fontNamesForFamilyName:@"Proxima Nova Condensed"]);
+    
+    // Set application stylesheet
+    [PSStyleSheet setStyleSheet:@"PSStyleSheet"];
     
     // Localytics
 //    [[LocalyticsSession sharedLocalyticsSession] startSession:@"c6bd712b99b9eb8f537c9bd-faa3f0ba-3e7f-11e2-693d-00ef75f32667"];
@@ -180,14 +171,11 @@
     // Prime Notification Manager
 //    [NotificationManager sharedManager];
     
-    // Set application stylesheet
-    [PSStyleSheet setStyleSheet:@"PSStyleSheet"];
-    
     // Start Reachability
     [PSReachabilityCenter defaultCenter];
     
     // PSLocationCenter set default behavior
-    [[PSLocationCenter defaultCenter] resumeUpdates]; // start it
+//    [[PSLocationCenter defaultCenter] resumeUpdates]; // start it
     
     // Window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -200,20 +188,20 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    [[LocalyticsSession sharedLocalyticsSession] close];
-    [[LocalyticsSession sharedLocalyticsSession] upload];
+//    [[LocalyticsSession sharedLocalyticsSession] close];
+//    [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [[LocalyticsSession sharedLocalyticsSession] close];
-    [[LocalyticsSession sharedLocalyticsSession] upload];
+//    [[LocalyticsSession sharedLocalyticsSession] close];
+//    [[LocalyticsSession sharedLocalyticsSession] upload];
     
     self.backgroundDate = [NSDate date];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    [[LocalyticsSession sharedLocalyticsSession] resume];
-    [[LocalyticsSession sharedLocalyticsSession] upload];
+//    [[LocalyticsSession sharedLocalyticsSession] resume];
+//    [[LocalyticsSession sharedLocalyticsSession] upload];
     
     [Appirater appEnteredForeground:YES];
     
@@ -221,8 +209,8 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [[LocalyticsSession sharedLocalyticsSession] resume];
-    [[LocalyticsSession sharedLocalyticsSession] upload];
+//    [[LocalyticsSession sharedLocalyticsSession] resume];
+//    [[LocalyticsSession sharedLocalyticsSession] upload];
     
     if (self.shouldReloadInterface) {
         self.shouldReloadInterface = NO;
@@ -234,8 +222,8 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    [[LocalyticsSession sharedLocalyticsSession] close];
-    [[LocalyticsSession sharedLocalyticsSession] upload];
+//    [[LocalyticsSession sharedLocalyticsSession] close];
+//    [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
 - (void)dealloc {

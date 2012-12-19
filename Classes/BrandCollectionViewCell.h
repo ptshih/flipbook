@@ -1,6 +1,6 @@
 //
 //  BrandCollectionViewCell.h
-//  Mosaic
+//  Grid
 //
 //  Created by Peter Shih on 10/31/12.
 //

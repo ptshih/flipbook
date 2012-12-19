@@ -1,6 +1,6 @@
 //
 //  FeedViewController.m
-//  Mosaic
+//  Grid
 //
 //  Created by Peter Shih on 11/8/12.
 //

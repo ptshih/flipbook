@@ -1,6 +1,6 @@
 //
 //  PhotoTileViewCell.h
-//  Mosaic
+//  Grid
 //
 //  Created by Peter Shih on 12/4/12.
 //

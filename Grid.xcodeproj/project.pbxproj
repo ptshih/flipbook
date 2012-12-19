@@ -478,6 +478,8 @@
 		28AD40B8162513CF0066F6A5 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AD40B5162513CE0066F6A5 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		28AD40B9162513CF0066F6A5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AD40B6162513CE0066F6A5 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		28AD40BA162513CF0066F6A5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AD40B7162513CF0066F6A5 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		28BAED781681B2EF002E1B7C /* PSPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BAED771681B2EF002E1B7C /* PSPageView.m */; };
+		28BAED7B1681B360002E1B7C /* PSGridViewTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BAED7A1681B360002E1B7C /* PSGridViewTile.m */; };
 		28BBECB9167B208C0002E4A2 /* PSGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBECB8167B208C0002E4A2 /* PSGridView.m */; };
 		28BBECBC167B20A80002E4A2 /* PSGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBECBB167B20A80002E4A2 /* PSGridViewCell.m */; };
 		28BBECBF167B23570002E4A2 /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBECBE167B23570002E4A2 /* GridViewController.m */; };
@@ -1055,6 +1057,10 @@
 		28AD40B5162513CE0066F6A5 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		28AD40B6162513CE0066F6A5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		28AD40B7162513CF0066F6A5 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		28BAED761681B2EF002E1B7C /* PSPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPageView.h; sourceTree = "<group>"; };
+		28BAED771681B2EF002E1B7C /* PSPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPageView.m; sourceTree = "<group>"; };
+		28BAED791681B360002E1B7C /* PSGridViewTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSGridViewTile.h; sourceTree = "<group>"; };
+		28BAED7A1681B360002E1B7C /* PSGridViewTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSGridViewTile.m; sourceTree = "<group>"; };
 		28BBECB7167B208C0002E4A2 /* PSGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSGridView.h; sourceTree = "<group>"; };
 		28BBECB8167B208C0002E4A2 /* PSGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSGridView.m; sourceTree = "<group>"; };
 		28BBECBA167B20A80002E4A2 /* PSGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSGridViewCell.h; sourceTree = "<group>"; };
@@ -2155,8 +2161,12 @@
 			children = (
 				28BBECB7167B208C0002E4A2 /* PSGridView.h */,
 				28BBECB8167B208C0002E4A2 /* PSGridView.m */,
+				28BAED761681B2EF002E1B7C /* PSPageView.h */,
+				28BAED771681B2EF002E1B7C /* PSPageView.m */,
 				28BBECBA167B20A80002E4A2 /* PSGridViewCell.h */,
 				28BBECBB167B20A80002E4A2 /* PSGridViewCell.m */,
+				28BAED791681B360002E1B7C /* PSGridViewTile.h */,
+				28BAED7A1681B360002E1B7C /* PSGridViewTile.m */,
 			);
 			path = PSGridView;
 			sourceTree = "<group>";
@@ -2779,6 +2789,8 @@
 				284B67451681AB7D00C34187 /* TTTTimeIntervalFormatter.m in Sources */,
 				284B67461681AB7D00C34187 /* TTTUnitOfInformationFormatter.m in Sources */,
 				284B67471681AB7D00C34187 /* TTTURLRequestFormatter.m in Sources */,
+				28BAED781681B2EF002E1B7C /* PSPageView.m in Sources */,
+				28BAED7B1681B360002E1B7C /* PSGridViewTile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

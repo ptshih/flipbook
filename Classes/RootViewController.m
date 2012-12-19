@@ -98,9 +98,9 @@
 - (void)setupSubviews {
     [super setupSubviews];
     
-    for (int i = 0; i < 12; i++) {
-        [self.template addObject:[NSMutableArray arrayWithArray:@[@".", @".", @".", @".", @".", @"."]]];
-    }
+//    for (int i = 0; i < 12; i++) {
+//        [self.template addObject:[NSMutableArray arrayWithArray:@[@".", @".", @".", @".", @".", @"."]]];
+//    }
 }
 
 #pragma mark - Data Source
@@ -192,17 +192,18 @@
 
 - (NSInteger)numberOfTilesInTileView:(PSTileView *)tileView {
     int i = 0;
-    for (int row = 0; row < self.template.count; row++) {
-        for (int col = 0; col < [[self.template objectAtIndex:row] count]; col++) {
-            i++;
-        }
-    }
+//    for (int row = 0; row < self.template.count; row++) {
+//        for (int col = 0; col < [[self.template objectAtIndex:row] count]; col++) {
+//            i++;
+//        }
+//    }
     
     return i;
 }
 
 - (NSMutableArray *)templateForTileView:(PSTileView *)tileView {
-    return self.template;
+//    return self.template;
+    return nil;
 }
 
 - (void)tileView:(PSTileView *)tileView didReloadTemplateWithMap:(NSMutableDictionary *)indexToRectMap {

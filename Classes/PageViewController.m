@@ -8,11 +8,11 @@
 
 #import "PageViewController.h"
 
-#import "PSGridView.h"
+#import "PSPageView.h"
 
-@interface PageViewController () <PSGridViewDelegate, PSGridViewDataSource>
+@interface PageViewController ()
 
-@property (nonatomic, strong) PSGridView *gridView;
+@property (nonatomic, strong) PSPageView *pageView;
 @property (nonatomic, strong) NSDictionary *gridDictionary;
 
 @end
@@ -63,12 +63,9 @@
 - (void)setupSubviews {
     [super setupSubviews];
     
-    self.gridView = [[PSGridView alloc] initWithFrame:self.contentView.bounds dictionary:self.gridDictionary];
-    self.gridView.autoresizingMask = ~UIViewAutoresizingNone;
-    self.gridView.gridViewDelegate = self;
-    self.gridView.gridViewDataSource = self;
-    
-    [self.contentView addSubview:self.gridView];
+    self.pageView = [[PSPageView alloc] initWithFrame:self.contentView.bounds dictionary:self.gridDictionary];
+    self.pageView.autoresizingMask = ~UIViewAutoresizingNone;
+    [self.contentView addSubview:self.pageView];
     
 }
 
@@ -98,20 +95,9 @@
 }
 
 - (void)rightAction {
-    NSDictionary *dict = [self.gridView exportData];
-    NSLog(@"export: %@", dict);
-    
-    //    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
-    //    NSLog(@"json: %@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
-}
-
-- (void)gridView:(PSGridView *)gridView configureCell:(PSGridViewCell *)cell completionBlock:(void (^)(BOOL cellConfigured))completionBlock {
-}
-
-- (void)gridView:(PSGridView *)gridView didSelectCell:(PSGridViewCell *)cell atIndices:(NSSet *)indices completionBlock:(void (^)(BOOL cellConfigured))completionBlock {
-}
-
-- (void)gridView:(PSGridView *)gridView didLongPressCell:(PSGridViewCell *)cell atIndices:(NSSet *)indices completionBlock:(void (^)(BOOL cellRemoved))completionBlock {
+    UIImage *screenshot = [self.pageView screenshot];
+    UIImageWriteToSavedPhotosAlbum(screenshot, nil, nil, nil);
+    [[[UIAlertView alloc] initWithTitle:@"Screenshot Taken" message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
 }
 
 @end

@@ -10,6 +10,8 @@
 #import "PageViewController.h"
 #import "PSGridView.h"
 
+#import "PSYouTubeView.h"
+
 @interface GridViewController ()
 
 @property (nonatomic, strong) PSGridView *gridView;
@@ -108,6 +110,10 @@
     
     [self.contentView addSubview:self.gridView];
     
+    
+//    PSYouTubeView *v = [[PSYouTubeView alloc] initWithFrame:self.contentView.bounds];
+//    [v loadYouTubeWithSource:@"http://www.youtube.com/embed/9bZkp7q19f0" contentSize:v.frame.size];
+//    [self.contentView addSubview:v];
 }
 
 - (void)setupHeader {

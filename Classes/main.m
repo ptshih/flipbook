@@ -1,5 +1,5 @@
  //
-//  main.m
+//  main.m.
 //  Grid
 //
 //  Created by Peter Shih on 11/15/11.

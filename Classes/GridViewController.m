@@ -10,7 +10,7 @@
 #import "PageViewController.h"
 #import "PSGridView.h"
 
-@interface GridViewController () <PSGridViewDelegate, PSGridViewDataSource>
+@interface GridViewController ()
 
 @property (nonatomic, strong) PSGridView *gridView;
 
@@ -83,18 +83,18 @@
     }
     
     // See if we have a valid token for the current state.
-    NSArray *readPermissions = [NSArray arrayWithObjects:@"email", @"user_photos", @"friends_photos", nil];
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-        // To-do, show logged in view
-        [FBSession openActiveSessionWithReadPermissions:readPermissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-            [self sessionStateChanged:session state:state error:error];
-        }];
-    } else {
-        // No, display the login page.
-        [FBSession openActiveSessionWithReadPermissions:readPermissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-            [self sessionStateChanged:session state:state error:error];
-        }];
-    }
+//    NSArray *readPermissions = [NSArray arrayWithObjects:@"email", @"user_photos", @"friends_photos", nil];
+//    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+//        // To-do, show logged in view
+//        [FBSession openActiveSessionWithReadPermissions:readPermissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+//            [self sessionStateChanged:session state:state error:error];
+//        }];
+//    } else {
+//        // No, display the login page.
+//        [FBSession openActiveSessionWithReadPermissions:readPermissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+//            [self sessionStateChanged:session state:state error:error];
+//        }];
+//    }
 }
 
 #pragma mark - Config Subviews
@@ -104,8 +104,7 @@
     
     self.gridView = [[PSGridView alloc] initWithFrame:self.contentView.bounds dictionary:nil];
     self.gridView.autoresizingMask = ~UIViewAutoresizingNone;
-    self.gridView.gridViewDelegate = self;
-    self.gridView.gridViewDataSource = self;
+    self.gridView.parentViewController = self;
     
     [self.contentView addSubview:self.gridView];
     
@@ -149,97 +148,6 @@
 
 
 
-
-
-
-- (void)gridView:(PSGridView *)gridView configureCell:(PSGridViewCell *)cell completionBlock:(void (^)(BOOL cellConfigured))completionBlock {
-    
-    [UIActionSheet actionSheetWithTitle:@"Add/Edit Content" message:nil destructiveButtonTitle:nil buttons:@[@"Text", @"Image URL", @"Color", @"Photo", @"Remove"] showInView:self.view onDismiss:^(int buttonIndex, NSString *textInput) {
-        
-        // Load with configuration
-        switch (buttonIndex) {
-            case 0: {
-                [UIAlertView alertViewWithTitle:@"Enter Text" style:UIAlertViewStylePlainTextInput message:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Ok"] onDismiss:^(int buttonIndex, NSString *textInput){
-                    NSLog(@"%@", textInput);
-                    
-                    if (textInput.length > 0) {
-                        NSDictionary *content = @{@"type" : @"text", @"text": textInput};
-                        [cell loadContent:content];
-                    }
-                    completionBlock(YES);
-                } onCancel:^{
-                    completionBlock(NO);
-                }];
-                break;
-            }
-            case 1: {
-                [UIAlertView alertViewWithTitle:@"Image" style:UIAlertViewStylePlainTextInput message:@"URL" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Ok"] onDismiss:^(int buttonIndex, NSString *textInput){
-                    NSLog(@"%@", textInput);
-                    
-                    if (textInput.length > 0) {
-                        NSDictionary *content = @{@"type" : @"image", @"href": textInput};
-                        [cell loadContent:content];
-                    }
-                    completionBlock(YES);
-                } onCancel:^{
-                    completionBlock(NO);
-                }];
-                break;
-            }
-            case 2: {
-                [cell loadColor:TEXTURE_DARK_LINEN];
-                completionBlock(YES);
-                break;
-            }
-            case 3: {
-                [UIActionSheet photoPickerWithTitle:@"Pick a Photo" showInView:self.view presentVC:self onPhotoPicked:^(UIImage *chosenImage) {
-                    [cell loadImage:chosenImage];
-                    completionBlock(YES);
-                } onCancel:^{
-                    completionBlock(NO);
-                }];
-                break;
-            }
-            case 4: {
-                // remove cell
-                break;
-            }
-            default:
-                completionBlock(NO);
-                break;
-        }
-    } onCancel:^{
-        completionBlock(NO);
-    }];
-}
-
-- (void)gridView:(PSGridView *)gridView didSelectCell:(PSGridViewCell *)cell atIndices:(NSSet *)indices completionBlock:(void (^)(BOOL cellConfigured))completionBlock {
-//    NSLog(@"%@", indices);
-    
-    
-    [gridView.gridViewDataSource gridView:gridView configureCell:cell completionBlock:completionBlock];
-    
-//    [gridView editCell:cell];
-    
-//    [UIAlertView alertViewWithTitle:@"Image" style:UIAlertViewStylePlainTextInput message:@"URL" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Ok"] onDismiss:^(int buttonIndex, NSString *textInput){
-//        NSLog(@"%@", textInput);
-//        
-//        if (textInput.length > 0) {
-//            [cell loadImageAtURL:[NSURL URLWithString:textInput]];
-//        }
-//    } onCancel:^{
-//    }];
-    
-//    [cell loadImage:[UIImage imageNamed:@"lumbergh.jpg"]];
-}
-
-- (void)gridView:(PSGridView *)gridView didLongPressCell:(PSGridViewCell *)cell atIndices:(NSSet *)indices completionBlock:(void (^)(BOOL cellRemoved))completionBlock {
-    [UIAlertView alertViewWithTitle:@"Remove Cell?" style:UIAlertViewStyleDefault message:nil cancelButtonTitle:@"No" otherButtonTitles:@[@"Yes"] onDismiss:^(int buttonIndex, NSString *textInput) {
-        completionBlock(YES);
-    } onCancel:^{
-        completionBlock(NO);
-    }];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return interfaceOrientation != UIInterfaceOrientationMaskPortraitUpsideDown;

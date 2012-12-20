@@ -78,9 +78,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (![[DBSession sharedSession] isLinked]) {
-        [[DBSession sharedSession] linkFromController:self];
-    }
+//    if (![[DBSession sharedSession] isLinked]) {
+//        [[DBSession sharedSession] linkFromController:self];
+//    }
     
     // See if we have a valid token for the current state.
 //    NSArray *readPermissions = [NSArray arrayWithObjects:@"email", @"user_photos", @"friends_photos", nil];

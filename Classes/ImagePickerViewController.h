@@ -14,7 +14,7 @@
 
 @property (nonatomic, unsafe_unretained) id <ImagePickerDelegate> delegate;
 
-- (id)initWithSource:(NSString *)source;
+- (id)initWithDictionary:(NSDictionary *)dictionary;
 
 @end
 

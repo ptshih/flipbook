@@ -16,7 +16,7 @@
 
 @interface ImagePickerViewController ()
 
-@property (nonatomic, strong) NSString *source;
+@property (nonatomic, strong) NSDictionary *dictionary;
 @property (nonatomic, strong) ALAssetsLibrary *library;
 
 @end
@@ -24,24 +24,26 @@
 @implementation ImagePickerViewController
 
 
-- (id)initWithSource:(NSString *)source {
+- (id)initWithDictionary:(NSDictionary *)dictionary {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        self.shouldShowHeader = NO;
+        self.shouldShowHeader = YES;
         self.shouldShowFooter = NO;
         self.shouldPullRefresh = YES;
         self.shouldPullLoadMore = YES;
         self.shouldShowNullView = YES;
         self.pullRefreshStyle = PSPullRefreshStyleBlack;
         
-        self.headerHeight = 0.0;
+        self.headerHeight = 44.0;
         self.footerHeight = 0.0;
         
         self.headerRightWidth = 0.0;
         
-        self.limit = 10;
+        self.title = @"Loading...";
         
-        self.source = source ? source : @"library";
+        self.limit = 50;
+        
+        self.dictionary = dictionary;
         
         self.library = [[ALAssetsLibrary alloc] init];
     }
@@ -135,6 +137,18 @@
 
 - (void)dataSourceDidLoad {
     [super dataSourceDidLoad];
+    
+    NSString *title = nil;
+    NSString *source = [self.dictionary objectForKey:@"source"];
+    if ([source isEqualToString:@"instagram"]) {
+        title = @"Instagram";
+    } else if ([source isEqualToString:@"facebook"]) {
+        title = [self.dictionary objectForKey:@"name"];
+    } else {
+        title = @"Photo Library";
+    }
+    self.title = title;
+    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
 }
 
 - (void)dataSourceDidLoadMore {
@@ -146,9 +160,10 @@
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    if ([self.source isEqualToString:@"instagram"]) {
+    NSString *source = [self.dictionary objectForKey:@"source"];
+    if ([source isEqualToString:@"instagram"]) {
         [self loadDataSourceFromInstagramUsingCache:usingCache];
-    } else if ([self.source isEqualToString:@"facebook"]) {
+    } else if ([source isEqualToString:@"facebook"]) {
         [self loadDataSourceFromFacebookUsingCache:usingCache];
     } else {
         [self loadDataSourceFromAssetsLibrary];
@@ -170,7 +185,7 @@
     NSMutableDictionary *headers = [NSMutableDictionary dictionary];
     
     // Request
-    NSString *URLPath = [NSString stringWithFormat:@"https://graph.facebook.com/%@/photos", @"537428196270650"];
+    NSString *URLPath = [NSString stringWithFormat:@"https://graph.facebook.com/%@/photos", [self.dictionary objectForKey:@"albumId"]];
     
     //    NSString *URLPath = [NSString stringWithFormat:@"http://imgur.com/gallery/%@.json", @"hot"];
     
@@ -292,9 +307,10 @@
 #pragma mark - PSCollectionViewDelegate
 
 - (Class)collectionView:(PSCollectionView *)collectionView cellClassForRowAtIndex:(NSInteger)index {
-    if ([self.source isEqualToString:@"instagram"]) {
+    NSString *source = [self.dictionary objectForKey:@"source"];
+    if ([source isEqualToString:@"instagram"]) {
         return [InstagramPickerViewCell class];
-    } else if ([self.source isEqualToString:@"facebook"]) {
+    } else if ([source isEqualToString:@"facebook"]) {
         return [ImagePickerCollectionViewCell class];
     } else {
         return [LibraryPickerViewCell class];
@@ -329,10 +345,11 @@
     
     NSString *origUrl = nil;
     
-    if ([self.source isEqualToString:@"instagram"]) {
+    NSString *source = [self.dictionary objectForKey:@"source"];
+    if ([source isEqualToString:@"instagram"]) {
         NSDictionary *image = [[item objectForKey:@"images"] objectForKey:@"standard_resolution"];
         origUrl = [image objectForKey:@"url"];
-    } else if ([self.source isEqualToString:@"facebook"]) {
+    } else if ([source isEqualToString:@"facebook"]) {
         origUrl = [item objectForKey:@"source"];
     } else {
         origUrl = [item objectForKey:@"url"];

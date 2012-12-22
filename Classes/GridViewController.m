@@ -76,6 +76,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // See if we have a valid token for the current state.
+    NSArray *readPermissions = [NSArray arrayWithObjects:@"email", @"user_photos", @"friends_photos", nil];
+    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+        // To-do, show logged in view
+        [FBSession openActiveSessionWithReadPermissions:readPermissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+            [self sessionStateChanged:session state:state error:error];
+        }];
+    } else {
+        // No, display the login page.
+        [FBSession openActiveSessionWithReadPermissions:readPermissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+            [self sessionStateChanged:session state:state error:error];
+        }];
+    }
+    
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"igAccessToken"]) {
+        // Sample response: http://your-redirect-uri#access_token=2275353.f59def8.40572794d9de40ccb360b6c54fa865dd
+        NSString *igClientId = @"933e9c75ab0c432fbe152fd3d645c4e8";
+        NSString *igRedirectUri = @"ig933e9c75ab0c432fbe152fd3d645c4e8://authorize";
+        NSDictionary *params = @{@"client_id" : igClientId, @"redirect_uri" : igRedirectUri, @"response_type" : @"token"};
+        NSString *qs = PSQueryStringFromParametersWithEncoding(params, NSUTF8StringEncoding);
+        NSString *igPath = [NSString stringWithFormat:@"https://instagram.com/oauth/authorize/?%@", qs];
+        
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:igPath]];
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -84,19 +111,7 @@
 //        [[DBSession sharedSession] linkFromController:self];
 //    }
     
-    // See if we have a valid token for the current state.
-//    NSArray *readPermissions = [NSArray arrayWithObjects:@"email", @"user_photos", @"friends_photos", nil];
-//    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-//        // To-do, show logged in view
-//        [FBSession openActiveSessionWithReadPermissions:readPermissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-//            [self sessionStateChanged:session state:state error:error];
-//        }];
-//    } else {
-//        // No, display the login page.
-//        [FBSession openActiveSessionWithReadPermissions:readPermissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-//            [self sessionStateChanged:session state:state error:error];
-//        }];
-//    }
+
 }
 
 #pragma mark - Config Subviews

@@ -2,8 +2,6 @@
 #define CORE_DATA_MOM @"Grid"
 #define CORE_DATA_SQL_FILE @"Grid.sqlite"
 
-#define FB_APP_ID @"456420417705188"
-
 #ifdef BETA
     #define FB_APP_SUFFIX @"beta"
 #elif PRO

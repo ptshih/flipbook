@@ -108,10 +108,44 @@
             // At this point you can start making API calls
         }
         return YES;
+    } else if ([self igHandleURL:url]) {
+        
+        return YES;
     } else {
         return [FBSession.activeSession handleOpenURL:url];
     }
 }
+
+- (BOOL)igHandleURL:(NSURL *)url {
+    // If the URL's structure doesn't match the structure used for Instagram authorization, abort.
+    NSString *igRedirectUri = @"ig933e9c75ab0c432fbe152fd3d645c4e8://authorize";
+    if (![[url absoluteString] hasPrefix:igRedirectUri]) {
+        return NO;
+    }
+    
+    NSString *query = [url fragment];
+    if (!query) {
+        query = [url query];
+    }
+    
+    NSDictionary *params = [self parseURLParams:query];
+    NSString *accessToken = [params valueForKey:@"access_token"];
+    
+    // If the URL doesn't contain the access token, an error has occurred.
+    if (!accessToken) {
+        //        NSString *error = [params valueForKey:@"error"];
+        
+        NSString *errorReason = [params valueForKey:@"error_reason"];
+        
+        BOOL userDidCancel = [errorReason isEqualToString:@"user_denied"];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:@"igAccessToken"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    return YES;
+}
+
 
 //- (BOOL)handleURL:(NSURL *)url {
 //    NSLog(@"app handle open URL: %@", url);

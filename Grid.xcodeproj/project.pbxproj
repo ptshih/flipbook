@@ -483,6 +483,8 @@
 		28BAED7E16825F62002E1B7C /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BAED7D16825F62002E1B7C /* DropboxSDK.framework */; };
 		28BAED9B1683BA0B002E1B7C /* PSGridViewTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BAED9A1683BA0B002E1B7C /* PSGridViewTarget.m */; };
 		28BAEDAC1683CC00002E1B7C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BAEDAB1683CC00002E1B7C /* AVFoundation.framework */; };
+		28BAEDAF168476F8002E1B7C /* ImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BAEDAE168476F8002E1B7C /* ImagePickerViewController.m */; };
+		28BAEDB216847B36002E1B7C /* ImagePickerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BAEDB116847B35002E1B7C /* ImagePickerCollectionViewCell.m */; };
 		28BBECB9167B208C0002E4A2 /* PSGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBECB8167B208C0002E4A2 /* PSGridView.m */; };
 		28BBECBC167B20A80002E4A2 /* PSGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBECBB167B20A80002E4A2 /* PSGridViewCell.m */; };
 		28BBECBF167B23570002E4A2 /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBECBE167B23570002E4A2 /* GridViewController.m */; };
@@ -493,6 +495,8 @@
 		28EA49491639FC3C003C45B6 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 28EA49451639FC3C003C45B6 /* Icon-Small-50.png */; };
 		28EA494C163B04BE003C45B6 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28EA494B163B04BE003C45B6 /* RootViewController.m */; };
 		28EA494F163B0ED4003C45B6 /* SliceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28EA494E163B0ED4003C45B6 /* SliceCell.m */; };
+		28EE5E741685177800A2B290 /* InstagramPickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28EE5E731685177800A2B290 /* InstagramPickerViewCell.m */; };
+		28EE5E77168525EB00A2B290 /* LibraryPickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28EE5E76168525EB00A2B290 /* LibraryPickerViewCell.m */; };
 		28F1F5D11562D4D100142939 /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F1F5D01562D4D100142939 /* NotificationManager.m */; };
 /* End PBXBuildFile section */
 
@@ -1068,6 +1072,10 @@
 		28BAED991683BA0B002E1B7C /* PSGridViewTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSGridViewTarget.h; sourceTree = "<group>"; };
 		28BAED9A1683BA0B002E1B7C /* PSGridViewTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSGridViewTarget.m; sourceTree = "<group>"; };
 		28BAEDAB1683CC00002E1B7C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		28BAEDAD168476F8002E1B7C /* ImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePickerViewController.h; sourceTree = "<group>"; };
+		28BAEDAE168476F8002E1B7C /* ImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePickerViewController.m; sourceTree = "<group>"; };
+		28BAEDB016847B35002E1B7C /* ImagePickerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePickerCollectionViewCell.h; sourceTree = "<group>"; };
+		28BAEDB116847B35002E1B7C /* ImagePickerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePickerCollectionViewCell.m; sourceTree = "<group>"; };
 		28BBECB7167B208C0002E4A2 /* PSGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSGridView.h; sourceTree = "<group>"; };
 		28BBECB8167B208C0002E4A2 /* PSGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSGridView.m; sourceTree = "<group>"; };
 		28BBECBA167B20A80002E4A2 /* PSGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSGridViewCell.h; sourceTree = "<group>"; };
@@ -1089,6 +1097,10 @@
 		28EB001B15178A01004C55DE /* PoweredByFoursquareWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoweredByFoursquareWhite.png; sourceTree = "<group>"; };
 		28EB001C15178A01004C55DE /* PoweredByFoursquareWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PoweredByFoursquareWhite@2x.png"; sourceTree = "<group>"; };
 		28EDA6C815354130001BF4D1 /* AddPhotoBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddPhotoBackground.png; sourceTree = "<group>"; };
+		28EE5E721685177800A2B290 /* InstagramPickerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstagramPickerViewCell.h; sourceTree = "<group>"; };
+		28EE5E731685177800A2B290 /* InstagramPickerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstagramPickerViewCell.m; sourceTree = "<group>"; };
+		28EE5E75168525EB00A2B290 /* LibraryPickerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryPickerViewCell.h; sourceTree = "<group>"; };
+		28EE5E76168525EB00A2B290 /* LibraryPickerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryPickerViewCell.m; sourceTree = "<group>"; };
 		28F1F5CF1562D4D100142939 /* NotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		28F1F5D01562D4D100142939 /* NotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
 		28F84EBB15353F20003F698F /* AddPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddPhoto.png; sourceTree = "<group>"; };
@@ -2042,6 +2054,12 @@
 			children = (
 				282FAF15164C69B00040D3B4 /* Foursquare */,
 				282FAF16164C69B60040D3B4 /* Airbrite */,
+				28BAEDB016847B35002E1B7C /* ImagePickerCollectionViewCell.h */,
+				28BAEDB116847B35002E1B7C /* ImagePickerCollectionViewCell.m */,
+				28EE5E721685177800A2B290 /* InstagramPickerViewCell.h */,
+				28EE5E731685177800A2B290 /* InstagramPickerViewCell.m */,
+				28EE5E75168525EB00A2B290 /* LibraryPickerViewCell.h */,
+				28EE5E76168525EB00A2B290 /* LibraryPickerViewCell.m */,
 			);
 			name = CollectionViewCells;
 			sourceTree = "<group>";
@@ -2149,6 +2167,8 @@
 			children = (
 				28BBECBD167B23570002E4A2 /* GridViewController.h */,
 				28BBECBE167B23570002E4A2 /* GridViewController.m */,
+				28BAEDAD168476F8002E1B7C /* ImagePickerViewController.h */,
+				28BAEDAE168476F8002E1B7C /* ImagePickerViewController.m */,
 				2880E92516815DA9004FD951 /* PageViewController.h */,
 				2880E92616815DAA004FD951 /* PageViewController.m */,
 				28EA494A163B04BE003C45B6 /* RootViewController.h */,
@@ -2813,6 +2833,10 @@
 				28BAED781681B2EF002E1B7C /* PSPageView.m in Sources */,
 				28BAED7B1681B360002E1B7C /* PSGridViewTile.m in Sources */,
 				28BAED9B1683BA0B002E1B7C /* PSGridViewTarget.m in Sources */,
+				28BAEDAF168476F8002E1B7C /* ImagePickerViewController.m in Sources */,
+				28BAEDB216847B36002E1B7C /* ImagePickerCollectionViewCell.m in Sources */,
+				28EE5E741685177800A2B290 /* InstagramPickerViewCell.m in Sources */,
+				28EE5E77168525EB00A2B290 /* LibraryPickerViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

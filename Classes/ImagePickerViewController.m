@@ -27,10 +27,16 @@
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
+        self.dictionary = dictionary;
+        
         self.shouldShowHeader = YES;
         self.shouldShowFooter = NO;
-        self.shouldPullRefresh = YES;
-        self.shouldPullLoadMore = YES;
+        
+        if (![[self.dictionary objectForKey:@"source"] isEqualToString:@"library"]) {
+            self.shouldPullRefresh = YES;
+            self.shouldPullLoadMore = YES;
+        }
+        
         self.shouldShowNullView = YES;
         self.pullRefreshStyle = PSPullRefreshStyleBlack;
         
@@ -42,8 +48,6 @@
         self.title = @"Loading...";
         
         self.limit = 50;
-        
-        self.dictionary = dictionary;
         
         self.library = [[ALAssetsLibrary alloc] init];
     }
@@ -293,8 +297,7 @@
             [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                 if (result) {
                     ALAssetRepresentation *rep = result.defaultRepresentation;
-                    UIImage *image = [UIImage imageWithCGImage:rep.fullResolutionImage scale:rep.scale orientation:rep.orientation];
-                    NSDictionary *photo = @{@"image" : image, @"width" : [NSNumber numberWithFloat:rep.dimensions.width], @"height" : [NSNumber numberWithFloat:rep.dimensions.height]};
+                    NSDictionary *photo = @{@"asset" : result, @"width" : [NSNumber numberWithFloat:rep.dimensions.width], @"height" : [NSNumber numberWithFloat:rep.dimensions.height]};
                     [self.items addObject:photo];
                 }
             }];
@@ -355,7 +358,10 @@
     
     if ([source isEqualToString:@"library"]) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(imagePicker:didPickImage:)]) {
-            [self.delegate imagePicker:self didPickImage:[item objectForKey:@"image"]];
+            ALAsset *asset = [item objectForKey:@"asset"];
+            ALAssetRepresentation *rep = asset.defaultRepresentation;
+            UIImage *image = [UIImage imageWithCGImage:rep.fullScreenImage];
+            [self.delegate imagePicker:self didPickImage:image];
         }
     } else {
         if (self.delegate && [self.delegate respondsToSelector:@selector(imagePicker:didPickImageWithURLPath:)]) {

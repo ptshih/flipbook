@@ -10,6 +10,8 @@
 
 #import "PSCachedImageView.h"
 
+#import <AssetsLibrary/AssetsLibrary.h>
+
 // Margins
 static CGSize margin() {
     if (isDeviceIPad()) {
@@ -70,7 +72,12 @@ static CGSize margin() {
 - (void)collectionView:(PSCollectionView *)collectionView fillCellWithObject:(id)object atIndex:(NSInteger)index {
     [super collectionView:collectionView fillCellWithObject:object atIndex:index];
     
-    [self.imageView loadImage:[object objectForKey:@"image"]];
+    ALAsset *asset = [object objectForKey:@"asset"];
+//    ALAssetRepresentation *rep = asset.defaultRepresentation;
+    
+    UIImage *image = [UIImage imageWithCGImage:asset.aspectRatioThumbnail];
+    
+    [self.imageView loadImage:image];
 }
 
 + (CGFloat)rowHeightForObject:(id)object inColumnWidth:(CGFloat)columnWidth {

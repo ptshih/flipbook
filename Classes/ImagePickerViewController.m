@@ -351,12 +351,16 @@
         origUrl = [image objectForKey:@"url"];
     } else if ([source isEqualToString:@"facebook"]) {
         origUrl = [item objectForKey:@"source"];
-    } else {
-        origUrl = [item objectForKey:@"url"];
     }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(imagePicker:didPickImageWithURLPath:)]) {
-        [self.delegate imagePicker:self didPickImageWithURLPath:origUrl];
+    if ([source isEqualToString:@"library"]) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(imagePicker:didPickImage:)]) {
+            [self.delegate imagePicker:self didPickImage:[item objectForKey:@"image"]];
+        }
+    } else {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(imagePicker:didPickImageWithURLPath:)]) {
+            [self.delegate imagePicker:self didPickImageWithURLPath:origUrl];
+        }
     }
 }
 

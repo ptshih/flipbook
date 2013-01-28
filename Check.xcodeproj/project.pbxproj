@@ -426,6 +426,11 @@
 		28945DCA16B610AB00354F7A /* MenuListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28945DC916B610AB00354F7A /* MenuListViewController.m */; };
 		28945DCC16B6115C00354F7A /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28945DCB16B6115C00354F7A /* ListViewController.m */; };
 		28945DCF16B6191300354F7A /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28945DCE16B6191300354F7A /* WelcomeViewController.m */; };
+		28945DD616B6400C00354F7A /* PSDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 28945DD516B6400C00354F7A /* PSDB.m */; };
+		28945DD916B6506E00354F7A /* NewListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28945DD816B6506E00354F7A /* NewListViewController.m */; };
+		28945DDC16B650C300354F7A /* NewItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28945DDB16B650C300354F7A /* NewItemCell.m */; };
+		28945DE316B656F300354F7A /* BGTextInput.png in Resources */ = {isa = PBXBuildFile; fileRef = 28945DE116B656F300354F7A /* BGTextInput.png */; };
+		28945DE416B656F300354F7A /* BGTextInput@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28945DE216B656F300354F7A /* BGTextInput@2x.png */; };
 		28A390D11554DA37002696FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818CE14723F1D007E4827 /* main.m */; };
 		28A390D21554DA37002696FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 283818D214723F1D007E4827 /* AppDelegate.m */; };
 		28A390FA1554DA37002696FD /* FoursquareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28603B5A14AC4A1D00541BB1 /* FoursquareViewController.m */; };
@@ -1053,6 +1058,14 @@
 		28945DCB16B6115C00354F7A /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		28945DCD16B6191300354F7A /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		28945DCE16B6191300354F7A /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		28945DD416B6400C00354F7A /* PSDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSDB.h; sourceTree = "<group>"; };
+		28945DD516B6400C00354F7A /* PSDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSDB.m; sourceTree = "<group>"; };
+		28945DD716B6506E00354F7A /* NewListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewListViewController.h; sourceTree = "<group>"; };
+		28945DD816B6506E00354F7A /* NewListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewListViewController.m; sourceTree = "<group>"; };
+		28945DDA16B650C300354F7A /* NewItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewItemCell.h; sourceTree = "<group>"; };
+		28945DDB16B650C300354F7A /* NewItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewItemCell.m; sourceTree = "<group>"; };
+		28945DE116B656F300354F7A /* BGTextInput.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BGTextInput.png; sourceTree = "<group>"; };
+		28945DE216B656F300354F7A /* BGTextInput@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BGTextInput@2x.png"; sourceTree = "<group>"; };
 		289C362C148EC53300D02BAB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		289C362D148EC53300D02BAB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		289C362E148EC53300D02BAB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1213,6 +1226,7 @@
 		282666A1162506C4000267D7 /* PSKit */ = {
 			isa = PBXGroup;
 			children = (
+				28945DD316B6400400354F7A /* PSDB */,
 				28BBECB6167B206D0002E4A2 /* PSGridView */,
 				287FD2CD166DCF130003F635 /* PSTileView */,
 				282666A2162506C4000267D7 /* Categories */,
@@ -2104,6 +2118,8 @@
 			children = (
 				28945DAD16B5FEA600354F7A /* ItemCell.h */,
 				28945DAE16B5FEA600354F7A /* ItemCell.m */,
+				28945DDA16B650C300354F7A /* NewItemCell.h */,
+				28945DDB16B650C300354F7A /* NewItemCell.m */,
 				28945DC216B6101F00354F7A /* ListCell.h */,
 				28945DC316B6101F00354F7A /* ListCell.m */,
 				28945DC516B6102A00354F7A /* MenuCell.h */,
@@ -2136,6 +2152,8 @@
 		28698713147312EC00B40860 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				28945DE116B656F300354F7A /* BGTextInput.png */,
+				28945DE216B656F300354F7A /* BGTextInput@2x.png */,
 				28945DB016B6043800354F7A /* ItemDoingBlack@2x.png */,
 				28945DB116B6043800354F7A /* ItemDoingWhite@2x.png */,
 				28945DB216B6043800354F7A /* ItemDoneBlack@2x.png */,
@@ -2189,6 +2207,15 @@
 			path = ECSlidingViewController;
 			sourceTree = "<group>";
 		};
+		28945DD316B6400400354F7A /* PSDB */ = {
+			isa = PBXGroup;
+			children = (
+				28945DD416B6400C00354F7A /* PSDB.h */,
+				28945DD516B6400C00354F7A /* PSDB.m */,
+			);
+			path = PSDB;
+			sourceTree = "<group>";
+		};
 		28AD405916250AE20066F6A5 /* HockeySDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -2209,6 +2236,8 @@
 		28B855DA147CDCC4004F84EA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				28945DD716B6506E00354F7A /* NewListViewController.h */,
+				28945DD816B6506E00354F7A /* NewListViewController.m */,
 				28EA494A163B04BE003C45B6 /* ListViewController.h */,
 				28945DCB16B6115C00354F7A /* ListViewController.m */,
 				28945DCD16B6191300354F7A /* WelcomeViewController.h */,
@@ -2711,6 +2740,8 @@
 				28945DB516B6043800354F7A /* ItemDoingWhite@2x.png in Resources */,
 				28945DB616B6043800354F7A /* ItemDoneBlack@2x.png in Resources */,
 				28945DB716B6043800354F7A /* ItemDoneWhite@2x.png in Resources */,
+				28945DE316B656F300354F7A /* BGTextInput.png in Resources */,
+				28945DE416B656F300354F7A /* BGTextInput@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2875,6 +2906,9 @@
 				28945DCA16B610AB00354F7A /* MenuListViewController.m in Sources */,
 				28945DCC16B6115C00354F7A /* ListViewController.m in Sources */,
 				28945DCF16B6191300354F7A /* WelcomeViewController.m in Sources */,
+				28945DD616B6400C00354F7A /* PSDB.m in Sources */,
+				28945DD916B6506E00354F7A /* NewListViewController.m in Sources */,
+				28945DDC16B650C300354F7A /* NewItemCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

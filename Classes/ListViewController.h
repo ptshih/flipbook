@@ -10,6 +10,6 @@
 
 @interface ListViewController : PSTableViewController
 
-- (id)initWithList:(NSDictionary *)list;
+- (id)initWithListId:(NSString *)listId;
 
 @end

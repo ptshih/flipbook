@@ -234,13 +234,26 @@
 //    [DBSession setSharedSession:dbSession];
     
     
-    
     // Window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = WINDOW_BG_COLOR;
     [self.window makeKeyAndVisible];
     
-    [self setupViewControllers];
+    // PSDB
+    NSArray *items1 = @[
+    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Hand Soap", @"status" : @"doing"}],
+    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Toilet Paper", @"status" : @"doing"}],
+    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Bananas", @"status" : @"doing"}],
+    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Beer, Soju", @"status" : @"doing"}],
+    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Black Beans", @"status" : @"doing"}],
+    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Quinoa", @"status" : @"doing"}],
+    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Grilled Chicken Breast", @"status" : @"doing"}],
+    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Canned Tuna", @"status" : @"doing"}]
+    ];
+    
+    [[PSDB sharedDatabase] saveDocument:[NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Grocery List", @"items" : items1}] forKey:[NSString stringWithFormat:@"%0.f", [[NSDate date] millisecondsSince1970]] inCollection:@"lists" completionBlock:^(NSDictionary *document) {
+        [self setupViewControllers];
+    }];
     
     return YES;
 }

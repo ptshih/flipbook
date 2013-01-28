@@ -9,6 +9,7 @@
 #import "MenuViewController.h"
 #import "ECSlidingViewController.h"
 #import "ListViewController.h"
+#import "NewListViewController.h"
 #import "MenuCell.h"
 #import "ListCell.h"
 
@@ -36,9 +37,9 @@
     if (self) {
         self.shouldShowHeader = NO;
         self.shouldShowFooter = NO;
-        //        self.shouldPullRefresh = YES;
-        //        self.shouldPullLoadMore = YES;
-        self.shouldShowNullView = YES;
+//        self.shouldPullRefresh = YES;
+//        self.shouldPullLoadMore = YES;
+        self.shouldShowNullView = NO;
         self.pullRefreshStyle = PSPullRefreshStyleBlack;
         
         self.headerHeight = 0.0;
@@ -71,6 +72,8 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    [self reloadDataSource];
+    
     [[LocalyticsSession sharedLocalyticsSession] tagScreen:NSStringFromClass([self class])];
 }
 
@@ -81,6 +84,12 @@
     
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = nil;
+    self.tableView.width-= 40.0;
+    
+    UIButton *b = [UIButton buttonWithFrame:CGRectMake(0, 0, self.tableView.width, 44.0) andStyle:@"darkButton" target:self action:@selector(newList)];
+//    [b setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
+    [b setTitle:@"+ New List" forState:UIControlStateNormal];
+    self.tableView.tableHeaderView = b;
 }
 
 - (void)setupHeader {
@@ -102,6 +111,17 @@
 }
 
 - (void)rightAction {
+}
+
+- (void)newList {
+    NewListViewController *vc = [[NewListViewController alloc] initWithNibName:nil bundle:nil];
+    
+    [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
+        CGRect frame = self.slidingViewController.topViewController.view.frame;
+        self.slidingViewController.topViewController = vc;
+        self.slidingViewController.topViewController.view.frame = frame;
+        [self.slidingViewController resetTopView];
+    }];
 }
 
 #pragma mark - Data Source
@@ -139,22 +159,16 @@
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     NSMutableArray *sections = [NSMutableArray array];
     
-    NSArray *items = @[
-    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Hand Soap", @"status" : @"doing"}],
-    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Toilet Paper", @"status" : @"doing"}],
-    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Bananas", @"status" : @"doing"}],
-    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Beer, Soju", @"status" : @"doing"}],
-    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Black Beans", @"status" : @"doing"}],
-    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Quinoa", @"status" : @"doing"}],
-    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Grilled Chicken Breast", @"status" : @"doing"}],
-    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Canned Tuna", @"status" : @"doing"}]
-    ];
+    NSArray *documents = [[PSDB sharedDatabase] documentsForCollection:@"lists"];
     
-    NSArray *row = @[@{@"title" : @"Grocery List", @"items" : items}];
-    [sections addObject:row];
+//    [documents enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSMutableDictionary *document, BOOL *stop) {
+//        
+//    }];
     
-    [self dataSourceShouldLoadObjects:sections animated:YES];
+    [sections addObject:documents];
+    [self dataSourceShouldLoadObjects:sections animated:NO];
     [self dataSourceDidLoad];
+    
 }
 
 #pragma mark - TableView
@@ -162,12 +176,24 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return @"Checklists";
+            return @"Recent Checklists";
             break;
-            
+        case 1:
+            return @"Saved Checklists";
+            break;
         default:
             return nil;
             break;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSString *keyToDelete = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"_id"];
+        [[PSDB sharedDatabase] deleteDocumentForKey:keyToDelete inCollection:@"lists" completionBlock:^{
+            [[self.items objectAtIndex:indexPath.section] removeObjectAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }];
     }
 }
 
@@ -194,7 +220,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
-    ListViewController *vc = [[ListViewController alloc] initWithList:item];
+    ListViewController *vc = [[ListViewController alloc] initWithListId:[item objectForKey:@"_id"]];
     
     [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
         CGRect frame = self.slidingViewController.topViewController.view.frame;

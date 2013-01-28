@@ -12,6 +12,7 @@
 
 @interface ListViewController ()
 
+@property (nonatomic, strong) NSString *listId;
 @property (nonatomic, copy) NSMutableDictionary *listDict;
 
 @end
@@ -20,11 +21,11 @@
 
 #pragma mark - Init
 
-- (id)initWithList:(NSDictionary *)list {
+- (id)initWithListId:(NSString *)listId {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        self.listDict = [NSMutableDictionary dictionaryWithDictionary:list];
-        self.title = [self.listDict objectForKey:@"title"];
+        self.listId = listId;
+        self.listDict = [NSMutableDictionary dictionary];
         
         self.shouldShowHeader = YES;
         self.shouldShowFooter = NO;
@@ -152,8 +153,13 @@
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:[self.listDict objectForKey:@"items"]] animated:YES];
-    [self dataSourceDidLoad];
+    [[PSDB sharedDatabase] findDocumentForKey:self.listId inCollection:@"lists" completionBlock:^(NSMutableDictionary *document) {
+        self.listDict = document;
+        self.title = [self.listDict objectForKey:@"title"];
+        [self.centerButton setTitle:self.title forState:UIControlStateNormal];
+        [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:[self.listDict objectForKey:@"items"]] animated:YES];
+        [self dataSourceDidLoad];
+    }];
 }
 
 #pragma mark - TableView
@@ -189,8 +195,10 @@
         [item setObject:@"done" forKey:@"status"];
     }
     
-    [[tableView cellForRowAtIndexPath:indexPath] performSelector:@selector(toggleStatus)];
+    // Every action should Save up to the cloud
+    [[PSDB sharedDatabase] saveDocument:self.listDict forKey:self.listId inCollection:@"lists" completionBlock:^(NSMutableDictionary *savedDocument) {
+        [[tableView cellForRowAtIndexPath:indexPath] performSelector:@selector(toggleStatus)];
+    }];
 }
-
 
 @end

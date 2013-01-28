@@ -66,6 +66,8 @@
 #define TEXTURE_DARK_WOVEN [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureDarkWoven"]]
 #define TEXTURE_DARK_LINEN [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureDarkLinen"]]
 #define TEXTURE_DARK_WOOD [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureDarkWood"]]
+#define TEXTURE_ALUMINUM [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureAluminum"]]
+#define TEXTURE_LIGHT_SKETCH [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureLightSketch"]]
 
 // APP COLORS
 #define TABLE_BG_COLOR [UIColor clearColor]
@@ -74,8 +76,6 @@
 #define WINDOW_BG_COLOR [UIColor blackColor]
 #define BASE_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureAluminum"]]
 #define CELL_BG_COLOR RGBACOLOR(240,240,240,1)
-#define SECTION_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"BGTableSection"]]
-#define HEADER_BAR_BG_COLOR [UIColor colorWithPatternImage:[UIImage imageNamed:@"BGHeaderBar"]]
 
 // API
 #if TARGET_IPHONE_SIMULATOR
@@ -112,3 +112,4 @@
 #import "PSLocationCenter.h"
 #import "TTTAttributedLabel.h"
 #import "LocalyticsSession.h"
+#import "PSDB.h"

@@ -51,6 +51,10 @@
     return TEXTURE_DARK_LINEN;
 }
 
+- (UIColor *)rowBackgroundColorForIndexPath:(NSIndexPath *)indexPath selected:(BOOL)selected {
+    return [UIColor whiteColor];
+}
+
 #pragma mark - View
 
 - (void)viewDidLoad {

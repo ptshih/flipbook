@@ -11,8 +11,9 @@
 #import "NewItemCell.h"
 #import "ListViewController.h"
 
-@interface NewListViewController () <UITextFieldDelegate>
+@interface NewListViewController () <UITextFieldDelegate, NewItemCellDelegate>
 
+@property (nonatomic, strong) NSString *listId;
 @property (nonatomic, copy) NSMutableDictionary *listDict;
 
 @property (nonatomic, strong) PSTextField *tf;
@@ -31,10 +32,11 @@
         self.shouldShowHeader = YES;
         self.shouldShowFooter = YES;
         self.shouldShowNullView = NO;
-        self.shouldAdjustViewForKeyboard = YES;
+//        self.shouldAdjustViewForKeyboard = YES;
+        self.shouldPullRefresh = YES;
         
         self.headerHeight = 44.0;
-        self.footerHeight = 44.0;
+        self.footerHeight = 0.0;
         
         self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleSingleLine;
         
@@ -86,7 +88,27 @@
 - (void)setupSubviews {
     [super setupSubviews];
     
-    self.tableView.editing = YES;
+//    self.tableView.editing = YES;
+    
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.footerView.width, 44.0)];
+    v.backgroundColor = TEXTURE_LIGHT_SKETCH;
+    
+    PSTextField *tf = [[PSTextField alloc] initWithFrame:CGRectInset(v.bounds, 4, 4) withMargins:CGSizeMake(4, 6)];
+    //    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectInset(v.bounds, 4, 4)];
+    tf.delegate = self;
+    tf.placeholder = @"What needs to be done?";
+    tf.background = [[UIImage imageNamed:@"BGTextInput"] stretchableImageWithLeftCapWidth:6.0 topCapHeight:8.0];
+    //    tf.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    tf.autocorrectionType = UITextAutocorrectionTypeNo;
+    tf.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    //        self.textField.adjustsFontSizeToFitWidth = YES;
+    tf.clearButtonMode = UITextFieldViewModeWhileEditing;
+    tf.returnKeyType = UIReturnKeyGo;
+    [PSStyleSheet applyStyle:@"leadDarkField" forTextField:tf];
+    [v addSubview:tf];
+    self.tf = tf;
+    
+    self.tableView.tableHeaderView = v;
 }
 
 - (void)setupHeader {
@@ -107,26 +129,6 @@
 
 - (void)setupFooter {
     [super setupFooter];
-    
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.footerView.width, 44.0)];
-    v.backgroundColor = TEXTURE_LIGHT_SKETCH;
-    
-    PSTextField *tf = [[PSTextField alloc] initWithFrame:CGRectInset(v.bounds, 4, 4) withMargins:CGSizeMake(4, 6)];
-//    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectInset(v.bounds, 4, 4)];
-    tf.delegate = self;
-    tf.placeholder = @"What needs to be done?";
-    tf.background = [[UIImage imageNamed:@"BGTextInput"] stretchableImageWithLeftCapWidth:6.0 topCapHeight:8.0];
-//    tf.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    tf.autocorrectionType = UITextAutocorrectionTypeNo;
-    tf.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    //        self.textField.adjustsFontSizeToFitWidth = YES;
-    tf.clearButtonMode = UITextFieldViewModeWhileEditing;
-    tf.returnKeyType = UIReturnKeyGo;
-    [PSStyleSheet applyStyle:@"leadDarkField" forTextField:tf];
-    [v addSubview:tf];
-    self.tf = tf;
-    
-    [self.footerView addSubview:v];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -135,12 +137,11 @@
     NSString *title = textField.text;
     
     if (title.length > 0) {
-    
-        [[self.items objectAtIndex:0] addObject:@{@"title" : title, @"status": @"doing"}];
+        [[self.items objectAtIndex:0] addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"title" : title, @"status": @"doing"}]];
         
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[self.tableView numberOfRowsInSection:0] inSection:0];
         [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
+        textField.text = nil;
     }
     
     return YES;
@@ -149,37 +150,44 @@
 #pragma mark - Actions
 
 - (void)leftAction {
-    [self.tf resignFirstResponder]; // BUG
-    [self.slidingViewController anchorTopViewTo:ECRight];
-    //    [self.navigationController popViewControllerAnimated:YES];
+    [self saveWithCompletionBlock:^{
+        [self.tf resignFirstResponder]; // BUG
+        [self.slidingViewController anchorTopViewTo:ECRight];
+    }];
 }
 
 - (void)centerAction {
-    [UIAlertView alertViewWithTitle:@"Name Your Checklist" style:UIAlertViewStylePlainTextInput message:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] onDismiss:^(int buttonIndex, NSString *textInput) {
+    [UIAlertView alertViewWithTitle:@"New Checklist" style:UIAlertViewStylePlainTextInput message:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] onDismiss:^(int buttonIndex, NSString *textInput) {
         self.title = textInput;
         [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     } onCancel:NULL];
 }
 
 - (void)rightAction {
-    // Save
-    [[PSDB sharedDatabase] saveDocument:[NSMutableDictionary dictionaryWithDictionary:@{@"title" : self.title, @"items" : [self.items objectAtIndex:0]}] forKey:[NSString stringWithFormat:@"%0.f", [[NSDate date] millisecondsSince1970]] inCollection:@"lists" completionBlock:^(NSDictionary *document) {
-        ListViewController *vc = [[ListViewController alloc] initWithListId:[document objectForKey:@"_id"]];
-
-        CGRect frame = self.slidingViewController.topViewController.view.frame;
-        self.slidingViewController.topViewController = vc;
-        self.slidingViewController.topViewController.view.frame = frame;
-        [self.slidingViewController resetTopView];
-        
-        return;
+    [self saveWithCompletionBlock:^{
+        ListViewController *vc = [[ListViewController alloc] initWithListId:self.listId];
         
         [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
             CGRect frame = self.slidingViewController.topViewController.view.frame;
             self.slidingViewController.topViewController = vc;
-            self.slidingViewController.topViewController.view.frame = frame;
-            [self.slidingViewController resetTopView];
+            vc.slidingViewController.topViewController.view.frame = frame;
+            [vc.slidingViewController resetTopView];
         }];
     }];
+}
+
+- (void)saveWithCompletionBlock:(void (^)())completionBlock {
+    // Save
+    if (!self.listId) {
+        self.listId = [NSString stringWithFormat:@"%0.f", [[NSDate date] millisecondsSince1970]];
+    }
+    [[PSDB sharedDatabase] saveDocument:[NSMutableDictionary dictionaryWithDictionary:@{@"title" : self.title, @"items" : [self.items objectAtIndex:0]}] forKey:self.listId inCollection:@"lists" completionBlock:^(NSDictionary *document) {
+        completionBlock();
+    }];
+}
+
+- (void)cellModifiedWithText:(NSString *)text {
+    NSLog(@"text: %@", text);
 }
 
 #pragma mark - Data Source
@@ -218,8 +226,8 @@
     NSMutableArray *sections = [NSMutableArray array];
     
     NSMutableArray *row = [NSMutableArray array];
-    [row addObject:@{@"title" : @"test", @"status": @"doing"}];
-    [row addObject:@{@"title" : @"test 2", @"status": @"doing"}];
+    [row addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"test", @"status": @"doing"}]];
+    [row addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"test 2", @"status": @"doing"}]];
     
     [sections addObject:row];
     
@@ -258,10 +266,6 @@
     }
 }
 
-- (UITableViewCellSelectionStyle)selectionStyleAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellSelectionStyleBlue;
-}
-
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
     return [NewItemCell class];
 }
@@ -278,9 +282,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 500, 0);
+//    [tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 //    id item = [[s elf.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
+}
+
+- (void)pullRefreshViewDidBeginRefreshing:(PSPullRefreshView *)pullRefreshView {
+
 }
 
 @end

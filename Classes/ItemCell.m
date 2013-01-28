@@ -45,7 +45,7 @@ static CGSize margin() {
         
         // Labels
         self.titleLabel = [UILabel labelWithStyle:@"h2DarkLabel"];
-        self.titleLabel.backgroundColor = RGBACOLOR(255, 255, 255, 0.75);
+//        self.titleLabel.backgroundColor = RGBACOLOR(255, 255, 255, 0.75);
         [self.contentView addSubview:self.titleLabel];
     }
     return self;

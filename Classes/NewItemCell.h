@@ -8,6 +8,16 @@
 
 #import "PSCell.h"
 
+@protocol NewItemCellDelegate;
+
 @interface NewItemCell : PSCell
+
+@property (nonatomic, unsafe_unretained) id delegate;
+
+@end
+
+@protocol NewItemCellDelegate <NSObject>
+
+- (void)cellModifiedWithText:(NSString *)text;
 
 @end

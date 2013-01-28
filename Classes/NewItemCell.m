@@ -17,9 +17,10 @@ static CGSize margin() {
     }
 }
 
-@interface NewItemCell ()
+@interface NewItemCell () <UITextFieldDelegate>
 
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) PSTextField *textField;
 
 @end
 
@@ -33,13 +34,29 @@ static CGSize margin() {
         self.accessoryView = nil;
         self.accessoryType = UITableViewCellAccessoryNone;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+//        self.selectionStyle = UITableViewCellSelectionStyleGray;
         
         // Labels
+        self.textField = [[PSTextField alloc] initWithFrame:CGRectZero withMargins:CGSizeZero];
+        self.textField.delegate = self;
+        [PSStyleSheet applyStyle:@"h2DarkLabel" forTextField:self.textField];
+        [self.contentView addSubview:self.textField];
+        
         self.titleLabel = [UILabel labelWithStyle:@"h2DarkLabel"];
         self.titleLabel.backgroundColor = RGBACOLOR(255, 255, 255, 0.75);
         [self.contentView addSubview:self.titleLabel];
     }
     return self;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self.object setObject:textField.text forKey:@"title"];
+    [self.delegate cellModifiedWithText:textField.text];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)prepareForReuse {
@@ -57,8 +74,12 @@ static CGSize margin() {
     CGSize labelSize = CGSizeZero;
     
     // Label
-    labelSize = [self.titleLabel sizeForLabelInWidth:width];
-    self.titleLabel.frame = CGRectMake(left, self.contentView.height - labelSize.height - top, labelSize.width, labelSize.height);
+    labelSize = [PSStyleSheet sizeForText:self.textField.text width:width style:@"h2DarkLabel"];
+    self.textField.frame = CGRectMake(left, self.contentView.height - labelSize.height - top, width, labelSize.height);
+    
+    
+//    labelSize = [self.titleLabel sizeForLabelInWidth:width];
+//    self.titleLabel.frame = CGRectMake(left, self.contentView.height - labelSize.height - top, labelSize.width, labelSize.height);
 }
 
 - (void)tableView:(UITableView *)tableView fillCellWithObject:(NSDictionary *)dict atIndexPath:(NSIndexPath *)indexPath {
@@ -66,6 +87,8 @@ static CGSize margin() {
     
     NSString *title = [NSString stringWithFormat:@"%@", [dict objectForKey:@"title"]];
     self.titleLabel.text = title;
+    
+    self.textField.text = title;
 }
 
 + (CGFloat)rowHeightForObject:(NSDictionary *)dict atIndexPath:(NSIndexPath *)indexPath forInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -81,6 +104,14 @@ static CGSize margin() {
     height += margin().height;
     
     return height;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    
+    if (self.isSelected) {
+        
+    }
 }
 
 @end

@@ -60,6 +60,10 @@
     return TEXTURE_DARK_LINEN;
 }
 
+//- (UIColor *)rowBackgroundColorForIndexPath:(NSIndexPath *)indexPath selected:(BOOL)selected {
+//    return TEXTURE_DARK_LINEN;
+//}
+
 #pragma mark - View
 
 - (void)viewDidLoad {
@@ -225,8 +229,8 @@
     [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
         CGRect frame = self.slidingViewController.topViewController.view.frame;
         self.slidingViewController.topViewController = vc;
-        self.slidingViewController.topViewController.view.frame = frame;
-        [self.slidingViewController resetTopView];
+        vc.slidingViewController.topViewController.view.frame = frame;
+        [vc.slidingViewController resetTopView];
     }];
 }
 

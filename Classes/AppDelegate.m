@@ -7,13 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "ECSlidingViewController.h"
+#import "WelcomeViewController.h"
+#import "MenuViewController.h"
 
-#import "RootViewController.h"
-#import "GridViewController.h"
-
-#import "PSWebViewController.h"
-
-#import "PSZoomView.h"
 
 @interface AppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate>
 
@@ -80,12 +77,22 @@
 
 
 - (void)setupViewControllers {
-    // Root view controller
-    id controller = nil;
-    controller = [[GridViewController alloc] initWithNibName:nil bundle:nil];
+    ECSlidingViewController *svc = [[ECSlidingViewController alloc] initWithNibName:nil bundle:nil];
+    [svc setAnchorRightRevealAmount:280.0f];
     
-    self.navigationController = [[PSNavigationController alloc] initWithRootViewController:controller];
-    self.window.rootViewController = self.navigationController;
+    // Root view controller
+    UIViewController *rvc = nil;
+    rvc = [[WelcomeViewController alloc] initWithNibName:nil bundle:nil];
+    
+    UIViewController *mvc = nil;
+    mvc = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
+    
+    PSNavigationController *mnvc = [[PSNavigationController alloc] initWithRootViewController:mvc];
+    
+    svc.topViewController = rvc;
+    svc.underLeftViewController = mnvc;
+    
+    self.window.rootViewController = svc;
 }
 
 #pragma mark - Application Lifecycle
@@ -186,7 +193,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 #ifdef RELEASE
-    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"009ab560efcd0a2d8dd92db55cc7e6fa" liveIdentifier:@"009ab560efcd0a2d8dd92db55cc7e6fa" delegate:self];
+    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"d312b005df71483556a50d2e78fc81b4" liveIdentifier:@"d312b005df71483556a50d2e78fc81b4" delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
 #endif
     
@@ -223,8 +230,8 @@
 //    [[PSLocationCenter defaultCenter] resumeUpdates]; // start it
     
     // Dropbox
-    DBSession *dbSession = [[DBSession alloc] initWithAppKey:@"b6fbfbwvpvy6xnt" appSecret:@"lju0v49xrosbmcs" root:kDBRootDropbox];
-    [DBSession setSharedSession:dbSession];
+//    DBSession *dbSession = [[DBSession alloc] initWithAppKey:@"b6fbfbwvpvy6xnt" appSecret:@"lju0v49xrosbmcs" root:kDBRootDropbox];
+//    [DBSession setSharedSession:dbSession];
     
     
     
@@ -269,10 +276,7 @@
     
     if (self.shouldReloadInterface) {
         self.shouldReloadInterface = NO;
-        
-        if ([[PSZoomView sharedView] isZooming]) {
-            [[PSZoomView sharedView] reset];
-        }
+
     }
 }
 

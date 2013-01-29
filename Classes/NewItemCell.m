@@ -39,10 +39,11 @@ static CGSize margin() {
         // Labels
         self.textField = [[PSTextField alloc] initWithFrame:CGRectZero withMargins:CGSizeZero];
         self.textField.delegate = self;
-        [PSStyleSheet applyStyle:@"h2DarkLabel" forTextField:self.textField];
+        self.textField.returnKeyType = UIReturnKeyDone;
+        [PSStyleSheet applyStyle:@"h3DarkLabel" forTextField:self.textField];
         [self.contentView addSubview:self.textField];
         
-        self.titleLabel = [UILabel labelWithStyle:@"h2DarkLabel"];
+        self.titleLabel = [UILabel labelWithStyle:@"h3DarkLabel"];
         self.titleLabel.backgroundColor = RGBACOLOR(255, 255, 255, 0.75);
         [self.contentView addSubview:self.titleLabel];
     }
@@ -74,8 +75,9 @@ static CGSize margin() {
     CGSize labelSize = CGSizeZero;
     
     // Label
-    labelSize = [PSStyleSheet sizeForText:self.textField.text width:width style:@"h2DarkLabel"];
-    self.textField.frame = CGRectMake(left, self.contentView.height - labelSize.height - top, width, labelSize.height);
+//    labelSize = [PSStyleSheet sizeForText:self.textField.text width:width style:@"h2DarkLabel"];
+//    self.textField.frame = CGRectMake(left, self.contentView.height - labelSize.height - top, width, labelSize.height);
+    self.textField.frame = CGRectMake(left, top, width, 44.0 - margin().height * 2);
     
     
 //    labelSize = [self.titleLabel sizeForLabelInWidth:width];
@@ -98,8 +100,9 @@ static CGSize margin() {
     height += margin().height;
     
     // Label
-    NSString *title = [dict objectForKey:@"title"];
-    height += [PSStyleSheet sizeForText:title width:width style:@"h2DarkLabel"].height;
+//    NSString *title = [dict objectForKey:@"title"];
+//    height += [PSStyleSheet sizeForText:title width:width style:@"h2DarkLabel"].height;
+    height += 44.0 - margin().height * 2;
     
     height += margin().height;
     

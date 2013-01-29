@@ -44,7 +44,7 @@ static CGSize margin() {
         [self.contentView addSubview:self.psImageView];
         
         // Labels
-        self.titleLabel = [UILabel labelWithStyle:@"h2DarkLabel"];
+        self.titleLabel = [UILabel labelWithStyle:@"h3DarkLabel"];
 //        self.titleLabel.backgroundColor = RGBACOLOR(255, 255, 255, 0.75);
         [self.contentView addSubview:self.titleLabel];
     }
@@ -105,7 +105,7 @@ static CGSize margin() {
     
     // Label
     NSString *title = [dict objectForKey:@"title"];
-    height += [PSStyleSheet sizeForText:title width:width style:@"h2DarkLabel"].height;
+    height += [PSStyleSheet sizeForText:title width:width style:@"h3DarkLabel"].height;
     
     height += margin().height;
     

@@ -18,7 +18,7 @@
 #pragma mark - Init
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibBundleOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"Check";
         
@@ -47,6 +47,8 @@
     [super viewDidLoad];
     
     // SlidingViewController
+    self.slidingViewController.underRightViewController = nil;
+    
     [self.headerView addGestureRecognizer:self.slidingViewController.panGesture];
     self.view.layer.shadowOpacity = 0.75;
     self.view.layer.shadowRadius = 10.0;
@@ -70,6 +72,12 @@
 
 - (void)setupSubviews {
     [super setupSubviews];
+    
+    UILabel *l = [UILabel labelWithText:@"You better check yo self\r\nbefore you wreck yo self\r\n\r\nCause I'm bad for your health\r\nI come real stealth\r\n\r\nSo chickity-check yo self\r\nbefore you wreck yo self" style:@"h4LightLabel"];
+    l.autoresizingMask = self.contentView.autoresizingMask;
+    l.textAlignment = UITextAlignmentCenter;
+    l.frame = CGRectInset(self.contentView.bounds, 16, 16);
+    [self.contentView addSubview:l];
 }
 
 - (void)setupHeader {
@@ -83,31 +91,26 @@
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     self.centerButton.userInteractionEnabled = NO;
     
-    [self.rightButton setImage:[UIImage imageNamed:@"IconShareWhite"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconSmileyWhite"] forState:UIControlStateNormal];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     self.rightButton.userInteractionEnabled = YES;
 }
 
 - (void)setupFooter {
     [super setupFooter];
-    
-    //    UIButton *b = [UIButton buttonWithFrame:CGRectInset(self.footerView.bounds, 8, 6) andStyle:@"lightButton" target:self action:nil];
-    //    [b setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
-    //    [b setTitle:@"I'm Done" forState:UIControlStateNormal];
-    //    [self.footerView addSubview:b];
 }
 
 #pragma mark - Actions
 
 - (void)leftAction {
     [self.slidingViewController anchorTopViewTo:ECRight];
-    //    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)centerAction {
 }
 
 - (void)rightAction {
+    [UIAlertView alertViewWithTitle:@"Thanks" message:@"Made with love in SF."];
 }
 
 #pragma mark - Data Source

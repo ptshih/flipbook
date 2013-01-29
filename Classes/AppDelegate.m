@@ -78,11 +78,6 @@
 
 - (void)setupViewControllers {
     ECSlidingViewController *svc = [[ECSlidingViewController alloc] initWithNibName:nil bundle:nil];
-//    svc.shouldAllowPanningPastAnchor = NO;
-    [svc setAnchorRightRevealAmount:280.0f];
-    [svc setAnchorLeftRevealAmount:280.0f];
-    [svc setUnderLeftWidthLayout:ECFixedRevealWidth];
-    [svc setUnderRightWidthLayout:ECFixedRevealWidth];
     
     // Root view controller
     UIViewController *rvc = nil;
@@ -97,6 +92,14 @@
     svc.underLeftViewController = mnvc;
     
     self.window.rootViewController = svc;
+    
+    // SVC config
+    [svc setAnchorRightRevealAmount:276.0];
+    [svc setAnchorLeftRevealAmount:276.0];
+    [svc setUnderLeftWidthLayout:ECFixedRevealWidth];
+    [svc setUnderRightWidthLayout:ECFixedRevealWidth];
+    svc.shouldAllowPanningPastAnchor = NO;
+    svc.shouldAddPanGestureRecognizerToTopViewSnapshot = YES;
 }
 
 #pragma mark - Application Lifecycle

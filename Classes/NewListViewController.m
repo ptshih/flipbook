@@ -38,7 +38,7 @@
         self.shouldShowHeader = YES;
         self.shouldShowFooter = YES;
         self.shouldShowNullView = NO;
-        self.shouldPullRefresh = YES;
+        self.shouldPullRefresh = NO;
         
         self.headerHeight = 44.0;
         self.footerHeight = 0.0;
@@ -63,6 +63,8 @@
     [super viewDidLoad];
     
     // SlidingViewController
+    self.slidingViewController.underRightViewController = nil;
+    
     [self.headerView addGestureRecognizer:self.slidingViewController.panGesture];
     self.view.layer.shadowOpacity = 0.75;
     self.view.layer.shadowRadius = 10.0;
@@ -91,24 +93,29 @@
 - (void)setupSubviews {
     [super setupSubviews];
     
-    
-//    self.tableView.editing = YES;
+    self.tableView.editing = YES;
     
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.footerView.width, 44.0)];
     v.backgroundColor = TEXTURE_LIGHT_SKETCH;
     
-    PSTextField *tf = [[PSTextField alloc] initWithFrame:CGRectInset(v.bounds, 4, 4) withMargins:CGSizeMake(4, 6)];
+    PSTextField *tf = [[PSTextField alloc] initWithFrame:CGRectInset(v.bounds, 4, 4) withMargins:CGSizeMake(4, 5)];
     //    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectInset(v.bounds, 4, 4)];
     tf.delegate = self;
     tf.placeholder = @"What needs to be done?";
     tf.background = [[UIImage imageNamed:@"BGTextInput"] stretchableImageWithLeftCapWidth:6.0 topCapHeight:8.0];
+    tf.leftViewMode = UITextFieldViewModeAlways;
+    UIImageView *cv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconComposeGray"]];
+    cv.contentMode = UIViewContentModeCenter;
+    cv.width = 30.0;
+    cv.height = 26.0;
+    tf.leftView = cv;
     //    tf.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     tf.autocorrectionType = UITextAutocorrectionTypeNo;
     tf.autocapitalizationType = UITextAutocapitalizationTypeNone;
     //        self.textField.adjustsFontSizeToFitWidth = YES;
     tf.clearButtonMode = UITextFieldViewModeWhileEditing;
     tf.returnKeyType = UIReturnKeyGo;
-    [PSStyleSheet applyStyle:@"leadDarkField" forTextField:tf];
+    [PSStyleSheet applyStyle:@"h3DarkLabel" forTextField:tf];
     [v addSubview:tf];
     self.tf = tf;
     

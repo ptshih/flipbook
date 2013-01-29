@@ -124,7 +124,7 @@
     d.left = v.width - d.width - 8.0;
     [v addSubview:d];
     
-    UILabel *l = [UILabel labelWithText:@"New Checklist" style:@"h2DarkLabel"];
+    UILabel *l = [UILabel labelWithText:@"New Checklist" style:@"h3DarkLabel"];
     l.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
     l.frame = CGRectInset(v.bounds, 8, 4);
     l.width -= d.width - 16.0;

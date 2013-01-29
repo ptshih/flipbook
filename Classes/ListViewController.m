@@ -62,10 +62,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // SlidingViewController
     UIViewController *vc = [[UIViewController alloc] init];
     self.slidingViewController.underRightViewController = vc;
     
-    // SlidingViewController
     [self.headerView addGestureRecognizer:self.slidingViewController.panGesture];
     self.view.layer.shadowOpacity = 0.75;
     self.view.layer.shadowRadius = 10.0;

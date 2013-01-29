@@ -178,18 +178,14 @@
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    NSMutableArray *sections = [NSMutableArray array];
+    //    NSArray *documents = [[PSDB sharedDatabase] documentsForCollection:@"lists"];
     
-    NSArray *documents = [[PSDB sharedDatabase] documentsForCollection:@"lists"];
-    
-//    [documents enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSMutableDictionary *document, BOOL *stop) {
-//        
-//    }];
-    
-    [sections addObject:documents];
-    [self dataSourceShouldLoadObjects:sections animated:NO];
-    [self dataSourceDidLoad];
-    
+    [[PSDB sharedDatabase] findDocumentsInCollection:@"lists" completionBlock:^(NSMutableArray *documents) {
+        NSMutableArray *sections = [NSMutableArray array];
+        [sections addObject:documents];
+        [self dataSourceShouldLoadObjects:sections animated:NO];
+        [self dataSourceDidLoad];
+    }];
 }
 
 #pragma mark - TableView

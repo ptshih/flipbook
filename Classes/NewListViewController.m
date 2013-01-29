@@ -246,7 +246,7 @@
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    [[PSDB sharedDatabase] findDocumentForKey:self.templateId inCollection:@"templates" completionBlock:^(NSMutableDictionary *document) {
+    [[PSDB sharedDatabase] findOneDocumentForKey:self.templateId inCollection:@"templates" completionBlock:^(NSMutableDictionary *document) {
         if (document) {
             self.templateDict = document;
         } else {

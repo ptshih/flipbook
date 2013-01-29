@@ -166,7 +166,7 @@
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    [[PSDB sharedDatabase] findDocumentForKey:self.listId inCollection:@"lists" completionBlock:^(NSMutableDictionary *document) {
+    [[PSDB sharedDatabase] findOneDocumentForKey:self.listId inCollection:@"lists" completionBlock:^(NSMutableDictionary *document) {
         self.listDict = document;
         
         // UI

@@ -46,18 +46,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // SlidingViewController
+    [self.headerView addGestureRecognizer:self.slidingViewController.panGesture];
+    self.view.layer.shadowOpacity = 0.75;
+    self.view.layer.shadowRadius = 10.0;
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    
     // Load
     [self loadDataSource];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    // SlidingViewController
-    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
-    self.view.layer.shadowOpacity = 0.75;
-    self.view.layer.shadowRadius = 10.0;
-    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

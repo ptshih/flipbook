@@ -10,4 +10,6 @@
 
 @interface NewListViewController : PSTableViewController
 
+- (id)initWithTemplateId:(NSString *)templaceId;
+
 @end

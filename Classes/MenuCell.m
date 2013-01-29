@@ -20,6 +20,7 @@ static CGSize margin() {
 @interface MenuCell ()
 
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *dateLabel;
 
 @end
 
@@ -28,10 +29,6 @@ static CGSize margin() {
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.accessoryView = nil;
-        self.accessoryType = UITableViewCellAccessoryNone;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
         // Image
 //        self.psImageView = [[PSCachedImageView alloc] initWithFrame:CGRectZero];
 //        self.psImageView.loadingColor = RGBACOLOR(30, 30, 30, 1.0);
@@ -44,6 +41,10 @@ static CGSize margin() {
         self.titleLabel = [UILabel labelWithStyle:@"h2LightLabel"];
 //        self.titleLabel.backgroundColor = RGBACOLOR(30, 30, 30, 0.75);
         [self.contentView addSubview:self.titleLabel];
+        
+        self.dateLabel = [UILabel labelWithStyle:@"h6LightLabel"];
+        //        self.titleLabel.backgroundColor = RGBACOLOR(30, 30, 30, 0.75);
+        [self.contentView addSubview:self.dateLabel];
     }
     return self;
 }
@@ -52,6 +53,7 @@ static CGSize margin() {
     [super prepareForReuse];
     
     self.titleLabel.text = nil;
+    self.dateLabel.text = nil;
 }
 
 - (void)layoutSubviews {
@@ -64,7 +66,13 @@ static CGSize margin() {
     
     // Label
     labelSize = [self.titleLabel sizeForLabelInWidth:width];
-    self.titleLabel.frame = CGRectMake(left, self.contentView.height - labelSize.height - top, labelSize.width, labelSize.height);
+    self.titleLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
+    
+    if (self.dateLabel.text.length > 0) {
+        top = self.titleLabel.bottom;
+        labelSize = [self.dateLabel sizeForLabelInWidth:width];
+        self.dateLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
+    }
 }
 
 - (void)tableView:(UITableView *)tableView fillCellWithObject:(NSDictionary *)dict atIndexPath:(NSIndexPath *)indexPath {
@@ -72,6 +80,12 @@ static CGSize margin() {
     
     NSString *title = [NSString stringWithFormat:@"%@", [dict objectForKey:@"title"]];
     self.titleLabel.text = title;
+    
+    if ([dict objectForKey:@"timestamp"]) {
+        NSDate *date = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"timestamp"] doubleValue]];
+        NSString *dateText = [date stringWithDateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
+        self.dateLabel.text = dateText;
+    }
 }
 
 + (CGFloat)rowHeightForObject:(NSDictionary *)dict atIndexPath:(NSIndexPath *)indexPath forInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -83,6 +97,12 @@ static CGSize margin() {
     // Label
     NSString *title = [dict objectForKey:@"title"];
     height += [PSStyleSheet sizeForText:title width:width style:@"h2LightLabel"].height;
+    
+    if ([dict objectForKey:@"timestamp"]) {
+        NSDate *date = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"timestamp"] doubleValue]];
+        NSString *dateText = [date stringWithDateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
+        height += [PSStyleSheet sizeForText:dateText width:width style:@"h6LightLabel"].height;
+    }
     
     height += margin().height;
     

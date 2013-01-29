@@ -13,8 +13,8 @@
 
 @interface NewListViewController () <UITextFieldDelegate, NewItemCellDelegate>
 
-@property (nonatomic, strong) NSString *listId;
-@property (nonatomic, copy) NSMutableDictionary *listDict;
+@property (nonatomic, strong) NSString *templateId;
+@property (nonatomic, strong) NSMutableDictionary *templateDict;
 
 @property (nonatomic, strong) PSTextField *tf;
 
@@ -24,23 +24,26 @@
 
 #pragma mark - Init
 
+- (id)initWithTemplateId:(NSString *)templateId {
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        self.templateId = templateId;
+    }
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.listDict = [NSMutableDictionary dictionary];
-        
         self.shouldShowHeader = YES;
         self.shouldShowFooter = YES;
         self.shouldShowNullView = NO;
-//        self.shouldAdjustViewForKeyboard = YES;
         self.shouldPullRefresh = YES;
         
         self.headerHeight = 44.0;
         self.footerHeight = 0.0;
         
         self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        
-        self.title = @"Name Your Checklist";
     }
     return self;
 }
@@ -59,18 +62,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // SlidingViewController
+    [self.headerView addGestureRecognizer:self.slidingViewController.panGesture];
+    self.view.layer.shadowOpacity = 0.75;
+    self.view.layer.shadowRadius = 10.0;
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    
     // Load
     [self loadDataSource];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    // SlidingViewController
-//    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
-    self.view.layer.shadowOpacity = 0.75;
-    self.view.layer.shadowRadius = 10.0;
-    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -87,6 +90,7 @@
 
 - (void)setupSubviews {
     [super setupSubviews];
+    
     
 //    self.tableView.editing = YES;
     
@@ -109,6 +113,8 @@
     self.tf = tf;
     
     self.tableView.tableHeaderView = v;
+    
+    self.viewToAdjustForKeyboard = self.tableView;
 }
 
 - (void)setupHeader {
@@ -122,7 +128,7 @@
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     self.centerButton.userInteractionEnabled = YES;
     
-    [self.rightButton setImage:[UIImage imageNamed:@"IconCheckWhite"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconPlusWhite"] forState:UIControlStateNormal];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     self.rightButton.userInteractionEnabled = YES;
 }
@@ -150,40 +156,50 @@
 #pragma mark - Actions
 
 - (void)leftAction {
-    [self saveWithCompletionBlock:^{
+    [self saveWithCompletionBlock:^(BOOL didSave) {
         [self.tf resignFirstResponder]; // BUG
         [self.slidingViewController anchorTopViewTo:ECRight];
     }];
 }
 
 - (void)centerAction {
-    [UIAlertView alertViewWithTitle:@"New Checklist" style:UIAlertViewStylePlainTextInput message:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] onDismiss:^(int buttonIndex, NSString *textInput) {
+    [UIAlertView alertViewWithTitle:@"Name Your Checklist" style:UIAlertViewStylePlainTextInput message:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] onDismiss:^(int buttonIndex, NSString *textInput) {
         self.title = textInput;
         [self.centerButton setTitle:self.title forState:UIControlStateNormal];
+        [self.templateDict setObject:self.title forKey:@"title"];
     } onCancel:NULL];
 }
 
 - (void)rightAction {
-    [self saveWithCompletionBlock:^{
-        ListViewController *vc = [[ListViewController alloc] initWithListId:self.listId];
+    [self saveWithCompletionBlock:^(BOOL didSave) {
+        [self.tf resignFirstResponder];
         
-        [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
-            CGRect frame = self.slidingViewController.topViewController.view.frame;
-            self.slidingViewController.topViewController = vc;
-            vc.slidingViewController.topViewController.view.frame = frame;
-            [vc.slidingViewController resetTopView];
-        }];
+        if (didSave) {
+            [(PSNavigationController *)self.slidingViewController.underLeftViewController popToRootViewControllerAnimated:NO];
+            
+            [[PSDB sharedDatabase] saveDocument:self.templateDict forKey:nil inCollection:@"lists" completionBlock:^(NSMutableDictionary *savedDocument) {
+                ListViewController *vc = [[ListViewController alloc] initWithListId:[savedDocument objectForKey:@"_id"]];
+                
+                [self.slidingViewController anchorTopViewTo:ECRight animations:nil onComplete:^{
+                    CGRect frame = self.slidingViewController.topViewController.view.frame;
+                    self.slidingViewController.topViewController = vc;
+                    vc.slidingViewController.topViewController.view.frame = frame;
+                    [vc.slidingViewController resetTopView];
+                }];
+            }];
+        }
     }];
 }
 
-- (void)saveWithCompletionBlock:(void (^)())completionBlock {
+- (void)saveWithCompletionBlock:(void (^)(BOOL didSave))completionBlock {
     // Save
-    if (!self.listId) {
-        self.listId = [NSString stringWithFormat:@"%0.f", [[NSDate date] millisecondsSince1970]];
+    if ([[self.templateDict objectForKey:@"items"] count] > 0) {
+        [[PSDB sharedDatabase] saveDocument:self.templateDict forKey:self.templateId inCollection:@"templates" completionBlock:^(NSDictionary *document) {
+            completionBlock(YES);
+        }];
+    } else {
+        completionBlock(NO);
     }
-    [[PSDB sharedDatabase] saveDocument:[NSMutableDictionary dictionaryWithDictionary:@{@"title" : self.title, @"items" : [self.items objectAtIndex:0]}] forKey:self.listId inCollection:@"lists" completionBlock:^(NSDictionary *document) {
-        completionBlock();
-    }];
 }
 
 - (void)cellModifiedWithText:(NSString *)text {
@@ -223,16 +239,20 @@
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    NSMutableArray *sections = [NSMutableArray array];
-    
-    NSMutableArray *row = [NSMutableArray array];
-    [row addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"test", @"status": @"doing"}]];
-    [row addObject:[NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"test 2", @"status": @"doing"}]];
-    
-    [sections addObject:row];
-    
-    [self dataSourceShouldLoadObjects:sections animated:YES];
-    [self dataSourceDidLoad];
+    [[PSDB sharedDatabase] findDocumentForKey:self.templateId inCollection:@"templates" completionBlock:^(NSMutableDictionary *document) {
+        if (document) {
+            self.templateDict = document;
+        } else {
+            self.templateDict = [NSMutableDictionary dictionary];
+            [self.templateDict setObject:@"New Checklist" forKey:@"title"];
+            [self.templateDict setObject:[NSMutableArray array] forKey:@"items"];
+            [self.templateDict setObject:[[NSNumber numberWithDouble:[[NSDate date] millisecondsSince1970]] stringValue] forKey:@"timestamp"];
+        }
+        self.title = [self.templateDict objectForKey:@"title"];
+        [self.centerButton setTitle:self.title forState:UIControlStateNormal];
+        [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:[self.templateDict objectForKey:@"items"]] animated:YES];
+        [self dataSourceDidLoad];
+    }];
 }
 
 #pragma mark - TableView

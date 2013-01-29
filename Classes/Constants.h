@@ -61,14 +61,6 @@
 #define VERY_LIGHT_GRAY RGBCOLOR(226.0,231.0,237.0)
 #define GRAY_COLOR RGBCOLOR(87.0,108.0,137.0)
 
-// Custom Colors
-#define TEXTURE_BLACK_SQUARES [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureBlackSquares"]]
-#define TEXTURE_DARK_WOVEN [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureDarkWoven"]]
-#define TEXTURE_DARK_LINEN [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureDarkLinen"]]
-#define TEXTURE_DARK_WOOD [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureDarkWood"]]
-#define TEXTURE_ALUMINUM [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureAluminum"]]
-#define TEXTURE_LIGHT_SKETCH [UIColor colorWithPatternImage:[UIImage imageNamed:@"TextureLightSketch"]]
-
 // APP COLORS
 #define TABLE_BG_COLOR [UIColor clearColor]
 #define HEADER_BG_COLOR [UIColor blackColor]

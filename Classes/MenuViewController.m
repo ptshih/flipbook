@@ -8,8 +8,8 @@
 
 #import "MenuViewController.h"
 #import "ECSlidingViewController.h"
+#import "MenuListViewController.h"
 #import "ListViewController.h"
-#import "NewListViewController.h"
 #import "MenuCell.h"
 #import "ListCell.h"
 
@@ -35,18 +35,23 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.shouldShowHeader = NO;
-        self.shouldShowFooter = NO;
+        self.shouldShowHeader = YES;
+        self.shouldShowFooter = YES;
 //        self.shouldPullRefresh = YES;
 //        self.shouldPullLoadMore = YES;
         self.shouldShowNullView = NO;
         self.pullRefreshStyle = PSPullRefreshStyleBlack;
         
-        self.headerHeight = 0.0;
-        self.footerHeight = 0.0;
+        self.headerHeight = 44.0;
+        self.footerHeight = 44.0;
+        
+        self.headerLeftWidth = 0.0;
+        self.headerRightWidth = 0.0;
         
         self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        self.separatorColor = RGBACOLOR(0, 0, 0, 0.25);
+        self.separatorColor = RGBACOLOR(0, 0, 0, 0.2);
+        
+        self.title = @"Recent Checklists";
     }
     return self;
 }
@@ -60,9 +65,9 @@
     return TEXTURE_DARK_LINEN;
 }
 
-//- (UIColor *)rowBackgroundColorForIndexPath:(NSIndexPath *)indexPath selected:(BOOL)selected {
-//    return TEXTURE_DARK_LINEN;
-//}
+- (UIColor *)rowBackgroundColorForIndexPath:(NSIndexPath *)indexPath selected:(BOOL)selected {
+    return TEXTURE_DARK_WOVEN;
+}
 
 #pragma mark - View
 
@@ -88,22 +93,39 @@
     
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = nil;
-    self.tableView.width-= 40.0;
-    
-    UIButton *b = [UIButton buttonWithFrame:CGRectMake(0, 0, self.tableView.width, 44.0) andStyle:@"darkButton" target:self action:@selector(newList)];
-//    [b setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
-    [b setTitle:@"+ New List" forState:UIControlStateNormal];
-    self.tableView.tableHeaderView = b;
 }
 
 - (void)setupHeader {
     [super setupHeader];
     
+    [PSStyleSheet applyStyle:@"navigationTitleLightLabel" forButton:self.centerButton];
+    [self.centerButton setTitle:self.title forState:UIControlStateNormal];
+    [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
+    self.centerButton.userInteractionEnabled = NO;
 }
 
 - (void)setupFooter {
     [super setupFooter];
 
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.footerView.width, 44.0)];
+    v.autoresizingMask = self.footerView.autoresizingMask;
+    v.backgroundColor = TEXTURE_ALUMINUM;
+    [v addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(savedChecklists)]];
+    
+    UIImageView *d = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrowGray"]];
+    d.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    d.contentMode = UIViewContentModeCenter;
+    d.height = v.height;
+    d.left = v.width - d.width - 8.0;
+    [v addSubview:d];
+    
+    UILabel *l = [UILabel labelWithText:@"Reusable Checklists" style:@"h2DarkLabel"];
+    l.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+    l.frame = CGRectInset(v.bounds, 8, 4);
+    l.width -= d.width - 16.0;
+    [v addSubview:l];
+    
+    [self.footerView addSubview:v];
 }
 
 #pragma mark - Actions
@@ -117,15 +139,10 @@
 - (void)rightAction {
 }
 
-- (void)newList {
-    NewListViewController *vc = [[NewListViewController alloc] initWithNibName:nil bundle:nil];
+- (void)savedChecklists {
+    MenuListViewController *vc = [[MenuListViewController alloc] initWithNibName:nil bundle:nil];
     
-    [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
-        CGRect frame = self.slidingViewController.topViewController.view.frame;
-        self.slidingViewController.topViewController = vc;
-        self.slidingViewController.topViewController.view.frame = frame;
-        [self.slidingViewController resetTopView];
-    }];
+    [self.psNavigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Data Source
@@ -177,18 +194,12 @@
 
 #pragma mark - TableView
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    switch (section) {
-        case 0:
-            return @"Recent Checklists";
-            break;
-        case 1:
-            return @"Saved Checklists";
-            break;
-        default:
-            return nil;
-            break;
-    }
+- (UIView *)accessoryViewAtIndexPath:(NSIndexPath *)indexPath {
+    return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrowGray"]];
+}
+
+- (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
+    return [MenuCell class];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -199,14 +210,6 @@
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }];
     }
-}
-
-- (UITableViewCellSelectionStyle)selectionStyleAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellSelectionStyleBlue;
-}
-
-- (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
-    return [MenuCell class];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -226,7 +229,7 @@
     
     ListViewController *vc = [[ListViewController alloc] initWithListId:[item objectForKey:@"_id"]];
     
-    [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
+    [self.slidingViewController anchorTopViewTo:ECRight animations:nil onComplete:^{
         CGRect frame = self.slidingViewController.topViewController.view.frame;
         self.slidingViewController.topViewController = vc;
         vc.slidingViewController.topViewController.view.frame = frame;

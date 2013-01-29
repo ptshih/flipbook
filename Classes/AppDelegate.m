@@ -78,7 +78,11 @@
 
 - (void)setupViewControllers {
     ECSlidingViewController *svc = [[ECSlidingViewController alloc] initWithNibName:nil bundle:nil];
+//    svc.shouldAllowPanningPastAnchor = NO;
     [svc setAnchorRightRevealAmount:280.0f];
+    [svc setAnchorLeftRevealAmount:280.0f];
+    [svc setUnderLeftWidthLayout:ECFixedRevealWidth];
+    [svc setUnderRightWidthLayout:ECFixedRevealWidth];
     
     // Root view controller
     UIViewController *rvc = nil;
@@ -251,9 +255,11 @@
     [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Canned Tuna", @"status" : @"doing"}]
     ];
     
-    [[PSDB sharedDatabase] saveDocument:[NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Grocery List", @"items" : items1}] forKey:[NSString stringWithFormat:@"%0.f", [[NSDate date] millisecondsSince1970]] inCollection:@"lists" completionBlock:^(NSDictionary *document) {
-        [self setupViewControllers];
+    [[PSDB sharedDatabase] saveDocument:[NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Grocery List", @"timestamp": [[NSNumber numberWithDouble:[[NSDate date] millisecondsSince1970]] stringValue], @"items" : items1}] forKey:[NSString stringWithFormat:@"%0.f", [[NSDate date] millisecondsSince1970]] inCollection:@"lists" completionBlock:^(NSDictionary *document) {
+        
     }];
+    
+    [self setupViewControllers];
     
     return YES;
 }

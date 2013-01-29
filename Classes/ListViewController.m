@@ -13,7 +13,9 @@
 @interface ListViewController ()
 
 @property (nonatomic, strong) NSString *listId;
-@property (nonatomic, copy) NSMutableDictionary *listDict;
+@property (nonatomic, strong) NSMutableDictionary *listDict;
+
+@property (nonatomic, strong) UILabel *dateLabel;
 
 @end
 
@@ -28,14 +30,14 @@
         self.listDict = [NSMutableDictionary dictionary];
         
         self.shouldShowHeader = YES;
-        self.shouldShowFooter = NO;
+        self.shouldShowFooter = YES;
         //        self.shouldPullRefresh = YES;
         //        self.shouldPullLoadMore = YES;
-        self.shouldShowNullView = YES;
+        self.shouldShowNullView = NO;
         self.pullRefreshStyle = PSPullRefreshStyleBlack;
         
         self.headerHeight = 44.0;
-        self.footerHeight = 0.0;
+        self.footerHeight = 24.0;
         
         self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleSingleLine;
     }
@@ -60,18 +62,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIViewController *vc = [[UIViewController alloc] init];
+    self.slidingViewController.underRightViewController = vc;
+    
+    // SlidingViewController
+    [self.headerView addGestureRecognizer:self.slidingViewController.panGesture];
+    self.view.layer.shadowOpacity = 0.75;
+    self.view.layer.shadowRadius = 10.0;
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    
     // Load
     [self loadDataSource];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    // SlidingViewController
-    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
-    self.view.layer.shadowOpacity = 0.75;
-    self.view.layer.shadowRadius = 10.0;
-    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -105,10 +110,13 @@
 - (void)setupFooter {
     [super setupFooter];
     
-//    UIButton *b = [UIButton buttonWithFrame:CGRectInset(self.footerView.bounds, 8, 6) andStyle:@"lightButton" target:self action:nil];
-//    [b setBackgroundImage:[[UIImage imageNamed:@"ButtonWhite"] stretchableImageWithLeftCapWidth:5 topCapHeight:15] forState:UIControlStateNormal];
-//    [b setTitle:@"I'm Done" forState:UIControlStateNormal];
-//    [self.footerView addSubview:b];
+    UILabel *l = [UILabel labelWithText:nil style:@"h6LightLabel"];
+    l.textAlignment = UITextAlignmentCenter;
+    l.backgroundColor = [UIColor clearColor];
+    l.autoresizingMask = self.footerView.autoresizingMask;
+    l.frame = CGRectInset(self.footerView.bounds, 8, 2);
+    self.dateLabel = l;
+    [self.footerView addSubview:l];
 }
 
 #pragma mark - Actions
@@ -122,6 +130,7 @@
 }
 
 - (void)rightAction {
+    [self.slidingViewController anchorTopViewTo:ECLeft];
 }
 
 #pragma mark - Data Source
@@ -159,8 +168,15 @@
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     [[PSDB sharedDatabase] findDocumentForKey:self.listId inCollection:@"lists" completionBlock:^(NSMutableDictionary *document) {
         self.listDict = document;
+        
+        // UI
         self.title = [self.listDict objectForKey:@"title"];
         [self.centerButton setTitle:self.title forState:UIControlStateNormal];
+        
+        NSDate *date = [NSDate dateWithMillisecondsSince1970:[[self.listDict objectForKey:@"timestamp"] doubleValue]];
+        NSString *dateText = [date stringWithDateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
+        self.dateLabel.text = [NSString stringWithFormat:@"Last Updated: %@", dateText];
+        
         [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:[self.listDict objectForKey:@"items"]] animated:YES];
         [self dataSourceDidLoad];
     }];

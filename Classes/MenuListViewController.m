@@ -211,7 +211,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSString *keyToDelete = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"_id"];
+        NSString *keyToDelete = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"id"];
         [[PSDB sharedDatabase] deleteDocumentForKey:keyToDelete inCollection:@"templates" completionBlock:^{
             [[self.items objectAtIndex:indexPath.section] removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -234,7 +234,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
-    NewListViewController *vc = [[NewListViewController alloc] initWithTemplateId:[item objectForKey:@"_id"]];
+    NewListViewController *vc = [[NewListViewController alloc] initWithTemplateId:[item objectForKey:@"id"]];
     
     [self.slidingViewController anchorTopViewTo:ECRight animations:nil onComplete:^{
         CGRect frame = self.slidingViewController.topViewController.view.frame;

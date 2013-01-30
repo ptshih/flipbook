@@ -185,7 +185,7 @@
             [(PSNavigationController *)self.slidingViewController.underLeftViewController popToRootViewControllerAnimated:NO];
             
             [[PSDB sharedDatabase] saveDocument:self.templateDict forKey:nil inCollection:@"lists" completionBlock:^(NSMutableDictionary *savedDocument) {
-                ListViewController *vc = [[ListViewController alloc] initWithListId:[savedDocument objectForKey:@"_id"]];
+                ListViewController *vc = [[ListViewController alloc] initWithListId:[savedDocument objectForKey:@"id"]];
                 
                 [self.slidingViewController anchorTopViewTo:ECRight animations:nil onComplete:^{
                     CGRect frame = self.slidingViewController.topViewController.view.frame;

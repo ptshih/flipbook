@@ -51,6 +51,9 @@
             [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"appVersion"];
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"showTutorial"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            // Reset Database
+            [[PSDB sharedDatabase] resetDatabase];
         }
         
         NSLog(@"Current Version: %@, Last Version: %@", currentVersion, lastVersion);
@@ -263,6 +266,8 @@
 //    }];
     
     [self setupViewControllers];
+    
+    [[PSDB sharedDatabase] syncDatabaseWithRemote];
     
     return YES;
 }

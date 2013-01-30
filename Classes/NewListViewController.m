@@ -253,7 +253,6 @@
             self.templateDict = [NSMutableDictionary dictionary];
             [self.templateDict setObject:@"New Checklist" forKey:@"title"];
             [self.templateDict setObject:[NSMutableArray array] forKey:@"items"];
-            [self.templateDict setObject:[[NSNumber numberWithDouble:[[NSDate date] millisecondsSince1970]] stringValue] forKey:@"timestamp"];
         }
         self.title = [self.templateDict objectForKey:@"title"];
         [self.centerButton setTitle:self.title forState:UIControlStateNormal];

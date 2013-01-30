@@ -81,8 +81,8 @@ static CGSize margin() {
     NSString *title = [NSString stringWithFormat:@"%@", [dict objectForKey:@"title"]];
     self.titleLabel.text = title;
     
-    if ([dict objectForKey:@"timestamp"]) {
-        NSDate *date = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"timestamp"] doubleValue]];
+    if ([dict objectForKey:@"modified"]) {
+        NSDate *date = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"modified"] doubleValue]];
         NSString *dateText = [date stringWithDateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
         self.dateLabel.text = dateText;
     }
@@ -98,8 +98,8 @@ static CGSize margin() {
     NSString *title = [dict objectForKey:@"title"];
     height += [PSStyleSheet sizeForText:title width:width style:@"h2LightLabel"].height;
     
-    if ([dict objectForKey:@"timestamp"]) {
-        NSDate *date = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"timestamp"] doubleValue]];
+    if ([dict objectForKey:@"modified"]) {
+        NSDate *date = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"modified"] doubleValue]];
         NSString *dateText = [date stringWithDateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
         height += [PSStyleSheet sizeForText:dateText width:width style:@"h6LightLabel"].height;
     }

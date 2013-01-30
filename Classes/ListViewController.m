@@ -173,7 +173,7 @@
         self.title = [self.listDict objectForKey:@"title"];
         [self.centerButton setTitle:self.title forState:UIControlStateNormal];
         
-        NSDate *date = [NSDate dateWithMillisecondsSince1970:[[self.listDict objectForKey:@"timestamp"] doubleValue]];
+        NSDate *date = [NSDate dateWithMillisecondsSince1970:[[self.listDict objectForKey:@"modified"] doubleValue]];
         NSString *dateText = [date stringWithDateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
         self.dateLabel.text = [NSString stringWithFormat:@"Last Updated: %@", dateText];
         

@@ -281,7 +281,7 @@
 //    [[LocalyticsSession sharedLocalyticsSession] close];
 //    [[LocalyticsSession sharedLocalyticsSession] upload];
     
-    [[PSDB sharedDatabase] syncDatabase];
+    [[PSDB sharedDatabase] syncDatabaseWithRemote];
     
     self.backgroundDate = [NSDate date];
 }
@@ -289,6 +289,8 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
 //    [[LocalyticsSession sharedLocalyticsSession] resume];
 //    [[LocalyticsSession sharedLocalyticsSession] upload];
+    
+    [[PSDB sharedDatabase] syncDatabaseWithRemote];
     
     [Appirater appEnteredForeground:YES];
     

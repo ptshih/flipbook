@@ -1073,7 +1073,7 @@
 		289C362C148EC53300D02BAB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		289C362D148EC53300D02BAB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		289C362E148EC53300D02BAB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		28A392211554DA37002696FD /* Check.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Check.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28A392211554DA37002696FD /* Detour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Detour.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28AD405A16250AE20066F6A5 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
 		28AD405B16250AE20066F6A5 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		28AD405E16250E2E0066F6A5 /* PSNewspaperTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSNewspaperTextView.h; sourceTree = "<group>"; };
@@ -2005,7 +2005,7 @@
 		283818BF14723F1D007E4827 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				28A392211554DA37002696FD /* Check.app */,
+				28A392211554DA37002696FD /* Detour.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2369,9 +2369,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		28A390CE1554DA37002696FD /* Check */ = {
+		28A390CE1554DA37002696FD /* Detour */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 28A3921D1554DA37002696FD /* Build configuration list for PBXNativeTarget "Check" */;
+			buildConfigurationList = 28A3921D1554DA37002696FD /* Build configuration list for PBXNativeTarget "Detour" */;
 			buildPhases = (
 				28A390CF1554DA37002696FD /* ShellScript */,
 				28A390D01554DA37002696FD /* Sources */,
@@ -2382,9 +2382,9 @@
 			);
 			dependencies = (
 			);
-			name = Check;
+			name = Detour;
 			productName = PSKitDemo;
-			productReference = 28A392211554DA37002696FD /* Check.app */;
+			productReference = 28A392211554DA37002696FD /* Detour.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2395,7 +2395,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = 283818B814723F1C007E4827 /* Build configuration list for PBXProject "Check" */;
+			buildConfigurationList = 283818B814723F1C007E4827 /* Build configuration list for PBXProject "Detour" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2407,7 +2407,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				28A390CE1554DA37002696FD /* Check */,
+				28A390CE1554DA37002696FD /* Detour */,
 			);
 		};
 /* End PBXProject section */
@@ -3012,7 +3012,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Check;
+				PRODUCT_NAME = Detour;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -3037,7 +3037,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Check;
+				PRODUCT_NAME = Detour;
 				PROVISIONING_PROFILE = "A26AFCBC-B17C-4DD5-8DD6-93CD37A6BC4D";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -3062,7 +3062,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Check;
+				PRODUCT_NAME = Detour;
 				PROVISIONING_PROFILE = "A26AFCBC-B17C-4DD5-8DD6-93CD37A6BC4D";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -3100,7 +3100,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		283818B814723F1C007E4827 /* Build configuration list for PBXProject "Check" */ = {
+		283818B814723F1C007E4827 /* Build configuration list for PBXProject "Detour" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				283818D414723F1D007E4827 /* Debug */,
@@ -3110,7 +3110,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		28A3921D1554DA37002696FD /* Build configuration list for PBXNativeTarget "Check" */ = {
+		28A3921D1554DA37002696FD /* Build configuration list for PBXNativeTarget "Detour" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				28A3921E1554DA37002696FD /* Debug */,

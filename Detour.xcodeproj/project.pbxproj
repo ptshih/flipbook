@@ -403,6 +403,7 @@
 		28523649164B45E8009C66F5 /* LocalyticsDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 28523643164B45E8009C66F5 /* LocalyticsDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2852364A164B45E8009C66F5 /* LocalyticsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 28523645164B45E8009C66F5 /* LocalyticsSession.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2852364B164B45E8009C66F5 /* LocalyticsUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 28523647164B45E8009C66F5 /* LocalyticsUploader.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		286496B416F54302002113F7 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 286496B316F54302002113F7 /* RootViewController.m */; };
 		287FD2D0166DCF220003F635 /* PSTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2CF166DCF220003F635 /* PSTileView.m */; };
 		287FD2D3166DCFD10003F635 /* PSTileViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2D2166DCFD10003F635 /* PSTileViewCell.m */; };
 		287FD2D6166DD2A90003F635 /* PSTileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2D5166DD2A90003F635 /* PSTileViewController.m */; };
@@ -1018,6 +1019,8 @@
 		28603B6414AD414E00541BB1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		28603B6614AD41ED00541BB1 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		28603B8014AFBD4D00541BB1 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		286496B216F54302002113F7 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		286496B316F54302002113F7 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		2869870814730F7200B40860 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		286988611475CF3500B40860 /* InitialDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InitialDefaults.plist; sourceTree = "<group>"; };
 		287FD2CE166DCF220003F635 /* PSTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTileView.h; sourceTree = "<group>"; };
@@ -2243,6 +2246,8 @@
 			isa = PBXGroup;
 			children = (
 				28945DD716B6506E00354F7A /* NewListViewController.h */,
+				286496B216F54302002113F7 /* RootViewController.h */,
+				286496B316F54302002113F7 /* RootViewController.m */,
 				28945DD816B6506E00354F7A /* NewListViewController.m */,
 				28EA494A163B04BE003C45B6 /* ListViewController.h */,
 				28945DCB16B6115C00354F7A /* ListViewController.m */,
@@ -2917,6 +2922,7 @@
 				28945DD616B6400C00354F7A /* PSDB.m in Sources */,
 				28945DD916B6506E00354F7A /* NewListViewController.m in Sources */,
 				28945DDC16B650C300354F7A /* NewItemCell.m in Sources */,
+				286496B416F54302002113F7 /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -74,8 +74,8 @@
   #define USE_LOCALHOST
 #endif
 
-#define API_LOCALHOST @"http://localhost:5007"
-#define API_REMOTE @"http://gangnam.herokuapp.com"
+#define API_LOCALHOST @"http://localhost:8888"
+#define API_REMOTE @"http://nodemigo.herokuapp.com"
 
 #ifdef USE_LOCALHOST
   #define API_BASE_URL [NSString stringWithFormat:API_LOCALHOST]

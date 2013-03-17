@@ -7,10 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ECSlidingViewController.h"
-#import "WelcomeViewController.h"
-#import "MenuViewController.h"
-
+#import "RootViewController.h"
 
 @interface AppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate>
 
@@ -51,9 +48,6 @@
             [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"appVersion"];
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"showTutorial"];
             [[NSUserDefaults standardUserDefaults] synchronize];
-            
-            // Reset Database
-            [[PSDB sharedDatabase] resetDatabase];
         }
         
         NSLog(@"Current Version: %@, Last Version: %@", currentVersion, lastVersion);
@@ -80,29 +74,9 @@
 
 
 - (void)setupViewControllers {
-    ECSlidingViewController *svc = [[ECSlidingViewController alloc] initWithNibName:nil bundle:nil];
+    RootViewController *rvc = [[RootViewController alloc] initWithNibName:nil bundle:nil];
     
-    // Root view controller
-    UIViewController *rvc = nil;
-    rvc = [[WelcomeViewController alloc] initWithNibName:nil bundle:nil];
-    
-    UIViewController *mvc = nil;
-    mvc = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
-    
-    PSNavigationController *mnvc = [[PSNavigationController alloc] initWithRootViewController:mvc];
-    
-    svc.topViewController = rvc;
-    svc.underLeftViewController = mnvc;
-    
-    self.window.rootViewController = svc;
-    
-    // SVC config
-    [svc setAnchorRightRevealAmount:276.0];
-    [svc setAnchorLeftRevealAmount:276.0];
-    [svc setUnderLeftWidthLayout:ECFixedRevealWidth];
-    [svc setUnderRightWidthLayout:ECFixedRevealWidth];
-    svc.shouldAllowPanningPastAnchor = NO;
-    svc.shouldAddPanGestureRecognizerToTopViewSnapshot = YES;
+    self.window.rootViewController = rvc;
 }
 
 #pragma mark - Application Lifecycle
@@ -117,89 +91,6 @@
     }
     return params;
 }
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if ([[DBSession sharedSession] handleOpenURL:url]) {
-        if ([[DBSession sharedSession] isLinked]) {
-            NSLog(@"App linked successfully!");
-            // At this point you can start making API calls
-        }
-        return YES;
-    } else if ([self igHandleURL:url]) {
-        
-        return YES;
-    } else {
-        return [FBSession.activeSession handleOpenURL:url];
-    }
-}
-
-- (BOOL)igHandleURL:(NSURL *)url {
-    // If the URL's structure doesn't match the structure used for Instagram authorization, abort.
-    NSString *igRedirectUri = @"ig933e9c75ab0c432fbe152fd3d645c4e8://authorize";
-    if (![[url absoluteString] hasPrefix:igRedirectUri]) {
-        return NO;
-    }
-    
-    NSString *query = [url fragment];
-    if (!query) {
-        query = [url query];
-    }
-    
-    NSDictionary *params = [self parseURLParams:query];
-    NSString *accessToken = [params valueForKey:@"access_token"];
-    
-    // If the URL doesn't contain the access token, an error has occurred.
-    if (!accessToken) {
-        //        NSString *error = [params valueForKey:@"error"];
-        
-        NSString *errorReason = [params valueForKey:@"error_reason"];
-        
-        BOOL userDidCancel = [errorReason isEqualToString:@"user_denied"];
-    } else {
-        [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:@"igAccessToken"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    
-    return YES;
-}
-
-
-//- (BOOL)handleURL:(NSURL *)url {
-//    NSLog(@"app handle open URL: %@", url);
-//    
-//    // Intercept for FB deep linking
-//    NSString *scheme = url.scheme;
-//    if ([scheme isEqualToString:@"fb456420417705188live"] || [scheme isEqualToString:@"fb456420417705188beta"] || [scheme isEqualToString:@"fb456420417705188pro"]) {
-//        NSString *fragment = url.fragment;
-//        NSDictionary *params = [self parseURLParams:fragment];
-//        // Check if target URL exists
-//        NSString *targetURLString = [params valueForKey:@"target_url"];
-//        if (targetURLString) {
-//            NSURL *targetURL = [NSURL URLWithString:targetURLString];
-//            NSString *venueId = [targetURL lastPathComponent];
-//            if (venueId) {
-//                // Push venue
-//                [self pushVenueWithId:venueId];
-//                return YES;
-//            } else {
-////                return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
-//            }
-//        } else {
-////            return [[PSFacebookCenter defaultCenter] handleOpenURL:url];
-//        }
-//    } else {
-//        return NO;
-//    }
-//}
-
-//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-//    return [self handleURL:url];
-//}
-//
-//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-//    return [self handleURL:url];
-//}
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 #ifdef RELEASE
@@ -222,7 +113,7 @@
     [self purgeCacheIfNecessary:YES];
     
     // Appirater
-    [Appirater appLaunched:YES];
+//    [Appirater appLaunched:YES];
     
     // AFNetworking
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
@@ -237,7 +128,7 @@
     [PSReachabilityCenter defaultCenter];
     
     // PSLocationCenter set default behavior
-//    [[PSLocationCenter defaultCenter] resumeUpdates]; // start it
+    [[PSLocationCenter defaultCenter] resumeUpdates]; // start it
     
     // Dropbox
 //    DBSession *dbSession = [[DBSession alloc] initWithAppKey:@"b6fbfbwvpvy6xnt" appSecret:@"lju0v49xrosbmcs" root:kDBRootDropbox];
@@ -249,25 +140,8 @@
     self.window.backgroundColor = WINDOW_BG_COLOR;
     [self.window makeKeyAndVisible];
     
-    // PSDB
-//    NSArray *items1 = @[
-//    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Hand Soap", @"status" : @"doing"}],
-//    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Toilet Paper", @"status" : @"doing"}],
-//    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Bananas", @"status" : @"doing"}],
-//    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Beer, Soju", @"status" : @"doing"}],
-//    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Black Beans", @"status" : @"doing"}],
-//    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Quinoa", @"status" : @"doing"}],
-//    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Grilled Chicken Breast", @"status" : @"doing"}],
-//    [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Canned Tuna", @"status" : @"doing"}]
-//    ];
-//    
-//    [[PSDB sharedDatabase] saveDocument:[NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Grocery List", @"timestamp": [[NSNumber numberWithDouble:[[NSDate date] millisecondsSince1970]] stringValue], @"items" : items1}] forKey:[NSString stringWithFormat:@"%0.f", [[NSDate date] millisecondsSince1970]] inCollection:@"lists" completionBlock:^(NSDictionary *document) {
-//        
-//    }];
     
     [self setupViewControllers];
-    
-    [[PSDB sharedDatabase] syncDatabaseWithRemote];
     
     return YES;
 }
@@ -289,10 +163,8 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
 //    [[LocalyticsSession sharedLocalyticsSession] resume];
 //    [[LocalyticsSession sharedLocalyticsSession] upload];
-    
-    [[PSDB sharedDatabase] syncDatabaseWithRemote];
-    
-    [Appirater appEnteredForeground:YES];
+
+//    [Appirater appEnteredForeground:YES];
     
     [self purgeCacheIfNecessary:NO];
 }
@@ -303,7 +175,7 @@
     
     // We need to properly handle activation of the application with regards to Facebook Login
     // (e.g., returning from iOS 6.0 Login Dialog or from fast app switching).
-    [FBSession.activeSession handleDidBecomeActive];
+//    [FBSession.activeSession handleDidBecomeActive];
     
     if (self.shouldReloadInterface) {
         self.shouldReloadInterface = NO;
@@ -312,7 +184,6 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    [[PSDB sharedDatabase] syncDatabase];
 //    [[LocalyticsSession sharedLocalyticsSession] close];
 //    [[LocalyticsSession sharedLocalyticsSession] upload];
 }

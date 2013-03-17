@@ -36,8 +36,21 @@
 }
 
 - (NSString *)subtitle {
-    NSDictionary *location = [self.venueDict objectForKey:@"location"];
-    return [location objectForKey:@"address"] ? [location objectForKey:@"address"] : nil;
+//    NSDictionary *location = [self.venueDict objectForKey:@"location"];
+    
+    NSString *distance, *duration;
+    if ([[self.venueDict objectForKey:@"routes"] count] > 0) {
+        NSDictionary *route = [[self.venueDict objectForKey:@"routes"] lastObject];
+
+        if ([[route objectForKey:@"legs"] count] > 0) {
+            NSDictionary *leg = [[route objectForKey:@"legs"] lastObject];
+            distance = [[leg objectForKey:@"distance"] objectForKey:@"text"];
+            duration = [[leg objectForKey:@"duration"] objectForKey:@"text"];
+        }
+    }
+    NSString *s = [NSString stringWithFormat:@"%@ | %@", distance, duration];
+    return s;
+//    return [location objectForKey:@"address"] ? [location objectForKey:@"address"] : nil;
 }
 
 @end

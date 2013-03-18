@@ -164,7 +164,7 @@
         self.venues = [NSMutableArray array];
         self.venueAnnotations = [NSMutableArray array];
         
-        self.lastDuration = 5;
+        self.lastDuration = 10;
         self.durationDidChange = NO;
         
         self.selectedMode = @"walking";
@@ -284,6 +284,7 @@
     UISlider *durationSlider = [[UISlider alloc] initWithFrame:CGRectInset(self.footerView.bounds, 15, 0)];
     durationSlider.minimumValue = 5.0;
     durationSlider.maximumValue = 20.0;
+    durationSlider.value = self.lastDuration;
     [durationSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [durationSlider addTarget:self action:@selector(sliderDurationChanged:) forControlEvents:UIControlEventTouchUpInside];
     self.durationSlider = durationSlider;
@@ -380,7 +381,7 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     NSString *ll = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
     [parameters setObject:ll forKey:@"ll"];
-    [parameters setObject:@"1" forKey:@"limit"];
+    [parameters setObject:@"10" forKey:@"limit"];
     [parameters setObject:self.selectedMode forKey:@"mode"];
     
     NSString *URLPath = [NSString stringWithFormat:@"%@/venues", API_BASE_URL];

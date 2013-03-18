@@ -1,7 +1,7 @@
 /*
  * Author: Andreas Linde <mail@andreaslinde.de>
  *
- * Copyright (c) 2012 HockeyApp, Bit Stadium GmbH.
+ * Copyright (c) 2012-2013 HockeyApp, Bit Stadium GmbH.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -27,6 +27,8 @@
  */
 
 #import <Foundation/Foundation.h>
+
+@class BITUpdateManager;
 
 /**
  The `BITUpdateManagerDelegate` formal protocol defines methods further configuring
@@ -71,6 +73,9 @@
  If you want to display your own user interface when the expiry date is reached,
  implement this method, present your user interface and return _NO_. In this case
  it is your responsibility to make the app unusable!
+ 
+ Note: This delegate will be invoked on startup and every time the app becomes
+ active again!
  
  When returning _YES_ the default blocking UI will be shown.
  

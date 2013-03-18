@@ -94,7 +94,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 #ifdef RELEASE
-    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"d312b005df71483556a50d2e78fc81b4" liveIdentifier:@"d312b005df71483556a50d2e78fc81b4" delegate:self];
+    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"56ce036b647bb449268355065fe9dbf8" liveIdentifier:@"56ce036b647bb449268355065fe9dbf8" delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
 #endif
     
@@ -154,8 +154,6 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
 //    [[LocalyticsSession sharedLocalyticsSession] close];
 //    [[LocalyticsSession sharedLocalyticsSession] upload];
-    
-    [[PSDB sharedDatabase] syncDatabaseWithRemote];
     
     self.backgroundDate = [NSDate date];
 }

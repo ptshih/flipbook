@@ -224,6 +224,8 @@
     durationView.backgroundColor = [UIColor grayColor];
     self.durationView = durationView;
     [self.contentView addSubview:durationView];
+    
+    [durationView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloadData)]];
 }
 
 - (void)setupFooter {
@@ -243,13 +245,17 @@
     NSLog(@"Slider Value: %f", slider.value);
 }
 
+- (void)reloadData {
+    [self reloadDataSource];
+}
+
 
 #pragma mark - Data Source
 
 - (void)loadDataSource {
     [super loadDataSource];
     
-    [self loadDataSourceFromRemoteUsingCache:YES];
+    [self loadDataSourceFromRemoteUsingCache:NO];
 }
 
 - (void)reloadDataSource {
@@ -287,6 +293,7 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     NSString *ll = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
     [parameters setObject:ll forKey:@"ll"];
+    [parameters setObject:@"10" forKey:@"limit"];
     
     NSString *URLPath = [NSString stringWithFormat:@"%@/venues", API_BASE_URL];
     

@@ -2076,6 +2076,16 @@
 		28433116163FCE0300349014 /* Old */ = {
 			isa = PBXGroup;
 			children = (
+				28945DD716B6506E00354F7A /* NewListViewController.h */,
+				28945DD816B6506E00354F7A /* NewListViewController.m */,
+				28EA494A163B04BE003C45B6 /* ListViewController.h */,
+				28945DCB16B6115C00354F7A /* ListViewController.m */,
+				28945DCD16B6191300354F7A /* WelcomeViewController.h */,
+				28945DCE16B6191300354F7A /* WelcomeViewController.m */,
+				28945DBF16B60F9900354F7A /* MenuViewController.h */,
+				28945DC016B60F9900354F7A /* MenuViewController.m */,
+				28945DC816B610AB00354F7A /* MenuListViewController.h */,
+				28945DC916B610AB00354F7A /* MenuListViewController.m */,
 				28BBECBD167B23570002E4A2 /* GridViewController.h */,
 				28BBECBE167B23570002E4A2 /* GridViewController.m */,
 				28EE5E7816855A9700A2B290 /* FacebookAlbumViewController.h */,
@@ -2245,18 +2255,8 @@
 		28B855DA147CDCC4004F84EA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				28945DD716B6506E00354F7A /* NewListViewController.h */,
 				286496B216F54302002113F7 /* RootViewController.h */,
 				286496B316F54302002113F7 /* RootViewController.m */,
-				28945DD816B6506E00354F7A /* NewListViewController.m */,
-				28EA494A163B04BE003C45B6 /* ListViewController.h */,
-				28945DCB16B6115C00354F7A /* ListViewController.m */,
-				28945DCD16B6191300354F7A /* WelcomeViewController.h */,
-				28945DCE16B6191300354F7A /* WelcomeViewController.m */,
-				28945DBF16B60F9900354F7A /* MenuViewController.h */,
-				28945DC016B60F9900354F7A /* MenuViewController.m */,
-				28945DC816B610AB00354F7A /* MenuListViewController.h */,
-				28945DC916B610AB00354F7A /* MenuListViewController.m */,
 				282FAF0C164C684D0040D3B4 /* Foursquare */,
 				282FAF0D164C68580040D3B4 /* Airbrite */,
 				28433116163FCE0300349014 /* Old */,

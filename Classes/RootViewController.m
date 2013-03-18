@@ -119,14 +119,24 @@
 
 @end
 
-@interface RootViewController () <MKMapViewDelegate>
+@interface RootViewController () <MKMapViewDelegate, UISearchBarDelegate>
 
+// Views
+@property (nonatomic, strong) UIView *modeView;
 @property (nonatomic, strong) UIView *durationView;
+@property (nonatomic, strong) UILabel *durationLabel;
 @property (nonatomic, strong) UISlider *durationSlider;
-
+@property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) MKMapView *mapView;
+
+// Objects
+@property (nonatomic, strong) NSString *selectedMode;
+@property (nonatomic, strong) NSMutableArray *venues;
 @property (nonatomic, strong) NSMutableArray *venueAnnotations;
 
+// Constants
+@property (nonatomic, assign) CGFloat lastDuration;
+@property (nonatomic, assign) BOOL durationDidChange;
 @property (nonatomic, assign) CLLocationCoordinate2D centerCoordinate;
 @property (nonatomic, assign) BOOL hasLoadedOnce;
 
@@ -141,17 +151,23 @@
     if (self) {
         self.title = @"Check";
         
-        self.shouldShowHeader = NO;
+        self.shouldShowHeader = YES;
         self.shouldShowFooter = YES;
         self.shouldShowNullView = NO;
         
-        self.headerHeight = 0.0;
+        self.headerHeight = 44.0;
         self.footerHeight = 49.0;
         
         self.hasLoadedOnce = NO;
         self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] lat], [[PSLocationCenter defaultCenter] lng]);
         
+        self.venues = [NSMutableArray array];
         self.venueAnnotations = [NSMutableArray array];
+        
+        self.lastDuration = 5;
+        self.durationDidChange = NO;
+        
+        self.selectedMode = @"walking";
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidUpdate) name:kPSLocationCenterDidUpdate object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidFail) name:kPSLocationCenterDidFail object:nil];
@@ -220,12 +236,45 @@
     mapView.userTrackingMode = MKUserTrackingModeFollow;
     [self.contentView addSubview:mapView];
     
+    // Mode
+    UIView *modeView = [[UIView alloc] initWithFrame:CGRectMake(self.contentView.width - 32 - 10, self.contentView.height - 32 - 15, 32, 32)];
+    modeView.backgroundColor = [UIColor clearColor];
+    self.modeView = modeView;
+    [self.contentView addSubview:modeView];
+    
+    UIButton *modeButton = [[UIButton alloc] initWithFrame:modeView.bounds];
+    [modeButton setImage:[UIImage imageNamed:@"IconHeartBlack"] forState:UIControlStateNormal];
+    [modeButton addTarget:self action:@selector(selectMode:) forControlEvents:UIControlEventTouchUpInside];
+    [modeView addSubview:modeButton];
+    
+    
+    // Duration
     UIView *durationView = [[UIView alloc] initWithFrame:CGRectMake(10, self.contentView.height - 56 - 15, 56, 56)];
-    durationView.backgroundColor = [UIColor grayColor];
+    durationView.backgroundColor = [UIColor lightGrayColor];
     self.durationView = durationView;
     [self.contentView addSubview:durationView];
+
+    UILabel *durationLabel = [UILabel labelWithStyle:@"titleDarkLabel"];
+    self.durationLabel = durationLabel;
+    durationLabel.frame = CGRectMake(0, 0, durationView.width, durationView.height / 2);
+    durationLabel.textAlignment = UITextAlignmentCenter;
+    [durationView addSubview:durationLabel];
+    self.durationLabel.text = [NSString stringWithFormat:@"%.0f", self.lastDuration];
     
-    [durationView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloadData)]];
+    UILabel *minLabel = [UILabel labelWithText:@"min" style:@"titleDarkLabel"];
+    minLabel.frame = CGRectMake(0, durationView.height / 2, durationView.width, durationView.height / 2);
+    minLabel.textAlignment = UITextAlignmentCenter;
+    [durationView addSubview:minLabel];
+}
+
+- (void)setupHeader {
+    [super setupHeader];
+    self.headerView.backgroundColor = [UIColor colorWithRGBHex:0xebe7e4];
+    
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:self.headerView.bounds];
+    searchBar.delegate = self;
+    searchBar.placeholder = @"Looking for something specific?";
+    [self.headerView addSubview:searchBar];
 }
 
 - (void)setupFooter {
@@ -236,19 +285,55 @@
     durationSlider.minimumValue = 5.0;
     durationSlider.maximumValue = 20.0;
     [durationSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [durationSlider addTarget:self action:@selector(sliderDurationChanged:) forControlEvents:UIControlEventTouchUpInside];
     self.durationSlider = durationSlider;
     
     [self.footerView addSubview:durationSlider];
 }
 
+- (void)sliderDurationChanged:(UISlider *)slider {
+    if (self.durationDidChange) {
+        self.durationDidChange = NO;
+        [self loadVenues];
+    }
+}
+
 - (void)sliderValueChanged:(UISlider *)slider {
-    NSLog(@"Slider Value: %f", slider.value);
+    // Round the slider values to integers
+    CGFloat val = roundf(slider.value);
+    
+    // Snap the slider to the integer value
+    slider.value = val;
+    
+    // If the value has actually changed, do something
+    if (val != self.lastDuration) {
+        self.durationDidChange = YES;
+        self.lastDuration = val;
+        NSLog(@"Slider Value: %f", val);
+        self.durationLabel.text = [NSString stringWithFormat:@"%.0f", self.lastDuration];
+    }
 }
 
-- (void)reloadData {
-    [self reloadDataSource];
+- (void)selectMode:(UIButton *)button {
+    [UIActionSheet actionSheetWithTitle:@"Mode of Transit?" message:nil buttons:@[@"Walking", @"Driving", @"Bicyling"] showInView:self.view onDismiss:^(int buttonIndex, NSString *textInput) {
+        switch (buttonIndex) {
+            case 0:
+                self.selectedMode = @"walking";
+                break;
+            case 1:
+                self.selectedMode = @"driving";
+                break;
+            case 2:
+                self.selectedMode = @"bicyling";
+                break;
+            default:
+                return;
+                break;
+        }
+        [self reloadDataSource];
+    } onCancel:^{
+    }];
 }
-
 
 #pragma mark - Data Source
 
@@ -272,6 +357,8 @@
 
 - (void)dataSourceDidLoad {
     [super dataSourceDidLoad];
+    
+    [self loadVenues];
 }
 
 - (void)dataSourceDidLoadMore {
@@ -293,7 +380,8 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     NSString *ll = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
     [parameters setObject:ll forKey:@"ll"];
-    [parameters setObject:@"10" forKey:@"limit"];
+    [parameters setObject:@"1" forKey:@"limit"];
+    [parameters setObject:self.selectedMode forKey:@"mode"];
     
     NSString *URLPath = [NSString stringWithFormat:@"%@/venues", API_BASE_URL];
     
@@ -315,14 +403,9 @@
 
                 // List of Venues
                 NSArray *venues = [apiResponse objectForKey:@"venues"];
+                [self.venues removeAllObjects];
+                [self.venues addObjectsFromArray:venues];
                 
-                [self.mapView removeAnnotations:self.venueAnnotations];
-                [self.venueAnnotations removeAllObjects];
-                for (NSDictionary *venue in venues) {
-                    VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:venue];
-                    [self.mapView addAnnotation:annotation];
-                    [self.venueAnnotations addObject:annotation];
-                }
                 [self dataSourceDidLoad];
                 
             } else {
@@ -330,6 +413,74 @@
             }
         }
     }];
+}
+
+/**
+ This method drops the pins on the map based on criteria
+ It takes into account duration threshold and search filter
+ */
+- (void)loadVenues {
+    // Clear map
+    [self.mapView removeAnnotations:self.venueAnnotations];
+    [self.venueAnnotations removeAllObjects];
+    
+    // Load venues that match current criteria
+    for (NSDictionary *venue in self.venues) {
+        NSDictionary *route = [[venue objectForKey:@"routes"] lastObject];
+        
+        // Get duration in seconds
+        NSNumber *durationNumber = [[[[route objectForKey:@"legs"] lastObject] objectForKey:@"duration"] objectForKey:@"value"];
+        CGFloat duration = [durationNumber floatValue]; // in seconds
+        CGFloat lastDuration = self.lastDuration * 60; // in seconds
+        if (duration > lastDuration) {
+            continue;
+        }
+        
+        // Apply a text match based on what is in the search bar
+        // Use NSPredicate
+        
+        VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:venue];
+        [self.mapView addAnnotation:annotation];
+        [self.venueAnnotations addObject:annotation];
+    }
+    
+    // Fit map to pins
+    MKMapPoint annotationPoint = MKMapPointForCoordinate(self.mapView.userLocation.coordinate);
+    MKMapRect zoomRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+    for (id <MKAnnotation> annotation in self.mapView.annotations) {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+        pointRect = MKMapRectInset(pointRect, -1000, -1000); // outset the map a bit
+        zoomRect = MKMapRectUnion(zoomRect, pointRect);
+    }
+    // If no results and only user location, zoom to fit
+//    if (self.venueAnnotations.count > 0) {
+        [self.mapView setVisibleMapRect:zoomRect animated:YES];
+//    } else {
+//        MKMapPoint annotationPoint = MKMapPointForCoordinate([[self.mapView.annotations firstObject] coordinate]);
+//        annotati/onPoint = MKMap
+//    }
+}
+
+#pragma mark - UISearchBarDelegate
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    [searchBar setShowsCancelButton:YES animated:YES];
+    return YES;
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
+    [searchBar setShowsCancelButton:NO animated:YES];
+    return YES;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+    [self loadVenues];
 }
 
 #pragma mark - MKMapViewDelegate
@@ -346,6 +497,7 @@
         v = [[VenueAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
         v.canShowCallout = YES;
         v.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        v.animatesDrop = YES;
     }
     
     return v;
@@ -380,8 +532,10 @@
     VenueAnnotation *venueAnnotation = view.annotation;
     
     NSDictionary *route = [[venueAnnotation.venueDict objectForKey:@"routes"] lastObject];
-    MKPolyline *polyline = [MKPolyline polylineWithEncodedString:[[route objectForKey:@"overview_polyline"] objectForKey:@"points"]];
-    [self.mapView addOverlay:polyline];
+    if (route) {
+        MKPolyline *polyline = [MKPolyline polylineWithEncodedString:[[route objectForKey:@"overview_polyline"] objectForKey:@"points"]];
+        [self.mapView addOverlay:polyline];
+    }
 }
 
 @end

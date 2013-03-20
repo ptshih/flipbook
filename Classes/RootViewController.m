@@ -132,7 +132,6 @@
 // Objects
 @property (nonatomic, strong) NSOperationQueue *routeQueue;
 @property (nonatomic, strong) NSString *selectedMode;
-@property (nonatomic, strong) NSMutableSet *reusableVenues;
 @property (nonatomic, strong) NSMutableArray *venues;
 @property (nonatomic, strong) NSMutableArray *venueAnnotations;
 
@@ -163,7 +162,6 @@
         self.hasLoadedOnce = NO;
         self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] lat], [[PSLocationCenter defaultCenter] lng]);
 
-        self.reusableVenues = [NSMutableSet set];
         self.venues = [NSMutableArray array];
         self.venueAnnotations = [NSMutableArray array];
         
@@ -301,7 +299,7 @@
 - (void)sliderDurationChanged:(UISlider *)slider {
     if (self.durationDidChange) {
         self.durationDidChange = NO;
-        [self loadVenues];
+        [self reloadDataSource];
     }
 }
 
@@ -410,21 +408,24 @@
                 // Suggested Radius
 
                 // List of Venues
-                [self.reusableVenues addObjectsFromArray:self.venues];
                 [self.venues removeAllObjects];
                 NSArray *venues = [apiResponse objectForKey:@"venues"];
                 for (NSDictionary *venue in venues) {
-                    NSString *venueId = [venue objectForKey:@"id"];
-
-                    NSSet *o = [self.reusableVenues objectsPassingTest:^(NSDictionary *obj, BOOL *stop){
-                        NSString *existingId = [obj objectForKey:@"id"];
-                        return [venueId isEqualToString:existingId];
-                    }];
-                    
-                    if (o.count == 0) {
-                        [self.reusableVenues addObject:[NSMutableDictionary dictionaryWithDictionary:venue]];
-                    }
+                    [self.venues addObject:[NSMutableDictionary dictionaryWithDictionary:venue]];
                 }
+                
+//                for (NSDictionary *venue in venues) {
+//                    NSString *venueId = [venue objectForKey:@"id"];
+//
+//                    NSSet *o = [self.reusableVenues objectsPassingTest:^(NSDictionary *obj, BOOL *stop){
+//                        NSString *existingId = [obj objectForKey:@"id"];
+//                        return [venueId isEqualToString:existingId];
+//                    }];
+//                    
+//                    if (o.count == 0) {
+//                        [self.reusableVenues addObject:[NSMutableDictionary dictionaryWithDictionary:venue]];
+//                    }
+//                }
                 
                 [self dataSourceDidLoad];
                 
@@ -447,31 +448,29 @@
     NSString *origin = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
     
     // Filter venues
-    [self.reusableVenues addObjectsFromArray:self.venues];
-    [self.venues removeAllObjects];
     
-    for (NSMutableDictionary *venue in self.reusableVenues) {
-        NSDictionary *location = [venue objectForKey:@"location"];
-        CGFloat distance = [[location objectForKey:@"distance"] floatValue];
-        
-        // Calculate average travel speed and radius for search
-        // Walking = 3mi/hr or 0.05mi/min or 80m/min
-        // Driving = 30mi/hr or 0.5mi/min or 800m/min
-        // Bicycling = 12mi/hr or 0.2mi/min or 320m/min
-        
-        CGFloat radius = 0.0;
-        if ([self.selectedMode isEqualToString:@"walking"]) {
-            radius = 80 * self.lastDuration;
-        } else if ([self.selectedMode isEqualToString:@"bicycling"]) {
-            radius = 300 * self.lastDuration;
-        } else {
-            radius = 600 * self.lastDuration;
-        }
-        
-        if (distance <= radius) {
-            [self.venues addObject:venue];
-        }
-    }
+//    for (NSMutableDictionary *venue in self.reusableVenues) {
+//        NSDictionary *location = [venue objectForKey:@"location"];
+//        CGFloat distance = [[location objectForKey:@"distance"] floatValue];
+//        
+//        // Calculate average travel speed and radius for search
+//        // Walking = 3mi/hr or 0.05mi/min or 80m/min
+//        // Driving = 30mi/hr or 0.5mi/min or 800m/min
+//        // Bicycling = 12mi/hr or 0.2mi/min or 320m/min
+//        
+//        CGFloat radius = 0.0;
+//        if ([self.selectedMode isEqualToString:@"walking"]) {
+//            radius = 80 * self.lastDuration;
+//        } else if ([self.selectedMode isEqualToString:@"bicycling"]) {
+//            radius = 300 * self.lastDuration;
+//        } else {
+//            radius = 600 * self.lastDuration;
+//        }
+//        
+//        if (distance <= radius) {
+//            [self.venues addObject:venue];
+//        }
+//    }
     
     
     // Load venues that match current criteria
@@ -479,16 +478,23 @@
         
         // If venue already has route, reuse it
         if ([venue objectForKey:@"route"]) {
-            [self.routeQueue addOperationWithBlock:^{
-                ASSERT_NOT_MAIN_THREAD;
-                
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    ASSERT_MAIN_THREAD;
-                    VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:venue];
-                    [self.mapView addAnnotation:annotation];
-                    [self.venueAnnotations addObject:annotation];
+            NSDictionary *route = [venue objectForKey:@"route"];
+            NSNumber *durationNumber = [[[[route objectForKey:@"legs"] lastObject] objectForKey:@"duration"] objectForKey:@"value"];
+            CGFloat duration = [durationNumber floatValue]; // in seconds
+            CGFloat lastDuration = self.lastDuration * 60; // in seconds
+            
+            if (duration <= lastDuration) {
+                [self.routeQueue addOperationWithBlock:^{
+                    ASSERT_NOT_MAIN_THREAD;
+                    
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        ASSERT_MAIN_THREAD;
+                        VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:venue];
+                        [self.mapView addAnnotation:annotation];
+                        [self.venueAnnotations addObject:annotation];
+                    }];
                 }];
-            }];
+            }
         } else {
             // Get route from google
             NSDictionary *location = [venue objectForKey:@"location"];
@@ -528,9 +534,16 @@
                         if ([status isEqualToString:@"OK"]) {
                             NSDictionary *route = [[apiResponse objectForKey:@"routes"] firstObject];
                             [venue setObject:route forKey:@"route"];
-                            VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:venue];
-                            [self.mapView addAnnotation:annotation];
-                            [self.venueAnnotations addObject:annotation];
+                            
+                            NSNumber *durationNumber = [[[[route objectForKey:@"legs"] lastObject] objectForKey:@"duration"] objectForKey:@"value"];
+                            CGFloat duration = [durationNumber floatValue]; // in seconds
+                            CGFloat lastDuration = self.lastDuration * 60; // in seconds
+                            
+                            if (duration <= lastDuration) {
+                                VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:venue];
+                                [self.mapView addAnnotation:annotation];
+                                [self.venueAnnotations addObject:annotation];
+                            }
                         }
                     }
 

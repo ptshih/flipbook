@@ -441,10 +441,16 @@
  It takes into account duration threshold and search filter
  */
 - (void)loadVenues {
-    // Clear map
+    // Clear map and zoom out to approximate radius
+    // TODO: zoom the map out to a radius calculated based on duration and mode selected
     [self.mapView removeAnnotations:self.venueAnnotations];
     [self.venueAnnotations removeAllObjects];
     
+//    MKMapPoint annotationPoint = MKMapPointForCoordinate(self.centerCoordinate);
+//    MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+//    pointRect = MKMapRectInset(pointRect, -1000, -1000); // outset the map a bit
+//    [self.mapView setVisibleMapRect:pointRect animated:YES];
+
     NSString *origin = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
     
     // Filter venues
@@ -637,7 +643,6 @@
         v = [[VenueAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
         v.canShowCallout = YES;
         v.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        v.animatesDrop = YES;
     }
     
     return v;
@@ -675,6 +680,18 @@
     if (route) {
         MKPolyline *polyline = [MKPolyline polylineWithEncodedString:[[route objectForKey:@"overview_polyline"] objectForKey:@"points"]];
         [self.mapView addOverlay:polyline];
+    }
+}
+
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)annotationViews {
+    for (MKAnnotationView *annView in annotationViews) {
+        if ([annView.annotation isKindOfClass:[MKUserLocation class]]) {
+            return;
+        }
+        
+        CGRect endFrame = annView.frame;
+        annView.frame = CGRectOffset(endFrame, 0, -500);
+        [UIView animateWithDuration:0.5 animations:^{ annView.frame = endFrame; }];
     }
 }
 

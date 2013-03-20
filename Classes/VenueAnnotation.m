@@ -39,8 +39,8 @@
 //    NSDictionary *location = [self.venueDict objectForKey:@"location"];
     
     NSString *distance, *duration;
-    if ([[self.venueDict objectForKey:@"routes"] count] > 0) {
-        NSDictionary *route = [[self.venueDict objectForKey:@"routes"] lastObject];
+    if ([self.venueDict objectForKey:@"route"]) {
+        NSDictionary *route = [self.venueDict objectForKey:@"route"];
 
         if ([[route objectForKey:@"legs"] count] > 0) {
             NSDictionary *leg = [[route objectForKey:@"legs"] lastObject];

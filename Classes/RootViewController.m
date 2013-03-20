@@ -130,7 +130,9 @@
 @property (nonatomic, strong) MKMapView *mapView;
 
 // Objects
+@property (nonatomic, strong) NSOperationQueue *routeQueue;
 @property (nonatomic, strong) NSString *selectedMode;
+@property (nonatomic, strong) NSMutableSet *reusableVenues;
 @property (nonatomic, strong) NSMutableArray *venues;
 @property (nonatomic, strong) NSMutableArray *venueAnnotations;
 
@@ -160,9 +162,13 @@
         
         self.hasLoadedOnce = NO;
         self.centerCoordinate = CLLocationCoordinate2DMake([[PSLocationCenter defaultCenter] lat], [[PSLocationCenter defaultCenter] lng]);
-        
+
+        self.reusableVenues = [NSMutableSet set];
         self.venues = [NSMutableArray array];
         self.venueAnnotations = [NSMutableArray array];
+        
+        self.routeQueue = [[NSOperationQueue alloc] init];
+        self.routeQueue.maxConcurrentOperationCount = 1;
         
         self.lastDuration = 10;
         self.durationDidChange = NO;
@@ -383,6 +389,7 @@
     [parameters setObject:ll forKey:@"ll"];
     [parameters setObject:@"10" forKey:@"limit"];
     [parameters setObject:self.selectedMode forKey:@"mode"];
+    [parameters setObject:[[NSNumber numberWithFloat:self.lastDuration] stringValue] forKey:@"duration"];
     
     NSString *URLPath = [NSString stringWithFormat:@"%@/venues", API_BASE_URL];
     
@@ -403,9 +410,21 @@
                 // Suggested Radius
 
                 // List of Venues
-                NSArray *venues = [apiResponse objectForKey:@"venues"];
+                [self.reusableVenues addObjectsFromArray:self.venues];
                 [self.venues removeAllObjects];
-                [self.venues addObjectsFromArray:venues];
+                NSArray *venues = [apiResponse objectForKey:@"venues"];
+                for (NSDictionary *venue in venues) {
+                    NSString *venueId = [venue objectForKey:@"id"];
+
+                    NSSet *o = [self.reusableVenues objectsPassingTest:^(NSDictionary *obj, BOOL *stop){
+                        NSString *existingId = [obj objectForKey:@"id"];
+                        return [venueId isEqualToString:existingId];
+                    }];
+                    
+                    if (o.count == 0) {
+                        [self.reusableVenues addObject:[NSMutableDictionary dictionaryWithDictionary:venue]];
+                    }
+                }
                 
                 [self dataSourceDidLoad];
                 
@@ -425,26 +444,139 @@
     [self.mapView removeAnnotations:self.venueAnnotations];
     [self.venueAnnotations removeAllObjects];
     
-    // Load venues that match current criteria
-    for (NSDictionary *venue in self.venues) {
-        NSDictionary *route = [[venue objectForKey:@"routes"] lastObject];
+    NSString *origin = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
+    
+    // Filter venues
+    [self.reusableVenues addObjectsFromArray:self.venues];
+    [self.venues removeAllObjects];
+    
+    for (NSMutableDictionary *venue in self.reusableVenues) {
+        NSDictionary *location = [venue objectForKey:@"location"];
+        CGFloat distance = [[location objectForKey:@"distance"] floatValue];
         
-        // Get duration in seconds
-        NSNumber *durationNumber = [[[[route objectForKey:@"legs"] lastObject] objectForKey:@"duration"] objectForKey:@"value"];
-        CGFloat duration = [durationNumber floatValue]; // in seconds
-        CGFloat lastDuration = self.lastDuration * 60; // in seconds
-        if (duration > lastDuration) {
-            continue;
+        // Calculate average travel speed and radius for search
+        // Walking = 3mi/hr or 0.05mi/min or 80m/min
+        // Driving = 30mi/hr or 0.5mi/min or 800m/min
+        // Bicycling = 12mi/hr or 0.2mi/min or 320m/min
+        
+        CGFloat radius = 0.0;
+        if ([self.selectedMode isEqualToString:@"walking"]) {
+            radius = 80 * self.lastDuration;
+        } else if ([self.selectedMode isEqualToString:@"bicycling"]) {
+            radius = 300 * self.lastDuration;
+        } else {
+            radius = 600 * self.lastDuration;
         }
         
-        // Apply a text match based on what is in the search bar
-        // Use NSPredicate
-        
-        VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:venue];
-        [self.mapView addAnnotation:annotation];
-        [self.venueAnnotations addObject:annotation];
+        if (distance <= radius) {
+            [self.venues addObject:venue];
+        }
     }
     
+    
+    // Load venues that match current criteria
+    for (NSMutableDictionary *venue in self.venues) {
+        
+        // If venue already has route, reuse it
+        if ([venue objectForKey:@"route"]) {
+            [self.routeQueue addOperationWithBlock:^{
+                ASSERT_NOT_MAIN_THREAD;
+                
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    ASSERT_MAIN_THREAD;
+                    VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:venue];
+                    [self.mapView addAnnotation:annotation];
+                    [self.venueAnnotations addObject:annotation];
+                }];
+            }];
+        } else {
+            // Get route from google
+            NSDictionary *location = [venue objectForKey:@"location"];
+            CLLocationDegrees lat = [[location objectForKey:@"lat"] floatValue];
+            CLLocationDegrees lng = [[location objectForKey:@"lng"] floatValue];
+            NSString *destination = [NSString stringWithFormat:@"%f,%f", lat, lng];
+            
+            [self.routeQueue addOperationWithBlock:^{
+                ASSERT_NOT_MAIN_THREAD;
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidStartNotification object:nil];
+                
+                NSURL *URL = [NSURL URLWithString:@"https://maps.googleapis.com/maps/api/directions/json"];
+                NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                [params setObject:@"true" forKey:@"sensor"];
+                [params setObject:@"false" forKey:@"alternatives"];
+                [params setObject:origin forKey:@"origin"];
+                [params setObject:destination forKey:@"destination"];
+                [params setObject:self.selectedMode forKey:@"mode"];
+                
+                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:params];
+                
+                
+                NSError *error = nil;
+                NSHTTPURLResponse *response = nil;
+                NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+                
+                id apiResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    ASSERT_MAIN_THREAD;
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:AFNetworkingOperationDidFinishNotification object:nil];
+                    
+                    if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
+                        NSString *status = [apiResponse objectForKey:@"status"];
+                        if ([status isEqualToString:@"OK"]) {
+                            NSDictionary *route = [[apiResponse objectForKey:@"routes"] firstObject];
+                            [venue setObject:route forKey:@"route"];
+                            VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:venue];
+                            [self.mapView addAnnotation:annotation];
+                            [self.venueAnnotations addObject:annotation];
+                        }
+                    }
+
+                }];
+            }];
+        }
+    }
+    
+    [self.routeQueue addOperationWithBlock:^{
+        ASSERT_NOT_MAIN_THREAD;
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            ASSERT_MAIN_THREAD;
+            [self fitMapToPins];
+        }];
+    }];
+    
+//        NSDictionary *route = [[venue objectForKey:@"routes"] lastObject];
+//        
+//        // Get duration in seconds
+//        NSNumber *durationNumber = [[[[route objectForKey:@"legs"] lastObject] objectForKey:@"duration"] objectForKey:@"value"];
+//        CGFloat duration = [durationNumber floatValue]; // in seconds
+//        CGFloat lastDuration = self.lastDuration * 60; // in seconds
+//        if (duration > lastDuration) {
+//            continue;
+//        }
+//        
+//        // Apply a text match based on what is in the search bar
+//        // Use NSPredicate
+//        
+//        VenueAnnotation *annotation = [VenueAnnotation venueAnnotationWithDictionary:venue];
+//        [self.mapView addAnnotation:annotation];
+//        [self.venueAnnotations addObject:annotation];
+
+    
+
+    // If no results and only user location, zoom to fit
+//    if (self.venueAnnotations.count > 0) {
+
+//    } else {
+//        MKMapPoint annotationPoint = MKMapPointForCoordinate([[self.mapView.annotations firstObject] coordinate]);
+//        annotati/onPoint = MKMap
+//    }
+}
+
+- (void)fitMapToPins {
     // Fit map to pins
     MKMapPoint annotationPoint = MKMapPointForCoordinate(self.mapView.userLocation.coordinate);
     MKMapRect zoomRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
@@ -454,13 +586,7 @@
         pointRect = MKMapRectInset(pointRect, -1000, -1000); // outset the map a bit
         zoomRect = MKMapRectUnion(zoomRect, pointRect);
     }
-    // If no results and only user location, zoom to fit
-//    if (self.venueAnnotations.count > 0) {
-        [self.mapView setVisibleMapRect:zoomRect animated:YES];
-//    } else {
-//        MKMapPoint annotationPoint = MKMapPointForCoordinate([[self.mapView.annotations firstObject] coordinate]);
-//        annotati/onPoint = MKMap
-//    }
+    [self.mapView setVisibleMapRect:zoomRect animated:YES];
 }
 
 #pragma mark - UISearchBarDelegate
@@ -532,7 +658,7 @@
 
     VenueAnnotation *venueAnnotation = view.annotation;
     
-    NSDictionary *route = [[venueAnnotation.venueDict objectForKey:@"routes"] lastObject];
+    NSDictionary *route = [venueAnnotation.venueDict objectForKey:@"route"];
     if (route) {
         MKPolyline *polyline = [MKPolyline polylineWithEncodedString:[[route objectForKey:@"overview_polyline"] objectForKey:@"points"]];
         [self.mapView addOverlay:polyline];

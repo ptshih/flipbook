@@ -382,6 +382,17 @@
         self.hasLoadedOnce = YES;
     }
     
+    CGFloat radius = 0.0;
+    if ([self.selectedMode isEqualToString:@"walking"]) {
+        radius = 60 * self.lastDuration;
+    } else if ([self.selectedMode isEqualToString:@"bicycling"]) {
+        radius = 250 * self.lastDuration;
+    } else {
+        radius = 650 * self.lastDuration;
+    }
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.centerCoordinate, radius, radius);
+    [self.mapView setRegion:region animated:YES];
+    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     NSString *ll = [NSString stringWithFormat:@"%g,%g", self.centerCoordinate.latitude, self.centerCoordinate.longitude];
     [parameters setObject:ll forKey:@"ll"];

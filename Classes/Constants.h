@@ -102,6 +102,5 @@
 #import "AFNetworking.h"
 #import "Appirater.h"
 #import "PSLocationCenter.h"
-#import "TTTAttributedLabel.h"
 #import "LocalyticsSession.h"
 #import "PSDB.h"

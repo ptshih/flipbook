@@ -1,6 +1,6 @@
 //
 //  RootViewController.h
-//  Detour
+//  Celery
 //
 //  Created by Peter Shih on 3/16/13.
 //

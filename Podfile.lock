@@ -1,0 +1,33 @@
+PODS:
+  - AFNetworking (1.2.0)
+  - FormatterKit (1.1.1):
+    - FormatterKit/AddressFormatter
+    - FormatterKit/ArrayFormatter
+    - FormatterKit/LocationFormatter
+    - FormatterKit/OrdinalNumberFormatter
+    - FormatterKit/TimeIntervalFormatter
+    - FormatterKit/UnitOfInformationFormatter
+    - FormatterKit/URLRequestFormatter
+  - FormatterKit/AddressFormatter (1.1.1)
+  - FormatterKit/ArrayFormatter (1.1.1)
+  - FormatterKit/LocationFormatter (1.1.1)
+  - FormatterKit/OrdinalNumberFormatter (1.1.1)
+  - FormatterKit/TimeIntervalFormatter (1.1.1)
+  - FormatterKit/UnitOfInformationFormatter (1.1.1)
+  - FormatterKit/URLRequestFormatter (1.1.1)
+  - Reachability (3.1.0)
+  - SVProgressHUD (0.9)
+
+DEPENDENCIES:
+  - AFNetworking (~> 1.2.0)
+  - FormatterKit (~> 1.1.1)
+  - Reachability (~> 3.1.0)
+  - SVProgressHUD (~> 0.9)
+
+SPEC CHECKSUMS:
+  AFNetworking: 3cbae45f61a9f995cdbd56bd571223910d7f4e44
+  FormatterKit: b644b98d4495bdf11fc70f8f80867df5864eaf70
+  Reachability: ba94ecd4eaa037be3d0588b38956672588530c5b
+  SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
+
+COCOAPODS: 0.18.1

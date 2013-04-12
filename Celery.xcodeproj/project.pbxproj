@@ -384,7 +384,6 @@
 		28523649164B45E8009C66F5 /* LocalyticsDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 28523643164B45E8009C66F5 /* LocalyticsDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2852364A164B45E8009C66F5 /* LocalyticsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 28523645164B45E8009C66F5 /* LocalyticsSession.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2852364B164B45E8009C66F5 /* LocalyticsUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 28523647164B45E8009C66F5 /* LocalyticsUploader.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		286496B416F54302002113F7 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 286496B316F54302002113F7 /* RootViewController.m */; };
 		287FD2D0166DCF220003F635 /* PSTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2CF166DCF220003F635 /* PSTileView.m */; };
 		287FD2D3166DCFD10003F635 /* PSTileViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2D2166DCFD10003F635 /* PSTileViewCell.m */; };
 		287FD2D6166DD2A90003F635 /* PSTileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2D5166DD2A90003F635 /* PSTileViewController.m */; };
@@ -466,6 +465,9 @@
 		28BBECB9167B208C0002E4A2 /* PSGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBECB8167B208C0002E4A2 /* PSGridView.m */; };
 		28BBECBC167B20A80002E4A2 /* PSGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBECBB167B20A80002E4A2 /* PSGridViewCell.m */; };
 		28BBECBF167B23570002E4A2 /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BBECBE167B23570002E4A2 /* GridViewController.m */; };
+		28C4C8D717189AE800B9971E /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C4C8D617189AE800B9971E /* DashboardViewController.m */; };
+		28C4C8DD1718A20900B9971E /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C4C8DC1718A20900B9971E /* ProductsViewController.m */; };
+		28C4C8E11718A46600B9971E /* ProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C4C8E01718A46600B9971E /* ProductCollectionViewCell.m */; };
 		28EA49411639FC2A003C45B6 /* PSStyleSheet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28EA49401639FC2A003C45B6 /* PSStyleSheet.plist */; };
 		28EA494F163B0ED4003C45B6 /* SliceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28EA494E163B0ED4003C45B6 /* SliceCell.m */; };
 		28EE5E741685177800A2B290 /* InstagramPickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28EE5E731685177800A2B290 /* InstagramPickerViewCell.m */; };
@@ -949,8 +951,6 @@
 		28603B6414AD414E00541BB1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		28603B6614AD41ED00541BB1 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		28603B8014AFBD4D00541BB1 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		286496B216F54302002113F7 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		286496B316F54302002113F7 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		2869870814730F7200B40860 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		286988611475CF3500B40860 /* InitialDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InitialDefaults.plist; sourceTree = "<group>"; };
 		287FD2CE166DCF220003F635 /* PSTileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTileView.h; sourceTree = "<group>"; };
@@ -1034,6 +1034,12 @@
 		28BBECBB167B20A80002E4A2 /* PSGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSGridViewCell.m; sourceTree = "<group>"; };
 		28BBECBD167B23570002E4A2 /* GridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
 		28BBECBE167B23570002E4A2 /* GridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
+		28C4C8D517189AE800B9971E /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
+		28C4C8D617189AE800B9971E /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
+		28C4C8DB1718A20900B9971E /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
+		28C4C8DC1718A20900B9971E /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
+		28C4C8DF1718A46600B9971E /* ProductCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCollectionViewCell.h; sourceTree = "<group>"; };
+		28C4C8E01718A46600B9971E /* ProductCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCollectionViewCell.m; sourceTree = "<group>"; };
 		28EA49401639FC2A003C45B6 /* PSStyleSheet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PSStyleSheet.plist; sourceTree = SOURCE_ROOT; };
 		28EA494A163B04BE003C45B6 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		28EA494D163B0ED4003C45B6 /* SliceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliceCell.h; sourceTree = "<group>"; };
@@ -1874,10 +1880,6 @@
 				28945DD816B6506E00354F7A /* NewListViewController.m */,
 				28EA494A163B04BE003C45B6 /* ListViewController.h */,
 				28945DCB16B6115C00354F7A /* ListViewController.m */,
-				28945DCD16B6191300354F7A /* WelcomeViewController.h */,
-				28945DCE16B6191300354F7A /* WelcomeViewController.m */,
-				28945DBF16B60F9900354F7A /* MenuViewController.h */,
-				28945DC016B60F9900354F7A /* MenuViewController.m */,
 				28945DC816B610AB00354F7A /* MenuListViewController.h */,
 				28945DC916B610AB00354F7A /* MenuListViewController.m */,
 				28BBECBD167B23570002E4A2 /* GridViewController.h */,
@@ -1914,6 +1916,8 @@
 		2843311E1640800600349014 /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				28C4C8DF1718A46600B9971E /* ProductCollectionViewCell.h */,
+				28C4C8E01718A46600B9971E /* ProductCollectionViewCell.m */,
 				282FAF15164C69B00040D3B4 /* Foursquare */,
 				282FAF16164C69B60040D3B4 /* Airbrite */,
 				28BAEDB016847B35002E1B7C /* ImagePickerCollectionViewCell.h */,
@@ -1929,16 +1933,11 @@
 		2843314E1641BE4900349014 /* TableCells */ = {
 			isa = PBXGroup;
 			children = (
-				28945DAD16B5FEA600354F7A /* ItemCell.h */,
-				28945DAE16B5FEA600354F7A /* ItemCell.m */,
-				28945DDA16B650C300354F7A /* NewItemCell.h */,
-				28945DDB16B650C300354F7A /* NewItemCell.m */,
-				28945DC216B6101F00354F7A /* ListCell.h */,
-				28945DC316B6101F00354F7A /* ListCell.m */,
 				28945DC516B6102A00354F7A /* MenuCell.h */,
 				28945DC616B6102A00354F7A /* MenuCell.m */,
 				28984FD817177AB00071D29B /* OrderCell.h */,
 				28984FD917177AB00071D29B /* OrderCell.m */,
+				28C4C8DE1718A44900B9971E /* Old */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -2023,8 +2022,14 @@
 		28B855DA147CDCC4004F84EA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				286496B216F54302002113F7 /* RootViewController.h */,
-				286496B316F54302002113F7 /* RootViewController.m */,
+				28945DBF16B60F9900354F7A /* MenuViewController.h */,
+				28945DC016B60F9900354F7A /* MenuViewController.m */,
+				28945DCD16B6191300354F7A /* WelcomeViewController.h */,
+				28945DCE16B6191300354F7A /* WelcomeViewController.m */,
+				28C4C8DB1718A20900B9971E /* ProductsViewController.h */,
+				28C4C8DC1718A20900B9971E /* ProductsViewController.m */,
+				28C4C8D517189AE800B9971E /* DashboardViewController.h */,
+				28C4C8D617189AE800B9971E /* DashboardViewController.m */,
 				28984FD2171777280071D29B /* OrdersViewController.h */,
 				28984FD3171777280071D29B /* OrdersViewController.m */,
 				28984FD5171777BC0071D29B /* OrderViewController.h */,
@@ -2053,12 +2058,25 @@
 			path = PSGridView;
 			sourceTree = "<group>";
 		};
+		28C4C8DE1718A44900B9971E /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				28945DAD16B5FEA600354F7A /* ItemCell.h */,
+				28945DAE16B5FEA600354F7A /* ItemCell.m */,
+				28945DDA16B650C300354F7A /* NewItemCell.h */,
+				28945DDB16B650C300354F7A /* NewItemCell.m */,
+				28945DC216B6101F00354F7A /* ListCell.h */,
+				28945DC316B6101F00354F7A /* ListCell.m */,
+			);
+			name = Old;
+			sourceTree = "<group>";
+		};
 		28E94A80147DA19C002E8343 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				2843314E1641BE4900349014 /* TableCells */,
-				287FD2DD166DE35F0003F635 /* TileViewCells */,
 				2843311E1640800600349014 /* CollectionViewCells */,
+				287FD2DD166DE35F0003F635 /* TileViewCells */,
 				28433117163FCE3800349014 /* Old */,
 			);
 			name = Views;
@@ -2656,11 +2674,13 @@
 				28945DD616B6400C00354F7A /* PSDB.m in Sources */,
 				28945DD916B6506E00354F7A /* NewListViewController.m in Sources */,
 				28945DDC16B650C300354F7A /* NewItemCell.m in Sources */,
-				286496B416F54302002113F7 /* RootViewController.m in Sources */,
 				28984FD4171777280071D29B /* OrdersViewController.m in Sources */,
 				28984FD7171777BC0071D29B /* OrderViewController.m in Sources */,
 				28984FDA17177AB00071D29B /* OrderCell.m in Sources */,
 				28AE5B071717944000B8601B /* UserManager.m in Sources */,
+				28C4C8D717189AE800B9971E /* DashboardViewController.m in Sources */,
+				28C4C8DD1718A20900B9971E /* ProductsViewController.m in Sources */,
+				28C4C8E11718A46600B9971E /* ProductCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

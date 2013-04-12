@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "MenuViewController.h"
 #import "WelcomeViewController.h"
-#import "OrdersViewController.h"
+#import "DashboardViewController.h"
 
 @interface AppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate>
 
@@ -85,14 +85,14 @@
     if ([[UserManager sharedManager] accessToken] && [[UserManager sharedManager] secret]) {
         ECSlidingViewController *svc = [[ECSlidingViewController alloc] initWithNibName:nil bundle:nil];
         MenuViewController *mvc = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
-        OrdersViewController *tvc = [[OrdersViewController alloc] initWithNibName:nil bundle:nil];
+        DashboardViewController *tvc = [[DashboardViewController alloc] initWithNibName:nil bundle:nil];
         
         svc.topViewController = [[PSNavigationController alloc] initWithRootViewController:tvc];
         svc.underLeftViewController = mvc;
         
         // SVC config
-        [svc setAnchorRightRevealAmount:276.0];
-        [svc setAnchorLeftRevealAmount:276.0];
+        [svc setAnchorRightRevealAmount:80.0];
+        [svc setAnchorLeftRevealAmount:80.0];
         [svc setUnderLeftWidthLayout:ECFixedRevealWidth];
         [svc setUnderRightWidthLayout:ECFixedRevealWidth];
         svc.shouldAllowPanningPastAnchor = NO;

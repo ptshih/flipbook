@@ -882,44 +882,6 @@
 		<key>numberOfLines</key>
 		<integer>0</integer>
 	</dict>
-	<key>h4LightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>18</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h4DarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>18</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
 	<key>h4CondLightLabel</key>
 	<dict>
 		<key>fontName</key>
@@ -957,44 +919,6 @@
 		<string>wordWrap</string>
 		<key>shadowColor</key>
 		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h5LightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h5DarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
 		<key>shadowOffset</key>
 		<string>{0, 0}</string>
 		<key>numberOfLines</key>
@@ -1075,44 +999,6 @@
 		<string>wordWrap</string>
 		<key>shadowColor</key>
 		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h6LightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h6DarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
 		<key>shadowOffset</key>
 		<string>{0, 0}</string>
 		<key>numberOfLines</key>
@@ -1534,6 +1420,158 @@
 		<string>{0, 0}</string>
 		<key>numberOfLines</key>
 		<integer>1</integer>
+	</dict>
+	<key>h4LightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>ProximaNova-Semibold</string>
+		<key>fontSize</key>
+		<integer>18</integer>
+		<key>textColor</key>
+		<string>0xefefef</string>
+		<key>highlightedTextColor</key>
+		<string>0xefefef</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h4DarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>ProximaNova-Semibold</string>
+		<key>fontSize</key>
+		<integer>18</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h5LightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>ProximaNova-Semibold</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0xefefef</string>
+		<key>highlightedTextColor</key>
+		<string>0xefefef</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h5DarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>ProximaNova-Semibold</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h6LightLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>ProximaNova-Semibold</string>
+		<key>fontSize</key>
+		<integer>14</integer>
+		<key>textColor</key>
+		<string>0xefefef</string>
+		<key>highlightedTextColor</key>
+		<string>0xefefef</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>h6DarkLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>ProximaNova-Semibold</string>
+		<key>fontSize</key>
+		<integer>14</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>menuTitleLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>ProximaNova-Regular</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0xefefef</string>
+		<key>highlightedTextColor</key>
+		<string>0xefefef</string>
+		<key>textAlignment</key>
+		<string>center</string>
+		<key>shadowColor</key>
+		<string>0x000000</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>1</integer>
+	</dict>
+	<key>productTaglineLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>ProximaNova-Regular</string>
+		<key>fontSize</key>
+		<integer>14</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0x999999</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
 	</dict>
 </dict>
 </plist>

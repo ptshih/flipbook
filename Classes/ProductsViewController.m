@@ -1,51 +1,45 @@
 //
-//  OrdersViewController.m
+//  ProductsViewController.m
 //  Celery
 //
-//  Created by Peter Shih on 4/11/13.
+//  Created by Peter Shih on 4/12/13.
 //
 //
 
-#import "OrdersViewController.h"
-#import "OrderViewController.h"
-#import "OrderCell.h"
+#import "ProductsViewController.h"
+#import "ProductCollectionViewCell.h"
 
-@interface OrdersViewController ()
+@interface ProductsViewController ()
 
 @end
 
-@implementation OrdersViewController
+@implementation ProductsViewController
 
+#pragma mark - Init
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self) {        
         self.shouldShowHeader = YES;
         self.shouldShowFooter = NO;
         self.shouldShowNullView = YES;
         self.shouldPullRefresh = YES;
         
         self.headerHeight = 44.0;
-        self.footerHeight = 0.0;
-        
-        self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        self.separatorColor = RGBACOLOR(0, 0, 0, 0.2);
-        
-        self.title = @"Orders";
+
+        self.title = @"Products";
     }
     return self;
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
 
 #pragma mark - View Config
 
 - (UIColor *)baseBackgroundColor {
-    return TEXTURE_LIGHT_SKETCH;
-}
-
-- (UIColor *)rowBackgroundColorForIndexPath:(NSIndexPath *)indexPath selected:(BOOL)selected {
     return TEXTURE_LIGHT_SKETCH;
 }
 
@@ -71,17 +65,20 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    [self reloadDataSource];
 }
 
 #pragma mark - Config Subviews
 
 - (void)setupSubviews {
     [super setupSubviews];
-    
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.backgroundView = nil;
+ 
+    if (isDeviceIPad()) {
+        self.collectionView.numColsPortrait = 3;
+        self.collectionView.numColsLandscape = 4;
+    } else {
+        self.collectionView.numColsPortrait = 2;
+        self.collectionView.numColsLandscape = 3;
+    }
 }
 
 - (void)setupHeader {
@@ -119,7 +116,7 @@
 - (void)loadDataSource {
     [super loadDataSource];
     
-    [self loadDataSourceFromRemoteUsingCache:YES];
+    [self loadDataSourceFromRemoteUsingCache:NO];
 }
 
 - (void)reloadDataSource {
@@ -156,7 +153,7 @@
     NSMutableDictionary *headers = [NSMutableDictionary dictionary];
     [headers setObject:authValue forKey:@"Authorization"];
     
-    NSString *URLPath = [NSString stringWithFormat:@"%@/orders", API_BASE_URL];
+    NSString *URLPath = [NSString stringWithFormat:@"%@/products", API_BASE_URL];
     
     NSURL *URL = [NSURL URLWithString:URLPath];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:headers parameters:parameters];
@@ -172,8 +169,8 @@
             id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
             
             if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
-                NSArray *orders = [apiResponse objectForKey:@"orders"];
-                [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:orders] animated:YES];
+                NSArray *products = [apiResponse objectForKey:@"products"];
+                self.items = [NSMutableArray arrayWithArray:products];
                 [self dataSourceDidLoad];
             } else {
                 [self dataSourceDidError];
@@ -182,41 +179,37 @@
     }];
 }
 
-#pragma mark - TableView
+#pragma mark - PSCollectionViewDelegate
 
-- (UIView *)accessoryViewAtIndexPath:(NSIndexPath *)indexPath {
-    return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrowGray"]];
+- (Class)collectionView:(PSCollectionView *)collectionView cellClassForRowAtIndex:(NSInteger)index {
+    return [ProductCollectionViewCell class];
 }
 
-- (UITableViewCellSelectionStyle)selectionStyleAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellSelectionStyleGray;
-}
-
-- (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
-    return [OrderCell class];
-}
-
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    Class cellClass = [self cellClassAtIndexPath:indexPath];
-    return [cellClass rowHeightForObject:item atIndexPath:indexPath forInterfaceOrientation:self.interfaceOrientation];
-}
-
-- (void)tableView:(UITableView *)tableView configureCell:(id)cell atIndexPath:(NSIndexPath *)indexPath {
-    id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    [cell tableView:tableView fillCellWithObject:item atIndexPath:indexPath];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+- (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView cellForRowAtIndex:(NSInteger)index {
+    NSDictionary *item = [self.items objectAtIndex:index];
     
-    OrderViewController *vc = [[OrderViewController alloc] initWithDictionary:item];
-    [self.psNavigationController pushViewController:vc animated:YES];
+    Class cellClass = [self collectionView:collectionView cellClassForRowAtIndex:index];
+    
+    id cell = [self.collectionView dequeueReusableViewForClass:[cellClass class]];
+    if (!cell) {
+        cell = [[cellClass alloc] initWithFrame:CGRectZero];
+    }
+    
+    [cell collectionView:collectionView fillCellWithObject:item atIndex:index];
+    
+    return cell;
 }
+
+- (CGFloat)collectionView:(PSCollectionView *)collectionView heightForRowAtIndex:(NSInteger)index {
+    Class cellClass = [self collectionView:collectionView cellClassForRowAtIndex:index];
+    
+    NSDictionary *item = [self.items objectAtIndex:index];
+    
+    return [cellClass rowHeightForObject:item inColumnWidth:collectionView.colWidth];
+}
+
+- (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index {
+}
+
 
 @end

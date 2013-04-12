@@ -7,9 +7,12 @@
 //
 
 #import "MenuViewController.h"
-#import "RootViewController.h"
-#import "OrdersViewController.h"
 #import "MenuCell.h"
+
+#import "DashboardViewController.h"
+#import "OrdersViewController.h"
+#import "ProductsViewController.h"
+
 
 @interface MenuViewController ()
 
@@ -59,7 +62,7 @@
 }
 
 - (UIColor *)rowBackgroundColorForIndexPath:(NSIndexPath *)indexPath selected:(BOOL)selected {
-    return TEXTURE_DARK_WOVEN;
+    return TEXTURE_DARK_LINEN;
 }
 
 #pragma mark - View
@@ -110,49 +113,30 @@
 - (void)loadDataSource {
     [super loadDataSource];
     
-    [self loadDataSourceFromRemoteUsingCache:YES];
-}
+    NSMutableArray *sections = [NSMutableArray array];
+    NSMutableArray *items = [NSMutableArray array];
 
-- (void)reloadDataSource {
-    [super reloadDataSource];
+    [items addObject:@{@"title": @"Dashboard", @"icon": @"IconSmileyWhite"}];
+    [items addObject:@{@"title": @"Orders", @"icon": @"IconCartWhite"}];
+    [items addObject:@{@"title": @"Products", @"icon": @"IconHeartWhite"}];
     
-    [self loadDataSourceFromRemoteUsingCache:NO];
-}
-
-- (void)loadMoreDataSource {
-    [super loadMoreDataSource];
-    
-    [self loadDataSourceFromRemoteUsingCache:NO];
+    [sections addObject:items];
+    [self dataSourceShouldLoadObjects:sections animated:NO];
+    [self dataSourceDidLoad];
 }
 
 - (void)dataSourceDidLoad {
     [super dataSourceDidLoad];
 }
 
-- (void)dataSourceDidLoadMore {
-    [super dataSourceDidLoadMore];
-}
-
 - (void)dataSourceDidError {
     [super dataSourceDidError];
 }
 
-- (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    
-}
-
 #pragma mark - TableView
-
-- (UIView *)accessoryViewAtIndexPath:(NSIndexPath *)indexPath {
-    return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrowGray"]];
-}
 
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
     return [MenuCell class];
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -168,7 +152,30 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+//    id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    
+    id vc = nil;
+    switch (indexPath.row) {
+        case 0:
+            vc = [[DashboardViewController alloc] initWithNibName:nil bundle:nil];
+            break;
+        case 1:
+            vc = [[OrdersViewController alloc] initWithNibName:nil bundle:nil];
+            break;
+        case 2:
+            vc = [[ProductsViewController alloc] initWithNibName:nil bundle:nil];
+            break;
+        default:
+            return;
+            break;
+    }
+    
+    [self.slidingViewController anchorTopViewTo:ECRight animations:nil onComplete:^{
+        CGRect frame = self.slidingViewController.topViewController.view.frame;
+        self.slidingViewController.topViewController = vc;
+        [[vc slidingViewController] topViewController].view.frame = frame;
+        [[vc slidingViewController] resetTopView];
+    }];
 }
 
 

@@ -1,35 +1,25 @@
 //
-//  RootViewController.m
+//  DashboardViewController.m
 //  Celery
 //
-//  Created by Peter Shih on 3/16/13.
+//  Created by Peter Shih on 4/12/13.
 //
 //
 
-#import "RootViewController.h"
+#import "DashboardViewController.h"
 
-
-@interface RootViewController ()
-
-// Views
-
-
-// Objects
-
-
-// Constants
-
+@interface DashboardViewController ()
 
 @end
 
-@implementation RootViewController
+@implementation DashboardViewController
 
 #pragma mark - Init
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Orders";
+        self.title = @"Dashboard";
         
         self.shouldShowHeader = YES;
         self.shouldShowFooter = NO;
@@ -48,7 +38,7 @@
 #pragma mark - View Config
 
 - (UIColor *)baseBackgroundColor {
-    return TEXTURE_DARK_LINEN;
+    return TEXTURE_LIGHT_SKETCH;
 }
 
 #pragma mark - View
@@ -84,7 +74,7 @@
 
 - (void)setupHeader {
     [super setupHeader];
-
+    
     [self.leftButton setImage:[UIImage imageNamed:@"IconMenuWhite"] forState:UIControlStateNormal];
     [self.leftButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonLeftBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     
@@ -147,30 +137,6 @@
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     return;
     
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    
-    NSString *URLPath = [NSString stringWithFormat:@"%@/venues", API_BASE_URL];
-    
-    NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:nil parameters:parameters];
-    
-    
-    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
-        ASSERT_MAIN_THREAD;
-        if (error) {
-            [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
-            [self dataSourceDidError];
-        } else {
-            // Parse apiResponse
-            id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
-            
-            if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
-                [self dataSourceDidLoad];
-            } else {
-                [self dataSourceDidError];
-            }
-        }
-    }];
 }
 
 @end

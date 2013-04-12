@@ -7,7 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "MenuViewController.h"
 #import "RootViewController.h"
+#import "OrdersViewController.h"
 
 @interface AppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate>
 
@@ -74,9 +76,25 @@
 
 
 - (void)setupViewControllers {
-    RootViewController *rvc = [[RootViewController alloc] initWithNibName:nil bundle:nil];
+    ECSlidingViewController *svc = [[ECSlidingViewController alloc] initWithNibName:nil bundle:nil];
+
+    MenuViewController *mvc = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
+//    RootViewController *tvc = [[RootViewController alloc] initWithNibName:nil bundle:nil];
+    OrdersViewController *tvc = [[OrdersViewController alloc] initWithNibName:nil bundle:nil];
+
     
-    self.window.rootViewController = rvc;
+    svc.topViewController = [[PSNavigationController alloc] initWithRootViewController:tvc];
+    svc.underLeftViewController = mvc;
+    
+    self.window.rootViewController = svc;
+    
+    // SVC config
+    [svc setAnchorRightRevealAmount:276.0];
+    [svc setAnchorLeftRevealAmount:276.0];
+    [svc setUnderLeftWidthLayout:ECFixedRevealWidth];
+    [svc setUnderRightWidthLayout:ECFixedRevealWidth];
+    svc.shouldAllowPanningPastAnchor = NO;
+    svc.shouldAddPanGestureRecognizerToTopViewSnapshot = YES;
 }
 
 #pragma mark - Application Lifecycle
@@ -94,13 +112,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 #ifdef RELEASE
-    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"56ce036b647bb449268355065fe9dbf8" liveIdentifier:@"56ce036b647bb449268355065fe9dbf8" delegate:self];
+    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"d3b6ecaff7e9c679047cf07fe8482241" liveIdentifier:@"d3b6ecaff7e9c679047cf07fe8482241" delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
 #endif
     
 //    NSLog(@"Fonts: %@", [UIFont familyNames]);
-//    NSLog(@"Proxima Nova: %@", [UIFont fontNamesForFamilyName:@"Proxima Nova"]);
-//    NSLog(@"Proxima Nova: %@", [UIFont fontNamesForFamilyName:@"Proxima Nova Condensed"]);
+    NSLog(@"Proxima Nova: %@", [UIFont fontNamesForFamilyName:@"Proxima Nova"]);
+    NSLog(@"Proxima Nova: %@", [UIFont fontNamesForFamilyName:@"Proxima Nova Condensed"]);
     
     // Set application stylesheet
     [PSStyleSheet setStyleSheet:@"PSStyleSheet"];

@@ -110,7 +110,7 @@
 }
 
 - (void)rightAction {
-    [UIAlertView alertViewWithTitle:@"Thanks" message:@"Made with love in SF."];
+
 }
 
 #pragma mark - Data Source

@@ -1,35 +1,37 @@
 //
-//  RootViewController.m
+//  OrderViewController.m
 //  Celery
 //
-//  Created by Peter Shih on 3/16/13.
+//  Created by Peter Shih on 4/11/13.
 //
 //
 
-#import "RootViewController.h"
+#import "OrderViewController.h"
 
+@interface OrderViewController ()
 
-@interface RootViewController ()
-
-// Views
-
-
-// Objects
-
-
-// Constants
-
+@property (nonatomic, copy) NSDictionary *orderDict;
 
 @end
 
-@implementation RootViewController
+@implementation OrderViewController
 
 #pragma mark - Init
+
+- (id)initWithDictionary:(NSDictionary *)dictionary {
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        self.orderDict = dictionary;
+        
+        self.title = [NSString stringWithFormat:@"%@", [self.orderDict objectForKey:@"id"]];
+    }
+    return self;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Orders";
+        self.title = @"Order";
         
         self.shouldShowHeader = YES;
         self.shouldShowFooter = NO;
@@ -84,8 +86,8 @@
 
 - (void)setupHeader {
     [super setupHeader];
-
-    [self.leftButton setImage:[UIImage imageNamed:@"IconMenuWhite"] forState:UIControlStateNormal];
+    
+    [self.leftButton setImage:[UIImage imageNamed:@"IconBackWhite"] forState:UIControlStateNormal];
     [self.leftButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonLeftBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     
     [PSStyleSheet applyStyle:@"navigationTitleLightLabel" forButton:self.centerButton];
@@ -103,7 +105,7 @@
 #pragma mark - Actions
 
 - (void)leftAction {
-    [self.slidingViewController anchorTopViewTo:ECRight];
+    [self.psNavigationController popViewControllerAnimated:YES];
 }
 
 - (void)centerAction {

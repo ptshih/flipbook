@@ -190,13 +190,6 @@
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
 //    NSArray *documents = [[PSDB sharedDatabase] documentsForCollection:@"templates"];
-    
-    [[PSDB sharedDatabase] findDocumentsInCollection:@"templates" completionBlock:^(NSMutableArray *documents) {
-        NSMutableArray *sections = [NSMutableArray array];
-        [sections addObject:documents];
-        [self dataSourceShouldLoadObjects:sections animated:NO];
-        [self dataSourceDidLoad];
-    }];
 }
 
 #pragma mark - TableView
@@ -210,13 +203,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSString *keyToDelete = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"id"];
-        [[PSDB sharedDatabase] deleteDocumentForKey:keyToDelete inCollection:@"templates" completionBlock:^{
-            [[self.items objectAtIndex:indexPath.section] removeObjectAtIndex:indexPath.row];
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        }];
-    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -170,43 +170,14 @@
 }
 
 - (void)centerAction {
-    [UIAlertView alertViewWithTitle:@"Name Your Checklist" style:UIAlertViewStylePlainTextInput message:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] onDismiss:^(int buttonIndex, NSString *textInput) {
-        self.title = textInput;
-        [self.centerButton setTitle:self.title forState:UIControlStateNormal];
-        [self.templateDict setObject:self.title forKey:@"title"];
-    } onCancel:NULL];
 }
 
 - (void)rightAction {
-    [self saveWithCompletionBlock:^(BOOL didSave) {
-        [self.tf resignFirstResponder];
-        
-        if (didSave) {
-            [(PSNavigationController *)self.slidingViewController.underLeftViewController popToRootViewControllerAnimated:NO];
-            
-            [[PSDB sharedDatabase] saveDocument:self.templateDict forKey:nil inCollection:@"lists" completionBlock:^(NSMutableDictionary *savedDocument) {
-                ListViewController *vc = [[ListViewController alloc] initWithListId:[savedDocument objectForKey:@"id"]];
-                
-                [self.slidingViewController anchorTopViewTo:ECRight animations:nil onComplete:^{
-                    CGRect frame = self.slidingViewController.topViewController.view.frame;
-                    self.slidingViewController.topViewController = vc;
-                    vc.slidingViewController.topViewController.view.frame = frame;
-                    [vc.slidingViewController resetTopView];
-                }];
-            }];
-        }
-    }];
+
 }
 
 - (void)saveWithCompletionBlock:(void (^)(BOOL didSave))completionBlock {
-    // Save
-    if ([[self.templateDict objectForKey:@"items"] count] > 0) {
-        [[PSDB sharedDatabase] saveDocument:self.templateDict forKey:self.templateId inCollection:@"templates" completionBlock:^(NSDictionary *document) {
-            completionBlock(YES);
-        }];
-    } else {
-        completionBlock(NO);
-    }
+
 }
 
 - (void)cellModifiedWithText:(NSString *)text {
@@ -246,19 +217,7 @@
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    [[PSDB sharedDatabase] findOneDocumentForKey:self.templateId inCollection:@"templates" completionBlock:^(NSMutableDictionary *document) {
-        if (document) {
-            self.templateDict = document;
-        } else {
-            self.templateDict = [NSMutableDictionary dictionary];
-            [self.templateDict setObject:@"New Checklist" forKey:@"title"];
-            [self.templateDict setObject:[NSMutableArray array] forKey:@"items"];
-        }
-        self.title = [self.templateDict objectForKey:@"title"];
-        [self.centerButton setTitle:self.title forState:UIControlStateNormal];
-        [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:[self.templateDict objectForKey:@"items"]] animated:YES];
-        [self dataSourceDidLoad];
-    }];
+
 }
 
 #pragma mark - TableView

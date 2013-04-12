@@ -1,45 +1,37 @@
 //
-//  ListViewController.m
-//  Grid
+//  OrdersViewController.m
+//  Celery
 //
-//  Created by Peter Shih on 10/26/12.
+//  Created by Peter Shih on 4/11/13.
 //
 //
 
-#import "ListViewController.h"
-#import "ECSlidingViewController.h"
-#import "ItemCell.h"
+#import "OrdersViewController.h"
+#import "OrderViewController.h"
+#import "OrderCell.h"
 
-@interface ListViewController ()
-
-@property (nonatomic, strong) NSString *listId;
-@property (nonatomic, strong) NSMutableDictionary *listDict;
-
-@property (nonatomic, strong) UILabel *dateLabel;
+@interface OrdersViewController ()
 
 @end
 
-@implementation ListViewController
+@implementation OrdersViewController
 
-#pragma mark - Init
 
-- (id)initWithListId:(NSString *)listId {
-    self = [super initWithNibName:nil bundle:nil];
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.listId = listId;
-        self.listDict = [NSMutableDictionary dictionary];
-        
         self.shouldShowHeader = YES;
-        self.shouldShowFooter = YES;
-        //        self.shouldPullRefresh = YES;
-        //        self.shouldPullLoadMore = YES;
-        self.shouldShowNullView = NO;
-        self.pullRefreshStyle = PSPullRefreshStyleBlack;
+        self.shouldShowFooter = NO;
+        self.shouldShowNullView = YES;
+        self.shouldPullRefresh = YES;
         
         self.headerHeight = 44.0;
-        self.footerHeight = 24.0;
+        self.footerHeight = 0.0;
         
         self.tableViewCellSeparatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.separatorColor = RGBACOLOR(0, 0, 0, 0.2);
+        
+        self.title = @"Orders";
     }
     return self;
 }
@@ -50,11 +42,11 @@
 #pragma mark - View Config
 
 - (UIColor *)baseBackgroundColor {
-    return TEXTURE_DARK_LINEN;
+    return TEXTURE_LIGHT_SKETCH;
 }
 
 - (UIColor *)rowBackgroundColorForIndexPath:(NSIndexPath *)indexPath selected:(BOOL)selected {
-    return [UIColor whiteColor];
+    return TEXTURE_LIGHT_SKETCH;
 }
 
 #pragma mark - View
@@ -62,33 +54,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // SlidingViewController
-    UIViewController *vc = [[UIViewController alloc] init];
-    self.slidingViewController.underRightViewController = vc;
-    
-    [self.headerView addGestureRecognizer:self.slidingViewController.panGesture];
-    self.view.layer.shadowOpacity = 0.75;
-    self.view.layer.shadowRadius = 10.0;
-    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
-    
     // Load
     [self loadDataSource];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [[LocalyticsSession sharedLocalyticsSession] tagScreen:NSStringFromClass([self class])];
+    [self reloadDataSource];
 }
 
 #pragma mark - Config Subviews
 
 - (void)setupSubviews {
     [super setupSubviews];
+    
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundView = nil;
 }
 
 - (void)setupHeader {
@@ -100,37 +82,25 @@
     [PSStyleSheet applyStyle:@"navigationTitleLightLabel" forButton:self.centerButton];
     [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    self.centerButton.userInteractionEnabled = NO;
     
-    [self.rightButton setImage:[UIImage imageNamed:@"IconShareWhite"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconPlusWhite"] forState:UIControlStateNormal];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
-    self.rightButton.userInteractionEnabled = YES;
 }
 
 - (void)setupFooter {
     [super setupFooter];
-    
-    UILabel *l = [UILabel labelWithText:nil style:@"h6LightLabel"];
-    l.textAlignment = UITextAlignmentCenter;
-    l.backgroundColor = [UIColor clearColor];
-    l.autoresizingMask = self.footerView.autoresizingMask;
-    l.frame = CGRectInset(self.footerView.bounds, 8, 2);
-    self.dateLabel = l;
-    [self.footerView addSubview:l];
 }
 
 #pragma mark - Actions
 
 - (void)leftAction {
     [self.slidingViewController anchorTopViewTo:ECRight];
-//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)centerAction {
 }
 
 - (void)rightAction {
-    [self.slidingViewController anchorTopViewTo:ECLeft];
 }
 
 #pragma mark - Data Source
@@ -166,18 +136,58 @@
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    NSString *authString = [NSString stringWithFormat:@"%@:%@", @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1MTQ5MDUyNTE2YjYxMzk2OTAwMDAwMDEifQ.MRAvDKYgjG-DlsJJIuGOhOqpW5QNnz0tNP9g4RyAdmo", @"87aa4419ae13ed3b6b9650573d3bcbb2c1dd90d9ab493a5ba88f6cad3d477e6d"];
+    NSData *authData = [authString dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *authValue = [NSString stringWithFormat:@"Basic %@", [authData base64EncodedString]];
+    
+    NSMutableDictionary *headers = [NSMutableDictionary dictionary];
+    [headers setObject:authValue forKey:@"Authorization"];
+    
+    NSString *URLPath = [NSString stringWithFormat:@"%@/orders", API_BASE_URL];
+    
+    NSURL *URL = [NSURL URLWithString:URLPath];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:headers parameters:parameters];
+    
+    
+    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:usingCache completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+        ASSERT_MAIN_THREAD;
+        if (error) {
+            [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
+            [self dataSourceDidError];
+        } else {
+            // Parse apiResponse
+            id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+            
+            if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
+                NSArray *orders = [apiResponse objectForKey:@"orders"];
+                [self dataSourceShouldLoadObjects:[NSArray arrayWithObject:orders] animated:YES];
+                [self dataSourceDidLoad];
+            } else {
+                [self dataSourceDidError];
+            }
+        }
+    }];
 }
 
 #pragma mark - TableView
 
+- (UIView *)accessoryViewAtIndexPath:(NSIndexPath *)indexPath {
+    return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DisclosureArrowGray"]];
+}
+
 - (UITableViewCellSelectionStyle)selectionStyleAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellSelectionStyleBlue;
+    return UITableViewCellSelectionStyleGray;
 }
 
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
-    return [ItemCell class];
+    return [OrderCell class];
 }
+
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
@@ -194,16 +204,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
-    // Switch status
-    NSString *status = [item objectForKey:@"status"];
-    if ([status isEqualToString:@"done"]) {
-        [item setObject:@"doing" forKey:@"status"];
-    } else {
-        [item setObject:@"done" forKey:@"status"];
-    }
-    
-    // Every action should Save up to the cloud
-
+    OrderViewController *vc = [[OrderViewController alloc] initWithDictionary:item];
+    [self.psNavigationController pushViewController:vc animated:YES];
 }
 
 @end

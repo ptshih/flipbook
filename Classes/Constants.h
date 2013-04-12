@@ -104,3 +104,6 @@
 #import "PSLocationCenter.h"
 #import "LocalyticsSession.h"
 #import "ECSlidingViewController.h"
+#import "PSPDFAlertView.h"
+
+#import "UserManager.h"

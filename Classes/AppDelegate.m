@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MenuViewController.h"
-#import "RootViewController.h"
+#import "WelcomeViewController.h"
 #import "OrdersViewController.h"
 
 @interface AppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate>
@@ -74,27 +74,35 @@
 
 #pragma mark - Push Controller
 
+#pragma mark - User Login
+
+- (void)userDidLogin:(NSNotification *)notification {
+    [self setupViewControllers];
+}
 
 - (void)setupViewControllers {
-    ECSlidingViewController *svc = [[ECSlidingViewController alloc] initWithNibName:nil bundle:nil];
-
-    MenuViewController *mvc = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
-//    RootViewController *tvc = [[RootViewController alloc] initWithNibName:nil bundle:nil];
-    OrdersViewController *tvc = [[OrdersViewController alloc] initWithNibName:nil bundle:nil];
-
-    
-    svc.topViewController = [[PSNavigationController alloc] initWithRootViewController:tvc];
-    svc.underLeftViewController = mvc;
-    
-    self.window.rootViewController = svc;
-    
-    // SVC config
-    [svc setAnchorRightRevealAmount:276.0];
-    [svc setAnchorLeftRevealAmount:276.0];
-    [svc setUnderLeftWidthLayout:ECFixedRevealWidth];
-    [svc setUnderRightWidthLayout:ECFixedRevealWidth];
-    svc.shouldAllowPanningPastAnchor = NO;
-    svc.shouldAddPanGestureRecognizerToTopViewSnapshot = YES;
+    // Welcome or Already Logged In
+    if ([[UserManager sharedManager] accessToken] && [[UserManager sharedManager] secret]) {
+        ECSlidingViewController *svc = [[ECSlidingViewController alloc] initWithNibName:nil bundle:nil];
+        MenuViewController *mvc = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
+        OrdersViewController *tvc = [[OrdersViewController alloc] initWithNibName:nil bundle:nil];
+        
+        svc.topViewController = [[PSNavigationController alloc] initWithRootViewController:tvc];
+        svc.underLeftViewController = mvc;
+        
+        // SVC config
+        [svc setAnchorRightRevealAmount:276.0];
+        [svc setAnchorLeftRevealAmount:276.0];
+        [svc setUnderLeftWidthLayout:ECFixedRevealWidth];
+        [svc setUnderRightWidthLayout:ECFixedRevealWidth];
+        svc.shouldAllowPanningPastAnchor = NO;
+        svc.shouldAddPanGestureRecognizerToTopViewSnapshot = YES;
+        
+        self.window.rootViewController = svc;
+    } else {
+        WelcomeViewController *wvc = [[WelcomeViewController alloc] initWithNibName:nil bundle:nil];
+        self.window.rootViewController = wvc;
+    }
 }
 
 #pragma mark - Application Lifecycle
@@ -146,7 +154,7 @@
     [PSReachabilityCenter defaultCenter];
     
     // PSLocationCenter set default behavior
-    [[PSLocationCenter defaultCenter] resumeUpdates]; // start it
+//    [[PSLocationCenter defaultCenter] resumeUpdates]; // start it
     
     // Dropbox
 //    DBSession *dbSession = [[DBSession alloc] initWithAppKey:@"b6fbfbwvpvy6xnt" appSecret:@"lju0v49xrosbmcs" root:kDBRootDropbox];
@@ -160,6 +168,8 @@
     
     
     [self setupViewControllers];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin:) name:kUserManagerDidLoginNotification object:nil];
     
     return YES;
 }

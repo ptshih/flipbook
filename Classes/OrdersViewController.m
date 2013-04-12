@@ -138,7 +138,7 @@
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
-    NSString *authString = [NSString stringWithFormat:@"%@:%@", @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1MTQ5MDUyNTE2YjYxMzk2OTAwMDAwMDEifQ.MRAvDKYgjG-DlsJJIuGOhOqpW5QNnz0tNP9g4RyAdmo", @"87aa4419ae13ed3b6b9650573d3bcbb2c1dd90d9ab493a5ba88f6cad3d477e6d"];
+    NSString *authString = [NSString stringWithFormat:@"%@:%@", [[UserManager sharedManager] accessToken], [[UserManager sharedManager] secret]];
     NSData *authData = [authString dataUsingEncoding:NSUTF8StringEncoding];
     NSString *authValue = [NSString stringWithFormat:@"Basic %@", [authData base64EncodedString]];
     

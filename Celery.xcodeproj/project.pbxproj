@@ -80,8 +80,6 @@
 		282668DB162506C4000267D7 /* Helvetica LT 67 Medium Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28266700162506C4000267D7 /* Helvetica LT 67 Medium Condensed.ttf */; };
 		282668DC162506C4000267D7 /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */ = {isa = PBXBuildFile; fileRef = 28266701162506C4000267D7 /* Helvetica LT 77 Bold Condensed Oblique.otf */; };
 		282668DD162506C4000267D7 /* Helvetica LT 77 Bold Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28266702162506C4000267D7 /* Helvetica LT 77 Bold Condensed.ttf */; };
-		282668DE162506C4000267D7 /* PSAlertView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 28266704162506C4000267D7 /* PSAlertView.bundle */; };
-		282668DF162506C4000267D7 /* PSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28266706162506C4000267D7 /* PSAlertView.m */; };
 		282668E0162506C4000267D7 /* PSCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28266709162506C4000267D7 /* PSCollectionView.m */; };
 		282668E1162506C4000267D7 /* PSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2826670B162506C4000267D7 /* PSCollectionViewCell.m */; };
 		282668E6162506C4000267D7 /* PSCurtainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28266717162506C4000267D7 /* PSCurtainController.m */; };
@@ -458,6 +456,7 @@
 		28AD40B8162513CF0066F6A5 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AD40B5162513CE0066F6A5 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		28AD40B9162513CF0066F6A5 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AD40B6162513CE0066F6A5 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		28AD40BA162513CF0066F6A5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AD40B7162513CF0066F6A5 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		28AE5B071717944000B8601B /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28AE5B061717944000B8601B /* UserManager.m */; };
 		28BAED781681B2EF002E1B7C /* PSPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BAED771681B2EF002E1B7C /* PSPageView.m */; };
 		28BAED7B1681B360002E1B7C /* PSGridViewTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BAED7A1681B360002E1B7C /* PSGridViewTile.m */; };
 		28BAED9B1683BA0B002E1B7C /* PSGridViewTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BAED9A1683BA0B002E1B7C /* PSGridViewTarget.m */; };
@@ -576,9 +575,6 @@
 		28266700162506C4000267D7 /* Helvetica LT 67 Medium Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica LT 67 Medium Condensed.ttf"; sourceTree = "<group>"; };
 		28266701162506C4000267D7 /* Helvetica LT 77 Bold Condensed Oblique.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica LT 77 Bold Condensed Oblique.otf"; sourceTree = "<group>"; };
 		28266702162506C4000267D7 /* Helvetica LT 77 Bold Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica LT 77 Bold Condensed.ttf"; sourceTree = "<group>"; };
-		28266704162506C4000267D7 /* PSAlertView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PSAlertView.bundle; sourceTree = "<group>"; };
-		28266705162506C4000267D7 /* PSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSAlertView.h; sourceTree = "<group>"; };
-		28266706162506C4000267D7 /* PSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSAlertView.m; sourceTree = "<group>"; };
 		28266708162506C4000267D7 /* PSCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCollectionView.h; sourceTree = "<group>"; };
 		28266709162506C4000267D7 /* PSCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCollectionView.m; sourceTree = "<group>"; };
 		2826670A162506C4000267D7 /* PSCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1019,6 +1015,8 @@
 		28AD40B5162513CE0066F6A5 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		28AD40B6162513CE0066F6A5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		28AD40B7162513CF0066F6A5 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		28AE5B051717944000B8601B /* UserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		28AE5B061717944000B8601B /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 		28BAED761681B2EF002E1B7C /* PSPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPageView.h; sourceTree = "<group>"; };
 		28BAED771681B2EF002E1B7C /* PSPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPageView.m; sourceTree = "<group>"; };
 		28BAED791681B360002E1B7C /* PSGridViewTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSGridViewTile.h; sourceTree = "<group>"; };
@@ -1146,7 +1144,6 @@
 				282666C9162506C4000267D7 /* Centers */,
 				282666DC162506C4000267D7 /* Config */,
 				282666DF162506C4000267D7 /* Fonts */,
-				28266703162506C4000267D7 /* PSAlertView */,
 				28266707162506C4000267D7 /* PSCollectionView */,
 				28266715162506C4000267D7 /* PSCurtainController */,
 				28266718162506C4000267D7 /* PSDateFormatter */,
@@ -1322,16 +1319,6 @@
 				28266702162506C4000267D7 /* Helvetica LT 77 Bold Condensed.ttf */,
 			);
 			path = Helvetica;
-			sourceTree = "<group>";
-		};
-		28266703162506C4000267D7 /* PSAlertView */ = {
-			isa = PBXGroup;
-			children = (
-				28266704162506C4000267D7 /* PSAlertView.bundle */,
-				28266705162506C4000267D7 /* PSAlertView.h */,
-				28266706162506C4000267D7 /* PSAlertView.m */,
-			);
-			path = PSAlertView;
 			sourceTree = "<group>";
 		};
 		28266707162506C4000267D7 /* PSCollectionView */ = {
@@ -2118,6 +2105,8 @@
 		D0FE068714F9C73E00140D9E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				28AE5B051717944000B8601B /* UserManager.h */,
+				28AE5B061717944000B8601B /* UserManager.m */,
 				D0FE068814F9C75100140D9E /* VenueAnnotation.h */,
 				D0FE068914F9C75100140D9E /* VenueAnnotation.m */,
 			);
@@ -2216,7 +2205,6 @@
 				282668DB162506C4000267D7 /* Helvetica LT 67 Medium Condensed.ttf in Resources */,
 				282668DC162506C4000267D7 /* Helvetica LT 77 Bold Condensed Oblique.otf in Resources */,
 				282668DD162506C4000267D7 /* Helvetica LT 77 Bold Condensed.ttf in Resources */,
-				282668DE162506C4000267D7 /* PSAlertView.bundle in Resources */,
 				28266906162506C4000267D7 /* PSKit.bundle in Resources */,
 				2826690F162506C4000267D7 /* PSPullRefreshView.bundle in Resources */,
 				28266911162506C4000267D7 /* BackgroundInfoPopover.png in Resources */,
@@ -2588,7 +2576,6 @@
 				282668BA162506C4000267D7 /* PSMailCenter.m in Sources */,
 				282668BB162506C4000267D7 /* PSReachabilityCenter.m in Sources */,
 				282668BC162506C4000267D7 /* PSSearchCenter.m in Sources */,
-				282668DF162506C4000267D7 /* PSAlertView.m in Sources */,
 				282668E0162506C4000267D7 /* PSCollectionView.m in Sources */,
 				282668E1162506C4000267D7 /* PSCollectionViewCell.m in Sources */,
 				282668E6162506C4000267D7 /* PSCurtainController.m in Sources */,
@@ -2673,6 +2660,7 @@
 				28984FD4171777280071D29B /* OrdersViewController.m in Sources */,
 				28984FD7171777BC0071D29B /* OrderViewController.m in Sources */,
 				28984FDA17177AB00071D29B /* OrderCell.m in Sources */,
+				28AE5B071717944000B8601B /* UserManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,8 @@
 
 #import "MenuCell.h"
 
+#define MENU_WIDTH 100.0
+
 // Margins
 static CGSize margin() {
     if (isDeviceIPad()) {
@@ -53,13 +55,13 @@ static CGSize margin() {
     
     CGFloat left = margin().width;
     CGFloat top = margin().height;
-    CGFloat width = 80.0 - margin().width * 2;
+    CGFloat width = MENU_WIDTH - margin().width * 2;
     
-    self.psImageView.frame = CGRectMake(left, top, width, 60.0 - margin().height);
+    self.psImageView.frame = CGRectMake(left, top, width, 40.0);
     top = self.psImageView.bottom;
     
     // Label
-    self.titleLabel.frame = CGRectMake(left, top, width, 20.0 - margin().height);
+    self.titleLabel.frame = CGRectMake(left, top, width, 20.0);
 }
 
 - (void)tableView:(UITableView *)tableView fillCellWithObject:(NSDictionary *)dict atIndexPath:(NSIndexPath *)indexPath {

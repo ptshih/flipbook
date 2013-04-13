@@ -91,8 +91,8 @@
         svc.underLeftViewController = mvc;
         
         // SVC config
-        [svc setAnchorRightRevealAmount:80.0];
-        [svc setAnchorLeftRevealAmount:80.0];
+        [svc setAnchorRightRevealAmount:100.0];
+        [svc setAnchorLeftRevealAmount:100.0];
         [svc setUnderLeftWidthLayout:ECFixedRevealWidth];
         [svc setUnderRightWidthLayout:ECFixedRevealWidth];
         svc.shouldAllowPanningPastAnchor = NO;
@@ -142,7 +142,7 @@
 //    [Appirater appLaunched:YES];
     
     // AFNetworking
-    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    [[PSNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     // PSFacebookCenter
 //    [PSFacebookCenter defaultCenter];

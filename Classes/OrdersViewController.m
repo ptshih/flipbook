@@ -189,7 +189,7 @@
 }
 
 - (UITableViewCellSelectionStyle)selectionStyleAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellSelectionStyleGray;
+    return UITableViewCellSelectionStyleBlue;
 }
 
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {

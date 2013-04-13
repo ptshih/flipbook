@@ -135,6 +135,10 @@
 
 #pragma mark - TableView
 
+- (UITableViewCellSelectionStyle)selectionStyleAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellSelectionStyleBlue;
+}
+
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath {
     return [MenuCell class];
 }
@@ -170,9 +174,11 @@
             break;
     }
     
+    PSNavigationController *nc = [[PSNavigationController alloc] initWithRootViewController:vc];
+    
     [self.slidingViewController anchorTopViewTo:ECRight animations:nil onComplete:^{
         CGRect frame = self.slidingViewController.topViewController.view.frame;
-        self.slidingViewController.topViewController = vc;
+        self.slidingViewController.topViewController = nc;
         [[vc slidingViewController] topViewController].view.frame = frame;
         [[vc slidingViewController] resetTopView];
     }];

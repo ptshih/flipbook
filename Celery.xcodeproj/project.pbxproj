@@ -468,6 +468,7 @@
 		28C4C8D717189AE800B9971E /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C4C8D617189AE800B9971E /* DashboardViewController.m */; };
 		28C4C8DD1718A20900B9971E /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C4C8DC1718A20900B9971E /* ProductsViewController.m */; };
 		28C4C8E11718A46600B9971E /* ProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C4C8E01718A46600B9971E /* ProductCollectionViewCell.m */; };
+		28C4C8E41718E90300B9971E /* PSNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C4C8E31718E90300B9971E /* PSNetworkActivityIndicatorManager.m */; };
 		28EA49411639FC2A003C45B6 /* PSStyleSheet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28EA49401639FC2A003C45B6 /* PSStyleSheet.plist */; };
 		28EA494F163B0ED4003C45B6 /* SliceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28EA494E163B0ED4003C45B6 /* SliceCell.m */; };
 		28EE5E741685177800A2B290 /* InstagramPickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28EE5E731685177800A2B290 /* InstagramPickerViewCell.m */; };
@@ -1040,6 +1041,8 @@
 		28C4C8DC1718A20900B9971E /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		28C4C8DF1718A46600B9971E /* ProductCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCollectionViewCell.h; sourceTree = "<group>"; };
 		28C4C8E01718A46600B9971E /* ProductCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCollectionViewCell.m; sourceTree = "<group>"; };
+		28C4C8E21718E90300B9971E /* PSNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
+		28C4C8E31718E90300B9971E /* PSNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		28EA49401639FC2A003C45B6 /* PSStyleSheet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PSStyleSheet.plist; sourceTree = SOURCE_ROOT; };
 		28EA494A163B04BE003C45B6 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		28EA494D163B0ED4003C45B6 /* SliceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliceCell.h; sourceTree = "<group>"; };
@@ -1416,6 +1419,8 @@
 				28266759162506C4000267D7 /* PSYouTubeView.m */,
 				2826675A162506C4000267D7 /* PSZoomView.h */,
 				2826675B162506C4000267D7 /* PSZoomView.m */,
+				28C4C8E21718E90300B9971E /* PSNetworkActivityIndicatorManager.h */,
+				28C4C8E31718E90300B9971E /* PSNetworkActivityIndicatorManager.m */,
 			);
 			path = PSKit;
 			sourceTree = "<group>";
@@ -2681,6 +2686,7 @@
 				28C4C8D717189AE800B9971E /* DashboardViewController.m in Sources */,
 				28C4C8DD1718A20900B9971E /* ProductsViewController.m in Sources */,
 				28C4C8E11718A46600B9971E /* ProductCollectionViewCell.m in Sources */,
+				28C4C8E41718E90300B9971E /* PSNetworkActivityIndicatorManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

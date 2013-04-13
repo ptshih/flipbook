@@ -109,6 +109,9 @@
 }
 
 - (void)rightAction {
+    PSPDFAlertView *av = [[PSPDFAlertView alloc] initWithTitle:@"Coming Soon"];
+    [av setCancelButtonWithTitle:@"Ok" block:NULL];
+    [av show];
 }
 
 #pragma mark - Data Source

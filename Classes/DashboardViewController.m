@@ -10,6 +10,13 @@
 
 @interface DashboardViewController ()
 
+// Models
+@property (nonatomic, copy) NSMutableArray *orders;
+
+// Views
+@property (nonatomic, strong) UILabel *ordersCounter;
+@property (nonatomic, strong) UILabel *revenueCounter;
+
 @end
 
 @implementation DashboardViewController
@@ -26,6 +33,8 @@
         self.shouldShowNullView = NO;
         
         self.headerHeight = 44.0;
+        
+        self.orders = [NSMutableArray array];
     }
     return self;
 }
@@ -70,6 +79,20 @@
 - (void)setupSubviews {
     [super setupSubviews];
     
+    UIView *o = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, 40.0)];
+    [self.contentView addSubview:o];
+    
+    // Order count
+    self.ordersCounter = [UILabel labelWithStyle:@"h6DarkLabel"];
+    self.ordersCounter.textAlignment = UITextAlignmentCenter;
+    self.ordersCounter.frame = CGRectMake(0, 0, o.width, 20.0);
+    [o addSubview:self.ordersCounter];
+
+    // Revenue count
+    self.revenueCounter = [UILabel labelWithStyle:@"h6DarkLabel"];
+    self.revenueCounter.textAlignment = UITextAlignmentCenter;
+    self.revenueCounter.frame = CGRectMake(0, 20.0, o.width, 20.0);
+    [o addSubview:self.revenueCounter];
 }
 
 - (void)setupHeader {
@@ -82,7 +105,7 @@
     [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     
-    [self.rightButton setImage:[UIImage imageNamed:@"IconPlusWhite"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconSearchWhite"] forState:UIControlStateNormal];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
 }
 
@@ -100,6 +123,9 @@
 }
 
 - (void)rightAction {
+    PSPDFAlertView *av = [[PSPDFAlertView alloc] initWithTitle:@"Coming Soon"];
+    [av setCancelButtonWithTitle:@"Ok" block:NULL];
+    [av show];
 }
 
 #pragma mark - Data Source
@@ -135,7 +161,67 @@
 }
 
 - (void)loadDataSourceFromRemoteUsingCache:(BOOL)usingCache {
-    return;
+    [self loadOrders];
+    
+    
+    [self dataSourceDidLoad];
+}
+
+- (void)loadOrders {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    NSString *authString = [NSString stringWithFormat:@"%@:%@", [[UserManager sharedManager] accessToken], [[UserManager sharedManager] secret]];
+    NSData *authData = [authString dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *authValue = [NSString stringWithFormat:@"Basic %@", [authData base64EncodedString]];
+    
+    NSMutableDictionary *headers = [NSMutableDictionary dictionary];
+    [headers setObject:authValue forKey:@"Authorization"];
+    
+    NSString *URLPath = [NSString stringWithFormat:@"%@/orders", API_BASE_URL];
+    
+    NSURL *URL = [NSURL URLWithString:URLPath];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"GET" headers:headers parameters:parameters];
+    
+    
+    [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:NO completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
+        ASSERT_MAIN_THREAD;
+        if (error) {
+            [[PSURLCache sharedCache] removeCacheForURL:cachedURL cacheType:PSURLCacheTypeSession];
+            [self ordersDidError];
+        } else {
+            // Parse apiResponse
+            id apiResponse = [NSJSONSerialization JSONObjectWithData:cachedData options:NSJSONReadingMutableContainers error:nil];
+            
+            if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
+                NSArray *orders = [apiResponse objectForKey:@"orders"];
+                self.orders = [NSMutableArray arrayWithArray:orders];
+                [self ordersDidLoad];
+            } else {
+                [self ordersDidError];
+            }
+        }
+    }];
+}
+
+- (void)ordersDidLoad {
+    self.ordersCounter.text = [NSString stringWithFormat:@"Number of Orders: %d", [self.orders count]];
+    
+    NSInteger sum = 0;
+    for (NSDictionary *order in self.orders) {
+        if ([[order objectForKey:@"status"] isEqualToString:@"cancelled"] || [[order objectForKey:@"status"] isEqualToString:@"refunded_deposit"] || [[order objectForKey:@"status"] isEqualToString:@"refunded_balance"]) {
+            continue;
+        }
+        sum += [[order objectForKey:@"total"] integerValue];
+    }
+    NSDecimalNumber *cents = [NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithInteger:sum] decimalValue]];
+    NSDecimalNumber *dollars = [cents decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:@"100"]];
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    NSString *revenue = [NSString stringWithFormat:@"Total Revenue: %@", [numberFormatter stringFromNumber:dollars]];
+    self.revenueCounter.text = [NSString stringWithFormat:@"%@", revenue];
+}
+
+- (void)ordersDidError {
     
 }
 

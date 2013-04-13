@@ -105,5 +105,6 @@
 #import "LocalyticsSession.h"
 #import "ECSlidingViewController.h"
 #import "PSPDFAlertView.h"
+#import "PSPDFActionSheet.h"
 
 #import "UserManager.h"

@@ -1573,5 +1573,62 @@
 		<key>numberOfLines</key>
 		<integer>0</integer>
 	</dict>
+	<key>orderCellProductLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>ProximaNova-Semibold</string>
+		<key>fontSize</key>
+		<integer>16</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0xffffff</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>orderCellDateLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>ProximaNova-Regular</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>right</string>
+		<key>shadowColor</key>
+		<string>0xffffff</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>orderCellTotalLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>ProximaNova-Regular</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0xffffff</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
 </dict>
 </plist>

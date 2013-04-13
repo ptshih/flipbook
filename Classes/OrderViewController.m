@@ -94,7 +94,7 @@
     [self.centerButton setTitle:self.title forState:UIControlStateNormal];
     [self.centerButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonCenterBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
     
-    [self.rightButton setImage:[UIImage imageNamed:@"IconPlusWhite"] forState:UIControlStateNormal];
+    [self.rightButton setImage:[UIImage imageNamed:@"IconGearWhite"] forState:UIControlStateNormal];
     [self.rightButton setBackgroundImage:[UIImage stretchableImageNamed:@"NavButtonRightBlack" withLeftCapWidth:9 topCapWidth:0] forState:UIControlStateNormal];
 }
 
@@ -112,6 +112,9 @@
 }
 
 - (void)rightAction {
+    PSPDFActionSheet *as = [[PSPDFActionSheet alloc] initWithTitle:@"Modify Order"];
+    [as setCancelButtonWithTitle:@"Cancel" block:NULL];
+    [as showInView:self.view];
 }
 
 #pragma mark - Data Source

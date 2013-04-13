@@ -42,13 +42,13 @@ static CGSize margin() {
 //        [self.contentView addSubview:self.psImageView];
         
         // Labels
-        self.productLabel = [UILabel labelWithStyle:@"h4DarkLabel"];
+        self.productLabel = [UILabel labelWithStyle:@"orderCellProductLabel"];
         [self.contentView addSubview:self.productLabel];
         
-        self.totalLabel = [UILabel labelWithStyle:@"h5DarkLabel"];
+        self.totalLabel = [UILabel labelWithStyle:@"orderCellTotalLabel"];
         [self.contentView addSubview:self.totalLabel];
         
-        self.dateLabel = [UILabel labelWithStyle:@"h6DarkLabel"];
+        self.dateLabel = [UILabel labelWithStyle:@"orderCellDateLabel"];
         [self.contentView addSubview:self.dateLabel];
         
     }
@@ -78,14 +78,15 @@ static CGSize margin() {
     // Label
     labelSize = [self.productLabel sizeForLabelInWidth:width];
     self.productLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
-    top = self.productLabel.bottom;
+    top = self.productLabel.bottom + margin().height;
+    
+    labelSize = [self.dateLabel sizeForLabelInWidth:width];
+    self.dateLabel.frame = CGRectMake(width - labelSize.width - margin().width, top, labelSize.width, labelSize.height);
+    
+    width -= labelSize.width + margin().width;
     
     labelSize = [self.totalLabel sizeForLabelInWidth:width];
     self.totalLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
-    top = self.totalLabel.bottom;
-
-    labelSize = [self.dateLabel sizeForLabelInWidth:width];
-    self.dateLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
 }
 
 - (void)tableView:(UITableView *)tableView fillCellWithObject:(NSDictionary *)dict atIndexPath:(NSIndexPath *)indexPath {
@@ -117,18 +118,18 @@ static CGSize margin() {
     // Label
     NSDictionary *product = [[dict objectForKey:@"products"] firstObject];
     NSString *productName = [NSString stringWithFormat:@"%@", [product objectForKey:@"name"]];
-    height += [PSStyleSheet sizeForText:productName width:width style:@"h4DarkLabel"].height;
+    height += [PSStyleSheet sizeForText:productName width:width style:@"orderCellProductLabel"].height + margin().height;
     
-    NSDecimalNumber *cents = [NSDecimalNumber decimalNumberWithDecimal:[[dict objectForKey:@"total"] decimalValue]];
-    NSDecimalNumber *dollars = [cents decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:@"100"]];
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    NSString *total = [NSString stringWithFormat:@"Total: %@", [numberFormatter stringFromNumber:dollars]];
-    height += [PSStyleSheet sizeForText:total width:width style:@"h5DarkLabel"].height;
+//    NSDecimalNumber *cents = [NSDecimalNumber decimalNumberWithDecimal:[[dict objectForKey:@"total"] decimalValue]];
+//    NSDecimalNumber *dollars = [cents decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:@"100"]];
+//    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+//    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+//    NSString *total = [NSString stringWithFormat:@"Total: %@", [numberFormatter stringFromNumber:dollars]];
+//    height += [PSStyleSheet sizeForText:total width:width style:@"orderCellTotalLabel"].height;
     
     NSDate *date = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"created"] doubleValue]];
     NSString *dateText = [date stringWithDateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
-    height += [PSStyleSheet sizeForText:dateText width:width style:@"h6DarkLabel"].height;
+    height += [PSStyleSheet sizeForText:dateText width:width style:@"orderCellDateLabel"].height;
     
     height += margin().height;
     

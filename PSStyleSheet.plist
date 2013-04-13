@@ -2,29 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>text</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x000000</string>
-		<key>highlightedTextColor</key>
-		<string>0x000000</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0xffffff</string>
-		<key>shadowOffset</key>
-		<string>{0,0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
 	<key>pullRefreshWhiteLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>ProximaNova-Semibold</string>
 		<key>fontSize</key>
 		<integer>17</integer>
 		<key>textColor</key>
@@ -43,7 +24,7 @@
 	<key>pullRefreshBlackLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>ProximaNova-Semibold</string>
 		<key>fontSize</key>
 		<integer>17</integer>
 		<key>textColor</key>
@@ -62,7 +43,7 @@
 	<key>navigationTitleLightLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>ProximaNova-Semibold</string>
 		<key>fontSize</key>
 		<integer>20</integer>
 		<key>textColor</key>
@@ -85,7 +66,7 @@
 	<key>navigationTitleDarkLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>ProximaNova-Semibold</string>
 		<key>fontSize</key>
 		<integer>20</integer>
 		<key>textColor</key>
@@ -108,7 +89,7 @@
 	<key>navigationButton</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>ProximaNova-Semibold</string>
 		<key>fontSize</key>
 		<integer>14</integer>
 		<key>textColor</key>
@@ -127,7 +108,7 @@
 	<key>loadingLightLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>ProximaNova-Semibold</string>
 		<key>fontSize</key>
 		<integer>20</integer>
 		<key>textColor</key>
@@ -146,7 +127,7 @@
 	<key>loadingDarkLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>ProximaNova-Semibold</string>
 		<key>fontSize</key>
 		<integer>20</integer>
 		<key>textColor</key>
@@ -162,570 +143,10 @@
 		<key>numberOfLines</key>
 		<integer>0</integer>
 	</dict>
-	<key>titleLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>titleDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0x000000</string>
-		<key>highlightedTextColor</key>
-		<string>0x000000</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>subtitleLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue</string>
-		<key>fontSize</key>
-		<integer>15</integer>
-		<key>textColor</key>
-		<string>0xdedede</string>
-		<key>highlightedTextColor</key>
-		<string>0xdedede</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>3</integer>
-	</dict>
-	<key>subtitleDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue</string>
-		<key>fontSize</key>
-		<integer>15</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>3</integer>
-	</dict>
-	<key>textBlueLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x576B95</string>
-		<key>highlightedTextColor</key>
-		<string>0x576B95</string>
-		<key>textAlignment</key>
-		<string>center</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>textLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0xcdcdcd</string>
-		<key>highlightedTextColor</key>
-		<string>0xcdcdcd</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>textDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>condLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-MediumCond</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0xcdcdcd</string>
-		<key>highlightedTextColor</key>
-		<string>0xcdcdcd</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>condDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-MediumCond</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>condBoldLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0xcdcdcd</string>
-		<key>highlightedTextColor</key>
-		<string>0xcdcdcd</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>condBoldDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>leadLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>18</integer>
-		<key>textColor</key>
-		<string>0xcdcdcd</string>
-		<key>highlightedTextColor</key>
-		<string>0xcdcdcd</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>leadDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>18</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>georgiaLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0xcdcdcd</string>
-		<key>highlightedTextColor</key>
-		<string>0xcdcdcd</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>georgiaDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>boldLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>2</integer>
-	</dict>
-	<key>boldDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x333333</string>
-		<key>highlightedTextColor</key>
-		<string>0x333333</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>2</integer>
-	</dict>
-	<key>boldBlueLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x576B95</string>
-		<key>highlightedTextColor</key>
-		<string>0x576B95</string>
-		<key>textAlignment</key>
-		<string>center</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>linkTitleLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>2</integer>
-	</dict>
-	<key>linkTitleDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x000000</string>
-		<key>highlightedTextColor</key>
-		<string>0x000000</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>2</integer>
-	</dict>
-	<key>linkCaptionLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue</string>
-		<key>fontSize</key>
-		<integer>12</integer>
-		<key>textColor</key>
-		<string>0x70695A</string>
-		<key>highlightedTextColor</key>
-		<string>0x70695A</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>linkCaptionDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue</string>
-		<key>fontSize</key>
-		<integer>12</integer>
-		<key>textColor</key>
-		<string>0x4c4c4c</string>
-		<key>highlightedTextColor</key>
-		<string>0x4c4c4c</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>linkDescriptionLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0xcdcdcd</string>
-		<key>highlightedTextColor</key>
-		<string>0xcdcdcd</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>3</integer>
-	</dict>
-	<key>linkDescriptionDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>3</integer>
-	</dict>
-	<key>descriptionLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0xcdcdcd</string>
-		<key>highlightedTextColor</key>
-		<string>0xcdcdcd</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>3</integer>
-	</dict>
-	<key>descriptionDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>3</integer>
-	</dict>
-	<key>metaLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue</string>
-		<key>fontSize</key>
-		<integer>12</integer>
-		<key>textColor</key>
-		<string>0x70695A</string>
-		<key>highlightedTextColor</key>
-		<string>0x70695A</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>metaDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue</string>
-		<key>fontSize</key>
-		<integer>12</integer>
-		<key>textColor</key>
-		<string>0x4c4c4c</string>
-		<key>highlightedTextColor</key>
-		<string>0x4c4c4c</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
 	<key>h1LightLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>ProximaNova-Semibold</string>
 		<key>fontSize</key>
 		<integer>24</integer>
 		<key>textColor</key>
@@ -746,7 +167,7 @@
 	<key>h1DarkLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>ProximaNova-Semibold</string>
 		<key>fontSize</key>
 		<integer>24</integer>
 		<key>textColor</key>
@@ -767,7 +188,7 @@
 	<key>h2LightLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>ProximaNova-Semibold</string>
 		<key>fontSize</key>
 		<integer>22</integer>
 		<key>textColor</key>
@@ -786,7 +207,7 @@
 	<key>h2DarkLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>ProximaNova-Semibold</string>
 		<key>fontSize</key>
 		<integer>22</integer>
 		<key>textColor</key>
@@ -805,7 +226,7 @@
 	<key>h3LightLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>ProximaNova-Semibold</string>
 		<key>fontSize</key>
 		<integer>20</integer>
 		<key>textColor</key>
@@ -824,7 +245,7 @@
 	<key>h3DarkLabel</key>
 	<dict>
 		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
+		<string>ProximaNova-Semibold</string>
 		<key>fontSize</key>
 		<integer>20</integer>
 		<key>textColor</key>
@@ -839,587 +260,6 @@
 		<string>{0, 0}</string>
 		<key>numberOfLines</key>
 		<integer>0</integer>
-	</dict>
-	<key>h3CondLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
-		<key>fontSize</key>
-		<integer>20</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h3CondDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
-		<key>fontSize</key>
-		<integer>20</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h4CondLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
-		<key>fontSize</key>
-		<integer>18</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h4CondDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
-		<key>fontSize</key>
-		<integer>18</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h5BoldLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h5BoldDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h5CondLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h5CondDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h6BoldLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h6BoldDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h6CondLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h6CondDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeueLT-BoldCond</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h6GeorgiaLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>New item</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0x70695A</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>h6GeorgiaDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>cellTitleLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>ProximaNovaCond-Semibold</string>
-		<key>fontSize</key>
-		<integer>15</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>4</integer>
-	</dict>
-	<key>cellTitleDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>ProximaNovaCond-Semibold</string>
-		<key>fontSize</key>
-		<integer>15</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>4</integer>
-	</dict>
-	<key>cellDescriptionLightLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>New item</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0x70695A</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>8</integer>
-	</dict>
-	<key>cellDescriptionDarkLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>8</integer>
-	</dict>
-	<key>leadLightField</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>18</integer>
-		<key>textColor</key>
-		<string>0xcdcdcd</string>
-		<key>highlightedTextColor</key>
-		<string>0xcdcdcd</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>leadDarkField</key>
-	<dict>
-		<key>fontName</key>
-		<string>Georgia</string>
-		<key>fontSize</key>
-		<integer>18</integer>
-		<key>textColor</key>
-		<string>0x222222</string>
-		<key>highlightedTextColor</key>
-		<string>0x222222</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>0</integer>
-	</dict>
-	<key>linkButton</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>12</integer>
-		<key>textColor</key>
-		<string>0x3B5998</string>
-		<key>highlightedTextColor</key>
-		<string>0x70695A</string>
-		<key>textAlignment</key>
-		<string>left</string>
-		<key>shadowColor</key>
-		<string>0x999999</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-		<key>lineBreakMode</key>
-		<string>wordWrap</string>
-	</dict>
-	<key>buyButton</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x000000</string>
-		<key>highlightedTextColor</key>
-		<string>0x000000</string>
-		<key>textAlignment</key>
-		<string>center</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>navButton</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x000000</string>
-		<key>highlightedTextColor</key>
-		<string>0x000000</string>
-		<key>textAlignment</key>
-		<string>center</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>lightButton</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0x000000</string>
-		<key>highlightedTextColor</key>
-		<string>0x000000</string>
-		<key>textAlignment</key>
-		<string>center</string>
-		<key>shadowColor</key>
-		<string>0xefefef</string>
-		<key>shadowOffset</key>
-		<string>{0, 1}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>darkButton</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0xefefef</string>
-		<key>highlightedTextColor</key>
-		<string>0xefefef</string>
-		<key>textAlignment</key>
-		<string>center</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 1}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>blueButton</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-		<key>textColor</key>
-		<string>0x576B95</string>
-		<key>highlightedTextColor</key>
-		<string>0x576B95</string>
-		<key>textAlignment</key>
-		<string>center</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>composerLightButton</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>12</integer>
-		<key>textColor</key>
-		<string>0xffffff</string>
-		<key>highlightedTextColor</key>
-		<string>0xffffff</string>
-		<key>textAlignment</key>
-		<string>center</string>
-		<key>shadowColor</key>
-		<string>0x666666</string>
-		<key>shadowOffset</key>
-		<string>{0, -1}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>composerDarkButton</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>12</integer>
-		<key>textColor</key>
-		<string>0x666666</string>
-		<key>highlightedTextColor</key>
-		<string>0x666666</string>
-		<key>textAlignment</key>
-		<string>center</string>
-		<key>shadowColor</key>
-		<string>0xefefef</string>
-		<key>shadowOffset</key>
-		<string>{0, 1}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
-	</dict>
-	<key>socialBlueLabel</key>
-	<dict>
-		<key>fontName</key>
-		<string>HelveticaNeue-Bold</string>
-		<key>fontSize</key>
-		<integer>14</integer>
-		<key>textColor</key>
-		<string>0x576B95</string>
-		<key>highlightedTextColor</key>
-		<string>0x576B95</string>
-		<key>textAlignment</key>
-		<string>center</string>
-		<key>shadowColor</key>
-		<string>0x000000</string>
-		<key>shadowOffset</key>
-		<string>{0, 0}</string>
-		<key>numberOfLines</key>
-		<integer>1</integer>
 	</dict>
 	<key>h4LightLabel</key>
 	<dict>
@@ -1612,6 +452,25 @@
 		<integer>0</integer>
 	</dict>
 	<key>orderCellTotalLabel</key>
+	<dict>
+		<key>fontName</key>
+		<string>ProximaNova-Semibold</string>
+		<key>fontSize</key>
+		<integer>12</integer>
+		<key>textColor</key>
+		<string>0x222222</string>
+		<key>highlightedTextColor</key>
+		<string>0x222222</string>
+		<key>textAlignment</key>
+		<string>left</string>
+		<key>shadowColor</key>
+		<string>0xffffff</string>
+		<key>shadowOffset</key>
+		<string>{0, 0}</string>
+		<key>numberOfLines</key>
+		<integer>0</integer>
+	</dict>
+	<key>orderCellOrderidLabel</key>
 	<dict>
 		<key>fontName</key>
 		<string>ProximaNova-Regular</string>

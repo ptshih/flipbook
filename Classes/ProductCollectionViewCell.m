@@ -60,6 +60,7 @@ static CGSize margin() {
     [self.imageView prepareForReuse];
     self.nameLabel.text = nil;
     self.taglineLabel.text = nil;
+    self.taglineLabel.hidden = YES;
 }
 
 - (void)layoutSubviews {
@@ -84,6 +85,7 @@ static CGSize margin() {
     if (self.taglineLabel.text.length > 0) {
         labelSize = [self.taglineLabel sizeForLabelInWidth:width];
         self.taglineLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
+        self.taglineLabel.hidden = NO;
     }
 }
 

@@ -24,6 +24,7 @@ static CGSize margin() {
 @property (nonatomic, strong) UILabel *productLabel;
 @property (nonatomic, strong) UILabel *buyerLabel;
 @property (nonatomic, strong) UILabel *totalLabel;
+@property (nonatomic, strong) UILabel *depositLabel;
 @property (nonatomic, strong) UILabel *statusLabel;
 
 @end
@@ -48,6 +49,12 @@ static CGSize margin() {
         self.totalLabel = [UILabel labelWithStyle:@"orderCellTotalLabel"];
         [self.contentView addSubview:self.totalLabel];
         
+        self.depositLabel = [UILabel labelWithStyle:@"orderCellTotalLabel"];
+        [self.contentView addSubview:self.depositLabel];
+        
+        self.orderidLabel = [UILabel labelWithStyle:@"orderCellOrderidLabel"];
+        [self.contentView addSubview:self.orderidLabel];
+        
         self.dateLabel = [UILabel labelWithStyle:@"orderCellDateLabel"];
         [self.contentView addSubview:self.dateLabel];
         
@@ -64,6 +71,7 @@ static CGSize margin() {
     self.productLabel.text = nil;
     self.buyerLabel.text = nil;
     self.totalLabel.text = nil;
+    self.depositLabel.text = nil;
     self.statusLabel.text = nil;
 }
 
@@ -80,13 +88,16 @@ static CGSize margin() {
     self.productLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
     top = self.productLabel.bottom + margin().height;
     
-    labelSize = [self.dateLabel sizeForLabelInWidth:width];
-    self.dateLabel.frame = CGRectMake(width - labelSize.width - margin().width, top, labelSize.width, labelSize.height);
-    
-    width -= labelSize.width + margin().width;
-    
     labelSize = [self.totalLabel sizeForLabelInWidth:width];
     self.totalLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
+    labelSize = [self.depositLabel sizeForLabelInWidth:width - self.totalLabel.width - margin().width];
+    self.depositLabel.frame = CGRectMake(width - labelSize.width - margin().width, top, labelSize.width, labelSize.height);
+    top = self.totalLabel.bottom + margin().height;
+    
+    labelSize = [self.dateLabel sizeForLabelInWidth:width];
+    self.dateLabel.frame = CGRectMake(width - labelSize.width - margin().width, top, labelSize.width, labelSize.height);
+    labelSize = [self.orderidLabel sizeForLabelInWidth:width - self.dateLabel.width - margin().width];
+    self.orderidLabel.frame = CGRectMake(left, top, labelSize.width, labelSize.height);
 }
 
 - (void)tableView:(UITableView *)tableView fillCellWithObject:(NSDictionary *)dict atIndexPath:(NSIndexPath *)indexPath {
@@ -95,18 +106,27 @@ static CGSize margin() {
     NSDictionary *product = [[dict objectForKey:@"products"] firstObject];
     NSString *productName = [NSString stringWithFormat:@"%@", [product objectForKey:@"name"]];
     self.productLabel.text = productName;
-    
-    NSDecimalNumber *cents = [NSDecimalNumber decimalNumberWithDecimal:[[dict objectForKey:@"total"] decimalValue]];
-    NSDecimalNumber *dollars = [cents decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:@"100"]];
+
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    NSDecimalNumber *cents = [NSDecimalNumber decimalNumberWithDecimal:[[dict objectForKey:@"total"] decimalValue]];
+    NSDecimalNumber *dollars = [cents decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:@"100"]];
+
     NSString *total = [NSString stringWithFormat:@"Total: %@", [numberFormatter stringFromNumber:dollars]];
     self.totalLabel.text = total;
+    
+    NSDecimalNumber *depositCents = [NSDecimalNumber decimalNumberWithDecimal:[[dict objectForKey:@"deposit"] decimalValue]];
+    NSDecimalNumber *depositDollars = [depositCents decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:@"100"]];
+    NSString *deposit = [NSString stringWithFormat:@"Deposit: %@", [numberFormatter stringFromNumber:depositDollars]];
+    self.depositLabel.text = deposit;
     
     
     NSDate *date = [NSDate dateWithMillisecondsSince1970:[[dict objectForKey:@"created"] doubleValue]];
     NSString *dateText = [date stringWithDateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterShortStyle];
     self.dateLabel.text = dateText;
+    
+    NSString *orderid = [NSString stringWithFormat:@"Order #: %@", [dict objectForKey:@"id"]];
+    self.orderidLabel.text = orderid;
 }
 
 + (CGFloat)rowHeightForObject:(NSDictionary *)dict atIndexPath:(NSIndexPath *)indexPath forInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -119,6 +139,9 @@ static CGSize margin() {
     NSDictionary *product = [[dict objectForKey:@"products"] firstObject];
     NSString *productName = [NSString stringWithFormat:@"%@", [product objectForKey:@"name"]];
     height += [PSStyleSheet sizeForText:productName width:width style:@"orderCellProductLabel"].height + margin().height;
+    
+    NSString *orderid = [NSString stringWithFormat:@"Order #: %@", [dict objectForKey:@"id"]];
+    height += [PSStyleSheet sizeForText:orderid width:width style:@"orderCellOrderidLabel"].height + margin().height;
     
 //    NSDecimalNumber *cents = [NSDecimalNumber decimalNumberWithDecimal:[[dict objectForKey:@"total"] decimalValue]];
 //    NSDecimalNumber *dollars = [cents decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:@"100"]];

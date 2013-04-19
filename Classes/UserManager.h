@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #define kUserManagerDidLoginNotification @"kUserManagerDidLoginNotification"
+#define kUserManagerDidLogoutNotification @"kUserManagerDidLogoutNotification"
 
 @interface UserManager : NSObject
 
@@ -17,6 +18,9 @@
 - (void)loginWithEmail:(NSString *)email password:(NSString *)password completionHandler:(void(^)(NSError *error, NSDictionary *user))completionHandler;
 - (void)signupWithEmail:(NSString *)email password:(NSString *)password completionHandler:(void(^)(NSError *error, NSDictionary *user))completionHandler;
 
+- (void)logout;
+
+- (NSString *)userId;
 - (NSString *)accessToken;
 - (NSString *)secret;
 

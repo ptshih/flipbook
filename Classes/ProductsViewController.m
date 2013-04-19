@@ -9,6 +9,8 @@
 #import "ProductsViewController.h"
 #import "ProductCollectionViewCell.h"
 
+#import "NewOrderViewController.h"
+
 @interface ProductsViewController ()
 
 @end
@@ -212,6 +214,10 @@
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectCell:(PSCollectionViewCell *)cell atIndex:(NSInteger)index {
+    NSDictionary *item = [self.items objectAtIndex:index];
+    
+    NewOrderViewController *vc = [[NewOrderViewController alloc] initWithProductId:[item objectForKey:@"_id"]];
+    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 

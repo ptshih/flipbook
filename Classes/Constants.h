@@ -75,7 +75,7 @@
 #endif
 
 #define API_LOCALHOST @"http://localhost:3000/v1"
-#define API_REMOTE @"https://api.trycelery.com/v1"
+#define API_REMOTE @"https://api-sandbox.trycelery.com/v1"
 
 #ifdef USE_LOCALHOST
   #define API_BASE_URL [NSString stringWithFormat:API_LOCALHOST]

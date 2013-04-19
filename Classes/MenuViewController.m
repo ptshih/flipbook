@@ -11,6 +11,7 @@
 
 #import "DashboardViewController.h"
 #import "OrdersViewController.h"
+#import "LeadsViewController.h"
 #import "ProductsViewController.h"
 
 
@@ -118,7 +119,9 @@
 
     [items addObject:@{@"title": @"Dashboard", @"icon": @"IconSmileyWhite"}];
     [items addObject:@{@"title": @"Orders", @"icon": @"IconCartWhite"}];
+    [items addObject:@{@"title": @"Leads", @"icon": @"IconHeartWhite"}];
     [items addObject:@{@"title": @"Products", @"icon": @"IconHeartWhite"}];
+    [items addObject:@{@"title": @"Logout", @"icon": @"IconGroupWhite"}];
     
     [sections addObject:items];
     [self dataSourceShouldLoadObjects:sections animated:NO];
@@ -167,7 +170,16 @@
             vc = [[OrdersViewController alloc] initWithNibName:nil bundle:nil];
             break;
         case 2:
+            vc = [[LeadsViewController alloc] initWithNibName:nil bundle:nil];
+            break;
+        case 3:
             vc = [[ProductsViewController alloc] initWithNibName:nil bundle:nil];
+            break;
+        case 4:
+            [self.slidingViewController anchorTopViewTo:ECLeft animations:nil onComplete:^{
+                [[UserManager sharedManager] logout];
+            }];
+            return;
             break;
         default:
             return;

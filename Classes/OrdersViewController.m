@@ -8,6 +8,7 @@
 
 #import "OrdersViewController.h"
 #import "OrderViewController.h"
+#import "NewOrderViewController.h"
 #import "OrderCell.h"
 
 @interface OrdersViewController ()
@@ -112,9 +113,8 @@
 }
 
 - (void)rightAction {
-    PSPDFAlertView *av = [[PSPDFAlertView alloc] initWithTitle:@"Coming Soon"];
-    [av setCancelButtonWithTitle:@"Ok" block:NULL];
-    [av show];
+    NewOrderViewController *vc = [[NewOrderViewController alloc] initWithNibName:nil bundle:nil];
+    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 #pragma mark - Data Source
@@ -122,7 +122,7 @@
 - (void)loadDataSource {
     [super loadDataSource];
     
-    [self loadDataSourceFromRemoteUsingCache:YES];
+    [self loadDataSourceFromRemoteUsingCache:NO];
 }
 
 - (void)reloadDataSource {

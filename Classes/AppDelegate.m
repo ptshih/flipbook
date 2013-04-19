@@ -80,6 +80,10 @@
     [self setupViewControllers];
 }
 
+- (void)userDidLogout:(NSNotification *)notification {
+    [self setupViewControllers];
+}
+
 - (void)setupViewControllers {
     // Welcome or Already Logged In
     if ([[UserManager sharedManager] accessToken] && [[UserManager sharedManager] secret]) {
@@ -170,6 +174,7 @@
     [self setupViewControllers];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin:) name:kUserManagerDidLoginNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout:) name:kUserManagerDidLogoutNotification object:nil];
     
     return YES;
 }

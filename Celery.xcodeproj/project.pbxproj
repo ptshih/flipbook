@@ -384,6 +384,14 @@
 		28523649164B45E8009C66F5 /* LocalyticsDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 28523643164B45E8009C66F5 /* LocalyticsDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2852364A164B45E8009C66F5 /* LocalyticsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 28523645164B45E8009C66F5 /* LocalyticsSession.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2852364B164B45E8009C66F5 /* LocalyticsUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 28523647164B45E8009C66F5 /* LocalyticsUploader.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		285C7BC3171F35DF006E7ED5 /* LeadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 285C7BC2171F35DF006E7ED5 /* LeadsViewController.m */; };
+		285C7BC6171F36A4006E7ED5 /* NewLeadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 285C7BC5171F36A4006E7ED5 /* NewLeadViewController.m */; };
+		285C7BCB171F5FFA006E7ED5 /* LeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285C7BCA171F5FFA006E7ED5 /* LeadCell.m */; };
+		285C7BCE171F7F51006E7ED5 /* NewOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 285C7BCD171F7F51006E7ED5 /* NewOrderViewController.m */; };
+		285C7BD5171F878A006E7ED5 /* libCardIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 285C7BD4171F878A006E7ED5 /* libCardIO.a */; };
+		285C7BD7171F892C006E7ED5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 285C7BD6171F892C006E7ED5 /* OpenGLES.framework */; };
+		285C7BD9171F8969006E7ED5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 285C7BD8171F8969006E7ED5 /* CoreMedia.framework */; };
+		285C7BDB171F896E006E7ED5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 285C7BDA171F896E006E7ED5 /* CoreVideo.framework */; };
 		287FD2D0166DCF220003F635 /* PSTileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2CF166DCF220003F635 /* PSTileView.m */; };
 		287FD2D3166DCFD10003F635 /* PSTileViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2D2166DCFD10003F635 /* PSTileViewCell.m */; };
 		287FD2D6166DD2A90003F635 /* PSTileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287FD2D5166DD2A90003F635 /* PSTileViewController.m */; };
@@ -945,6 +953,22 @@
 		28523646164B45E8009C66F5 /* LocalyticsUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalyticsUploader.h; sourceTree = "<group>"; };
 		28523647164B45E8009C66F5 /* LocalyticsUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalyticsUploader.m; sourceTree = "<group>"; };
 		28523648164B45E8009C66F5 /* WebserviceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebserviceConstants.h; sourceTree = "<group>"; };
+		285C7BC1171F35DF006E7ED5 /* LeadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadsViewController.h; sourceTree = "<group>"; };
+		285C7BC2171F35DF006E7ED5 /* LeadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeadsViewController.m; sourceTree = "<group>"; };
+		285C7BC4171F36A4006E7ED5 /* NewLeadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewLeadViewController.h; sourceTree = "<group>"; };
+		285C7BC5171F36A4006E7ED5 /* NewLeadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewLeadViewController.m; sourceTree = "<group>"; };
+		285C7BC9171F5FFA006E7ED5 /* LeadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadCell.h; sourceTree = "<group>"; };
+		285C7BCA171F5FFA006E7ED5 /* LeadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeadCell.m; sourceTree = "<group>"; };
+		285C7BCC171F7F51006E7ED5 /* NewOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewOrderViewController.h; sourceTree = "<group>"; };
+		285C7BCD171F7F51006E7ED5 /* NewOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewOrderViewController.m; sourceTree = "<group>"; };
+		285C7BD0171F878A006E7ED5 /* CardIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIO.h; sourceTree = "<group>"; };
+		285C7BD1171F878A006E7ED5 /* CardIOCreditCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIOCreditCardInfo.h; sourceTree = "<group>"; };
+		285C7BD2171F878A006E7ED5 /* CardIOPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIOPaymentViewController.h; sourceTree = "<group>"; };
+		285C7BD3171F878A006E7ED5 /* CardIOPaymentViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIOPaymentViewControllerDelegate.h; sourceTree = "<group>"; };
+		285C7BD4171F878A006E7ED5 /* libCardIO.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCardIO.a; sourceTree = "<group>"; };
+		285C7BD6171F892C006E7ED5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		285C7BD8171F8969006E7ED5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		285C7BDA171F896E006E7ED5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		28603B5914AC4A1D00541BB1 /* FoursquareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoursquareViewController.h; sourceTree = "<group>"; };
 		28603B5A14AC4A1D00541BB1 /* FoursquareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoursquareViewController.m; sourceTree = "<group>"; };
 		28603B5D14AC4D9300541BB1 /* VenueCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1088,6 +1112,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				285C7BDB171F896E006E7ED5 /* CoreVideo.framework in Frameworks */,
+				285C7BD9171F8969006E7ED5 /* CoreMedia.framework in Frameworks */,
+				285C7BD7171F892C006E7ED5 /* OpenGLES.framework in Frameworks */,
 				28BAEDAC1683CC00002E1B7C /* AVFoundation.framework in Frameworks */,
 				28AD40B8162513CF0066F6A5 /* Accounts.framework in Frameworks */,
 				28AD40B9162513CF0066F6A5 /* AdSupport.framework in Frameworks */,
@@ -1113,6 +1140,7 @@
 				28A3914E1554DA37002696FD /* Foundation.framework in Frameworks */,
 				28A3914F1554DA37002696FD /* CoreGraphics.framework in Frameworks */,
 				38BFA97DFAE14A22A57CC1E5 /* libPods.a in Frameworks */,
+				285C7BD5171F878A006E7ED5 /* libCardIO.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1822,6 +1850,9 @@
 			children = (
 				D0C5C01414F76F910041A364 /* libz.dylib */,
 				28381A911472F88A007E4827 /* libsqlite3.dylib */,
+				285C7BDA171F896E006E7ED5 /* CoreVideo.framework */,
+				285C7BD8171F8969006E7ED5 /* CoreMedia.framework */,
+				285C7BD6171F892C006E7ED5 /* OpenGLES.framework */,
 				28BAEDAB1683CC00002E1B7C /* AVFoundation.framework */,
 				28AD40B5162513CE0066F6A5 /* Accounts.framework */,
 				28AD40B6162513CE0066F6A5 /* AdSupport.framework */,
@@ -1942,6 +1973,8 @@
 				28945DC616B6102A00354F7A /* MenuCell.m */,
 				28984FD817177AB00071D29B /* OrderCell.h */,
 				28984FD917177AB00071D29B /* OrderCell.m */,
+				285C7BC9171F5FFA006E7ED5 /* LeadCell.h */,
+				285C7BCA171F5FFA006E7ED5 /* LeadCell.m */,
 				28C4C8DE1718A44900B9971E /* Old */,
 			);
 			name = TableCells;
@@ -1966,6 +1999,42 @@
 				28523648164B45E8009C66F5 /* WebserviceConstants.h */,
 			);
 			path = Localytics;
+			sourceTree = "<group>";
+		};
+		285C7BC7171F36A8006E7ED5 /* Leads */ = {
+			isa = PBXGroup;
+			children = (
+				285C7BC1171F35DF006E7ED5 /* LeadsViewController.h */,
+				285C7BC2171F35DF006E7ED5 /* LeadsViewController.m */,
+				285C7BC4171F36A4006E7ED5 /* NewLeadViewController.h */,
+				285C7BC5171F36A4006E7ED5 /* NewLeadViewController.m */,
+			);
+			name = Leads;
+			sourceTree = "<group>";
+		};
+		285C7BC8171F36AE006E7ED5 /* Orders */ = {
+			isa = PBXGroup;
+			children = (
+				28984FD2171777280071D29B /* OrdersViewController.h */,
+				28984FD3171777280071D29B /* OrdersViewController.m */,
+				28984FD5171777BC0071D29B /* OrderViewController.h */,
+				28984FD6171777BC0071D29B /* OrderViewController.m */,
+				285C7BCC171F7F51006E7ED5 /* NewOrderViewController.h */,
+				285C7BCD171F7F51006E7ED5 /* NewOrderViewController.m */,
+			);
+			name = Orders;
+			sourceTree = "<group>";
+		};
+		285C7BCF171F878A006E7ED5 /* CardIO */ = {
+			isa = PBXGroup;
+			children = (
+				285C7BD0171F878A006E7ED5 /* CardIO.h */,
+				285C7BD1171F878A006E7ED5 /* CardIOCreditCardInfo.h */,
+				285C7BD2171F878A006E7ED5 /* CardIOPaymentViewController.h */,
+				285C7BD3171F878A006E7ED5 /* CardIOPaymentViewControllerDelegate.h */,
+				285C7BD4171F878A006E7ED5 /* libCardIO.a */,
+			);
+			path = CardIO;
 			sourceTree = "<group>";
 		};
 		28698713147312EC00B40860 /* Resources */ = {
@@ -2031,14 +2100,12 @@
 				28945DC016B60F9900354F7A /* MenuViewController.m */,
 				28945DCD16B6191300354F7A /* WelcomeViewController.h */,
 				28945DCE16B6191300354F7A /* WelcomeViewController.m */,
+				285C7BC7171F36A8006E7ED5 /* Leads */,
 				28C4C8DB1718A20900B9971E /* ProductsViewController.h */,
 				28C4C8DC1718A20900B9971E /* ProductsViewController.m */,
 				28C4C8D517189AE800B9971E /* DashboardViewController.h */,
 				28C4C8D617189AE800B9971E /* DashboardViewController.m */,
-				28984FD2171777280071D29B /* OrdersViewController.h */,
-				28984FD3171777280071D29B /* OrdersViewController.m */,
-				28984FD5171777BC0071D29B /* OrderViewController.h */,
-				28984FD6171777BC0071D29B /* OrderViewController.m */,
+				285C7BC8171F36AE006E7ED5 /* Orders */,
 				282FAF0C164C684D0040D3B4 /* Foursquare */,
 				282FAF0D164C68580040D3B4 /* Airbrite */,
 				28433116163FCE0300349014 /* Old */,
@@ -2120,6 +2187,7 @@
 		D07B2DBD14F750F400304E62 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				285C7BCF171F878A006E7ED5 /* CardIO */,
 				28523641164B45E8009C66F5 /* Localytics */,
 			);
 			path = Vendor;
@@ -2687,6 +2755,10 @@
 				28C4C8DD1718A20900B9971E /* ProductsViewController.m in Sources */,
 				28C4C8E11718A46600B9971E /* ProductCollectionViewCell.m in Sources */,
 				28C4C8E41718E90300B9971E /* PSNetworkActivityIndicatorManager.m in Sources */,
+				285C7BC3171F35DF006E7ED5 /* LeadsViewController.m in Sources */,
+				285C7BC6171F36A4006E7ED5 /* NewLeadViewController.m in Sources */,
+				285C7BCB171F5FFA006E7ED5 /* LeadCell.m in Sources */,
+				285C7BCE171F7F51006E7ED5 /* NewOrderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2787,7 +2859,47 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Vendor/CardIO\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3.0",
+					"-framework",
+					AddressBook,
+					"-framework",
+					CFNetwork,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					CoreLocation,
+					"-framework",
+					CoreText,
+					"-framework",
+					CrashReporter,
+					"-framework",
+					DropboxSDK,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					UIKit,
+					"-weak_framework",
+					Accounts,
+					"-weak_framework",
+					AdSupport,
+					"-weak_framework",
+					Social,
+					"-weak_framework",
+					StoreKit,
+					"-lstdc++",
+				);
 				PRODUCT_NAME = Celery;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2810,7 +2922,47 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Vendor/CardIO\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3.0",
+					"-framework",
+					AddressBook,
+					"-framework",
+					CFNetwork,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					CoreLocation,
+					"-framework",
+					CoreText,
+					"-framework",
+					CrashReporter,
+					"-framework",
+					DropboxSDK,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					UIKit,
+					"-weak_framework",
+					Accounts,
+					"-weak_framework",
+					AdSupport,
+					"-weak_framework",
+					Social,
+					"-weak_framework",
+					StoreKit,
+					"-lstdc++",
+				);
 				PRODUCT_NAME = Celery;
 				PROVISIONING_PROFILE = "A26AFCBC-B17C-4DD5-8DD6-93CD37A6BC4D";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2833,7 +2985,47 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "DISTRIBUTION=1";
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Vendor/CardIO\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3.0",
+					"-framework",
+					AddressBook,
+					"-framework",
+					CFNetwork,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					CoreLocation,
+					"-framework",
+					CoreText,
+					"-framework",
+					CrashReporter,
+					"-framework",
+					DropboxSDK,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					UIKit,
+					"-weak_framework",
+					Accounts,
+					"-weak_framework",
+					AdSupport,
+					"-weak_framework",
+					Social,
+					"-weak_framework",
+					StoreKit,
+					"-lstdc++",
+				);
 				PRODUCT_NAME = Celery;
 				PROVISIONING_PROFILE = "A26AFCBC-B17C-4DD5-8DD6-93CD37A6BC4D";
 				TARGETED_DEVICE_FAMILY = 1;

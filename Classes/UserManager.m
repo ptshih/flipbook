@@ -52,7 +52,8 @@
             
             if (apiResponse && [apiResponse isKindOfClass:[NSDictionary class]]) {
                 user = [apiResponse objectForKey:@"user"];
-                
+
+                [[NSUserDefaults standardUserDefaults] setObject:[user objectForKey:@"id"] forKey:@"celeryUserId"];
                 [[NSUserDefaults standardUserDefaults] setObject:[user objectForKey:@"access_token"] forKey:@"celeryAccessToken"];
                 [[NSUserDefaults standardUserDefaults] setObject:[user objectForKey:@"secret"] forKey:@"celerySecret"];
                 
@@ -100,6 +101,19 @@
     }];
 }
 
+- (void)logout {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"celeryUserId"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"celeryAccessToken"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"celerySecret"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kUserManagerDidLogoutNotification object:nil userInfo:nil];
+}
+
+- (NSString *)userId {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"celeryUserId"];
+}
+
 - (NSString *)accessToken {
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"celeryAccessToken"];
 }
@@ -107,5 +121,6 @@
 - (NSString *)secret {
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"celerySecret"];
 }
+
 
 @end

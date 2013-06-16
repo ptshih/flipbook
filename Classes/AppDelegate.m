@@ -10,6 +10,7 @@
 #import "MenuViewController.h"
 #import "WelcomeViewController.h"
 #import "DashboardViewController.h"
+#import "PaypalViewController.h"
 
 @interface AppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate>
 
@@ -48,7 +49,6 @@
         if (![lastVersion isEqualToString:currentVersion]) {
             // Set new version
             [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:@"appVersion"];
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"showTutorial"];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
         
@@ -89,7 +89,7 @@
     if ([[UserManager sharedManager] accessToken] && [[UserManager sharedManager] secret]) {
         ECSlidingViewController *svc = [[ECSlidingViewController alloc] initWithNibName:nil bundle:nil];
         MenuViewController *mvc = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
-        DashboardViewController *tvc = [[DashboardViewController alloc] initWithNibName:nil bundle:nil];
+        PaypalViewController *tvc = [[PaypalViewController alloc] initWithNibName:nil bundle:nil];
         
         svc.topViewController = [[PSNavigationController alloc] initWithRootViewController:tvc];
         svc.underLeftViewController = mvc;
@@ -172,6 +172,8 @@
     
     
     [self setupViewControllers];
+    
+    //
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin:) name:kUserManagerDidLoginNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout:) name:kUserManagerDidLogoutNotification object:nil];

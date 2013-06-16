@@ -12,6 +12,8 @@
 
 @interface NewLeadViewController () <UITextFieldDelegate, CountryPickerDelegate>
 
+@property (nonatomic, strong) NSString *productId;
+
 @property (nonatomic, strong) NSMutableArray *textFields;
 
 @property (nonatomic, assign) UITextField *activeField;
@@ -25,6 +27,14 @@
 
 #pragma mark - Init
 
+- (id)initWithProductId:(NSString *)productId {
+    self = [self initWithNibName:nil bundle:nil];
+    if (self) {
+        self.productId = productId;
+    }
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
@@ -37,6 +47,10 @@
         self.shouldShowNullView = NO;
         
         self.textFields = [NSMutableArray array];
+        
+        self.tableViewStyle = UITableViewStyleGrouped;
+        
+        self.productId = @"5149055816b6139690000002";
         
         self.title = @"New Lead";
     }
@@ -135,6 +149,11 @@
 
 - (void)setupSubviews {
     [super setupSubviews];
+    
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundView = nil;
+    
+    self.viewToAdjustForKeyboard = self.tableView;
     
     CGFloat top = 16.0;
     CGFloat left = 16.0;

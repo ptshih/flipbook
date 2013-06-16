@@ -32,13 +32,17 @@
 
 - (void)loginWithEmail:(NSString *)email password:(NSString *)password completionHandler:(void(^)(NSError *error, NSDictionary *user))completionHandler {
     // Request
+    NSMutableDictionary *headers = [NSMutableDictionary dictionary];
+    [headers setObject:@"application/json" forKey:@"Content-Type"];
+    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:email forKey:@"email"];
-    [parameters setObject:password forKey:@"password"];
+    [parameters setObject:@{@"email": email, @"password": password} forKey:@"user"];
+//    [parameters setObject:email forKey:@"email"];
+//    [parameters setObject:password forKey:@"password"];
     
     NSString *URLPath = [NSString stringWithFormat:@"%@/users/authenticate", API_BASE_URL];
     NSURL *URL = [NSURL URLWithString:URLPath];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:nil parameters:parameters];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL method:@"POST" headers:headers parameters:parameters];
     
     [[PSURLCache sharedCache] loadRequest:request cacheType:PSURLCacheTypeSession cachePriority:PSURLCachePriorityHigh usingCache:NO completionBlock:^(NSData *cachedData, NSURL *cachedURL, BOOL isCached, NSError *error) {
         ASSERT_MAIN_THREAD;

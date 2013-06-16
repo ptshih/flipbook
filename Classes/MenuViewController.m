@@ -13,7 +13,7 @@
 #import "OrdersViewController.h"
 #import "LeadsViewController.h"
 #import "ProductsViewController.h"
-
+#import "PaypalViewController.h"
 
 @interface MenuViewController ()
 
@@ -117,6 +117,7 @@
     NSMutableArray *sections = [NSMutableArray array];
     NSMutableArray *items = [NSMutableArray array];
 
+    [items addObject:@{@"title": @"Paypal", @"icon": @"IconSmileyWhite"}];
     [items addObject:@{@"title": @"Dashboard", @"icon": @"IconSmileyWhite"}];
     [items addObject:@{@"title": @"Orders", @"icon": @"IconCartWhite"}];
     [items addObject:@{@"title": @"Leads", @"icon": @"IconHeartWhite"}];
@@ -164,18 +165,21 @@
     id vc = nil;
     switch (indexPath.row) {
         case 0:
-            vc = [[DashboardViewController alloc] initWithNibName:nil bundle:nil];
+            vc = [[PaypalViewController alloc] initWithNibName:nil bundle:nil];
             break;
         case 1:
-            vc = [[OrdersViewController alloc] initWithNibName:nil bundle:nil];
+            vc = [[DashboardViewController alloc] initWithNibName:nil bundle:nil];
             break;
         case 2:
-            vc = [[LeadsViewController alloc] initWithNibName:nil bundle:nil];
+            vc = [[OrdersViewController alloc] initWithNibName:nil bundle:nil];
             break;
         case 3:
-            vc = [[ProductsViewController alloc] initWithNibName:nil bundle:nil];
+            vc = [[LeadsViewController alloc] initWithNibName:nil bundle:nil];
             break;
         case 4:
+            vc = [[ProductsViewController alloc] initWithNibName:nil bundle:nil];
+            break;
+        case 5:
             [self.slidingViewController anchorTopViewTo:ECLeft animations:nil onComplete:^{
                 [[UserManager sharedManager] logout];
             }];

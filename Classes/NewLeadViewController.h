@@ -6,8 +6,10 @@
 //
 //
 
-#import "PSViewController.h"
+#import "PSTableViewController.h"
 
-@interface NewLeadViewController : PSViewController
+@interface NewLeadViewController : PSTableViewController
+
+- (id)initWithProductId:(NSString *)productId;
 
 @end
